@@ -1,6 +1,6 @@
-# gotadi
+# duynt base project
 
-Gotadi app
+Base Project App
 
 ## Getting Started
 
