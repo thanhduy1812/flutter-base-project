@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mrJ-7a-mR8">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Item-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TestPacakgeGit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uFK-0r-u94">
+                                <rect key="frame" x="152.66666666666666" y="401" width="88" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kkh-6W-DoD"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Gotadi Flight">
+                                    <color key="titleColor" systemColor="systemOrangeColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="actionFlutter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dCa-Fi-cZI"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hac-hu-8Qc">
+                                <rect key="frame" x="147" y="483" width="99" height="30"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Booking Detail"/>
+                                <connections>
+                                    <action selector="showBookingDetail:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c5h-4P-LGu"/>
+                                </connections>
+                            </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vAy-3k-TdI">
+                                <rect key="frame" x="172" y="582" width="51" height="31"/>
+                                <connections>
+                                    <action selector="onChangeTheme:" destination="BYZ-38-t0r" eventType="valueChanged" id="wmN-TN-iy2"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vAy-3k-TdI" secondAttribute="bottom" constant="156" id="4sU-vI-0ka"/>
+                            <constraint firstItem="uFK-0r-u94" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kqd-G0-Wam"/>
+                            <constraint firstItem="Hac-hu-8Qc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SIU-rw-bzN"/>
+                            <constraint firstItem="uFK-0r-u94" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="eic-GB-jnz"/>
+                            <constraint firstItem="uFK-0r-u94" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f1C-Im-3vs"/>
+                            <constraint firstItem="vAy-3k-TdI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hZl-hD-BuK"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hac-hu-8Qc" secondAttribute="bottom" constant="256" id="yHe-7r-jbN"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="HVB-gb-W1Q"/>
+                    <navigationItem key="navigationItem" id="DN9-za-vcN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1886.2595419847328" y="-27.464788732394368"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="CGG-le-T5u">
+            <objects>
+                <viewController storyboardIdentifier="PaymentViewController" id="kXC-hz-hTH" customClass="PaymentViewController" customModule="TestPacakgeGit" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eNR-8m-Pwj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KMr-Et-DVr">
+                                <rect key="frame" x="136.66666666666666" y="658" width="119.99999999999997" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="LZQ-5y-IOt"/>
+                                    <constraint firstAttribute="height" constant="60" id="ieT-BW-l1C"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Payment">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="paymentSuccess:" destination="kXC-hz-hTH" eventType="touchUpInside" id="GLz-KI-zlj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb3-xo-ZmN">
+                                <rect key="frame" x="106.66666666666669" y="480" width="180" height="28"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="r4w-Jb-0DO"/>
+                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="KMr-Et-DVr" firstAttribute="centerX" secondItem="eNR-8m-Pwj" secondAttribute="centerX" id="513-mb-Qb3"/>
+                            <constraint firstItem="KMr-Et-DVr" firstAttribute="top" secondItem="gb3-xo-ZmN" secondAttribute="bottom" constant="150" id="Qnx-6b-VA8"/>
+                            <constraint firstItem="gb3-xo-ZmN" firstAttribute="centerX" secondItem="eNR-8m-Pwj" secondAttribute="centerX" id="cva-AI-T2r"/>
+                            <constraint firstItem="r4w-Jb-0DO" firstAttribute="bottom" secondItem="KMr-Et-DVr" secondAttribute="bottom" priority="800" constant="100" id="zCF-98-lXg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="bookingNumber" destination="gb3-xo-ZmN" id="9eO-sl-O2x"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wba-T7-zag" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2707.6335877862593" y="-18.30985915492958"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="4t5-do-WWL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mrJ-7a-mR8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a5x-sm-vBO">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="mYM-TG-drT" kind="relationship" relationship="rootViewController" id="Qgg-1r-pGd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TQD-EI-C3l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="32.824427480916029" y="-27.464788732394368"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="BnZ-RR-wLq">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="mYM-TG-drT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="jo5-AN-Bcp"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9RA-IE-iYs">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="paT-J2-MGs"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G1v-BI-rxF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="959.5419847328244" y="-27.464788732394368"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

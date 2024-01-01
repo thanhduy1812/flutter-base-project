@@ -1,0 +1,160 @@
+{
+  "global": {
+    "setting": "Cài đặt",
+    "homepage": "Trang chủ",
+    "myBooking": "Đặt chỗ",
+    "promotions": "Ưu đãi",
+    "account": "Tài khoản",
+    "bookFlight": "Đặt vé máy bay",
+    "bookHotel": "Đặt khách sạn",
+    "search": "Tìm kiếm",
+    "next": "Tiếp tục"
+  },
+  "setting": {
+    "themeSetting": "Cài đặt giao diện",
+    "themeMode": "Chế độ",
+    "template": "Phong cách giao diện",
+    "swapColors": "Đổi màu",
+    "persistenceSetting": "Lưu trữ",
+    "persistenceDescriptionSetting": "Bạn có thể sử dụng Memory để lưu trữ dữ liệu tạm thời hoặc Hive & Shared Persistences để ghi nhớ dữ liệu lâu dài",
+    "language": "Ngôn ngữ"
+  },
+  "flight": {
+    "ROUNDTRIP": "Khứ hồi",
+    "ONEWAY": "Một chiều",
+    "flightDirection": {
+      "departure": "Chuyến đi",
+      "return": "Chuyến về",
+      "departure_ssr": "Hành lý chuyến đi",
+      "return_ssr": "Hành lý chuyến về"
+    },
+    "passengers": {
+      "DEPARTURE": "Hành khách chuyến đi",
+      "RETURN": "Hành khách chuyến về"
+    },
+    "formSearch": {
+      "departure": "Nơi đi",
+      "destination": "Nơi đến",
+      "departureDate": "Ngày đi",
+      "chooseDepartureDate": "Chọn ngày đi",
+      "chooseReturnDateDate": "Chọn ngày về",
+      "returnDate": "Ngày về",
+      "adult": "Người lớn",
+      "child": "Trẻ em (2 - 12 tuổi)",
+      "infant": "Em bé (dưới 2 tuổi)",
+      "btnSearch": "Tìm kiếm chuyến bay",
+      "cancel": "Huỷ tìm kiếm",
+      "gtdSupplier": "<div style='text-align: center'>Vé máy bay cung cấp bởi <span style='color: #121826'>Gotadi</span> <br> Thông tin vé máy bay vui lòng liên hệ 1900-9002</div>",
+      "recentSearch": "Chuyến bay gần nhất",
+      "choose": {
+        "departure": "Chọn điểm đi",
+        "destination": "Chọn điểm đến"
+      }
+    },
+    "searchResult": {
+      "departure": "Chuyến bay đi",
+      "return": "Chuyến bay về"
+    },
+    "item": {
+      "cabinClassName": {
+        "ECONOMY": "Phổ thông",
+        "PREMIUM": "Phổ thông đặc biệt",
+        "PROMO": "Khuyến mãi",
+        "BUSINESS": "Thương gia"
+      }
+    },
+    "filter": {
+      "departureDateAsc": "Sớm nhất",
+      "departureDateDesc": "Muộn nhất",
+      "priceAsc": "Giá thấp",
+      "priceDesc": "Giá cao",
+      "durationAsc": "Ngắn nhất",
+      "durationDesc": "Dài nhất",
+      "filterOptions": "Bộ lọc",
+      "airline": "Hãng hàng không",
+      "cabin": "Hạng vé",
+      "departureDateTime": "Khung giờ khởi hành",
+      "arrivalDateTime": "Khung giờ hạ cánh",
+      "filterName": {
+        "time_6": "00:00 - 06:00",
+        "time_612": "06:00 - 12:00",
+        "time_1218": "12:00 - 18:00",
+        "time_18": "18:00 - 24:00",
+        "economy": "Phổ thông",
+        "premium": "Phổ thông đặc biệt",
+        "promo": "Khuyến mãi",
+        "business": "Thương gia"
+      }
+    }
+  },
+  "checkout": {
+    "travellerInfo": "Thông tin khách hàng",
+    "flightInfo": "Thông tin chuyến bay",
+    "gender": "Giới tính",
+    "dob": "Ngày sinh",
+    "setContactInfo": "Đặt làm thông tin liên hệ",
+    "baggageDeparture": "Hành lý chuyến đi",
+    "baggageReturn": "Hành lý chuyến về",
+    "totalAmount": "Tổng tiền"
+  },
+  "bookingResult": {
+    "flight": {
+      "title": "Chi tiết chuyến bay",
+      "DEPARTURE": "Chuyến đi",
+      "RETURN": "Chuyến về",
+      "pnr": "Mã đặt chỗ (PNR)"
+    }
+  },
+  "myBooking": {
+    "title": "",
+    "flightTitle": "Quản lý vé máy bay",
+    "bookingStatus": {
+      "AIR": {
+        "EXPIRED": "Hết Hiệu Lực",
+        "SUCCEEDED": "Thành Công",
+        "PAYMENT_FAILED": "Thanh toán thất bại",
+        "FAILED": "Thất bại",
+        "PAYMENT_REFUNDED": "Đã hoàn tiền",
+        "CANCELLED": "Đã hủy",
+        "PENDING": "Chưa thực hiện đặt vé",
+        "BOOKED": "Giữ chỗ",
+        "TICKED_ON_PROCESS": "Đang xử lý",
+        "PAYMENT_SUCCESS_COMMIT_FAILED": "Xuất vé lỗi"
+      },
+      "HOTEL": {
+        "EXPIRED": "Hết Hiệu Lực",
+        "SUCCEEDED": "Thành Công",
+        "PAYMENT_FAILED": "Thanh toán thất bại",
+        "FAILED": "Thất bại",
+        "PAYMENT_REFUNDED": "Đã hoàn tiền",
+        "CANCELLED": "Đã hủy",
+        "PENDING": "Chưa thực hiện đặt vé",
+        "BOOKED": "Giữ chỗ",
+        "TICKED_ON_PROCESS": "Đang xử lý",
+        "PAYMENT_SUCCESS_COMMIT_FAILED": "Xuất phòng lỗi"
+      },
+      "TOUR": {
+        "EXPIRED": "Hết Hiệu Lực",
+        "SUCCEEDED": "Thành Công",
+        "PAYMENT_FAILED": "Thanh toán thất bại",
+        "FAILED": "Thất bại",
+        "PAYMENT_REFUNDED": "Đã hoàn tiền",
+        "CANCELLED": "Đã hủy",
+        "BOOKED": "Giữ chỗ",
+        "BOOKING_ACCEPTED": "Giao dịch được tiếp nhận",
+        "BOOKING_PROCESSED": "Đang xử lý",
+        "BOOKING_PAYLATER": "Giữ chỗ, chờ thanh toán"
+      }
+    }
+  },
+  "traveler": {
+    "ADT": "Người lớn",
+    "CHD": "Trẻ em",
+    "INF": "Em bé",
+    "gender": "Giới tính",
+    "MALE": "Nam",
+    "FEMALE": "Nữ",
+    "BOY": "Nam",
+    "GIRL": "Nữ"
+  }
+}
