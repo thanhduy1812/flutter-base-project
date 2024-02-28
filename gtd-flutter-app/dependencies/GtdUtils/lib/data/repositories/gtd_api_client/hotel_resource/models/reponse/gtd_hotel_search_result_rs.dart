@@ -94,6 +94,7 @@ class PropertyAvailable {
   List<dynamic>? inclusionTags;
   bool? promo;
   bool? refundable;
+  String? availableType;
 
   PropertyAvailable({
     this.propertyId,
@@ -127,6 +128,7 @@ class PropertyAvailable {
     this.inclusionTags,
     this.promo,
     this.refundable,
+    this.availableType, /// 'SOLD_OUT/'AVAILABLE'
   });
 
   factory PropertyAvailable.fromJson(Map<String, dynamic> json) => PropertyAvailable(
@@ -162,6 +164,7 @@ class PropertyAvailable {
         inclusionTags: json["inclusionTags"] == null ? [] : List<dynamic>.from(json["inclusionTags"]!.map((x) => x)),
         promo: json["promo"],
         refundable: json["refundable"],
+        availableType: json["availableType"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,6 +199,7 @@ class PropertyAvailable {
         "inclusionTags": inclusionTags == null ? [] : List<dynamic>.from(inclusionTags!.map((x) => x)),
         "promo": promo,
         "refundable": refundable,
+        "availableType":availableType,
       };
 }
 

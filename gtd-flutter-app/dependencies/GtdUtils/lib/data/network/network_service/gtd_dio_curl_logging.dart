@@ -27,7 +27,7 @@ class GtdDioInterceptor extends Interceptor {
       _renderCurlRepresentation(response.requestOptions);
     }
 
-    // TODO remove comment
+    // MARK: remove comment
     Logger.i('RESPONSE:--------------------------');
     Logger.i('RESPONSE:${response.requestOptions.method} ${response.statusCode} \n ${response.requestOptions.uri}');
     // logJson(tag: "APICall", json: response.data);
@@ -42,7 +42,7 @@ class GtdDioInterceptor extends Interceptor {
   void _renderCurlRepresentation(RequestOptions requestOptions) {
     // add a breakpoint here so all errors can break
     try {
-      // TODO remove comment
+      // MARK: remove comment
       Logger.i('REQUEST:${requestOptions.method}--------------------------');
       Logger.i(_cURLRepresentation(requestOptions));
     } catch (err) {

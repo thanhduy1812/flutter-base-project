@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:gtd_utils/data/cache_helper/models/gtd_account_hive.dart';
 import 'package:gtd_utils/data/cache_helper/models/gtd_cached_object.dart';
 import 'package:gtd_utils/data/cache_helper/models/search_flight_info_hive.dart';
 import 'package:gtd_utils/data/network/gtd_json_parser.dart';
@@ -10,43 +12,66 @@ import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:path_provider/path_provider.dart' as path_provider;
-enum CacheStorageType { flightBox, hotelBox, comboFlightBox, comboHotelBox, flightLocations, hotelLocations }
+enum CacheStorageType {
+  flightBox,
+  hotelBox,
+  comboFlightBox,
+  comboHotelBox,
+  flightLocations,
+  hotelLocations,
+  accountBox,
+}
 
 class CacheHelper {
   SharedPreferences? prefs;
+
   CacheHelper._();
+
   static final shared = CacheHelper._();
+
   // static Future<void> init() async {
   //   prefs = await SharedPreferences.getInstance();
   // }
 
   static const String cachedLang = "cachedLang";
   static const String cachedAppToken = "cachedAppToken";
+  // static const String cachedAccountData = "cachedAccountData";
 
   void initCachedMemory() async {
     try {
       prefs = await SharedPreferences.getInstance();
       cacheLanguage(GtdChannelSettingObject.shared.locale ?? "vi");
-      cacheAppToken("Bearer ${GtdChannelSettingObject.shared.token}");
-      print("Path initCachedMemory Stream success");
+      // cacheAppToken("Bearer ${GtdChannelSettingObject.shared.token}");
+      if (kDebugMode) {
+        print("Path initCachedMemory Stream success");
+      }
     } on PlatformException catch (e) {
-      print("Path initCachedMemory PlatformException failed: $e");
+      if (kDebugMode) {
+        print("Path initCachedMemory PlatformException failed: $e");
+      }
     } catch (e) {
-      print("Path initCachedMemory failed: $e");
+      if (kDebugMode) {
+        print("Path initCachedMemory failed: $e");
+      }
     }
   }
 
   void initCachedStorage({String? directoryPath}) {
     String pathDirectoryHive = directoryPath ?? "";
-    print("Path pathDirectoryHive: $pathDirectoryHive");
+    if (kDebugMode) {
+      print("Path pathDirectoryHive: $pathDirectoryHive");
+    }
     if (directoryPath == null) {
       pathDirectoryHive = Directory.systemTemp.path;
-      print("Path Temp: $pathDirectoryHive");
+      if (kDebugMode) {
+        print("Path Temp: $pathDirectoryHive");
+      }
     }
     //Register Adapter Hive Objects
     Hive
       ..init(pathDirectoryHive)
-      ..registerAdapter(SearchFlightInfoHiveAdapter());
+      ..registerAdapter(SearchFlightInfoHiveAdapter())
+      ..registerAdapter(GtdAccountHiveAdapter());
   }
 
   String getCachedLanguage() {
@@ -60,12 +85,16 @@ class CacheHelper {
 
   Future<void> cacheLanguage(String code) async {
     await prefs?.setString(cachedLang, code);
-    print("Gotadi cacheLanguage: $code");
+    if (kDebugMode) {
+      print("Gotadi cacheLanguage: $code");
+    }
   }
 
   String getCachedAppToken() {
     if (prefs == null) {
-      print("getCachedAppToken but prefs is null");
+      if (kDebugMode) {
+        print("getCachedAppToken but prefs is null");
+      }
     }
     final token = prefs?.getString(cachedAppToken);
     return token ?? "";
@@ -74,16 +103,24 @@ class CacheHelper {
 
   Future<void> cacheAppToken(String token) async {
     if (prefs == null) {
-      print("cacheAppToken but prefs is null");
+      if (kDebugMode) {
+        print("cacheAppToken but prefs is null");
+      }
       initCachedMemory();
     }
-    print("Gotadi cache Token precache: $token");
+    if (kDebugMode) {
+      print("Gotadi cache Token precache: $token");
+    }
     try {
       // prefs ??= await SharedPreferences.getInstance();
       await prefs?.setString(cachedAppToken, token);
-      print("Gotadi cache Token success: $token");
+      if (kDebugMode) {
+        print("Gotadi cache Token success: $token");
+      }
     } catch (e) {
-      print("Gotadi cache Token error: $e");
+      if (kDebugMode) {
+        print("Gotadi cache Token error: $e");
+      }
     }
   }
 
@@ -145,5 +182,10 @@ class CacheHelper {
       {required CacheStorageType cacheStorageType}) async {
     var box = await Hive.openBox(cacheStorageType.name);
     box.deleteAt(index);
+  }
+
+  void removeUserCache() {
+    removeCachedSharedObject(cachedAppToken);
+    // removeCachedSharedObject(cachedAccountData);
   }
 }

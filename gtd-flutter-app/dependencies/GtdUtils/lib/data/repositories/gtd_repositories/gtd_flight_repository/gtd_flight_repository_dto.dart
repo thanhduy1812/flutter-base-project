@@ -15,7 +15,6 @@ import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gen
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/response/ssr_offers_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/booking_detail_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 
 part 'dto/all_filter_options_dto.dart';
 part 'dto/booking_status_color.dart';

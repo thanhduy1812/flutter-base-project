@@ -105,7 +105,7 @@ class GtdFlightRepository {
     try {
       GtdFlightSearchResultDTO result =
           await airTicketResourceApi.filterAvailability(filterAvailabilityRq).then((value) {
-        //TODO: Handle error here
+        //MARK:: Handle error here
         if (value.success == false) {
           throw GtdApiError.fromErrorRs(value.errors ?? []);
         }
@@ -124,10 +124,10 @@ class GtdFlightRepository {
   Future<Result<GroupPricedItinerary, GtdApiError>> groupItinerary(
       FilterAvailabilityRq filterAvailabilityRq, String groupId) async {
     try {
-      //TODO: Apply filter from flightSearchResultDTO
+      //MARK:: Apply filter from flightSearchResultDTO
       GroupPricedItinerary groupPricedItinerary = GroupPricedItinerary();
       await airTicketResourceApi.groupItinerary(filterAvailabilityRq, groupId).then((value) {
-        //TODO: Handle error here
+        //MARK:: Handle error here
         if (value.success == false) {
           throw GtdApiError.fromErrorRs(value.errors ?? []);
         }

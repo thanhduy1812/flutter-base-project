@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class GtdGradientIcon extends StatelessWidget {
   const GtdGradientIcon({required this.icon, this.size, required this.gradient, super.key});
@@ -29,8 +28,7 @@ class GtdGradientIcon extends StatelessWidget {
 }
 
 class GtdGradientSvg extends StatelessWidget {
-  const GtdGradientSvg(
-      {required this.image, this.width, this.height, required this.gradient, super.key});
+  const GtdGradientSvg({required this.image, this.width, this.height, required this.gradient, super.key});
 
   final Widget image;
   final double? width;
@@ -55,8 +53,7 @@ class GtdGradientSvg extends StatelessWidget {
 }
 
 class GtdGradientImage extends StatelessWidget {
-  const GtdGradientImage(
-      {required this.image, this.width, this.height, required this.gradient, super.key});
+  const GtdGradientImage({required this.image, this.width, this.height, required this.gradient, super.key});
 
   final Image image;
   final double? width;

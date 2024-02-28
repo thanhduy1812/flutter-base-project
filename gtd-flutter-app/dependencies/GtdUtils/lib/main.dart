@@ -19,7 +19,7 @@ void main() async {
   CacheHelper.shared.initCachedStorage();
   // String pathAsset = await rootBundle.loadString('assets/env/${GtdAppMode.prodvib.envFile}');
   String pathForAsset =
-      GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/${GtdAppScheme.prodvib.envFile}');
+      GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/.${GtdAppScheme.prodvib.envFile}');
   // await dotenv.load(fileName: '${AppConst.packageCommnon}/assets/env/${GtdAppMode.prodvib.envFile}');
   await dotenv.load(fileName: pathForAsset);
   AppConst.shared.appScheme = GtdAppScheme.uatvib;
@@ -82,14 +82,17 @@ class HomePage extends StatelessWidget {
         onPressed: () async {
           FormSearchPayloadModel info = FormSearchPayloadModel();
           await CacheHelper.cacheObject(
-              SearchFlightInfoHive(departLocationCode: "VN", departFlightDate: DateTime.now()), cacheStorageType: CacheStorageType.flightBox);
-          var obj = await CacheHelper.getCachedObject<SearchFlightInfoHive>(cacheStorageType: CacheStorageType.flightBox);
+              SearchFlightInfoHive(departLocationCode: "VN", departFlightDate: DateTime.now()),
+              cacheStorageType: CacheStorageType.flightBox);
+          var obj =
+              await CacheHelper.getCachedObject<SearchFlightInfoHive>(cacheStorageType: CacheStorageType.flightBox);
           Logger.w(obj.toString());
           // SearchFlightInfoHive infoHive = SearchFlightInfoHive(departLocationCode: "VN");
           // obj?.departLocationCode = "QH";
           // await obj?.save();
           await CacheHelper.cacheObject(
-              SearchFlightInfoHive(departLocationCode: "QH", departFlightDate: DateTime.now()), cacheStorageType: CacheStorageType.flightBox);
+              SearchFlightInfoHive(departLocationCode: "QH", departFlightDate: DateTime.now()),
+              cacheStorageType: CacheStorageType.flightBox);
 
           // await obj?.delete();
           Logger.w("----------------");
@@ -135,28 +138,11 @@ class _TestResourcePackageState extends State<TestResourcePackage> {
               height: 90,
               // color: Colors.blue,
             ),
-
             const SizedBox(height: 40),
             const Text('package image'),
-            // const ImageWidget(),
           ],
         ),
       ),
-    );
-  }
-}
-
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      'assets/images/example.svg',
-      package: 'images',
-      width: 90,
-      height: 90,
-      color: Colors.purple,
     );
   }
 }

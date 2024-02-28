@@ -35,13 +35,18 @@ class GtdCalendarHelper {
             endDateLabel: dayEndLabel,
             lunarDateMode: lunaDateMode,
             lunaDayBehavior: lunaDayBehavior,
-            startDate: initStartDate ?? DateTime.now().add(const Duration(days: 1)),
-            endDate: lunaDateMode == GtdLunarDateMode.range || lunaDayBehavior == GtdLunaDayBehavior.onlyEnd ? initEndate : null,
+            startDate:
+                initStartDate ?? DateTime.now().add(const Duration(days: 1)),
+            endDate: lunaDateMode == GtdLunarDateMode.range ||
+                    lunaDayBehavior == GtdLunaDayBehavior.onlyEnd
+                ? initEndate
+                : null,
             minDate: minDate,
             headerBuilder: (context, {endDate, startDate}) {
               return SizedBox(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
                       Expanded(
@@ -49,15 +54,23 @@ class GtdCalendarHelper {
                           elevation: 0,
                           margin: EdgeInsets.zero,
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: (startDate != null && endDate == null)
-                                      ? CustomColors.mainOrange
-                                      : Colors.grey.shade200,
-                                  width: 1),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: SizedBox(
-                            height: 61,
-                            child: Center(
+                            side: BorderSide(
+                              color: (startDate != null && endDate == null)
+                                  ? CustomColors.mainOrange
+                                  : Colors.grey.shade200,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              minHeight: 61,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10,
+                                horizontal: 16,
+                              ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,15 +78,19 @@ class GtdCalendarHelper {
                                   Text(
                                     selectDayViewStartLabel,
                                     style: TextStyle(
-                                        fontSize: startDate != null ? 13 : 15,
-                                        color: AppColors.subText,
-                                        fontWeight: FontWeight.w400),
+                                      fontSize: startDate != null ? 13 : 15,
+                                      color: AppColors.subText,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
                                   startDate != null
                                       ? Text(
                                           startDate.localDate("EE, dd/MM/yyy"),
                                           style: TextStyle(
-                                              fontSize: 15, color: AppColors.boldText, fontWeight: FontWeight.w600),
+                                            fontSize: 15,
+                                            color: AppColors.boldText,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         )
                                       : const SizedBox(),
                                 ],
@@ -82,42 +99,59 @@ class GtdCalendarHelper {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Expanded(
-                        child: Card(
-                          elevation: 0,
-                          margin: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  color: (endDate != null) ? CustomColors.mainOrange : Colors.grey.shade200, width: 1),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: SizedBox(
-                            height: 61,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    selectDayViewEndLabel,
-                                    style: TextStyle(
-                                        fontSize: endDate == null ? 13 : 15,
+                      if (lunaDateMode == GtdLunarDateMode.range) ...[
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Expanded(
+                          child: Card(
+                            elevation: 0,
+                            margin: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: (endDate != null)
+                                        ? CustomColors.mainOrange
+                                        : Colors.grey.shade200,
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Container(
+                              constraints: const BoxConstraints(
+                                minHeight: 61,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 10,
+                                  horizontal: 16,
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      selectDayViewEndLabel,
+                                      style: TextStyle(
+                                        fontSize: endDate != null ? 13 : 15,
                                         color: AppColors.subText,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  endDate != null
-                                      ? Text(endDate.localDate("EE, dd/MM/yyy"),
-                                          style: TextStyle(
-                                              fontSize: 15, color: AppColors.boldText, fontWeight: FontWeight.w600))
-                                      : const SizedBox(),
-                                ],
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    endDate != null
+                                        ? Text(
+                                            endDate.localDate("EE, dd/MM/yyy"),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.boldText,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      )
+                      ],
                     ],
                   ),
                 ),
@@ -127,7 +161,8 @@ class GtdCalendarHelper {
               return SizedBox(
                 width: double.infinity,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Row(
                     children: [
                       Expanded(
@@ -154,7 +189,10 @@ class GtdCalendarHelper {
                       Expanded(
                         child: GtdButton(
                           text: "Áp dụng",
-                          isEnable: (lunaDateMode == GtdLunarDateMode.range || (lunaDateMode == GtdLunarDateMode.single && lunaDayBehavior == GtdLunaDayBehavior.onlyEnd))
+                          isEnable: (lunaDateMode == GtdLunarDateMode.range ||
+                                  (lunaDateMode == GtdLunarDateMode.single &&
+                                      lunaDayBehavior ==
+                                          GtdLunaDayBehavior.onlyEnd))
                               ? (startDate != null && endDate != null)
                               : startDate != null,
                           colorText: Colors.white,
@@ -163,7 +201,8 @@ class GtdCalendarHelper {
                           borderRadius: 25,
                           onPressed: (value) {
                             context.pop();
-                            onSelected?.call((startDate: startDate, endDate: endDate));
+                            onSelected?.call(
+                                (startDate: startDate, endDate: endDate));
                           },
                         ),
                       )

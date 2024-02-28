@@ -274,10 +274,10 @@ class GtdCustomSwitch extends StatefulWidget {
   final bool disabled;
 
   @override
-  _GtdCustomSwitchState createState() => _GtdCustomSwitchState();
+  GtdCustomSwitchState createState() => GtdCustomSwitchState();
 }
 
-class _GtdCustomSwitchState extends State<GtdCustomSwitch> with SingleTickerProviderStateMixin {
+class GtdCustomSwitchState extends State<GtdCustomSwitch> with SingleTickerProviderStateMixin {
   late final Animation _toggleAnimation;
   late final AnimationController _animationController;
 
@@ -394,41 +394,37 @@ class _GtdCustomSwitchState extends State<GtdCustomSwitch> with SingleTickerProv
                         ),
                       ),
                     ),
-                    Container(
-                      child: Align(
-                        alignment: _toggleAnimation.value,
-                        child: Container(
-                          width: widget.toggleSize,
-                          height: widget.toggleSize,
-                          padding: const EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: toggleColor,
-                            border: toggleBorder,
-                            gradient: toggleColorGradient,
-                          ),
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Container(
-                              child: Stack(
-                                children: [
-                                  Center(
-                                    child: AnimatedOpacity(
-                                      opacity: widget.value ? 1.0 : 0.0,
-                                      duration: widget.duration,
-                                      child: widget.activeIcon,
-                                    ),
-                                  ),
-                                  Center(
-                                    child: AnimatedOpacity(
-                                      opacity: !widget.value ? 1.0 : 0.0,
-                                      duration: widget.duration,
-                                      child: widget.inactiveIcon,
-                                    ),
-                                  ),
-                                ],
+                    Align(
+                      alignment: _toggleAnimation.value,
+                      child: Container(
+                        width: widget.toggleSize,
+                        height: widget.toggleSize,
+                        padding: const EdgeInsets.all(4.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: toggleColor,
+                          border: toggleBorder,
+                          gradient: toggleColorGradient,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: AnimatedOpacity(
+                                  opacity: widget.value ? 1.0 : 0.0,
+                                  duration: widget.duration,
+                                  child: widget.activeIcon,
+                                ),
                               ),
-                            ),
+                              Center(
+                                child: AnimatedOpacity(
+                                  opacity: !widget.value ? 1.0 : 0.0,
+                                  duration: widget.duration,
+                                  child: widget.inactiveIcon,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),

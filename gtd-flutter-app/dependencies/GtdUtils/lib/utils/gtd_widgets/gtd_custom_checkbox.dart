@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 
 class GtdCheckbox extends StatefulWidget {
   /// [GFCheckbox] is a small box (as in a checklist) in which to place a check mark to make a selection with various customization options.
-  GtdCheckbox(
+  const GtdCheckbox(
       {Key? key,
-        this.size = 24,
-        this.activeBgColor = Colors.white,
-        this.inactiveBgColor = Colors.transparent,
-        this.activeBorderColor = Colors.white,
-        this.inactiveBorderColor,
-        required this.onChanged,
-        required this.value,
-        this.activeIcon = const Icon(
-          Icons.check,
-          size: 20,
-          color: Colors.white,
-        ),
-        this.inactiveIcon,
-        this.gradient,
-        this.customBgColor = Colors.green,
-        this.autofocus = false,
-        this.focusNode})
+      this.size = 24,
+      this.activeBgColor = Colors.white,
+      this.inactiveBgColor = Colors.transparent,
+      this.activeBorderColor = Colors.white,
+      this.inactiveBorderColor,
+      required this.onChanged,
+      required this.value,
+      this.activeIcon = const Icon(
+        Icons.check,
+        size: 20,
+        color: Colors.white,
+      ),
+      this.inactiveIcon,
+      this.gradient,
+      this.customBgColor = Colors.green,
+      this.autofocus = false,
+      this.focusNode})
       : super(key: key);
 
   /// type of [double] which is GFSize ie, small, medium and large and can use any double value
@@ -63,10 +63,10 @@ class GtdCheckbox extends StatefulWidget {
   final FocusNode? focusNode;
 
   @override
-  _GtdCheckboxState createState() => _GtdCheckboxState();
+  GtdCheckboxState createState() => GtdCheckboxState();
 }
 
-class _GtdCheckboxState extends State<GtdCheckbox> {
+class GtdCheckboxState extends State<GtdCheckbox> {
   bool get enabled => widget.onChanged != null;
 
   @override
@@ -76,50 +76,50 @@ class _GtdCheckboxState extends State<GtdCheckbox> {
 
   @override
   Widget build(BuildContext context) => FocusableActionDetector(
-    focusNode: widget.focusNode,
-    autofocus: widget.autofocus,
-    enabled: enabled,
-    child: InkResponse(
-      highlightShape: BoxShape.rectangle,
-      containedInkWell: true,
-      canRequestFocus: enabled,
-      onTap: widget.onChanged != null ? () {
-        widget.onChanged!(!widget.value);
-      }: null,
-      child: Container(
-        height: widget.size,
-        width: widget.size,
-        decoration: BoxDecoration(
-            color: widget.value ? widget.activeBgColor : Colors.white,
-            borderRadius: BorderRadius.circular(3),
-            border: Border.all(
-              color: Colors.grey.shade200,
-              width: 2
-            )
+        focusNode: widget.focusNode,
+        autofocus: widget.autofocus,
+        enabled: enabled,
+        child: InkResponse(
+          highlightShape: BoxShape.rectangle,
+          containedInkWell: true,
+          canRequestFocus: enabled,
+          onTap: widget.onChanged != null
+              ? () {
+                  widget.onChanged!(!widget.value);
+                }
+              : null,
+          child: Container(
+            height: widget.size,
+            width: widget.size,
+            decoration: BoxDecoration(
+                color: widget.value ? widget.activeBgColor : Colors.white,
+                borderRadius: BorderRadius.circular(3),
+                border: Border.all(color: Colors.grey.shade200, width: 2)),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 100),
+              child: widget.value
+                  ? Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.center,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(4),
+                          width: widget.size * 0.8,
+                          height: widget.size * 0.8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: widget.customBgColor,
+                            borderRadius: const BorderRadius.all(Radius.circular(1)),
+                            gradient: widget.gradient,
+                          ),
+                        )
+                      ],
+                    )
+                  : widget.inactiveIcon,
+            ),
+          ),
         ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 100),
-          child: widget.value? Stack(
-            alignment: Alignment.center,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-              ),
-              Container(
-                margin: const EdgeInsets.all(4),
-                width: widget.size * 0.8,
-                height: widget.size * 0.8,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: widget.customBgColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(1)),
-                  gradient: widget.gradient,
-                ),
-              )
-            ],
-          ): widget.inactiveIcon,
-        ),
-      ),
-    ),
-  );
+      );
 }

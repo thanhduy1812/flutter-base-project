@@ -10,14 +10,23 @@ import 'package:meta/meta.dart';
 
 class BaseTabbarPage<T extends BasePageViewModel> extends StatelessWidget {
   final T viewModel;
+
   const BaseTabbarPage({super.key, required this.viewModel});
+
   static String get route => "baseRoute";
+
   String getRoute() => route;
 
   // @mustBeOverridden
   TabBar get _tabBar => GtdTabbarHelper.buildGotadiTabbar(tabs: tabs);
+
   @protected
   List<Tab> get tabs => [];
+
+  @protected
+  Widget? titleWidget() {
+    return null;
+  }
 
   @protected
   PreferredSizeWidget? buildAppbarBottom() {
@@ -40,17 +49,24 @@ class BaseTabbarPage<T extends BasePageViewModel> extends StatelessWidget {
       title: ValueListenableBuilder(
         valueListenable: viewModel.subTitleNotifer,
         builder: (context, value, child) {
-          return Column(
-            children: [
-              (viewModel.title != null) ? Text(viewModel.title!) : const SizedBox(),
-              (viewModel.subTitle != null)
-                  ? Text(
-                      value,
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
-                    )
-                  : const SizedBox(),
-            ],
-          );
+          return titleWidget() != null
+              ? titleWidget()!
+              : Column(
+                  children: [
+                    (viewModel.title != null)
+                        ? Text(viewModel.title!)
+                        : const SizedBox(),
+                    (viewModel.subTitle != null)
+                        ? Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 13,
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
+                );
         },
       ),
       // bottom: (tabs.isEmpty || tabs.length == 1)
@@ -87,7 +103,8 @@ class BaseTabbarPage<T extends BasePageViewModel> extends StatelessWidget {
               child: DefaultTabController(
                 length: tabs.length,
                 child: Scaffold(
-                  backgroundColor: viewModel.backgroundColor ?? Colors.grey.shade100,
+                  backgroundColor:
+                      viewModel.backgroundColor ?? Colors.grey.shade100,
                   // extendBody: true,
                   appBar: buildAppbar(rebuildContext),
                   body: buildBody(rebuildContext),

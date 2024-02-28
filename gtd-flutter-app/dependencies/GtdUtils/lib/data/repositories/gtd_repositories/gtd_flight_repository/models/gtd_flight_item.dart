@@ -15,21 +15,26 @@ class GtdFlightItem {
   GtdFlightItemPriceInfo? flightItemPriceInfo;
   List<GtdAirlineCabinClass>? cabinOptions;
   int? totalPricedItinerary = 0;
+
   List<FlightSegment> get transitInfos => flightItemInfo?.flightSegments ?? [];
 
   GtdFlightItem();
 
   factory GtdFlightItem.fromGroupPricedItinerary(
-      GroupPricedItinerary groupPricedItinerary, FlightDirection flightDirection) {
+      GroupPricedItinerary groupPricedItinerary,
+      FlightDirection flightDirection) {
     GtdFlightItem flightItem = GtdFlightItem();
     flightItem.groupId = groupPricedItinerary.groupId;
     flightItem.totalPricedItinerary = groupPricedItinerary.totalPricedItinerary;
-    flightItem.flightItemInfo = GtdFlightItemInfo.fromGroupPricedItinerary(groupPricedItinerary, flightDirection);
+    flightItem.flightItemInfo = GtdFlightItemInfo.fromGroupPricedItinerary(
+        groupPricedItinerary, flightDirection);
     flightItem.cabinOptions = groupPricedItinerary.pricedItineraries
-        ?.map((e) => GtdAirlineCabinClass.fromPricedItinerary(e, flightDirection))
+        ?.map(
+            (e) => GtdAirlineCabinClass.fromPricedItinerary(e, flightDirection))
         .toList();
     double? itemPrice = flightItem.cabinOptions?.firstOrNull?.getDisplayPrice();
-    flightItem.flightItemPriceInfo = GtdFlightItemPriceInfo(price: itemPrice ?? 0);
+    flightItem.flightItemPriceInfo =
+        GtdFlightItemPriceInfo(price: itemPrice ?? 0);
     return flightItem;
   }
 
@@ -41,17 +46,20 @@ class GtdFlightItem {
     GtdFlightItem item = GtdFlightItem();
     item.groupId = groupId ?? this.groupId;
     item.cabinOptions = cabinOptions ?? this.cabinOptions;
-    item.totalPricedItinerary = totalPricedItinerary ?? this.totalPricedItinerary;
+    item.totalPricedItinerary =
+        totalPricedItinerary ?? this.totalPricedItinerary;
     item.flightItemInfo = flightItemInfo;
     double? itemPrice = item.cabinOptions?.firstOrNull?.getDisplayPrice();
     item.flightItemPriceInfo = GtdFlightItemPriceInfo(price: itemPrice ?? 0);
-    item.totalPricedItinerary = totalPricedItinerary ?? (item.cabinOptions?.length ?? 1);
+    item.totalPricedItinerary =
+        totalPricedItinerary ?? (item.cabinOptions?.length ?? 1);
     return item;
   }
 
   int compareDepartureDate(GtdFlightItem other) {
     try {
-      return flightItemInfo!.originDateTime!.compareTo(other.flightItemInfo!.originDateTime!);
+      return flightItemInfo!.originDateTime!
+          .compareTo(other.flightItemInfo!.originDateTime!);
     } catch (e) {
       throw GtdApiError(message: "Cannot compare departure date FlightItem");
     }
@@ -59,7 +67,8 @@ class GtdFlightItem {
 
   int comparePrice(GtdFlightItem other) {
     try {
-      return flightItemPriceInfo!.price!.compareTo(other.flightItemPriceInfo!.price!);
+      return flightItemPriceInfo!.price!
+          .compareTo(other.flightItemPriceInfo!.price!);
     } catch (e) {
       throw GtdApiError(message: "Cannot compare Price FlightItem");
     }
@@ -67,7 +76,8 @@ class GtdFlightItem {
 
   int compareDuration(GtdFlightItem other) {
     try {
-      return flightItemInfo!.journeyDuration!.compareTo(other.flightItemInfo!.journeyDuration!);
+      return flightItemInfo!.journeyDuration!
+          .compareTo(other.flightItemInfo!.journeyDuration!);
     } catch (e) {
       throw GtdApiError(message: "Cannot compare duration FlightItem");
     }
@@ -75,20 +85,27 @@ class GtdFlightItem {
 }
 
 extension GtdFlightItemMapper on GtdFlightItem {
-  void updateCabinOptions(GroupPricedItinerary groupPricedItinerary, FlightDirection flightDirection) {
+  void updateCabinOptions(GroupPricedItinerary groupPricedItinerary,
+      FlightDirection flightDirection) {
     cabinOptions = groupPricedItinerary.pricedItineraries
-        ?.map((e) => GtdAirlineCabinClass.fromPricedItinerary(e, flightDirection))
+        ?.map(
+            (e) => GtdAirlineCabinClass.fromPricedItinerary(e, flightDirection))
         .toList();
   }
 
-  void chooseCabinClass(GtdAirlineCabinClass cabinOption) {
+  void chooseCabinClass(
+    GtdAirlineCabinClass cabinOption,
+  ) {
     cabinOptions = cabinOptions?.map((e) => e).whereNotNull().map((e) {
       e.isSelected = (e.sequenceNumber == cabinOption.sequenceNumber);
       return e;
     }).toList();
+
   }
 
   GtdAirlineCabinClass? get selectedCabinOption {
-    return cabinOptions?.where((element) => element.isSelected == true).firstOrNull;
+    return cabinOptions
+        ?.where((element) => element.isSelected == true)
+        .firstOrNull;
   }
 }

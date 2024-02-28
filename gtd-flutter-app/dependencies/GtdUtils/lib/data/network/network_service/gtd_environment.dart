@@ -6,7 +6,7 @@ import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 
 // ignore: constant_identifier_names
-enum GTDEnvType { BannerAPI, CMSAPI, B2CAPI, AgentAPI, VIBAPI }
+enum GTDEnvType { CMSBannerAPI, GTDBannerAPI, B2CAPI, AgentAPI, VIBAPI }
 
 class GtdEnvironment {
   GTDEnvType env;
@@ -14,7 +14,6 @@ class GtdEnvironment {
   late String platformPath;
   late Map<String, String> headers;
   GtdEnvironment({this.env = GTDEnvType.B2CAPI}) {
-    
     if (AppConst.shared.appScheme.appSupplier == GtdAppSupplier.vib) {
       platformPath = dotenv.get("API_VIB_PATH", fallback: "vib");
     } else {
@@ -34,7 +33,7 @@ class GtdEnvironment {
 
     switch (env) {
       case GTDEnvType.B2CAPI:
-        baseUrl = dotenv.get("API_URL", fallback: "uat-api.gotadi.com");
+        baseUrl = dotenv.get("API_URL", fallback: "xxx.com");
         headers = {
           'Content-type': 'application/json',
           'Accept': 'application/json',
@@ -44,6 +43,17 @@ class GtdEnvironment {
           'Authorization': CacheHelper.shared.getCachedAppToken()
         };
         break;
+      case GTDEnvType.CMSBannerAPI:
+        baseUrl = "cms.gotadi.com";
+        platformPath = "";
+        headers = {};
+        break;
+      case GTDEnvType.GTDBannerAPI:
+        baseUrl = "www.gotadi.com";
+        platformPath = "";
+        headers = {};
+        break;
+
       default:
         baseUrl = "mobile-api.gotadi.com";
     }

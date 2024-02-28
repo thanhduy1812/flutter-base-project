@@ -2,8 +2,13 @@ import 'package:gtd_utils/data/network/gtd_app_logger.dart';
 import 'package:intl/intl.dart';
 
 const String pattern1 = "dd/MM/yyyy";
+const String iosPattern = "yyyy-MM-ddTHH:mm:ss'Z'";
+const String fullDateTimePattern = "HH:mm, EEE dd/MM/yyyy";
 DateFormat dateFormat = DateFormat("dd/MM/yyyy");
 DateFormat dateFormatFlight = DateFormat("HH:mm - EEEE, dd/MM/yyyy");
+DateFormat monthYearFormat = DateFormat("MM/yyyy");
+DateFormat iosDateFormat = DateFormat("yyyy-MM-ddTHH:mm:ss'Z'");
+DateFormat fullDateTimeFormat = DateFormat(fullDateTimePattern);
 
 extension GtdDateTime on DateTime {
   //Format date at local with timezone system
@@ -67,5 +72,17 @@ extension GtdDateTime on DateTime {
 
   bool isSameDate(DateTime? other) {
     return year == other?.year && month == other?.month && day == other?.day;
+  }
+
+  int difInDays(DateTime? other) {
+    if (other == null) {
+      return 0;
+    }
+    if (isSameDate(other)) {
+      return 0;
+    }
+    final newThis = DateTime(year, month, day, 0);
+    final newOther = DateTime(other.year, other.month, other.day, 0);
+    return newOther.difference(newThis).inDays;
   }
 }

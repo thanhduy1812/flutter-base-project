@@ -13,7 +13,7 @@ class BookingApiEndpoint extends GtdEndpoint {
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
-    static GtdEndpoint searchListBooking(GTDEnvType envType) {
+  static GtdEndpoint searchListBooking(GTDEnvType envType) {
     const path = kSearchListBooking;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }

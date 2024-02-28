@@ -17,7 +17,7 @@ class LocalThemeState extends LocalState {
 class LocalSettingState extends LocalState {
   Locale locale;
   String packageResource;
-  //TODO: Add setting for AppTheme [B2C/B2B/VIB] - [LIGHT/DARK] - [Transparent/Translucent/Visible App Bar]
+  //MARK: Add setting for AppTheme [B2C/B2B/VIB] - [LIGHT/DARK] - [Transparent/Translucent/Visible App Bar]
   // ThemeData themeData;
 
   LocalSettingState({

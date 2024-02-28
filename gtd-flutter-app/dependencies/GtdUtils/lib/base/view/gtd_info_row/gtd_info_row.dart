@@ -75,4 +75,11 @@ class GtdInfoRow extends StatelessWidget {
       )
     ]);
   }
+
+  static Row twoColumn(
+      {required Widget leftWidget,
+      required Widget rightWidget,
+      MainAxisAlignment mainAxisAlignment = MainAxisAlignment.spaceBetween,}) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [leftWidget, rightWidget]);
+  }
 }

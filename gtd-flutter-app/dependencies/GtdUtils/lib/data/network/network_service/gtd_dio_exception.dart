@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:gtd_utils/data/network/gtd_app_logger.dart';
 
 class GtdDioException implements Exception {
   late String message;
@@ -43,6 +44,15 @@ class GtdDioException implements Exception {
   }
 
   String _handleError(int? statusCode, dynamic error) {
+    try {
+      String? errorMessage = error['error']['message'];
+      if (errorMessage != null && errorMessage.isNotEmpty) {
+        return errorMessage;
+      }
+    } catch (e) {
+      Logger.e(e.toString());
+    }
+
     switch (statusCode) {
       case 400:
         return 'Bad request';

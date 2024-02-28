@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:meta/meta.dart';
 
 abstract class ItemSelectVM<T> extends BaseViewModel implements EquatableMixin {
   bool isSelected = false;
@@ -19,10 +18,8 @@ abstract class ItemSelectVM<T> extends BaseViewModel implements EquatableMixin {
   @override
   bool? get stringify => true;
 
-  @protected
   String get itemTitle => "data";
 
-  @protected
   String get itemSubTitle => "";
 }
 

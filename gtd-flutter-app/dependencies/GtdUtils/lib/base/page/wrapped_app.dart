@@ -31,7 +31,7 @@ class WrappedApp {
       {GtdAppScheme appScheme = GtdAppScheme.uatvib, ThemeMode? themeMode}) {
     // return EasyLocalization(
     //   supportedLocales: const [
-    //     //TODO:  Get subtags from environment (don't implement)
+    // MARK:  Get subtags from environment (don't implement)
     //     Locale.fromSubtags(languageCode: 'vi'),
     //     Locale.fromSubtags(languageCode: 'en'),
     //   ],
@@ -71,7 +71,7 @@ class WrappedApp {
           if (settingState is LocalSettingState) {
             return EasyLocalization(
               supportedLocales: const [
-                //TODO:  Get subtags from environment (don't implement)
+                //MARK:  Get subtags from environment (don't implement)
                 Locale.fromSubtags(languageCode: 'vi'),
                 Locale.fromSubtags(languageCode: 'en'),
               ],
@@ -112,7 +112,7 @@ class GtdBaseApp extends StatelessWidget {
               routeInformationProvider: router.routeInformationProvider,
               routerDelegate: router.routerDelegate,
               backButtonDispatcher: RootBackButtonDispatcher(),
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: true,
               title: title,
               themeMode: AppConst.shared.themeMode,
               theme: AppConst.shared.appScheme.appSupplier.appTheme.lightTheme,

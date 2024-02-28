@@ -28,6 +28,28 @@ class GtdTabbarHelper with ChangeNotifier {
       unselectedLabelColor: AppColors.subText,
       overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
       isScrollable: isScrollable,
+      tabAlignment: TabAlignment.start,
+      tabs: tabs,
+    );
+  }
+
+  static TabBar buildGotadiUnderLineTabbar(
+      {required List<Widget> tabs, bool isScrollable = false, TabController? tabController}) {
+    return TabBar(
+      controller: tabController,
+      indicator: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(color: AppColors.mainColor, width: 3),
+          )),
+      // indicatorColor: Colors.lightGreen,
+      indicatorSize: TabBarIndicatorSize.tab,
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      dividerColor: Colors.white,
+      labelColor: AppColors.mainColor,
+      unselectedLabelColor: AppColors.subText,
+      overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+      isScrollable: isScrollable,
       tabs: tabs,
     );
   }

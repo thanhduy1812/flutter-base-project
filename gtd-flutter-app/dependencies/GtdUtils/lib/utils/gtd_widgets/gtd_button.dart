@@ -48,10 +48,13 @@ class GtdButton<T> extends StatelessWidget {
           padding: padding,
           height: height ?? 32,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 6)),
-              gradient: gradient,
-              border: border,
-              color: isEnable ? color : (color ?? AppColors.buttonColor).withOpacity(0.4)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 6)),
+            gradient: gradient,
+            border: border,
+            color: isEnable
+                ? color
+                : (color ?? AppColors.buttonColor).withOpacity(0.4),
+          ),
           child: TextButton(
               onPressed: !isEnable
                   ? null
@@ -61,14 +64,17 @@ class GtdButton<T> extends StatelessWidget {
                       }
                     },
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.transparent),
                   padding: const MaterialStatePropertyAll(EdgeInsets.zero),
                   shape: borderRadius != null
-                      ? MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular((borderRadius! - 10)),
-                          side: const BorderSide(
-                            color: Colors.transparent,
-                          )))
+                      ? MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular((borderRadius! - 10)),
+                              side: const BorderSide(
+                                color: Colors.transparent,
+                              )))
                       : null),
               child: Wrap(
                 direction: Axis.horizontal,
@@ -81,9 +87,10 @@ class GtdButton<T> extends StatelessWidget {
                     textAlign: TextAlign.center,
                     textDirection: TextDirection.ltr,
                     style: TextStyle(
-                        color: colorText ?? Colors.white,
-                        fontWeight: fontWeight ?? FontWeight.w600,
-                        fontSize: fontSize ?? 13),
+                      color: colorText ?? Colors.white,
+                      fontWeight: fontWeight ?? FontWeight.w600,
+                      fontSize: fontSize ?? 13,
+                    ),
                   ),
                   icon ?? const SizedBox()
                 ],

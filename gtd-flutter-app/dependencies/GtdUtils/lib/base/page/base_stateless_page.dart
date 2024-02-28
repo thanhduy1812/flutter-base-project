@@ -13,13 +13,22 @@ typedef BaseWidgetBuilder<T> = Widget Function(BuildContext context);
 
 class BaseStatelessPage<T extends BasePageViewModel> extends StatelessWidget {
   final T viewModel;
+
   const BaseStatelessPage({super.key, required this.viewModel});
+
   static String get route => "baseRoute";
+
   String getRoute() => route;
+
   // static String get route => runtimeType.toString();
   @protected
   List<Widget> buildTrailingActions(BuildContext pageContext) {
     return [];
+  }
+
+  @protected
+  Widget? titleWidget() {
+    return null;
   }
 
   @protected
@@ -36,17 +45,29 @@ class BaseStatelessPage<T extends BasePageViewModel> extends StatelessWidget {
       title: ValueListenableBuilder(
         valueListenable: viewModel.subTitleNotifer,
         builder: (context, value, child) {
-          return Column(
-            children: [
-              (viewModel.title != null) ? Text(viewModel.title!) : const SizedBox(),
-              (viewModel.subTitle != null)
-                  ? Text(
-                      value,
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 13),
-                    )
-                  : const SizedBox(),
-            ],
-          );
+          return titleWidget() != null
+              ? titleWidget()!
+              : Column(
+                  children: [
+                    (viewModel.title != null)
+                        ? Text(
+                            viewModel.title!,
+                            style: const TextStyle(
+                              fontSize: 17,
+                            ),
+                          )
+                        : const SizedBox(),
+                    (viewModel.subTitle != null)
+                        ? Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 13,
+                            ),
+                          )
+                        : const SizedBox(),
+                  ],
+                );
         },
       ),
       actions: buildTrailingActions(pageContext),
@@ -90,7 +111,7 @@ class BaseStatelessPage<T extends BasePageViewModel> extends StatelessWidget {
                 return Scaffold(
                   backgroundColor: viewModel.backgroundColor ?? Colors.grey.shade100,
                   extendBodyBehindAppBar: viewModel.extendBodyBehindAppBar,
-                  resizeToAvoidBottomInset: false,
+                  // resizeToAvoidBottomInset: false,
                   appBar: buildAppbar(inheritedtContext),
                   body: buildBody(inheritedtContext),
                   bottomNavigationBar: buildBottomBar(inheritedtContext),

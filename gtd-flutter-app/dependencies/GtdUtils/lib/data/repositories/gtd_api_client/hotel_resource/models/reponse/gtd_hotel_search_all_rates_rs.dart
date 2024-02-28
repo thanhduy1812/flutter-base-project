@@ -17,13 +17,21 @@ class GtdSearchAllRatesRs extends GtdResponse {
     super.success,
   });
 
-  factory GtdSearchAllRatesRs.fromJson(Map<String, dynamic> json) => GtdSearchAllRatesRs(
-        result: json["result"] == null ? null : GtdSearchAllRateDetail.fromJson(json["result"]),
+  factory GtdSearchAllRatesRs.fromJson(Map<String, dynamic> json) =>
+      GtdSearchAllRatesRs(
+        result: json["result"] == null
+            ? null
+            : GtdSearchAllRateDetail.fromJson(json["result"]),
         duration: json["duration"],
         textMessage: json["textMessage"],
         success: json["success"],
-        errors: json["errors"] == null ? null : List<ErrorRs>.from(json["errors"]!.map((x) => ErrorRs.fromJson(x))),
-        infos: json["infos"] == null ? null : List<InfoRs>.from(json["infos"]!.map((x) => InfoRs.fromJson(x))),
+        errors: json["errors"] == null
+            ? null
+            : List<ErrorRs>.from(
+                json["errors"]!.map((x) => ErrorRs.fromJson(x))),
+        infos: json["infos"] == null
+            ? null
+            : List<InfoRs>.from(json["infos"]!.map((x) => InfoRs.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,11 +55,13 @@ class GtdSearchAllRateDetail {
     this.propertyAllRate,
   });
 
-  factory GtdSearchAllRateDetail.fromJson(Map<String, dynamic> json) => GtdSearchAllRateDetail(
+  factory GtdSearchAllRateDetail.fromJson(Map<String, dynamic> json) =>
+      GtdSearchAllRateDetail(
         tripId: json["tripId"],
         searchId: json["searchId"],
-        propertyAllRate:
-            json["propertyAllRate"] == null ? null : HotelPropertyAllRate.fromJson(json["propertyAllRate"]),
+        propertyAllRate: json["propertyAllRate"] == null
+            ? null
+            : HotelPropertyAllRate.fromJson(json["propertyAllRate"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -122,38 +132,74 @@ class HotelPropertyAllRate {
     this.masterPropertyId,
   });
 
-  factory HotelPropertyAllRate.fromJson(Map<String, dynamic> json) => HotelPropertyAllRate(
+  factory HotelPropertyAllRate.fromJson(Map<String, dynamic> json) =>
+      HotelPropertyAllRate(
         propertyId: json["propertyId"],
         propertyName: json["propertyName"],
         supplier: json["supplier"],
         language: json["language"],
         currency: json["currency"],
-        rating: json["rating"] == null ? null : CombineRating.fromJson(json["rating"]),
-        address: json["address"] == null ? null : HotelLocationAddress.fromJson(json["address"]),
+        rating: json["rating"] == null
+            ? null
+            : CombineRating.fromJson(json["rating"]),
+        address: json["address"] == null
+            ? null
+            : HotelLocationAddress.fromJson(json["address"]),
         latitude: json["latitude"]?.toDouble(),
         longitude: json["longitude"]?.toDouble(),
-        propertyCategory: json["propertyCategory"] == null ? null : PropertyCategory.fromJson(json["propertyCategory"]),
-        checkin: json["checkin"] == null ? null : GtdHotelTime.fromJson(json["checkin"]),
-        checkout: json["checkout"] == null ? null : GtdHotelTime.fromJson(json["checkout"]),
+        propertyCategory: json["propertyCategory"] == null
+            ? null
+            : PropertyCategory.fromJson(json["propertyCategory"]),
+        checkin: json["checkin"] == null
+            ? null
+            : GtdHotelTime.fromJson(json["checkin"]),
+        checkout: json["checkout"] == null
+            ? null
+            : GtdHotelTime.fromJson(json["checkout"]),
         rank: json["rank"],
-        fees: json["fees"] == null ? [] : List<dynamic>.from(json["fees"]!.map((x) => x)),
-        inclusions: json["inclusions"] == null ? [] : List<Amenity>.from(json["inclusions"]!.map((x) => x)),
-        policies: json["policies"] == null ? [] : List<Amenity>.from(json["policies"]!.map((x) => Amenity.fromJson(x))),
+        fees: json["fees"] == null
+            ? []
+            : List<dynamic>.from(json["fees"]!.map((x) => x)),
+        inclusions: json["inclusions"] == null
+            ? []
+            : List<Amenity>.from(json["inclusions"]!.map((x) => x)),
+        policies: json["policies"] == null
+            ? []
+            : List<Amenity>.from(
+                json["policies"]!.map((x) => Amenity.fromJson(x))),
         descriptions: json["descriptions"] == null
             ? []
-            : List<Amenity>.from(json["descriptions"]!.map((x) => Amenity.fromJson(x))),
-        themes: json["themes"] == null ? [] : List<Amenity>.from(json["themes"]!.map((x) => Amenity.fromJson(x))),
-        statistics:
-            json["statistics"] == null ? [] : List<Amenity>.from(json["statistics"]!.map((x) => Amenity.fromJson(x))),
-        amenities:
-            json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
-        images: json["images"] == null ? [] : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
-        rooms:
-            json["rooms"] == null ? [] : List<GtdHotelRoom>.from(json["rooms"]!.map((x) => GtdHotelRoom.fromJson(x))),
-        attributes: json["attributes"] == null ? [] : List<dynamic>.from(json["attributes"]!.map((x) => x)),
-        spokenLanguage: json["spokenLanguage"] == null ? [] : List<dynamic>.from(json["spokenLanguage"]!.map((x) => x)),
+            : List<Amenity>.from(
+                json["descriptions"]!.map((x) => Amenity.fromJson(x))),
+        themes: json["themes"] == null
+            ? []
+            : List<Amenity>.from(
+                json["themes"]!.map((x) => Amenity.fromJson(x))),
+        statistics: json["statistics"] == null
+            ? []
+            : List<Amenity>.from(
+                json["statistics"]!.map((x) => Amenity.fromJson(x))),
+        amenities: json["amenities"] == null
+            ? []
+            : List<Amenity>.from(
+                json["amenities"]!.map((x) => Amenity.fromJson(x))),
+        images: json["images"] == null
+            ? []
+            : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
+        rooms: json["rooms"] == null
+            ? []
+            : List<GtdHotelRoom>.from(
+                json["rooms"]!.map((x) => GtdHotelRoom.fromJson(x))),
+        attributes: json["attributes"] == null
+            ? []
+            : List<dynamic>.from(json["attributes"]!.map((x) => x)),
+        spokenLanguage: json["spokenLanguage"] == null
+            ? []
+            : List<dynamic>.from(json["spokenLanguage"]!.map((x) => x)),
         airportCode: json["airportCode"],
-        tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
+        tags: json["tags"] == null
+            ? []
+            : List<String>.from(json["tags"]!.map((x) => x)),
         rateOption: json["rateOption"],
         masterPropertyId: json["masterPropertyId"],
       );
@@ -173,16 +219,36 @@ class HotelPropertyAllRate {
         "checkout": checkout?.toJson(),
         "rank": rank,
         "fees": fees == null ? [] : List<dynamic>.from(fees!.map((x) => x)),
-        "inclusions": inclusions == null ? [] : List<dynamic>.from(inclusions!.map((x) => x)),
-        "policies": policies == null ? [] : List<dynamic>.from(policies!.map((x) => x.toJson())),
-        "descriptions": descriptions == null ? [] : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
-        "themes": themes == null ? [] : List<dynamic>.from(themes!.map((x) => x.toJson())),
-        "statistics": statistics == null ? [] : List<dynamic>.from(statistics!.map((x) => x.toJson())),
-        "amenities": amenities == null ? [] : List<dynamic>.from(amenities!.map((x) => x.toJson())),
-        "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x.toJson())),
-        "rooms": rooms == null ? [] : List<dynamic>.from(rooms!.map((x) => x.toJson())),
-        "attributes": attributes == null ? [] : List<dynamic>.from(attributes!.map((x) => x)),
-        "spokenLanguage": spokenLanguage == null ? [] : List<dynamic>.from(spokenLanguage!.map((x) => x)),
+        "inclusions": inclusions == null
+            ? []
+            : List<dynamic>.from(inclusions!.map((x) => x)),
+        "policies": policies == null
+            ? []
+            : List<dynamic>.from(policies!.map((x) => x.toJson())),
+        "descriptions": descriptions == null
+            ? []
+            : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
+        "themes": themes == null
+            ? []
+            : List<dynamic>.from(themes!.map((x) => x.toJson())),
+        "statistics": statistics == null
+            ? []
+            : List<dynamic>.from(statistics!.map((x) => x.toJson())),
+        "amenities": amenities == null
+            ? []
+            : List<dynamic>.from(amenities!.map((x) => x.toJson())),
+        "images": images == null
+            ? []
+            : List<dynamic>.from(images!.map((x) => x.toJson())),
+        "rooms": rooms == null
+            ? []
+            : List<dynamic>.from(rooms!.map((x) => x.toJson())),
+        "attributes": attributes == null
+            ? []
+            : List<dynamic>.from(attributes!.map((x) => x)),
+        "spokenLanguage": spokenLanguage == null
+            ? []
+            : List<dynamic>.from(spokenLanguage!.map((x) => x)),
         "airportCode": airportCode,
         "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
         "rateOption": rateOption,
@@ -220,8 +286,12 @@ class CombineRating {
   });
 
   factory CombineRating.fromJson(Map<String, dynamic> json) => CombineRating(
-        ratingProperty: json["ratingProperty"] == null ? null : RatingProperty.fromJson(json["ratingProperty"]),
-        ratingGuest: json["ratingGuest"] == null ? null : RatingGuest.fromJson(json["ratingGuest"]),
+        ratingProperty: json["ratingProperty"] == null
+            ? null
+            : RatingProperty.fromJson(json["ratingProperty"]),
+        ratingGuest: json["ratingGuest"] == null
+            ? null
+            : RatingGuest.fromJson(json["ratingGuest"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -344,31 +414,56 @@ class GtdHotelRoom {
         name: json["name"],
         descriptions: json["descriptions"] == null
             ? []
-            : List<Amenity>.from(json["descriptions"]!.map((x) => Amenity.fromJson(x))),
-        images: json["images"] == null ? [] : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
-        roomArea: json["roomArea"] == null ? null : RoomArea.fromJson(json["roomArea"]),
-        ratePlans:
-            json["ratePlans"] == null ? [] : List<RatePlan>.from(json["ratePlans"]!.map((x) => RatePlan.fromJson(x))),
+            : List<Amenity>.from(
+                json["descriptions"]!.map((x) => Amenity.fromJson(x))),
+        images: json["images"] == null
+            ? []
+            : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
+        roomArea: json["roomArea"] == null
+            ? null
+            : RoomArea.fromJson(json["roomArea"]),
+        ratePlans: json["ratePlans"] == null
+            ? []
+            : List<RatePlan>.from(
+                json["ratePlans"]!.map((x) => RatePlan.fromJson(x))),
         bedGroupStatics: json["bedGroupStatics"] == null
             ? []
-            : List<Amenity>.from(json["bedGroupStatics"]!.map((x) => Amenity.fromJson(x))),
-        views: json["views"] == null ? [] : List<Amenity>.from(json["views"]!.map((x) => Amenity.fromJson(x))),
-        occupancyAllowed: json["occupancyAllowed"] == null ? null : OccupancyAllowed.fromJson(json["occupancyAllowed"]),
-        amenities:
-            json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
+            : List<Amenity>.from(
+                json["bedGroupStatics"]!.map((x) => Amenity.fromJson(x))),
+        views: json["views"] == null
+            ? []
+            : List<Amenity>.from(
+                json["views"]!.map((x) => Amenity.fromJson(x))),
+        occupancyAllowed: json["occupancyAllowed"] == null
+            ? null
+            : OccupancyAllowed.fromJson(json["occupancyAllowed"]),
+        amenities: json["amenities"] == null
+            ? []
+            : List<Amenity>.from(
+                json["amenities"]!.map((x) => Amenity.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "descriptions": descriptions == null ? [] : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
-        "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x.toJson())),
+        "descriptions": descriptions == null
+            ? []
+            : List<dynamic>.from(descriptions!.map((x) => x.toJson())),
+        "images": images == null
+            ? []
+            : List<dynamic>.from(images!.map((x) => x.toJson())),
         "roomArea": roomArea?.toJson(),
-        "ratePlans": ratePlans == null ? [] : List<dynamic>.from(ratePlans!.map((x) => x.toJson())),
-        "bedGroupStatics": bedGroupStatics == null ? [] : List<dynamic>.from(bedGroupStatics!.map((x) => x.toJson())),
+        "ratePlans": ratePlans == null
+            ? []
+            : List<dynamic>.from(ratePlans!.map((x) => x.toJson())),
+        "bedGroupStatics": bedGroupStatics == null
+            ? []
+            : List<dynamic>.from(bedGroupStatics!.map((x) => x.toJson())),
         "views": views == null ? [] : List<dynamic>.from(views!.map((x) => x)),
         "occupancyAllowed": occupancyAllowed?.toJson(),
-        "amenities": amenities == null ? [] : List<dynamic>.from(amenities!.map((x) => x.toJson())),
+        "amenities": amenities == null
+            ? []
+            : List<dynamic>.from(amenities!.map((x) => x.toJson())),
       };
 }
 
@@ -381,15 +476,21 @@ class OccupancyAllowed {
     this.roomAgeCategories,
   });
 
-  factory OccupancyAllowed.fromJson(Map<String, dynamic> json) => OccupancyAllowed(
-        roomMaxAllowed: json["roomMaxAllowed"] == null ? null : RoomMaxAllowed.fromJson(json["roomMaxAllowed"]),
-        roomAgeCategories:
-            json["roomAgeCategories"] == null ? [] : List<dynamic>.from(json["roomAgeCategories"]!.map((x) => x)),
+  factory OccupancyAllowed.fromJson(Map<String, dynamic> json) =>
+      OccupancyAllowed(
+        roomMaxAllowed: json["roomMaxAllowed"] == null
+            ? null
+            : RoomMaxAllowed.fromJson(json["roomMaxAllowed"]),
+        roomAgeCategories: json["roomAgeCategories"] == null
+            ? []
+            : List<dynamic>.from(json["roomAgeCategories"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "roomMaxAllowed": roomMaxAllowed?.toJson(),
-        "roomAgeCategories": roomAgeCategories == null ? [] : List<dynamic>.from(roomAgeCategories!.map((x) => x)),
+        "roomAgeCategories": roomAgeCategories == null
+            ? []
+            : List<dynamic>.from(roomAgeCategories!.map((x) => x)),
       };
 }
 
@@ -484,16 +585,22 @@ class RatePlan {
         basePrice: json["basePrice"],
         promo: json["promo"],
         basePriceBeforePromo: json["basePriceBeforePromo"],
-        amenities:
-            json["amenities"] == null ? [] : List<Amenity>.from(json["amenities"]!.map((x) => Amenity.fromJson(x))),
-        bedGroups:
-            json["bedGroups"] == null ? [] : List<GtdBedGroup>.from(json["bedGroups"]!.map((x) => Amenity.fromJson(x))),
+        amenities: json["amenities"] == null
+            ? []
+            : List<Amenity>.from(
+                json["amenities"]!.map((x) => Amenity.fromJson(x))),
+        bedGroups: json["bedGroups"] == null
+            ? []
+            : List<GtdBedGroup>.from(
+                json["bedGroups"]!.map((x) => Amenity.fromJson(x))),
         cancelPenalties: json["cancelPenalties"] == null
             ? []
-            : List<GtdHotelCancelPenalty>.from(json["cancelPenalties"]!.map((x) => GtdHotelCancelPenalty.fromJson(x))),
+            : List<GtdHotelCancelPenalty>.from(json["cancelPenalties"]!
+                .map((x) => GtdHotelCancelPenalty.fromJson(x))),
         paxPrice: json["paxPrice"] == null
             ? []
-            : List<GtdHotelPaxPrice>.from(json["paxPrice"]!.map((x) => GtdHotelPaxPrice.fromJson(x))),
+            : List<GtdHotelPaxPrice>.from(
+                json["paxPrice"]!.map((x) => GtdHotelPaxPrice.fromJson(x))),
         totalPrice: json["totalPrice"],
         totalPriceByHotelCurrency: json["totalPriceByHotelCurrency"],
         taxAndFees: json["taxAndFees"],
@@ -501,7 +608,10 @@ class RatePlan {
         fees: json["fees"],
         promoDescription: json["promoDescription"],
         cancelFreeBeforeDate: json["cancelFreeBeforeDate"],
-        meals: json["meals"] == null ? [] : List<Amenity>.from(json["meals"]!.map((x) => Amenity.fromJson(x))),
+        meals: json["meals"] == null
+            ? []
+            : List<Amenity>.from(
+                json["meals"]!.map((x) => Amenity.fromJson(x))),
         salesEnv: json["salesEnv"],
         rateOption: json["rateOption"],
         adjustNetPrices: json["adjustNetPrices"],
@@ -519,10 +629,18 @@ class RatePlan {
         "basePrice": basePrice,
         "promo": promo,
         "basePriceBeforePromo": basePriceBeforePromo,
-        "amenities": amenities == null ? [] : List<dynamic>.from(amenities!.map((x) => x)),
-        "bedGroups": bedGroups == null ? [] : List<dynamic>.from(bedGroups!.map((x) => x)),
-        "cancelPenalties": cancelPenalties == null ? [] : List<dynamic>.from(cancelPenalties!.map((x) => x)),
-        "paxPrice": paxPrice == null ? [] : List<dynamic>.from(paxPrice!.map((x) => x.toJson())),
+        "amenities": amenities == null
+            ? []
+            : List<dynamic>.from(amenities!.map((x) => x)),
+        "bedGroups": bedGroups == null
+            ? []
+            : List<dynamic>.from(bedGroups!.map((x) => x)),
+        "cancelPenalties": cancelPenalties == null
+            ? []
+            : List<dynamic>.from(cancelPenalties!.map((x) => x)),
+        "paxPrice": paxPrice == null
+            ? []
+            : List<dynamic>.from(paxPrice!.map((x) => x.toJson())),
         "totalPrice": totalPrice,
         "totalPriceByHotelCurrency": totalPriceByHotelCurrency,
         "taxAndFees": taxAndFees,
@@ -530,18 +648,28 @@ class RatePlan {
         "fees": fees,
         "promoDescription": promoDescription,
         "cancelFreeBeforeDate": cancelFreeBeforeDate,
-        "meals": meals == null ? [] : List<dynamic>.from(meals!.map((x) => x.toJson())),
+        "meals": meals == null
+            ? []
+            : List<dynamic>.from(meals!.map((x) => x.toJson())),
         "salesEnv": salesEnv,
         "rateOption": rateOption,
         "adjustNetPrices": adjustNetPrices,
         "adjustSellPrices": adjustSellPrices,
         "nonAllotment": nonAllotment,
       };
+
+  double discountPercent() {
+    if (totalPrice == basePriceBeforePromo) return 0;
+    if ((basePriceBeforePromo ?? 0) == 0) return 0;
+    final discountAmount = (basePriceBeforePromo ?? 0) - (totalPrice ?? 0);
+    return discountAmount / (basePriceBeforePromo ?? 1) * 100;
+  }
 }
 
 class GtdBedGroup {
   String? bedGroupDescription;
   String? id;
+
   GtdBedGroup({
     this.bedGroupDescription,
     this.id,
@@ -556,7 +684,8 @@ class GtdBedGroup {
 
   factory GtdBedGroup.fromJson(Map<String, dynamic> map) {
     return GtdBedGroup(
-      bedGroupDescription: map['description'] != null ? map['description'] as String : null,
+      bedGroupDescription:
+          map['description'] != null ? map['description'] as String : null,
       id: map['id'] != null ? map['id'] as String : null,
     );
   }
@@ -566,6 +695,7 @@ class GtdBedConfiguration {
   String? size;
   String? type;
   int? quantity;
+
   GtdBedConfiguration({
     this.size,
     this.type,
@@ -592,12 +722,13 @@ class GtdBedConfiguration {
 class GtdHotelCancelPenalty {
   String? startDate; // Format: 11/09/2023 17:00
   String? endDate;
-  String? type;
+  String? type; ///PERCENT/AMOUNT
   String? currency;
   String? percent;
   String? nights;
   String? amount;
   String? description;
+
   GtdHotelCancelPenalty({
     this.startDate,
     this.endDate,
@@ -631,7 +762,8 @@ class GtdHotelCancelPenalty {
       percent: map['percent'] != null ? map['percent'] as String : null,
       nights: map['nights'] != null ? map['nights'] as String : null,
       amount: map['amount'] != null ? map['amount'] as String : null,
-      description: map['description'] != null ? map['description'] as String : null,
+      description:
+          map['description'] != null ? map['description'] as String : null,
     );
   }
 }
@@ -653,16 +785,22 @@ class GtdHotelPaxPrice {
     this.nightPrices,
   });
 
-  factory GtdHotelPaxPrice.fromJson(Map<String, dynamic> json) => GtdHotelPaxPrice(
-        paxInfo: json["paxInfo"] == null ? null : GtdHotelPaxInfo.fromJson(json["paxInfo"]),
+  factory GtdHotelPaxPrice.fromJson(Map<String, dynamic> json) =>
+      GtdHotelPaxPrice(
+        paxInfo: json["paxInfo"] == null
+            ? null
+            : GtdHotelPaxInfo.fromJson(json["paxInfo"]),
         nightPrices: json["nightPrices"] == null
             ? []
-            : List<NightPrice>.from(json["nightPrices"]!.map((x) => NightPrice.fromJson(x))),
+            : List<NightPrice>.from(
+                json["nightPrices"]!.map((x) => NightPrice.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "paxInfo": paxInfo?.toJson(),
-        "nightPrices": nightPrices == null ? [] : List<dynamic>.from(nightPrices!.map((x) => x.toJson())),
+        "nightPrices": nightPrices == null
+            ? []
+            : List<dynamic>.from(nightPrices!.map((x) => x.toJson())),
       };
 }
 
@@ -679,13 +817,15 @@ class NightPrice {
         nightKey: json["nightKey"],
         nightPriceDetails: json["nightPriceDetails"] == null
             ? []
-            : List<NightPriceDetail>.from(json["nightPriceDetails"]!.map((x) => NightPriceDetail.fromJson(x))),
+            : List<NightPriceDetail>.from(json["nightPriceDetails"]!
+                .map((x) => NightPriceDetail.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "nightKey": nightKey,
-        "nightPriceDetails":
-            nightPriceDetails == null ? [] : List<dynamic>.from(nightPriceDetails!.map((x) => x.toJson())),
+        "nightPriceDetails": nightPriceDetails == null
+            ? []
+            : List<dynamic>.from(nightPriceDetails!.map((x) => x.toJson())),
       };
 }
 
@@ -704,7 +844,8 @@ class NightPriceDetail {
     this.adjustSellValues,
   });
 
-  factory NightPriceDetail.fromJson(Map<String, dynamic> json) => NightPriceDetail(
+  factory NightPriceDetail.fromJson(Map<String, dynamic> json) =>
+      NightPriceDetail(
         name: json["name"],
         value: json["value"],
         valueByHotelCurrency: json["valueByHotelCurrency"],
@@ -734,19 +875,25 @@ class GtdHotelPaxInfo {
     this.childAges,
   });
 
-  factory GtdHotelPaxInfo.fromJson(Map<String, dynamic> json) => GtdHotelPaxInfo(
+  factory GtdHotelPaxInfo.fromJson(Map<String, dynamic> json) =>
+      GtdHotelPaxInfo(
         adultQuantity: json["adultQuantity"],
         childQuantity: json["childQuantity"],
         infantQuantity: json["infantQuantity"],
-        childAges: json["childAges"] == null ? [] : List<dynamic>.from(json["childAges"]!.map((x) => x)),
+        childAges: json["childAges"] == null
+            ? []
+            : List<dynamic>.from(json["childAges"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "adultQuantity": adultQuantity,
         "childQuantity": childQuantity,
         "infantQuantity": infantQuantity,
-        "childAges": childAges == null ? [] : List<dynamic>.from(childAges!.map((x) => x)),
+        "childAges": childAges == null
+            ? []
+            : List<dynamic>.from(childAges!.map((x) => x)),
       };
+
   int get totalGuest {
     return (adultQuantity ?? 0) + (childQuantity ?? 0) + (infantQuantity ?? 0);
   }

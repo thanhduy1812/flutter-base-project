@@ -5,8 +5,8 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_passenger_fare_info.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_price.dart';
 import 'package:collection/collection.dart';
+import 'package:gtd_utils/helpers/extension/number_extension.dart';
 import 'gtd_flight_search_result_dto.dart';
-import 'package:intl/intl.dart' as intl;
 
 class GtdItineraryDisplayPriceInfo {
   double tempPrice = 0;
@@ -123,6 +123,6 @@ extension GtdAirlineCabinClassHelper on GtdAirlineCabinClass {
 
   String? get adultPrice {
     double? priceAdult = getDisplayPrice();
-    return '${intl.NumberFormat.decimalPattern().format(priceAdult)} đ';
+    return priceAdult.toCurrency();
   }
 }

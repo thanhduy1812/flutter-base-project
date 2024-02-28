@@ -15,6 +15,17 @@ extension GtdImage on Image {
     );
   }
 
+  static Widget svgFromAsset(
+      {required String assetPath, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
+    return SvgPicture.asset(
+      assetPath,
+      width: width,
+      height: height,
+      fit: fit,
+      colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+    );
+  }
+
   static Widget svgFromSupplier(
       {required String assetName, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
     return SvgPicture.asset(
@@ -86,16 +97,21 @@ extension GtdImage on Image {
     );
   }
 
-  static Widget cachedImgUrlWithPlaceholder({required String url, Widget? placeholder, BoxFit? fit}) {
+  static Widget cachedImgUrlWithPlaceholder({
+    required String url,
+    Widget? placeholder,
+    Widget? errorWidget,
+    BoxFit? fit,
+  }) {
     return CachedNetworkImage(
       imageUrl: url,
       fit: fit,
-      placeholder: (context, url) => Container(
+      placeholder: (context, url) => placeholder ?? Container(
         width: 270,
         height: 90,
         color: Colors.white,
       ),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      errorWidget: (context, url, error) => errorWidget ?? const Icon(Icons.error),
     );
   }
 

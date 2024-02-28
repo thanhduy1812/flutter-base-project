@@ -9,6 +9,8 @@ class BaseWebViewPageViewModel extends BasePageViewModel {
   bool isFirstLoad = false;
   StreamController<bool> loadingController = StreamController();
   BaseWebViewPageViewModel({
+    super.title,
+    super.subTitle,
     required this.url,
   });
 }

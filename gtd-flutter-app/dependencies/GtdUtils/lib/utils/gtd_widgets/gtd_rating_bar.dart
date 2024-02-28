@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
@@ -25,7 +26,9 @@ class GtdRatingBar extends StatelessWidget {
         color: CustomColors.mainOrange,
       ),
       onRatingUpdate: (rating) {
-        print(rating);
+        if (kDebugMode) {
+          print(rating);
+        }
       },
     );
   }
