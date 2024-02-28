@@ -33,8 +33,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
@@ -54,25 +53,39 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: size.height,
       width: size.width,
       child: Center(
-        child: Lottie.network(
-          'https://lottie.host/f2d08d7b-088a-452f-8d5e-9455be0eec8c/WDXlrxe5qk.json',
+        child: Lottie.asset(
+          "assets/splash/nghiep-thang-lottie.json",
+          fit: BoxFit.fill,
           controller: _controller,
           onLoaded: (composition) {
             _controller
               ..duration = composition.duration
-              ..forward()
-                  .whenComplete(() => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const ScreenWrapper(),
-                        ),
-                      ));
+              ..forward().whenComplete(() => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const ScreenWrapper(),
+                    ),
+                  ));
           },
-          repeat: false,
         ),
+        // child: Lottie.network(
+        //   'https://lottie.host/f2d08d7b-088a-452f-8d5e-9455be0eec8c/WDXlrxe5qk.json',
+        //   controller: _controller,
+        //   onLoaded: (composition) {
+        //     _controller
+        //       ..duration = composition.duration
+        //       ..forward()
+        //           .whenComplete(() => Navigator.of(context).pushReplacement(
+        //                 MaterialPageRoute(
+        //                   builder: (context) => const ScreenWrapper(),
+        //                 ),
+        //               ));
+        //   },
+        //   repeat: false,
+        // ),
       ),
     );
   }
@@ -88,9 +101,8 @@ class ScreenWrapper extends StatefulWidget {
 class _ScreenWrapperState extends State<ScreenWrapper> {
   List<Widget> screens = [
     const HomeScreen(),
-    SearchPage(),
-    const Center(
-        child: Text('Favourites', style: TextStyle(color: Colors.white))),
+    const SearchPage(),
+    const Center(child: Text('Favourites', style: TextStyle(color: Colors.white))),
     const Center(child: Text('Profile', style: TextStyle(color: Colors.white))),
   ];
 
