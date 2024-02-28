@@ -8,17 +8,32 @@ import 'hotel_result_map_viewmodel.dart';
 
 class ComboResultMapViewModel extends HotelResultMapViewModel {
   double flightPricePerPerson = 0;
-  ComboResultMapViewModel(super.totalNight);
-  factory ComboResultMapViewModel.fromListHotelItemDTO(List<GtdHotelItemDTO> hotelItems, double flightPricePerPerson,
-      {required int totalNights}) {
-    ComboResultMapViewModel viewModel = ComboResultMapViewModel(totalNights);
+
+  ComboResultMapViewModel(super.totalNight, super.totalRoom);
+
+  factory ComboResultMapViewModel.fromListHotelItemDTO(
+      List<GtdHotelItemDTO> hotelItems, double flightPricePerPerson,
+      {required int totalNights, required int totalRoom}) {
+    ComboResultMapViewModel viewModel = ComboResultMapViewModel(
+      totalNights,
+      totalRoom,
+    );
     viewModel.hotelCardItemViewModels = hotelItems
         .map((e) => ComboResultCardItemViewModel.fromHotelItemDTO(
-            hotelItemDTO: e, totalNights: totalNights, flightPricePerPerson: flightPricePerPerson))
+              hotelItemDTO: e,
+              totalNights: totalNights,
+              flightPricePerPerson: flightPricePerPerson,
+              totalRoom: totalRoom,
+            ))
         .map((e) => e..cardItemType = HotelResultCardItemType.horizontal)
         .toList();
-    viewModel.focusMapController.stream.debounceTime(const Duration(seconds: 1)).listen((event) {
-      viewModel.mapController.moveToPoint(event);
+    viewModel.focusMapController.stream
+        .debounceTime(const Duration(milliseconds: 500))
+        .listen((event) {
+      viewModel.mapController.moveToPoint(
+        event,
+        zoom: viewModel.zoomLevel,
+      );
     });
 
     viewModel.flightPricePerPerson = flightPricePerPerson;
@@ -33,7 +48,11 @@ class ComboResultMapViewModel extends HotelResultMapViewModel {
     hasNextPage = hotelSearchResultDTO.pageData.hasNextPage;
     var nextItems = hotelSearchResultDTO.pageData.data
         .map((e) => ComboResultCardItemViewModel.fromHotelItemDTO(
-            hotelItemDTO: e, flightPricePerPerson: flightPricePerPerson, totalNights: totalNight))
+              hotelItemDTO: e,
+              flightPricePerPerson: flightPricePerPerson,
+              totalNights: totalNight,
+              totalRoom: totalRoom,
+            ))
         .toList();
     hotelCardItemViewModels.addAll(nextItems);
   }

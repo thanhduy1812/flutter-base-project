@@ -8,7 +8,5 @@ abstract class GetLocationEvent extends Equatable {
 }
 
 class GetLocationFetched extends GetLocationEvent {
-  @override
-  final String keyword;
-  const GetLocationFetched({this.keyword = ''}) : super(keyword: keyword);
+  const GetLocationFetched({super.keyword = ''});
 }

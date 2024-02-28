@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_filter_option_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_result_dto.dart';
@@ -19,7 +20,7 @@ class HotelSearchCubit extends Cubit<HotelSearchState> {
     result.when((success) => emit(HotelSearchLoaded(success)), (error) => emit(HotelSearchError(apiError: error)));
   }
 
-    void searchHotelBestRateWithSort(Map<String, dynamic> request) async {
+  void searchHotelBestRateWithSort(Map<String, dynamic> request) async {
     emit(HotelSearchLoading());
     var result = await GtdHotelRepository.shared.searchHotelBestRate(request);
     result.when((success) => emit(HotelSortLoaded(success)), (error) => emit(HotelSearchError(apiError: error)));
@@ -33,18 +34,23 @@ class HotelSearchCubit extends Cubit<HotelSearchState> {
   }
 
   void applyFilter(Map<String, dynamic> request) {
-    print(request);
+    if (kDebugMode) {
+      print(request);
+    }
     searchHotelBestRate(request);
   }
 
   void refreshSearchResult(Map<String, dynamic> request) {
-    print(request);
+    if (kDebugMode) {
+      print(request);
+    }
     searchHotelBestRate(request);
   }
 
   Future<void> searchLoadMoreHotelBestRate(Map<String, dynamic> request) async {
     var result = await GtdHotelRepository.shared.searchHotelBestRate(request);
-    result.when((success) => emit(HotelSearchLoadmoreLoaded(success)), (error) => emit( HotelSearchError(apiError: error)));
+    result.when(
+        (success) => emit(HotelSearchLoadmoreLoaded(success)), (error) => emit(HotelSearchError(apiError: error)));
   }
 
   @override

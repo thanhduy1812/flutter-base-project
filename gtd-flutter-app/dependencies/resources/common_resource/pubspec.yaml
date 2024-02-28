@@ -28,11 +28,10 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/bank-icon/
-    - assets/icons/hotel/
     - assets/icons/airlines/
     - assets/env/
-    - assets/env/env.prod
-    - assets/env/env.uat
+    - assets/env/.env.prod
+    - assets/env/.env.uat
   # For details regarding assets in packages, see
   # https://flutter.dev/assets-and-images/#from-packages
   #

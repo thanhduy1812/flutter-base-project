@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/my_booking/view_model/gtd_my_booking_page_viewmodel.dart';
 import 'package:gtd_booking/modules/my_booking/views/my_booking_loading.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_outline_select_button/view/gtd_outline_select_button.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/booking_resource.dart';
 import 'package:gtd_utils/helpers/extension/loadmore_list_extention.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 
 import '../bloc_cubit/my_booking_cubit.dart';
 import '../view_model/my_booking_item_viewmodel.dart';
@@ -30,12 +28,12 @@ class GtdMyBookingPage extends BaseStatelessPage<GtdMyBookingPageViewModel> {
         child: BlocConsumer<MyBookingCubit, MyBookingState>(
           listener: (contextMyBooking, state) {
             if (state is MyBookingErrorState) {
-              GtdPopupMessage.showConfirm(
-                context: contextMyBooking,
-                error: state.apiError.message,
-                onCancel: () => pageContext.pop(),
-                onConfirm: () => pageContext.pop(),
-              );
+              // GtdPopupMessage.showConfirm(
+              //   context: contextMyBooking,
+              //   error: state.apiError.message,
+              //   onCancel: () => pageContext.pop(),
+              //   onConfirm: () => pageContext.pop(),
+              // );
             }
           },
           builder: (context, state) {
@@ -72,9 +70,9 @@ class GtdMyBookingPage extends BaseStatelessPage<GtdMyBookingPageViewModel> {
                     ),
                     StatefulBuilder(builder: (context, setState) {
                       return SizedBox(
-                        height: 45,
+                        height: 50,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          padding: const EdgeInsets.only(top: 16),
                           child: ListView.separated(
                             padding: const EdgeInsets.only(left: 16),
                             scrollDirection: Axis.horizontal,
@@ -114,9 +112,12 @@ class GtdMyBookingPage extends BaseStatelessPage<GtdMyBookingPageViewModel> {
                       );
                     }),
                     Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         child: Builder(builder: (myBookingContext) {
+                          if (myBookingState is MyBookingErrorState) {
+                            return const SizedBox();
+                          }
                           if (myBookingState is MyBookingLoadingState) {
                             if (myBookingState.status == MyBookingStatus.success ||
                                 myBookingState.status == MyBookingStatus.isLoadMore) {

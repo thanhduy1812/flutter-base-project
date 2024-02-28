@@ -57,265 +57,22 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
               builder: (rebuildContext, rebuildState) {
                 return BlocBuilder<CheckoutCubit, CheckoutState>(
                   builder: (checkoutContext, infoFormState) {
-                    return StatefulBuilder(builder: (context, setState) {
-                      return Ink(
-                        color: Colors.grey.shade50,
-                        child: CustomScrollView(
-                          slivers: [
-                            Builder(
-                              builder: (context) {
-                                if (viewModel is GtdFlightCheckoutContentViewModel) {
-                                  return BlocProvider(
-                                    create: (context) =>
-                                        FlightServiceRequestCubit(bookingDetailDTO: viewModel.bookingDetailDTO)
-                                          ..getServiceRequests(),
-                                    child: BlocBuilder<FlightServiceRequestCubit, FlightServiceRequestState>(
-                                      builder: (serviceContext, serviceState) {
-                                        if (serviceState is FlightServiceRequestLoaded &&
-                                            viewModel is GtdFlightCheckoutContentViewModel) {
-                                          (viewModel as GtdFlightCheckoutContentViewModel)
-                                              .updateFetchedSSRItems(serviceState.ssrOfferDTOs);
-                                        }
-                                        return FlightItemSummaryListInfo.buildHorizontalListFlightItems(
-                                            viewModel.bookingDetailDTO.flightDetailItems ?? []);
-                                      },
-                                    ),
-                                  );
-                                }
-                                if (viewModel is GtdHotelCheckoutContentViewModel) {
-                                  return SliverToBoxAdapter(
-                                      child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                                    child: SizedBox(
-                                        child: HotelSummaryItem(
-                                            viewModel: HotelSummaryItemViewModel.fromBookingDetailDTO(
-                                                bookingDetailDTO: viewModel.bookingDetailDTO))),
-                                  ));
-                                }
-
-                                if (viewModel is GtdComboCheckoutContentViewModel) {
-                                  return BlocProvider(
-                                    create: (context) =>
-                                        FlightServiceRequestCubit(bookingDetailDTO: viewModel.bookingDetailDTO)
-                                          ..getServiceRequests(),
-                                    child: BlocBuilder<FlightServiceRequestCubit, FlightServiceRequestState>(
-                                      builder: (serviceContext, serviceState) {
-                                        if (serviceState is FlightServiceRequestLoaded &&
-                                            viewModel is GtdComboCheckoutContentViewModel) {
-                                          (viewModel as GtdComboCheckoutContentViewModel)
-                                              .updateFetchedSSRItems(serviceState.ssrOfferDTOs);
-                                        }
-                                        // return FlightItemSummaryListInfo.buildHorizontalListFlightItems(
-                                        //     viewModel.bookingDetailDTO.flightDetailItems ?? []);
-                                        List<FlightSummaryItemViewModel> flightItemViewModels = (viewModel
-                                                    .bookingDetailDTO.flightDetailItems ??
-                                                [])
-                                            .map((e) => FlightSummaryItemViewModel.fromItemDetail(flightItemDetail: e))
-                                            .toList();
-                                        HotelSummaryItemViewModel hotelSummaryItemViewModel =
-                                            HotelSummaryItemViewModel.fromBookingDetailDTO(
-                                                bookingDetailDTO: viewModel.bookingDetailDTO);
-                                        return SliverToBoxAdapter(
-                                            child: ComboSummaryItem(
-                                                viewModel: ComboSummaryItemViewModel(
-                                                    flightItemViewModels: flightItemViewModels,
-                                                    hotelItemViewModel: hotelSummaryItemViewModel)));
-                                      },
-                                    ),
-                                  );
-                                }
-
-                                return const SliverToBoxAdapter();
-                              },
-                            ),
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Text.rich(
-                                  TextSpan(children: [
-                                    TextSpan(
-                                        text: "Thông tin hành khách \n",
-                                        style: TextStyle(
-                                            fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-                                    TextSpan(
-                                        text:
-                                            "Vui lòng nhập Tiếng Việt không dấu hoặc Tiếng Anh theo thông tin CMND/CCCD/Passport",
-                                        style: TextStyle(
-                                            fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText)),
-                                  ]),
-                                ),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Ink(
-                                  decoration: ShapeDecoration(
-                                    color: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    shadows: const [
-                                      BoxShadow(
-                                        color: Color.fromRGBO(0, 0, 0, 0.05),
-                                        spreadRadius: 0,
-                                        blurRadius: 0,
-                                        offset: Offset(0, 1), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: BlocBuilder<SavedTravellerCubit, SavedTravellerState>(
-                                    builder: (savedTravellerContext, savedTravellerState) {
-                                      bool isDisable = savedTravellerState is SavedTravellerStateLoading;
-                                      if (savedTravellerState is SavedTravellerInitial) {
-                                        pageViewModel.savedTravellers = (savedTravellerState).travellers;
-                                      }
-
-                                      return BlocBuilder<CountryCodesCubit, CountryCodesState>(
-                                        builder: (countryContext, countryState) {
-                                          pageViewModel.countries = countryState.countries;
-                                          return StreamBuilder(
-                                              stream: viewModel.passengersStream,
-                                              builder: (context, snapshot) {
-                                                if (snapshot.data == null) {
-                                                  return const SizedBox();
-                                                }
-                                                List<CheckoutTravellerFormVM> travellers = snapshot.data ?? [];
-                                                return ListView.separated(
-                                                  shrinkWrap: true,
-                                                  physics: const NeverScrollableScrollPhysics(),
-                                                  itemCount: travellers.length,
-                                                  itemBuilder: (context, index) {
-                                                    var travelerVM = travellers[index];
-                                                    return Padding(
-                                                      padding: const EdgeInsets.symmetric(vertical: 0),
-                                                      child: GestureDetector(
-                                                        behavior: HitTestBehavior.opaque,
-                                                        onTap: isDisable
-                                                            ? null
-                                                            : () {
-                                                                var inputInfoViewModel =
-                                                                    InputInfoPassengerPageViewModel(
-                                                                        title: travelerVM.adultTitle,
-                                                                        travelerInputInfoDTO: travelerVM
-                                                                                .travelerInputInfoDTO ??
-                                                                            TravelerInputInfoDTO(
-                                                                                title: travellers[index].adultTitle,
-                                                                                adultType: travelerVM.adultType,
-                                                                                infoType: (viewModel
-                                                                                        is GtdHotelCheckoutContentViewModel)
-                                                                                    ? TravelerInputInfoType
-                                                                                        .presenterHotel
-                                                                                    : (viewModel
-                                                                                            is GtdComboCheckoutContentViewModel)
-                                                                                        ? TravelerInputInfoType
-                                                                                            .travelerCombo
-                                                                                        : TravelerInputInfoType
-                                                                                            .traveler),
-                                                                        // savedTravellers: pageViewModel.savedTravellers.where((element) => element.adultType == travelerVM.adultType.value).toList(),
-                                                                        savedTravellers: pageViewModel.savedTravellers
-                                                                            .where((element) =>
-                                                                                element.adultType ==
-                                                                                    travelerVM.adultType.value ||
-                                                                                element.dob == null)
-                                                                            .toList(),
-                                                                        countries: pageViewModel.countries);
-                                                                var result = context.push(
-                                                                  InputInfoPassengerPage.route,
-                                                                  extra: inputInfoViewModel,
-                                                                );
-                                                                result.then((value) {
-                                                                  print(value);
-                                                                  TravelerInputInfoDTO? infoDTO =
-                                                                      value as TravelerInputInfoDTO?;
-                                                                  if (infoDTO != null) {
-                                                                    viewModel.updatePassengerFromTravelerInputInfo(
-                                                                        key: travellers[index].position,
-                                                                        infoDTO: infoDTO);
-                                                                  }
-                                                                });
-                                                              },
-                                                        child: Opacity(
-                                                          opacity: isDisable ? 0.4 : 1,
-                                                          child: BoxPassengerForm(
-                                                            key: travellers[index].position,
-                                                            travellerForm: travellers[index],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  separatorBuilder: (context, index) => const Divider(),
-                                                );
-                                              });
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SliverToBoxAdapter(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 16),
-                                child: StreamBuilder(
-                                    stream: viewModel.contactStream,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.data == null) {
-                                        return const SizedBox();
-                                      }
-                                      var contactForm = snapshot.data!;
-                                      return BoxContactInfo(
-                                        key: contactForm.position,
-                                        contactForm: contactForm,
-                                      );
-                                    }),
-                              ),
-                            ),
-                            Builder(builder: (context) {
-                              if (viewModel is GtdComboCheckoutContentViewModel) {
-                                return SliverToBoxAdapter(
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        leading: const Icon(
-                                          Icons.warning_rounded,
-                                          size: 40,
-                                        ),
-                                        title: Text(
-                                          "Thông tin quan trọng về combo của bạn!",
-                                          style: TextStyle(
-                                              fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText),
-                                        ),
-                                      ),
-                                      Card(
-                                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: Text.rich(TextSpan(
-                                              text: "Đây là giá không hoàn tiền \n",
-                                              style: TextStyle(
-                                                  fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.boldText),
-                                              children: const [
-                                                TextSpan(
-                                                    text:
-                                                        "Nếu có thay đổi hoặc hủy dịch vụ này, quý khách sẽ không nhận được bất kỳ khoản hoàn trả nào.Chúng tôi hiểu rằng, có thể có những thay đổi trong kế hoạch chuyến đi của quý vị. Gotadi sẽ linh hoạt hỗ trợ đối với những yêu cầu phát sinh và trong điều kiện cho phép đối với từng loại dịch vụ (theo điều kiện riêng của vé máy bay, nơi lưu trú)…",
-                                                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400)),
-                                              ])),
-                                        ),
-                                      ),
-                                      const SizedBox(height: 16),
-                                    ],
-                                  ),
-                                );
-                              } else {
-                                return _buildInvoiceCell(pageViewModel, context);
-                              }
-                            }),
-                          ],
-                        ),
-                      );
-                    });
+                    return StatefulBuilder(
+                      builder: (context, setState) {
+                        return Ink(
+                          color: Colors.grey.shade50,
+                          child: CustomScrollView(
+                            slivers: [
+                              _flightItems(),
+                              _travellerInfoTitle(),
+                              _travellerInfoData(pageViewModel),
+                              _contactInfo(),
+                              _comboData(pageViewModel),
+                            ],
+                          ),
+                        );
+                      },
+                    );
                   },
                 );
               },
@@ -326,7 +83,357 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
     }
   }
 
-  SliverToBoxAdapter _buildInvoiceCell(CheckoutPageViewModel pageViewModel, BuildContext context) {
+  Builder _comboData(CheckoutPageViewModel pageViewModel) {
+    return Builder(
+      builder: (context) {
+        if (viewModel is GtdComboCheckoutContentViewModel) {
+          return SliverToBoxAdapter(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.warning_rounded,
+                    size: 40,
+                  ),
+                  title: Text(
+                    "Thông tin quan trọng về combo của bạn!",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.boldText,
+                    ),
+                  ),
+                ),
+                Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text.rich(
+                      TextSpan(
+                        text: "Đây là giá không hoàn tiền \n",
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.boldText,
+                        ),
+                        children: const [
+                          TextSpan(
+                            text:
+                                "Nếu có thay đổi hoặc hủy dịch vụ này, quý khách sẽ không nhận được bất kỳ khoản hoàn trả nào.Chúng tôi hiểu rằng, có thể có những thay đổi trong kế hoạch chuyến đi của quý vị. Gotadi sẽ linh hoạt hỗ trợ đối với những yêu cầu phát sinh và trong điều kiện cho phép đối với từng loại dịch vụ (theo điều kiện riêng của vé máy bay, nơi lưu trú)…",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
+          );
+        } else {
+          return _buildInvoiceCell(pageViewModel, context);
+        }
+      },
+    );
+  }
+
+  SliverToBoxAdapter _contactInfo() {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: StreamBuilder(
+          stream: viewModel.contactStream,
+          builder: (context, snapshot) {
+            if (snapshot.data == null) {
+              return const SizedBox();
+            }
+            var contactForm = snapshot.data!;
+            return BoxContactInfo(
+              key: contactForm.position,
+              contactForm: contactForm,
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _travellerInfoData(CheckoutPageViewModel pageViewModel) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Ink(
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            shadows: const [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.05),
+                spreadRadius: 0,
+                blurRadius: 0,
+                offset: Offset(0, 1), // changes position of shadow
+              ),
+            ],
+          ),
+          child: BlocBuilder<SavedTravellerCubit, SavedTravellerState>(
+            builder: (savedTravellerContext, savedTravellerState) {
+              bool isDisable = savedTravellerState is SavedTravellerStateLoading;
+              if (savedTravellerState is SavedTravellerInitial) {
+                pageViewModel.savedTravellers = (savedTravellerState).travellers;
+              }
+
+              return BlocBuilder<CountryCodesCubit, CountryCodesState>(
+                builder: (countryContext, countryState) {
+                  pageViewModel.countries = countryState.countries;
+                  return StreamBuilder(
+                    stream: viewModel.passengersStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return const SizedBox();
+                      }
+                      List<CheckoutTravellerFormVM> travellers = snapshot.data ?? [];
+                      if (viewModel.bookingDetailDTO.supplierType == 'HOTEL') {
+                        var travelerVM = travellers.first;
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 0),
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: isDisable
+                                ? null
+                                : () {
+                                    var inputInfoViewModel = InputInfoPassengerPageViewModel(
+                                      title: travelerVM.adultTitle,
+                                      travelerInputInfoDTO: travelerVM.travelerInputInfoDTO ??
+                                          TravelerInputInfoDTO(
+                                            title: travelerVM.adultTitle,
+                                            adultType: travelerVM.adultType,
+                                            infoType: (viewModel is GtdHotelCheckoutContentViewModel)
+                                                ? TravelerInputInfoType.presenterHotel
+                                                : (viewModel is GtdComboCheckoutContentViewModel)
+                                                    ? TravelerInputInfoType.travelerCombo
+                                                    : TravelerInputInfoType.traveler,
+                                          ),
+                                      // savedTravellers: pageViewModel.savedTravellers.where((element) => element.adultType == travelerVM.adultType.value).toList(),
+                                      savedTravellers: pageViewModel.savedTravellers
+                                          .where((element) =>
+                                              element.adultType == travelerVM.adultType.value || element.dob == null)
+                                          .toList(),
+                                      countries: pageViewModel.countries,
+                                      adultType: travelerVM.adultType,
+                                    );
+                                    var result = context.push(
+                                      InputInfoPassengerPage.route,
+                                      extra: inputInfoViewModel,
+                                    );
+                                    result.then((value) {
+                                      debugPrint(value.toString());
+                                      TravelerInputInfoDTO? infoDTO = value as TravelerInputInfoDTO?;
+                                      if (infoDTO != null) {
+                                        viewModel.updatePassengerFromTravelerInputInfo(
+                                          key: travelerVM.position,
+                                          infoDTO: infoDTO,
+                                        );
+                                      }
+                                    });
+                                  },
+                            child: Opacity(
+                              opacity: isDisable ? 0.4 : 1,
+                              child: BoxPassengerForm(
+                                key: travelerVM.position,
+                                travellerForm: travelerVM,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: travellers.length,
+                        itemBuilder: (context, index) {
+                          var travelerVM = travellers[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 0),
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: isDisable
+                                  ? null
+                                  : () {
+                                      var inputInfoViewModel = InputInfoPassengerPageViewModel(
+                                        title: travelerVM.adultTitle,
+                                        travelerInputInfoDTO: travelerVM.travelerInputInfoDTO ??
+                                            TravelerInputInfoDTO(
+                                              title: travellers[index].adultTitle,
+                                              adultType: travelerVM.adultType,
+                                              infoType: (viewModel is GtdHotelCheckoutContentViewModel)
+                                                  ? TravelerInputInfoType.presenterHotel
+                                                  : (viewModel is GtdComboCheckoutContentViewModel)
+                                                      ? TravelerInputInfoType.travelerCombo
+                                                      : TravelerInputInfoType.traveler,
+                                            ),
+                                        // savedTravellers: pageViewModel.savedTravellers.where((element) => element.adultType == travelerVM.adultType.value).toList(),
+                                        savedTravellers: pageViewModel.savedTravellers
+                                            .where((element) =>
+                                                element.adultType == travelerVM.adultType.value || element.dob == null)
+                                            .toList(),
+                                        countries: pageViewModel.countries,
+                                        adultType: travelerVM.adultType,
+                                      );
+                                      var result = context.push(
+                                        InputInfoPassengerPage.route,
+                                        extra: inputInfoViewModel,
+                                      );
+                                      result.then((value) {
+                                        debugPrint(value.toString());
+                                        TravelerInputInfoDTO? infoDTO = value as TravelerInputInfoDTO?;
+                                        if (infoDTO != null) {
+                                          viewModel.updatePassengerFromTravelerInputInfo(
+                                            key: travellers[index].position,
+                                            infoDTO: infoDTO,
+                                          );
+                                        }
+                                      });
+                                    },
+                              child: Opacity(
+                                opacity: isDisable ? 0.4 : 1,
+                                child: BoxPassengerForm(
+                                  key: travellers[index].position,
+                                  travellerForm: travellers[index],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => const Divider(),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _travellerInfoTitle() {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.all(16).copyWith(
+          top: 24,
+        ),
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: "Thông tin hành khách \n",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.boldText,
+                ),
+              ),
+              TextSpan(
+                text: "Vui lòng nhập Tiếng Việt không dấu hoặc Tiếng Anh "
+                    "theo thông tin CMND/CCCD/Passport",
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.subText,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Builder _flightItems() {
+    return Builder(
+      builder: (context) {
+        if (viewModel is GtdFlightCheckoutContentViewModel) {
+          return BlocProvider(
+            create: (context) =>
+                FlightServiceRequestCubit(bookingDetailDTO: viewModel.bookingDetailDTO)..getServiceRequests(),
+            child: BlocBuilder<FlightServiceRequestCubit, FlightServiceRequestState>(
+              builder: (serviceContext, serviceState) {
+                if (serviceState is FlightServiceRequestLoaded && viewModel is GtdFlightCheckoutContentViewModel) {
+                  (viewModel as GtdFlightCheckoutContentViewModel).updateFetchedSSRItems(serviceState.ssrOfferDTOs);
+                }
+                return FlightItemSummaryListInfo.buildHorizontalListFlightItems(
+                  viewModel.bookingDetailDTO.flightDetailItems ?? [],
+                );
+              },
+            ),
+          );
+        }
+        if (viewModel is GtdHotelCheckoutContentViewModel) {
+          return SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: SizedBox(
+                child: HotelSummaryItem(
+                  viewModel: HotelSummaryItemViewModel.fromBookingDetailDTO(
+                    bookingDetailDTO: viewModel.bookingDetailDTO,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+
+        if (viewModel is GtdComboCheckoutContentViewModel) {
+          return BlocProvider(
+            create: (context) => FlightServiceRequestCubit(
+              bookingDetailDTO: viewModel.bookingDetailDTO,
+            )..getServiceRequests(),
+            child: BlocBuilder<FlightServiceRequestCubit, FlightServiceRequestState>(
+              builder: (serviceContext, serviceState) {
+                if (serviceState is FlightServiceRequestLoaded && viewModel is GtdComboCheckoutContentViewModel) {
+                  (viewModel as GtdComboCheckoutContentViewModel).updateFetchedSSRItems(serviceState.ssrOfferDTOs);
+                }
+                // return FlightItemSummaryListInfo.buildHorizontalListFlightItems(
+                //     viewModel.bookingDetailDTO.flightDetailItems ?? []);
+                List<FlightSummaryItemViewModel> flightItemViewModels =
+                    (viewModel.bookingDetailDTO.flightDetailItems ?? [])
+                        .map((e) => FlightSummaryItemViewModel.fromItemDetail(flightItemDetail: e))
+                        .toList();
+                HotelSummaryItemViewModel hotelSummaryItemViewModel =
+                    HotelSummaryItemViewModel.fromBookingDetailDTO(bookingDetailDTO: viewModel.bookingDetailDTO);
+                return SliverToBoxAdapter(
+                  child: ComboSummaryItem(
+                    viewModel: ComboSummaryItemViewModel(
+                      flightItemViewModels: flightItemViewModels,
+                      hotelItemViewModel: hotelSummaryItemViewModel,
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        return const SliverToBoxAdapter();
+      },
+    );
+  }
+
+  SliverToBoxAdapter _buildInvoiceCell(
+    CheckoutPageViewModel pageViewModel,
+    BuildContext context,
+  ) {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -336,8 +443,13 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
             Text.rich(
               TextSpan(children: [
                 TextSpan(
-                    text: "Thông tin xuất hoá đơn",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText)),
+                  text: "Thông tin xuất hoá đơn",
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.boldText,
+                  ),
+                ),
               ]),
             ),
             Card(
@@ -354,6 +466,7 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
                           value: true,
                           groupValue: pageViewModel.isTaxReceipt,
                           onChanged: (value) {
+                            // ignore: avoid_print
                             print(value);
                             InputInvoicePageViewModel invoicePageViewModel = InputInvoicePageViewModel(
                                 countries: pageViewModel.countries,
@@ -377,6 +490,7 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
                           value: false,
                           groupValue: pageViewModel.isTaxReceipt,
                           onChanged: (value) {
+                            // ignore: avoid_print
                             print(value);
                             pageViewModel.isTaxReceipt = value;
                             pageViewModel.invoiceBookingInfo = null;
@@ -389,41 +503,59 @@ class GtdCheckoutContentView extends BaseView<GtdCheckoutContentViewModel> {
                       height: 12,
                     ),
                     Text.rich(
-                      TextSpan(children: [
-                        TextSpan(
-                            text: "Từ ngày 03/05/2022 Gotadi chuyển sang xuất hóa đơn điện tử ",
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.boldText)),
-                        TextSpan(
-                            text:
-                                "với những đặt chỗ trong cùng ngày giao dịch. Những giao dịch quá hạn Gotadi xin phép từ chối yêu cầu hỗ trợ điều chỉnh thông tin hoặc xuất hóa đơn. ",
-                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.normalText)),
-                        TextSpan(
-                          text: "Tìm hiểu thêm",
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.mainColor),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
-                              GtdResourceLoader.loadContentFromResource(
-                                      pathResource: GtdResourceLoader.gotadiInvoicePath)
-                                  .then((value) {
-                                GtdPresentViewHelper.presentView(
-                                    title: "Lưu ý xuất hoá đơn điện tử",
-                                    context: context,
-                                    builder: Builder(
-                                      builder: (context) {
-                                        return GtdHtmlView(
-                                          htmlString: value,
-                                        );
-                                      },
-                                    ));
-                              });
-                            },
-                        ),
-                      ]),
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Từ ngày 03/05/2022 Gotadi chuyển sang xuất "
+                                "hóa đơn điện tử ",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.boldText,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "với những đặt chỗ trong cùng ngày giao dịch. "
+                                "Những giao dịch quá hạn Gotadi xin phép "
+                                "từ chối yêu cầu hỗ trợ điều chỉnh thông tin "
+                                "hoặc xuất hóa đơn. ",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.normalText,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Tìm hiểu thêm",
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.mainColor),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () async {
+                                GtdResourceLoader.loadContentFromResource(
+                                  pathResource: GtdResourceLoader.gotadiInvoicePath,
+                                ).then(
+                                  (value) {
+                                    GtdPresentViewHelper.presentView(
+                                      title: "Lưu ý xuất hoá đơn điện tử",
+                                      context: context,
+                                      builder: Builder(
+                                        builder: (context) {
+                                          return GtdHtmlView(
+                                            htmlString: value,
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

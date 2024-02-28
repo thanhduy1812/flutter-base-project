@@ -1,3 +1,5 @@
+import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_controller.dart';
+import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_detail_dto.dart';
@@ -8,6 +10,8 @@ import '../view/hotel_search_detail_view/view_model/hotel_search_detail_list_roo
 class HotelSearchDetailPageViewModel extends BasePageViewModel {
   late GtdHotelSearchDetailDTO hotelSearchDetailDTO;
   late GtdHotelSearchAllRateRq searchAllRateRq;
+  GtdMapController mapController = GtdMapController();
+
   HotelSearchDetailPageViewModel() {
     extendBodyBehindAppBar = true;
     // listRoomViewModels.last.isEmptyRoom = true;
@@ -24,6 +28,11 @@ class HotelSearchDetailPageViewModel extends BasePageViewModel {
     return viewModel;
   }
 
+  GtdMapPoint get mapPoint => GtdMapPoint(
+        latitude: hotelSearchDetailDTO.hotelItemDTO?.latitude ?? 10.7757644,
+        longitude: hotelSearchDetailDTO.hotelItemDTO?.longitude ?? 106.6885314,
+      );
+
   List<HotelSearchDetailListRoomViewModel> get listRoomViewModels =>
       hotelSearchDetailDTO.hotelItemDTO?.rooms
           .map(
@@ -37,7 +46,10 @@ class HotelSearchDetailPageViewModel extends BasePageViewModel {
 
   int get countNights => searchAllRateRq.checkOut.difference(searchAllRateRq.checkIn).inDays;
 
+  int get countRooms => searchAllRateRq.room;
+
   String get checkin => searchAllRateRq.checkIn.localDate("EEE, dd/MM/yyyy");
+
   String get checkout => searchAllRateRq.checkOut.localDate("EEE, dd/MM/yyyy");
 
   String get searchInfoTitle {
@@ -54,14 +66,14 @@ class HotelSearchDetailPageViewModel extends BasePageViewModel {
         .join("\n");
   }
 
-  // GtdHotelSearchAllRateRq createRequestAllrate() {
-  //   return GtdHotelSearchAllRateRq(
-  //       searchId:
-  //           "eyJzZWFyY2hJZCI6IiIsImNoZWNrSW4iOiIyMDIzLTA4LTI4IiwiY2hlY2tPdXQiOiIyMDIzLTA5LTA0IiwicGF4SW5mb3MiOlt7ImFkdWx0UXVhbnRpdHkiOjEsImNoaWxkUXVhbnRpdHkiOjAsImluZmFudFF1YW50aXR5IjowLCJjaGlsZEFnZXMiOltdfV0sImxhbmd1YWdlIjoidmkiLCJjdXJyZW5jeSI6IlZORCIsInN1cHBsaWVyIjoiRVhQRURJQSIsInNhbGVzRW52IjoiSE9URWxfT05MWSIsInJhdGVPcHRpb25zIjpbIlRBIiwiT1RBIl0sImJ1c2luZXNzVHlwZSI6IkIyQyIsInJlcXVlc3RlckNsYXNzIjpudWxsLCJzdWJTYWxlQ2hhbm5lbCI6IkIyQ19XRUIiLCJzZWFyY2hDb2RlIjoiNjI1Nzk4MiIsInNlYXJjaFR5cGUiOiJQUk9WSU5DRV9TVEFURSIsInJhdGVQbGFuc0NvdW50IjoxLCJ0YXJnZXRTdXBwbGllciI6bnVsbCwibG9jYXRpb25Db29yZGluYXRlcyI6bnVsbCwicmFkaXVzIjpudWxsfQ==",
-  //       propertyId: "2930",
-  //       supplier: "AXISROOM",
-  //       checkIn: DateTime(2023, 8, 28),
-  //       checkOut: DateTime(2023, 9, 4),
-  //       paxInfos: ["1"]);
-  // }
+// GtdHotelSearchAllRateRq createRequestAllrate() {
+//   return GtdHotelSearchAllRateRq(
+//       searchId:
+//           "eyJzZWFyY2hJZCI6IiIsImNoZWNrSW4iOiIyMDIzLTA4LTI4IiwiY2hlY2tPdXQiOiIyMDIzLTA5LTA0IiwicGF4SW5mb3MiOlt7ImFkdWx0UXVhbnRpdHkiOjEsImNoaWxkUXVhbnRpdHkiOjAsImluZmFudFF1YW50aXR5IjowLCJjaGlsZEFnZXMiOltdfV0sImxhbmd1YWdlIjoidmkiLCJjdXJyZW5jeSI6IlZORCIsInN1cHBsaWVyIjoiRVhQRURJQSIsInNhbGVzRW52IjoiSE9URWxfT05MWSIsInJhdGVPcHRpb25zIjpbIlRBIiwiT1RBIl0sImJ1c2luZXNzVHlwZSI6IkIyQyIsInJlcXVlc3RlckNsYXNzIjpudWxsLCJzdWJTYWxlQ2hhbm5lbCI6IkIyQ19XRUIiLCJzZWFyY2hDb2RlIjoiNjI1Nzk4MiIsInNlYXJjaFR5cGUiOiJQUk9WSU5DRV9TVEFURSIsInJhdGVQbGFuc0NvdW50IjoxLCJ0YXJnZXRTdXBwbGllciI6bnVsbCwibG9jYXRpb25Db29yZGluYXRlcyI6bnVsbCwicmFkaXVzIjpudWxsfQ==",
+//       propertyId: "2930",
+//       supplier: "AXISROOM",
+//       checkIn: DateTime(2023, 8, 28),
+//       checkOut: DateTime(2023, 9, 4),
+//       paxInfos: ["1"]);
+// }
 }

@@ -25,8 +25,8 @@ class HotelSearchingLoadingPage extends BaseStatelessPage<HotelSearchingLoadingP
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      onPopInvoked: (didPop) => false,
       child: MultiBlocProvider(
           providers: [
             BlocProvider(

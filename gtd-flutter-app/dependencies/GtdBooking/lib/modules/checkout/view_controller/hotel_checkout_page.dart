@@ -61,6 +61,7 @@ class HotelCheckoutPage extends PricingBottomPage<HotelCheckoutPageViewModel> {
       ..countries = viewModel.countries
       ..travelerInputInfos = viewModel.travelerInputInfos
       ..contactInputInfo = viewModel.contactInputInfo
+      ..subtitle = viewModel.subTitle
       ..invoiceBookingInfo = viewModel.invoiceBookingInfo;
     paymentContext.push(ConfirmBookingPage.route, extra: confirmViewModel);
   }

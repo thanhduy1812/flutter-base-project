@@ -29,7 +29,6 @@ class HotelSortHeaderTabView extends BaseView<HotelSortHeaderTabViewModel> {
                 if (tabController.index != index) {
                   DefaultTabController.of(context).animateTo(index);
                   var selectedSort = e;
-                  print("tab controler ; ${selectedSort.sortField}");
                   if (parentViewModel != null) {
                     parentViewModel.hotelSearchRq.sortField = selectedSort.sortField;
                     parentViewModel.hotelSearchRq.sortOrder = selectedSort.sortOrder;

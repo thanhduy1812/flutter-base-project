@@ -54,7 +54,6 @@ class FlightSSRSelectionPageViewModel extends PricingBottomPageViewModel {
         .where((element) => (element.serviceType == ServiceType.insurance && element.ssrSubType == "FLEXI"))
         .map((e) => (e.plandId, e.ssrAmount))
         .firstOrNull;
-    print(flexiPlanId);
     selectedFlexiItem = initialInsurancePlans
         .where((element) => (element.extras?.insuranceType == "FLEXI"))
         .map((e) => e.extras)

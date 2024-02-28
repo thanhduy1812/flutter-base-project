@@ -44,7 +44,9 @@ import 'package:gtd_booking/modules/intro_view/view_controller/introduce_vib.dar
 
 import 'package:gtd_booking/modules/flight/form_search/view_controller/flight_searching_loading_page.dart';
 import 'package:gtd_booking/modules/invoice/view_controller/input_invoice_page.dart';
+import 'package:gtd_booking/modules/invoice/view_controller/invoice_history_page.dart';
 import 'package:gtd_booking/modules/invoice/view_model/input_invoice_page_viewmodel.dart';
+import 'package:gtd_booking/modules/invoice/view_model/invoice_history_page_viewmodel.dart';
 import 'package:gtd_booking/modules/my_booking/view_controller/gtd_my_booking_page.dart';
 import 'package:gtd_booking/modules/my_booking/view_controller/vib_my_booking_page.dart';
 import 'package:gtd_booking/modules/my_booking/view_model/gtd_my_booking_page_viewmodel.dart';
@@ -55,6 +57,10 @@ import 'package:gtd_booking/modules/payment/view_controller/pay_later/view_model
 import 'package:gtd_booking/modules/payment/view_controller/payment_method_page.dart';
 import 'package:gtd_booking/modules/payment/view_controller/vib_invoice.dart';
 import 'package:gtd_booking/modules/payment/view_model/payment_method_page_viewmodel.dart';
+import 'package:gtd_booking/modules/personal_info/view_controller/saved_company_page.dart';
+import 'package:gtd_booking/modules/personal_info/view_controller/saved_traveller_page.dart';
+import 'package:gtd_booking/modules/personal_info/view_model/saved_company_page_view_model.dart';
+import 'package:gtd_booking/modules/personal_info/view_model/saved_traveller_page_view_model.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
 import 'package:gtd_utils/base/router/app_router.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
@@ -325,6 +331,17 @@ extension GtdBookingRouter on AppRouter {
         },
       ),
 
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: InvoiceHistoryPage.route,
+        builder: (context, state) {
+          return InvoiceHistoryPage(
+            key: state.pageKey,
+            viewModel: InvoiceHistoryPageViewModel(),
+          );
+        },
+      ),
+
       //HOTEL
       GoRoute(
         parentNavigatorKey: rootKey,
@@ -467,6 +484,31 @@ extension GtdBookingRouter on AppRouter {
           return ComboCheckoutPage(
             key: state.pageKey,
             viewModel: viewModel!,
+          );
+        },
+      ),
+
+      // Profile Info
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: SavedTravellerPage.route,
+        builder: (context, state) {
+          SavedTravellerPageViewModel viewModel = SavedTravellerPageViewModel();
+          return SavedTravellerPage(
+            key: state.pageKey,
+            viewModel: viewModel,
+          );
+        },
+      ),
+
+      GoRoute(
+        parentNavigatorKey: rootKey,
+        path: SavedCompanyPage.route,
+        builder: (context, state) {
+          SavedCompanyPageViewModel viewModel = SavedCompanyPageViewModel();
+          return SavedCompanyPage(
+            key: state.pageKey,
+            viewModel: viewModel,
           );
         },
       ),

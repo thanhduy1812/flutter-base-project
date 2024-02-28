@@ -16,9 +16,7 @@ class PaymentMethodCubit extends Cubit<PaymentMethodState> {
   BehaviorSubject<List<PaymentMethodItemViewModel>> paymentMethodSubject = BehaviorSubject.seeded([]);
   Stream<List<PaymentMethodItemViewModel>> get paymentMethodsStream => paymentMethodSubject.stream;
 
-  PaymentMethodCubit(this.viewModel) : super(PaymentMethodInitial()) {
-    print("init cubit");
-  }
+  PaymentMethodCubit(this.viewModel) : super(PaymentMethodInitial());
 
   Future<Result<List<PaymentMethodType>, GtdApiError>> getPaymentMethods() async {
     var result = await GtdPaymentRepository.shared.getPaymentMethods();

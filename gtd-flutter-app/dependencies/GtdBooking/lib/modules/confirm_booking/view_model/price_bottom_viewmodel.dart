@@ -6,9 +6,11 @@ class PriceBottomViewModel extends BaseViewModel {
   String netPrice = "3,327,000 VND";
   String priceTitle;
   String priceSubtitle;
-  PriceBottomViewModel(
-      {this.totalPrice = "",
-      this.netPrice = "3,327,000 VND",
-      this.priceTitle = "Chi phí / tổng khách",
-      this.priceSubtitle = "Đã gồm thuế phí"});
+
+  PriceBottomViewModel({
+    this.totalPrice = "",
+    this.netPrice = "3,327,000 VND",
+    this.priceTitle = "Chi phí / tổng khách",
+    this.priceSubtitle = "Đã gồm thuế phí",
+  });
 }

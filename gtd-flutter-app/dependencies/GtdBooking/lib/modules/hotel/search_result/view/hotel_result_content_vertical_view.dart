@@ -15,9 +15,12 @@ import 'package:gtd_utils/helpers/extension/loadmore_sliver_list_extension.dart'
 import '../view_controller/hotel_search_detail_page.dart';
 import '../view_model/hotel_result_content_vertical_viewmodel.dart';
 
-class HotelResultContentVerticalView extends BaseView<HotelResultContentVerticalViewModel> {
+class HotelResultContentVerticalView
+    extends BaseView<HotelResultContentVerticalViewModel> {
   final ScrollController? scrollController;
-  const HotelResultContentVerticalView({super.key, required super.viewModel, this.scrollController});
+
+  const HotelResultContentVerticalView(
+      {super.key, required super.viewModel, this.scrollController});
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -25,8 +28,8 @@ class HotelResultContentVerticalView extends BaseView<HotelResultContentVertical
     return RefreshIndicator(
       onRefresh: () async {
         if (parentViewModel != null) {
-          BlocProvider.of<HotelSearchCubit>(context)
-              .searchHotelBestRate(parentViewModel.createSearchRequest(isRefesh: true));
+          BlocProvider.of<HotelSearchCubit>(context).searchHotelBestRate(
+              parentViewModel.createSearchRequest(isRefesh: true));
         }
       },
       child: CustomScrollView(
@@ -37,13 +40,21 @@ class HotelResultContentVerticalView extends BaseView<HotelResultContentVertical
             child: (parentViewModel is ComboSearchResultPageViewModel)
                 ? const SizedBox(height: 16)
                 : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 49, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 49, vertical: 20),
                     child: Center(
-                        child: Text(
-                      "Giá 1 phòng / 1 đêm, đã bao gồm thuế, phí. Đã tìm thấy ${viewModel.totalItem} kết quả",
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.subText),
-                      textAlign: TextAlign.center,
-                    )),
+                      child: Text(
+                        "Giá ${viewModel.totalRoom} phòng/"
+                        "${viewModel.totalNights} đêm, đã bao gồm thuế, phí. "
+                        "Đã tìm thấy ${viewModel.totalItem} kết quả",
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.subText,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
           ),
           GtdLoadMoreSliverExtention(
@@ -51,7 +62,8 @@ class HotelResultContentVerticalView extends BaseView<HotelResultContentVertical
             loadMore: () async {
               if (parentViewModel != null) {
                 await BlocProvider.of<HotelSearchCubit>(context)
-                    .searchLoadMoreHotelBestRate(parentViewModel.createLoadmoreRequest());
+                    .searchLoadMoreHotelBestRate(
+                        parentViewModel.createLoadmoreRequest());
               }
             },
             onLoadMore: () {
@@ -69,17 +81,30 @@ class HotelResultContentVerticalView extends BaseView<HotelResultContentVertical
                     var parentViewModel = context.viewModelOf();
                     if (parentViewModel != null) {
                       if (parentViewModel is ComboSearchResultPageViewModel) {
-                        ComboHotelSearchDetailPageViewModel detailPageViewModel =
-                            ComboHotelSearchDetailPageViewModel.fromSearchDetailDTO(
-                                flightSearchResultDTO: parentViewModel.flightSearchSubject.value.data,
-                                searchFlightFormModel: parentViewModel.searchFlightFormModel,
-                                searchHotelFormModel: parentViewModel.searchHotelFormModel)
-                              ..searchAllRateRq = parentViewModel.createSearchAllRateRq(value);
-                        context.push(HotelSearchDetailPage.route, extra: detailPageViewModel);
-                      } else if (parentViewModel is HotelSearchResultPageViewModel) {
-                        HotelSearchDetailPageViewModel detailPageViewModel = HotelSearchDetailPageViewModel()
-                          ..searchAllRateRq = parentViewModel.createSearchAllRateRq(value);
-                        context.push(HotelSearchDetailPage.route, extra: detailPageViewModel);
+                        ComboHotelSearchDetailPageViewModel
+                            detailPageViewModel =
+                            ComboHotelSearchDetailPageViewModel
+                                .fromSearchDetailDTO(
+                                    flightSearchResultDTO: parentViewModel
+                                        .flightSearchSubject.value.data,
+                                    searchFlightFormModel:
+                                        parentViewModel.searchFlightFormModel,
+                                    searchHotelFormModel:
+                                        parentViewModel.searchHotelFormModel)
+                              ..searchAllRateRq =
+                                  parentViewModel.createSearchAllRateRq(value);
+                        context.push(HotelSearchDetailPage.route,
+                            extra: detailPageViewModel);
+                      } else if (parentViewModel
+                          is HotelSearchResultPageViewModel) {
+                        HotelSearchDetailPageViewModel detailPageViewModel =
+                            HotelSearchDetailPageViewModel()
+                              ..searchAllRateRq =
+                                  parentViewModel.createSearchAllRateRq(value);
+                        context.push(
+                          HotelSearchDetailPage.route,
+                          extra: detailPageViewModel,
+                        );
                       }
                     }
                   },

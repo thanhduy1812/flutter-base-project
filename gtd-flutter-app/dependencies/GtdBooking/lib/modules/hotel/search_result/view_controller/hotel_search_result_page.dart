@@ -49,7 +49,6 @@ class HotelSearchResultPage extends BaseStatelessPage<HotelSearchResultPageViewM
                                   } else {
                                     viewModel.filterVMs = value;
                                   }
-                                  print("apply filter here");
                                   //Reset page when apply Filter
                                   BlocProvider.of<HotelSearchCubit>(hotelSearchContext)
                                       .applyFilter(viewModel.createSearchRequest(isRefesh: true));

@@ -23,7 +23,6 @@ class PaymentPaylaterPage extends PricingBottomPage<PaymentPaylaterPageViewModel
     return GtdButton(
       isEnable: true,
       onPressed: (value) {
-        print("Giữ chỗ chờ thanh toán");
         // GtdAppLoading.of(paymentContext).show();
         // BlocProvider.of<PaymentMethodCubit>(paymentContext)
         //     .paymentBooking(paymentMethodType: viewModel.paymentMethodType)

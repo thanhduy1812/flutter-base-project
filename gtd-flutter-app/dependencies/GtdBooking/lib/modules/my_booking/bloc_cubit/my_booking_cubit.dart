@@ -34,7 +34,7 @@ class MyBookingCubit extends Cubit<MyBookingState> {
   Future<void> searchMyBooking(SearchBookingRq searchBookingRq) async {
     SearchBookingRs searchBookingRs = SearchBookingRs();
     emit(MyBookingLoadingState(status: MyBookingStatus.isLoading));
-    final resultSearch = await GtdBookingRepository.shared.searchMyBooking(searchBookingRq);
+    final resultSearch = await GtdBookingRepository.shared.searchListMyBooking(searchBookingRq);
     resultSearch.when((success) {
       searchBookingRs.updateListItemMyBooking(success);
       myBookingSubject = BehaviorSubject.seeded(searchBookingRs);

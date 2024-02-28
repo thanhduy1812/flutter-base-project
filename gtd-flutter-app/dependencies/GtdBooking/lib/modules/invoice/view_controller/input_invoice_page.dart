@@ -47,7 +47,6 @@ class InputInvoicePage extends BaseStatelessPage<InputInvoicePageViewModel> {
                             viewModel: SavedCompanyListViewModel(
                                 companies: (savedCompanyState as SavedCompaniesInitial).savedCompanies),
                             onSelect: (value) {
-                              print(value);
                               // viewModel.updateTraveller(value);
                               viewModel.updateFromSavedCompany(value.model);
                               Navigator.pop(context);
@@ -228,9 +227,7 @@ class InputInvoicePage extends BaseStatelessPage<InputInvoicePageViewModel> {
                                           );
                                         },
                                       ),
-                                      onChanged: (result) {
-                                        print("selected country field");
-                                      },
+                                      onChanged: (result) {},
                                     );
                                   }
                                 },

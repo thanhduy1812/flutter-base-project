@@ -10,17 +10,31 @@ class HotelResultCardItemViewModel extends BaseViewModel {
   late HotelResultCardItemModel hotelItemModel;
   HotelResultCardItemType cardItemType = HotelResultCardItemType.vertical;
   final int totalNight;
-  HotelResultCardItemViewModel({this.cardItemType = HotelResultCardItemType.vertical, required this.totalNight});
+  final int totalRoom;
 
-  factory HotelResultCardItemViewModel.fromHotelItemDTO(
-      {required GtdHotelItemDTO hotelItemDTO, required int totalNight}) {
-    HotelResultCardItemViewModel hotelResultCardItemViewModel = HotelResultCardItemViewModel(totalNight: totalNight);
-    hotelResultCardItemViewModel.hotelItemModel = HotelResultCardItemModel.fromHotelItemDTO(hotelItemDTO);
+  HotelResultCardItemViewModel({
+    this.cardItemType = HotelResultCardItemType.vertical,
+    required this.totalNight,
+    required this.totalRoom,
+  });
+
+  factory HotelResultCardItemViewModel.fromHotelItemDTO({
+    required GtdHotelItemDTO hotelItemDTO,
+    required int totalNight,
+    required int totalRoom,
+  }) {
+    HotelResultCardItemViewModel hotelResultCardItemViewModel =
+        HotelResultCardItemViewModel(
+      totalNight: totalNight,
+      totalRoom: totalRoom,
+    );
+    hotelResultCardItemViewModel.hotelItemModel =
+        HotelResultCardItemModel.fromHotelItemDTO(hotelItemDTO);
     return hotelResultCardItemViewModel;
   }
 
   String get priceTitle {
-    return "1 phòng/ $totalNight đêm";
+    return "$totalRoom phòng/$totalNight đêm";
   }
 
   double get totalPrice {
@@ -34,7 +48,7 @@ class HotelResultCardItemViewModel extends BaseViewModel {
     return hotelItemModel.netAmount;
   }
 
-  // double get totalPricePerRoomPerNight {
-  //   return hotelItemModel.totalAmount/ hotelItemModel.
-  // }
+// double get totalPricePerRoomPerNight {
+//   return hotelItemModel.totalAmount/ hotelItemModel.
+// }
 }

@@ -22,7 +22,7 @@ class DateCheckinoutView extends BaseView<DateCheckinoutViewModel> {
               child: GtdTextField(
                 viewModel: viewModel.fromDate,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                leftIcon: GtdAppIcon.iconNamedSupplier(iconName: "calendar-grey.svg", width: 34),
+                leftIcon: GtdAppIcon.iconNamedSupplier(iconName: "flight/calendar-flight.svg", width: 26),
                 rightIcon: const Icon(
                   Icons.chevron_right,
                   size: 26,
@@ -40,7 +40,7 @@ class DateCheckinoutView extends BaseView<DateCheckinoutViewModel> {
               child: GtdTextField(
                 viewModel: viewModel.toDate,
                 contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                leftIcon: GtdAppIcon.iconNamedSupplier(iconName: "calendar-grey.svg", width: 34),
+                leftIcon: GtdAppIcon.iconNamedSupplier(iconName: "flight/calendar-flight.svg", width: 26),
                 rightIcon: const Icon(
                   Icons.chevron_right,
                   size: 26,

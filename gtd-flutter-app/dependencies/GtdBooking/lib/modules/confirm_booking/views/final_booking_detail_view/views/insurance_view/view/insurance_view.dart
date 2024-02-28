@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/checkout/view_model/flight_ssr_selection_page_viewmodel.dart';
@@ -87,7 +88,9 @@ class InsuranceView extends BaseView<InsuranceViewModel> {
                 onLinkTap: ({attributes, url}) async {
                   final Uri policyUrl = Uri.parse(url!);
                   if (!await launchUrl(policyUrl)) {
-                    print("cannot open url");
+                    if (kDebugMode) {
+                      print("cannot open url");
+                    }
                   }
                 },
               ),

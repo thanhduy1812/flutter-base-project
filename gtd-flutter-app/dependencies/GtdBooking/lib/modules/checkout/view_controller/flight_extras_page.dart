@@ -92,7 +92,6 @@ class FlightExtrasPage extends PricingBottomPage<FlightExtrasPageViewModel> {
                                         viewModel.selectedHotelItems = value ?? [];
                                       });
                                     } else {
-                                      print(serviceType);
                                       bool isRoundTrip =
                                           viewModel.bookingDetailDTO?.roundType?.toLowerCase() == "roundtrip";
                                       FlightSSRSelectionPageViewModel ssrSelectionPageViewModel =

@@ -16,20 +16,27 @@ class ComboSearchResultPageViewModel extends HotelSearchResultPageViewModel {
 
   ValueNotifier<bool> isExpandFlightInfoNotifier = ValueNotifier(true);
 
-  BehaviorSubject<({bool isLoaded, GtdFlightSearchResultDTO? data})> flightSearchSubject =
+  BehaviorSubject<({bool isLoaded, GtdFlightSearchResultDTO? data})>
+      flightSearchSubject =
       BehaviorSubject.seeded((isLoaded: false, data: null));
-  Sink<({bool isLoaded, GtdFlightSearchResultDTO? data})> get flightSearchSink => flightSearchSubject.sink;
+  Sink<({bool isLoaded, GtdFlightSearchResultDTO? data})>
+      get flightSearchSink => flightSearchSubject.sink;
 
   List<FlightSummaryItemViewModel> flightSelectedItems = [];
-  ComboSearchResultPageViewModel(super.searchHotelFormModel, this.searchFlightFormModel) {
+  ComboSearchResultPageViewModel(
+      super.searchHotelFormModel, this.searchFlightFormModel) {
     title = "Combo SGN - DAD";
   }
 
   factory ComboSearchResultPageViewModel.fromGtdComboSearchResultDTO(
-      {required SearchHotelFormModel searchHotelFormModel, required SearchFlightFormModel searchFlightFormModel}) {
-    ComboSearchResultPageViewModel viewModel = ComboSearchResultPageViewModel(searchHotelFormModel, searchFlightFormModel);
+      {required SearchHotelFormModel searchHotelFormModel,
+      required SearchFlightFormModel searchFlightFormModel}) {
+    ComboSearchResultPageViewModel viewModel = ComboSearchResultPageViewModel(
+        searchHotelFormModel, searchFlightFormModel);
     viewModel.title = searchHotelFormModel.locationDTO.name;
-    int nights = searchHotelFormModel.toDate!.difference(searchHotelFormModel.fromDate!).inDays;
+    int nights = searchHotelFormModel.toDate!
+        .difference(searchHotelFormModel.fromDate!)
+        .inDays;
     viewModel.subTitle =
         "${searchHotelFormModel.rooms.length} Phòng ${searchHotelFormModel.totalAdult + searchHotelFormModel.totalChild} Khách $nights Đêm";
     viewModel.subTitleNotifer.value = viewModel.subTitle ?? "";
@@ -37,7 +44,8 @@ class ComboSearchResultPageViewModel extends HotelSearchResultPageViewModel {
     viewModel.hotelSearchRq = searchHotelFormModel.createHotelSearchRequest();
 
     viewModel.verticalController.addListener(() {
-      if (viewModel.verticalController.offset > 440 && !viewModel.firstTimeCollapseFlight) {
+      if (viewModel.verticalController.offset > 440 &&
+          !viewModel.firstTimeCollapseFlight) {
         viewModel.isExpandFlightInfoNotifier.value = false;
         viewModel.firstTimeCollapseFlight = true;
       }
@@ -45,7 +53,8 @@ class ComboSearchResultPageViewModel extends HotelSearchResultPageViewModel {
     return viewModel;
   }
 
-  void updateFlightSelectedItems(List<FlightSummaryItemViewModel> flightSelectedItems) {
+  void updateFlightSelectedItems(
+      List<FlightSummaryItemViewModel> flightSelectedItems) {
     this.flightSelectedItems = flightSelectedItems;
     updateHotelResultDTO(hotelSearchResultDTO);
   }
@@ -55,14 +64,22 @@ class ComboSearchResultPageViewModel extends HotelSearchResultPageViewModel {
     this.hotelSearchResultDTO = hotelSearchResultDTO;
     double flightPricePerPerson = flightSelectedItems
         .map((e) => e.flightItemDetail)
-        .map((e) => e?.flightItem.selectedCabinOption?.priceInfo?.baseAdultPrice ?? 0)
+        .map((e) =>
+            e?.flightItem.selectedCabinOption?.priceInfo?.baseAdultPrice ?? 0)
         .fold(0, (previousValue, element) => previousValue + element);
-    verticalContentViewModel = ComboResultContentVerticalViewModel.fromHotelSearchDTO(
-        hotelSearchResultDTO, flightPricePerPerson,
-        totalNights: totalNights);
+    verticalContentViewModel =
+        ComboResultContentVerticalViewModel.fromHotelSearchDTO(
+      hotelSearchResultDTO,
+      flightPricePerPerson,
+      totalNights: totalNights,
+      totalRoom: totalRoom,
+    );
     mapViewModel = ComboResultMapViewModel.fromListHotelItemDTO(
-        hotelSearchResultDTO.pageData.data, flightPricePerPerson,
-        totalNights: totalNights);
+      hotelSearchResultDTO.pageData.data,
+      flightPricePerPerson,
+      totalNights: totalNights,
+      totalRoom: totalRoom,
+    );
   }
 
   @override

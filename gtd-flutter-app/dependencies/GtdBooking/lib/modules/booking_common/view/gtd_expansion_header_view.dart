@@ -8,8 +8,16 @@ class GtdExpansionHeaderView extends StatelessWidget {
   final String titleHeader;
   final Widget? collapsedView;
   final GtdVoidCallback? onTapHeader;
-  const GtdExpansionHeaderView(
-      {super.key, required this.isExpand, this.collapsedView, required this.titleHeader, this.onTapHeader});
+  final bool showExpandIcon;
+
+  const GtdExpansionHeaderView({
+    super.key,
+    required this.isExpand,
+    this.collapsedView,
+    required this.titleHeader,
+    this.onTapHeader,
+    this.showExpandIcon = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +32,17 @@ class GtdExpansionHeaderView extends StatelessWidget {
               Expanded(
                 child: Text(
                   titleHeader,
-                  style: TextStyle(fontWeight: FontWeight.w700, color: AppColors.boldText, fontSize: 15),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.boldText,
+                      fontSize: 15),
                 ),
               ),
-              GtdAppIcon.iconNamedSupplier(
-                  iconName: "hotel/${isExpand ? "hotel-double-arrow-up" : "hotel-double-arrow-down"}.svg"),
+              if (showExpandIcon)
+                GtdAppIcon.iconNamedSupplier(
+                  iconName:
+                      "hotel/${isExpand ? "hotel-double-arrow-up" : "hotel-double-arrow-down"}.svg",
+                ),
             ],
           ),
           collapsedView ?? const SizedBox(),

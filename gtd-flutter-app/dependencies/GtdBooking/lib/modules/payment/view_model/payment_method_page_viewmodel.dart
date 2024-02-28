@@ -14,9 +14,7 @@ class PaymentMethodPageViewModel extends PricingBottomPageViewModel {
     this.availableMethods = const [],
     this.paymentFee = 0,
     this.discountAmount = 0,
-  }) {
-    print(bookingNumber);
-  }
+  });
 
   PaymentMethodItemViewModel? get selectedPayment =>
       availableMethods.where((element) => element.isSelected).firstOrNull;
@@ -26,7 +24,7 @@ class PaymentMethodPageViewModel extends PricingBottomPageViewModel {
   }
 
   @override
-  // TODO: implement netAmount
+  // MARK: implement netAmount
   double get netAmount {
     return (bookingDetailDTO?.paymentInfo?.totalFare ?? 0) +
         (bookingDetailDTO?.paymentInfo?.totalSsrValue ?? 0) +

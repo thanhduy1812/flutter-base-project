@@ -53,6 +53,17 @@ class SearchFlightFormModel {
       infant: map['infant'] as int,
     );
   }
+
+  String passengerCountSubtitle() {
+    String subTitle = '$adult Người lớn';
+    if (child > 0) {
+      subTitle = '$subTitle, $child trẻ em';
+    }
+    if (infant > 0) {
+      subTitle = '$subTitle, $infant em bé';
+    }
+    return subTitle;
+  }
 }
 
 class SearchInfoLocationVM extends GtdValidateFieldVM {

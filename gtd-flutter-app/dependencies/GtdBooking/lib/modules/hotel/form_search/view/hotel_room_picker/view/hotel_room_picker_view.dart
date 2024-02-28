@@ -6,6 +6,8 @@ import 'package:gtd_booking/modules/hotel/form_search/view/hotel_room_picker/vie
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
+import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 import 'package:gtd_utils/utils/gtd_widgets/passenger_picker.dart';
@@ -34,10 +36,17 @@ class HotelRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
                     onTap: () {
                       onRemove?.call();
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 16, right: 8),
-                      child: Icon(Icons.delete_sweep_outlined),
-                    ))
+                    child: SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: Center(
+                        child: GtdImage.svgFromSupplier(
+                          assetName: 'assets/icons/trash.svg',
+                          color: GtdColors.appMainColor(context),
+                        ),
+                      ),
+                    ),
+                ),
               ],
             ),
           ),
@@ -53,8 +62,25 @@ class HotelRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Người lớn",
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Người lớn\n",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: GtdColors.inkBlack,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Trên 17 tuổi",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: GtdColors.stormGray,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         PassengerPicker(
                           defaultValue: viewModel.adult,
@@ -79,7 +105,26 @@ class HotelRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Trẻ em(1-17 tuổi)"),
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Trẻ em\n",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: GtdColors.inkBlack,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "Từ 1 đến 17 tuổi",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: GtdColors.stormGray,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                         PassengerPicker(
                           defaultValue: viewModel.child,
                           max: 6,
