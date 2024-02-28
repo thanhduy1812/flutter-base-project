@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:new_gotadi/app/home/views/top_galleries.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -65,39 +66,10 @@ class BoxSearchHeaderDelegate extends SliverPersistentHeaderDelegate {
                               onTap: () {
                                 context.push(SearchFlightPage.route);
                               },
-                              child: Wrap(
-                                runSpacing: 10,
-                                alignment: WrapAlignment.center,
-                                runAlignment: WrapAlignment.center,
-                                children: [
-                                  Card(
-                                    color: Colors.green,
-                                    margin: EdgeInsets.zero,
-                                    elevation: 0,
-                                    // decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.green),
-                                    shape: const CircleBorder(),
-                                    child: SizedBox(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:
-                                            GtdAppIcon.iconNamedSupplier(iconName: "flight.svg", width: 32, height: 32),
-                                      ),
-                                    ),
-                                  ),
-                                  // IconButton(
-                                  //   icon: GtdAppIcon.iconNamedSupplier(iconName: "flight.svg", width: 32),
-                                  //   onPressed: () {
-                                  //     context.push(SearchFlightPage.route);
-                                  //   },
-                                  //   style: IconButton.styleFrom(
-                                  //     backgroundColor: const Color.fromRGBO(26, 162, 96, 1),
-                                  //   ),
-                                  // ),
-                                  const Text(
-                                    'Vé máy bay',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: _headerButton(
+                                iconName: "flight.svg",
+                                title: "Vé máy bay",
+                                tintColor: AppColors.mainColor,
                               ),
                             )),
                             Expanded(
@@ -106,113 +78,26 @@ class BoxSearchHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 SearchHotelPageViewModel viewModel = SearchHotelPageViewModel();
                                 context.push(SearchHotelPage.route, extra: viewModel);
                               },
-                              child: Wrap(
-                                runSpacing: 10,
-                                alignment: WrapAlignment.center,
-                                runAlignment: WrapAlignment.center,
-                                children: [
-                                  Card(
-                                    color: const Color.fromRGBO(243, 68, 22, 1),
-                                    margin: EdgeInsets.zero,
-                                    elevation: 0,
-                                    // decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.green),
-                                    shape: const CircleBorder(),
-                                    child: SizedBox(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:
-                                            GtdAppIcon.iconNamedSupplier(iconName: "hotel.svg", width: 32, height: 32),
-                                      ),
-                                    ),
-                                  ),
-                                  // IconButton(
-                                  //   icon: GtdAppIcon.iconNamedSupplier(iconName: "hotel.svg", width: 32),
-                                  //   onPressed: () {
-                                  //     SearchHotelPageViewModel viewModel = SearchHotelPageViewModel();
-                                  //     context.push(SearchHotelPage.route, extra: viewModel);
-                                  //   },
-                                  //   style: IconButton.styleFrom(
-                                  //     backgroundColor: const Color.fromRGBO(243, 68, 22, 1),
-                                  //   ),
-                                  // ),
-                                  const Text(
-                                    'Khách sạn',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
+                              child: _headerButton(
+                                  iconName: "hotel.svg",
+                                  title: "Khách sạn",
+                                  tintColor: const Color.fromRGBO(243, 68, 22, 1)),
                             )),
                             Expanded(
-                                child: InkWell(
-                              onTap: () {
-                                SearchComboPageViewModel viewModel = SearchComboPageViewModel();
-                                context.push(SearchComboPage.route, extra: viewModel);
-                              },
-                              child: Wrap(
-                                runSpacing: 10,
-                                alignment: WrapAlignment.center,
-                                runAlignment: WrapAlignment.center,
-                                children: [
-                                  Card(
-                                    color: const Color.fromRGBO(12, 176, 255, 1),
-                                    margin: EdgeInsets.zero,
-                                    elevation: 0,
-                                    // decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.green),
-                                    shape: const CircleBorder(),
-                                    child: SizedBox(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:
-                                            GtdAppIcon.iconNamedSupplier(iconName: "combo.svg", width: 32, height: 32),
-                                      ),
-                                    ),
-                                  ),
-                                  // IconButton(
-                                  //   icon: GtdAppIcon.iconNamedSupplier(iconName: "combo.svg", width: 32),
-                                  //   onPressed: () {},
-                                  //   style: IconButton.styleFrom(
-                                  //     backgroundColor: const Color.fromRGBO(12, 176, 255, 1),
-                                  //   ),
-                                  // ),
-                                  const Text(
-                                    'Combo',
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  SearchComboPageViewModel viewModel = SearchComboPageViewModel();
+                                  context.push(SearchComboPage.route, extra: viewModel);
+                                },
+                                child: _headerButton(
+                                    iconName: "combo.svg",
+                                    title: "Combo",
+                                    tintColor: const Color.fromRGBO(12, 176, 255, 1)),
                               ),
-                            )),
-                            Expanded(
-                                child: Wrap(
-                              runSpacing: 10,
-                              alignment: WrapAlignment.center,
-                              runAlignment: WrapAlignment.center,
-                              children: [
-                                Card(
-                                  color: const Color.fromRGBO(255, 206, 68, 1),
-                                  margin: EdgeInsets.zero,
-                                  elevation: 0,
-                                  // decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.green),
-                                  shape: const CircleBorder(),
-                                  child: SizedBox(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GtdAppIcon.iconNamedSupplier(iconName: "tour.svg", width: 32, height: 32),
-                                    ),
-                                  ),
-                                ),
-                                // IconButton(
-                                //   icon: GtdAppIcon.iconNamedSupplier(iconName: "tour.svg", width: 32),
-                                //   onPressed: () {},
-                                //   style: IconButton.styleFrom(
-                                //     backgroundColor: const Color.fromRGBO(255, 206, 68, 1),
-                                //   ),
-                                // ),
-                                const Text(
-                                  'Vui Chơi',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            )),
+                            ),
+                            // Expanded(
+                            //   child: _headerButton(iconName: "tour.svg", title: "Vui Chơi", tintColor: Colors.amber),
+                            // ),
                           ],
                         ),
                       )),
@@ -231,4 +116,31 @@ class BoxSearchHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+
+  Widget _headerButton({required String iconName, required String title, required Color tintColor}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Card(
+          color: tintColor,
+          margin: EdgeInsets.zero,
+          elevation: 0,
+          // decoration: const ShapeDecoration(shape: CircleBorder(), color: Colors.green),
+          shape: const CircleBorder(),
+          child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GtdAppIcon.iconNamedSupplier(iconName: iconName, width: 32, height: 32),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
 }

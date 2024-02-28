@@ -1,11 +1,16 @@
-import 'package:new_gotadi/app/home/views/home_page.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+import 'package:gtd_booking/modules/my_booking/view_controller/gtd_my_booking_page.dart';
+import 'package:gtd_booking/modules/my_booking/view_model/gtd_my_booking_page_viewmodel.dart';
+import 'package:new_gotadi/app/account/account_main/account_main.dart';
+import 'package:new_gotadi/app/home/view_controller/home_page.dart';
+import 'package:new_gotadi/app/home/view_model/home_page_viewmodel.dart';
+import 'package:new_gotadi/app/promotions/view_controller/promotion_page.dart';
+import 'package:new_gotadi/app/promotions/view_model/promotion_page_view_model.dart';
+import 'package:new_gotadi/app/router/gtd_b2c_list_nav_item.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
-  static const String route = '/navScreen';
+  static const String route = '/mainPage';
 
   @override
   MainPageState createState() => MainPageState();
@@ -16,25 +21,12 @@ final _navigatorKeySetting = GlobalKey();
 
 class MainPageState extends State<MainPage> with WidgetsBindingObserver {
   int selectedIndex = 0;
-  final _screens = [
-    Navigator(
-      key: _navigatorKey,
-      onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
-        settings: settings,
-        builder: (BuildContext context) => const HomePage(),
-      ),
-    ),
-    const Scaffold(body: Center(child: Text('Explore'))),
-    const Scaffold(body: Center(child: Text('Add'))),
-    // Navigator(
-    //   key: _navigatorKeySetting,
-    //   onGenerateRoute: (RouteSettings settings) => MaterialPageRoute(
-    //     settings: settings,
-    //     builder: (BuildContext context) => const AccountPage(),
-    //   ),
-    // ),
+  final List<Widget> _widgetOptions = [
+    HomePage(viewModel: HomePageViewModel()),
+    GtdMyBookingPage(viewModel: GtdMyBookingPageViewModel()),
+    PromotionPage(viewModel: PromotionPageViewModel()),
+    AccountPage(viewModel: AccountPageViewModel())
   ];
-
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -49,44 +41,16 @@ class MainPageState extends State<MainPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-          children: _screens
-              .asMap()
-              .map((i, screen) => MapEntry(
-                    i,
-                    Offstage(
-                      offstage: selectedIndex != i,
-                      child: screen,
-                    ),
-                  ))
-              .values
-              .toList()),
+      body: _widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: selectedIndex,
-        onTap: (i) => setState(() => selectedIndex = i),
+        onTap: (i) => setState(() {
+          selectedIndex = i;
+        }),
         selectedFontSize: 10.0,
         unselectedFontSize: 10.0,
-        items: [
-          BottomNavigationBarItem(
-              icon: GtdAppIcon.iconNamedSupplier(iconName: "home.svg", width: 24),
-              activeIcon: GtdAppIcon.iconNamedSupplier(iconName: "home.svg", width: 24),
-              label: 'global.homepage'.tr()),
-          BottomNavigationBarItem(
-              icon: GtdAppIcon.iconNamedSupplier(iconName: "list-booking.svg", width: 24),
-              activeIcon: GtdAppIcon.iconNamedSupplier(iconName: "list-booking.svg", width: 24),
-              label: 'global.myBooking'.tr()),
-          BottomNavigationBarItem(
-            icon: GtdAppIcon.iconNamedSupplier(iconName: "promotion.svg", width: 24),
-            activeIcon: GtdAppIcon.iconNamedSupplier(iconName: "promotion.svg", width: 24),
-            label: 'global.promotions'.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: GtdAppIcon.iconNamedSupplier(iconName: "account.svg", width: 24),
-            activeIcon: GtdAppIcon.iconNamedSupplier(iconName: "account.svg", width: 24),
-            label: 'global.account'.tr(),
-          ),
-        ],
+        items: tabs,
       ),
     );
   }
