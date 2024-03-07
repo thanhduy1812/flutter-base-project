@@ -18,7 +18,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.2.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -39,7 +39,6 @@ dependencies:
   hive: any
   shared_preferences: ^2.1.1
   path_provider: ^2.0.14
-  intl:
   syncfusion_flutter_datepicker: ^24.2.7
   easy_localization: ^3.0.1
   flutter_localizations:
@@ -54,7 +53,6 @@ dependencies:
   # Dependencies for Repositories
   # freezed: ^2.3.2
   dio: ^5.3.3
-  meta:
   shimmer: ^3.0.0
   flutter_dotenv: ^5.0.2
   azlistview: any

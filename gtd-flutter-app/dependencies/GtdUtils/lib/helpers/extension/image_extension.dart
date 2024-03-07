@@ -106,24 +106,27 @@ extension GtdImage on Image {
     return CachedNetworkImage(
       imageUrl: url,
       fit: fit,
-      placeholder: (context, url) => placeholder ?? Container(
-        width: 270,
-        height: 90,
-        color: Colors.white,
-      ),
+      placeholder: (context, url) =>
+          placeholder ??
+          Container(
+            width: 270,
+            height: 90,
+            color: Colors.white,
+          ),
       errorWidget: (context, url, error) => errorWidget ?? const Icon(Icons.error),
     );
   }
 
-  // static Image imgFromAsset({required String pathResource, double? width, double? height, BoxFit? fit, Color? color}) {
-  //   return Image.asset(
-  //     pathResource,
-  //     width: width,
-  //     height: height,
-  //     color: color,
-  //     fit: fit,
-  //   );
-  // }
+  static Image imgFromAsset(
+      {required String assetPath, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
+    return Image.asset(
+      assetPath,
+      width: width,
+      height: height,
+      color: color,
+      fit: fit,
+    );
+  }
 
   // static Widget svgFromAsset(
   //     {required String pathResource, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
