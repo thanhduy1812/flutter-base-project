@@ -15,6 +15,7 @@ void main() {
     "English Beme",
     appScheme: GtdAppScheme.uatB2C,
   );
+  
   runApp(app);
 }
 

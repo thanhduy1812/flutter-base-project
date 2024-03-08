@@ -1,5 +1,8 @@
 import 'package:english_app_bme/home/app_bottom_bar.dart';
 import 'package:english_app_bme/home/view/user_list_view.dart';
+import 'package:english_app_bme/home/view_controller/add_course_page.dart';
+import 'package:english_app_bme/home/view_controller/add_user_page.dart';
+import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
 import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
 import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
 import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
@@ -99,7 +102,15 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
   Widget? floatingButton(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: appBlueDeepColor,
-      onPressed: () => {},
+      onPressed: () => {
+        switch (viewModel.seletedTab) {
+          HomePageTab.course => context.push(AddCoursePage.route),
+          HomePageTab.mentor =>
+            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)),
+          HomePageTab.student =>
+            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student)),
+        }
+      },
       tooltip: 'Add ${viewModel.seletedTab.title}',
       child: const Icon(
         Icons.add,

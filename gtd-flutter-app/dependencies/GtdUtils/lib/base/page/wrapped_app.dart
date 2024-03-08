@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/settings/setting_cupid.dart';
 import 'package:gtd_utils/constants/app_const.dart';
@@ -49,6 +50,13 @@ class GtdBaseApp extends StatelessWidget {
               backButtonDispatcher: RootBackButtonDispatcher(),
               debugShowCheckedModeBanner: true,
               title: title,
+              locale: const Locale('en', 'US'),
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: const [Locale.fromSubtags(languageCode: 'vi'), Locale.fromSubtags(languageCode: 'en')],
               themeMode: AppConst.shared.themeMode,
               theme: AppConst.shared.appScheme.appSupplier.appTheme.lightTheme,
               darkTheme: AppConst.shared.appScheme.appSupplier.appTheme.darkTheme,

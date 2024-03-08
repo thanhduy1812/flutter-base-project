@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
   static const String route = '/lessons';
@@ -130,13 +131,34 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
     );
   }
 
-  static Widget rowIconRating(BuildContext context) {
+  static Widget rowIconRating(BuildContext context,
+      {double spacing = 0, LessonRating groupRating = LessonRating.happy, GtdCallback<LessonRating>? onChanged}) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        GtdImage.svgFromAsset(assetPath: "assets/image/ico-sad.svg", color: appBlueLightColor, width: 32),
-        GtdImage.svgFromAsset(assetPath: "assets/image/ico-normal.svg", color: appBlueLightColor, width: 32),
-        GtdImage.svgFromAsset(assetPath: "assets/image/ico-happy.svg", color: appBlueDeepColor, width: 32)
+        InkWell(
+          onTap: () => onChanged?.call(LessonRating.sad),
+          child: GtdImage.svgFromAsset(
+              assetPath: "assets/image/ico-sad.svg",
+              color: groupRating == LessonRating.sad ? appBlueDeepColor : appBlueLightColor,
+              width: 32),
+        ),
+        SizedBox(width: spacing),
+        InkWell(
+          onTap: () => onChanged?.call(LessonRating.normal),
+          child: GtdImage.svgFromAsset(
+              assetPath: "assets/image/ico-normal.svg",
+              color: groupRating == LessonRating.normal ? appBlueDeepColor : appBlueLightColor,
+              width: 32),
+        ),
+        SizedBox(width: spacing),
+        InkWell(
+          onTap: () => onChanged?.call(LessonRating.happy),
+          child: GtdImage.svgFromAsset(
+              assetPath: "assets/image/ico-normal.svg",
+              color: groupRating == LessonRating.happy ? appBlueDeepColor : appBlueLightColor,
+              width: 32),
+        ),
       ],
     );
   }

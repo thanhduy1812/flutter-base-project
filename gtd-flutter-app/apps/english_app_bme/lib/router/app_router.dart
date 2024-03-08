@@ -1,4 +1,8 @@
+import 'package:english_app_bme/home/view_controller/add_course_page.dart';
+import 'package:english_app_bme/home/view_controller/add_user_page.dart';
 import 'package:english_app_bme/home/view_controller/home_page.dart';
+import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
+import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
 import 'package:english_app_bme/home/view_model/home_page_viewmodel.dart';
 import 'package:english_app_bme/lesson/view_controller/lesson_detail_page.dart';
 import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
@@ -53,6 +57,24 @@ final List<RouteBase> homeRouters = [
       var viewModel = state.extra as LessonDetailPageViewModel?;
       return LessonDetailPage(
         viewModel: viewModel ?? LessonDetailPageViewModel(),
+      );
+    },
+  ),
+  GoRoute(
+    parentNavigatorKey: _rootNavigatorKey,
+    path: AddCoursePage.route,
+    builder: (context, state) {
+      return AddCoursePage(
+        viewModel: AddCoursePageViewModel(),
+      );
+    },
+  ),
+  GoRoute(
+    parentNavigatorKey: _rootNavigatorKey,
+    path: AddUserPage.route,
+    builder: (context, state) {
+      return AddUserPage(
+        viewModel: AddUserPageViewModel(),
       );
     },
   ),

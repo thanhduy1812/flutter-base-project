@@ -151,66 +151,82 @@ abstract class GtdThemeData {
       );
 
   static ThemeData get gotadiB2CLightTheme => ThemeData(
-        scaffoldBackgroundColor: Colors.grey.shade50,
-        fontFamily: AppFonts.fontInter,
-        pageTransitionsTheme: const PageTransitionsTheme(builders: {
-          TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-          TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
-        }),
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-          titleTextStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 16,
-            color: Color.fromRGBO(18, 24, 38, 1),
-          ),
-          iconTheme: IconThemeData(
-            color: Color.fromRGBO(18, 24, 38, 1),
-          ),
-          color: Colors.transparent,
-          // backgroundColor: Colors.transparent,
-          // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-          scrolledUnderElevation: 0,
-        ),
-        colorScheme: _colorScheme(GtdAppSupplier.b2c, ThemeMode.light),
-        useMaterial3: true,
-        bottomSheetTheme: const BottomSheetThemeData(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(38.0),
+          scaffoldBackgroundColor: Colors.grey.shade50,
+          fontFamily: AppFonts.fontInter,
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder()
+          }),
+          appBarTheme: const AppBarTheme(
+            centerTitle: true,
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+            titleTextStyle: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 16,
+              color: Color.fromRGBO(18, 24, 38, 1),
             ),
+            iconTheme: IconThemeData(
+              color: Color.fromRGBO(18, 24, 38, 1),
+            ),
+            color: Colors.transparent,
+            // backgroundColor: Colors.transparent,
+            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+            scrolledUnderElevation: 0,
           ),
-        ),
-        dividerTheme: const DividerThemeData(
-          color: CustomColors.dividerColor,
-          thickness: 1,
-          space: 0,
-        ),
-        dividerColor: CustomColors.dividerColor,
-        highlightColor: Colors.transparent,
-        splashFactory: NoSplash.splashFactory,
-        indicatorColor: CustomColors.mainGreen,
-        progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.mainColor),
-        primaryColor: CustomColors.mainGreen,
-        textTheme: TextTheme(
-          headlineLarge: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
-          headlineMedium: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          headlineSmall: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade500),
-        ),
-        cardTheme: CardTheme(
-            color: Colors.white,
-            elevation: 2,
+          colorScheme: _colorScheme(GtdAppSupplier.b2c, ThemeMode.light),
+          useMaterial3: true,
+          bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: Colors.white,
+            surfaceTintColor: Colors.transparent,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(38.0),
+              ),
             ),
-            shadowColor: Colors.black26,
-            surfaceTintColor: Colors.white),
-        // RefreshIndicator
-      ).copyWith(
+          ),
+          dividerTheme: const DividerThemeData(
+            color: CustomColors.dividerColor,
+            thickness: 1,
+            space: 0,
+          ),
+          dividerColor: CustomColors.dividerColor,
+          highlightColor: Colors.transparent,
+          splashFactory: NoSplash.splashFactory,
+          indicatorColor: CustomColors.mainGreen,
+          progressIndicatorTheme: ProgressIndicatorThemeData(color: AppColors.mainColor),
+          primaryColor: CustomColors.mainGreen,
+          textTheme: TextTheme(
+            headlineLarge: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700),
+            headlineMedium: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            headlineSmall: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            bodySmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey.shade500),
+          ),
+          cardTheme: CardTheme(
+              color: Colors.white,
+              elevation: 2,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0),
+              ),
+              shadowColor: Colors.black26,
+              surfaceTintColor: Colors.white),
+          timePickerTheme: TimePickerThemeData(
+            dialTextColor: CustomColors.mainGreen,
+            dialBackgroundColor: Colors.white,
+            dialHandColor: Colors.orangeAccent,
+            hourMinuteColor: Colors.white,
+            confirmButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 18),
+              ),
+            ),
+            cancelButtonStyle: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(
+                const TextStyle(fontSize: 18),
+              ),
+            ),
+          )
+          // RefreshIndicator
+          ).copyWith(
         extensions: <ThemeExtension<dynamic>>[
           _colorStatus(GtdAppSupplier.b2c, ThemeMode.light),
           _colorBackgroundStatus(GtdAppSupplier.b2c, ThemeMode.light),
