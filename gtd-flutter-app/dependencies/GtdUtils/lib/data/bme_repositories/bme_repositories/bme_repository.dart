@@ -1,6 +1,8 @@
 import 'package:gtd_utils/data/bme_repositories/bme_client/api/bme_client_resource_api.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/lesson_roadmap_rs.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 
 import '../../network/network.dart';
@@ -69,7 +71,7 @@ class BmeRepository {
   }
 
   //Course
-    Future<Result<List<BmeOriginCourse>, GtdApiError>> getListBmeCourse() async {
+  Future<Result<List<BmeOriginCourse>, GtdApiError>> getListBmeCourse() async {
     try {
       final response = await bmeClientResourceApi.getListCourse();
       return Success(response);
@@ -78,6 +80,7 @@ class BmeRepository {
       return Error(e);
     }
   }
+
   Future<Result<List<BmeOriginCourse>, GtdApiError>> searchBmeCourseByKey(String keyword) async {
     try {
       final response = await bmeClientResourceApi.searchBmeCourseByKey("ma_lop", keyword);
@@ -94,6 +97,26 @@ class BmeRepository {
       return Success(response);
     } on GtdApiError catch (e) {
       Logger.e("findBmeCourseByKey: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap({required AddLessonRq addLessonRq}) async {
+    try {
+      final response = await bmeClientResourceApi.createLessonRoadmap(addLessonRq: addLessonRq);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("createLessonRoadmap: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<LessonRoadmapRs>, GtdApiError>> findLessonRoadmapByKey(String courseCode) async {
+    try {
+      final response = await bmeClientResourceApi.findLessonRoadmapByKey({"class_code": courseCode});
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("findLessonRoadmapByKey: $e");
       return Error(e);
     }
   }

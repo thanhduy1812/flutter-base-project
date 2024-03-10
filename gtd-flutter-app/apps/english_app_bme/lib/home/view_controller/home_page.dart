@@ -166,7 +166,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
               var course = viewModel.filteredCourses[index];
               return InkWell(
                 onTap: () {
-                  var lessonPageViewModel = LessonPageViewModel(title: course.maLop);
+                  var lessonPageViewModel = LessonPageViewModel(course: course);
                   context.push(LessonPage.route, extra: lessonPageViewModel);
                 },
                 child: Padding(

@@ -49,7 +49,7 @@ final List<RouteBase> homeRouters = [
     builder: (context, state) {
       var viewModel = state.extra as LessonPageViewModel?;
       return LessonPage(
-        viewModel: viewModel ?? LessonPageViewModel(),
+        viewModel: viewModel!,
       );
     },
   ),
@@ -67,8 +67,9 @@ final List<RouteBase> homeRouters = [
     parentNavigatorKey: _rootNavigatorKey,
     path: AddCoursePage.route,
     builder: (context, state) {
+      var viewModel = state.extra as AddCoursePageViewModel?;
       return AddCoursePage(
-        viewModel: AddCoursePageViewModel(),
+        viewModel: viewModel!,
       );
     },
   ),

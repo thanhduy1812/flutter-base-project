@@ -13,6 +13,10 @@ class BmeApiEndpoint extends GtdEndpoint {
   static const String kBmeCoursesFindByKey = "v1/bme/courses/find-by-key";
   static const String kBmeCoursesSearchByColumn = "v1/bme/Courses/search-by-column";
 
+  //Lesson
+  static const String kBmeLessonRoadmapCreate = "v1/lesson-roadmap/create";
+  static const String kLessonRoadmapFindByKey = "v1/lesson-roadmap/find-by-key";
+
 //User
   static GtdEndpoint getListBmeUser(GTDEnvType envType) {
     const path = kUsers;
@@ -42,6 +46,16 @@ class BmeApiEndpoint extends GtdEndpoint {
 
   static GtdEndpoint findBmeCoursesByKey(GTDEnvType envType) {
     const path = kBmeCoursesFindByKey;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  //Lesson
+  static GtdEndpoint createRoadmapLesson(GTDEnvType envType) {
+    const path = kBmeLessonRoadmapCreate;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+    static GtdEndpoint findLessonByKey(GTDEnvType envType) {
+    const path = kLessonRoadmapFindByKey;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
   }
 }
