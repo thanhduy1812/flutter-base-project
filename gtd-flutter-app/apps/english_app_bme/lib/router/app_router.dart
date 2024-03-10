@@ -36,9 +36,12 @@ final List<RouteBase> homeRouters = [
   GoRoute(
     parentNavigatorKey: _rootNavigatorKey,
     path: HomePage.route,
-    builder: (context, state) => HomePage(
-      viewModel: HomePageViewModel(),
-    ),
+    builder: (context, state) {
+      var viewModel = state.extra as HomePageViewModel?;
+      return HomePage(
+        viewModel: viewModel ?? HomePageViewModel(),
+      );
+    },
   ),
   GoRoute(
     parentNavigatorKey: _rootNavigatorKey,
@@ -82,7 +85,7 @@ final List<RouteBase> homeRouters = [
 // final b2cBaseRouters = [...homeRouters];
 // final b2b2cShellRouters = [...homeShellRouter, ...bookingWithRootKeyRouters];
 final appRouter = AppRouter(
-  initialLocation: LoginPage.route,
+  initialLocation: SplashScreen.route,
   routers: homeRouters,
   rootNavigatorKey: _rootNavigatorKey,
 ).generateRouter();

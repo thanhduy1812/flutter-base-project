@@ -1,5 +1,6 @@
 import 'package:english_app_bme/home/app_bottom_bar.dart';
 import 'package:english_app_bme/home/view_controller/home_page.dart';
+import 'package:english_app_bme/home/view_model/home_page_viewmodel.dart';
 import 'package:english_app_bme/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +9,8 @@ import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/utils/popup/gtd_loading.dart';
+import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 
 class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
   static const String route = '/login';
@@ -47,7 +50,9 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                   color: Colors.grey.shade500,
                 ),
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                viewModel.username = value;
+              },
             ),
           ),
           Padding(
@@ -72,7 +77,9 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                   color: Colors.grey.shade500,
                 ),
               ),
-              onChanged: (value) {},
+              onChanged: (value) {
+                viewModel.password = value;
+              },
             ),
           ),
           SizedBox(
@@ -85,8 +92,18 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                 colorText: Colors.white,
                 color: Colors.orange,
                 height: 60,
-                onPressed: (value) {
-                  pageContext.pushReplacement(HomePage.route);
+                onPressed: (value) async {
+                  FocusScope.of(pageContext).unfocus();
+                  GtdLoading.show();
+                  await viewModel.login().then((value) {
+                    GtdLoading.hide();
+                    value.when((success) {
+                      var viewModel = HomePageViewModel();
+                      pageContext.pushReplacement(HomePage.route, extra: viewModel);
+                    }, (error) {
+                      GtdPopupMessage(pageContext).showError(error: error.message);
+                    });
+                  });
                 },
               ),
             ),

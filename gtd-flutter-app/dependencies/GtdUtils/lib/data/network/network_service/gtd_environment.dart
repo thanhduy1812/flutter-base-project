@@ -6,7 +6,7 @@ import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 
 // ignore: constant_identifier_names
-enum GTDEnvType { CMSBannerAPI, GTDBannerAPI, B2CAPI, AgentAPI, VIBAPI }
+enum GTDEnvType { CMSBannerAPI, GTDBannerAPI, B2CAPI, AgentAPI, VIBAPI, BmeEnglish }
 
 class GtdEnvironment {
   GTDEnvType env;
@@ -50,6 +50,11 @@ class GtdEnvironment {
         break;
       case GTDEnvType.GTDBannerAPI:
         baseUrl = "www.gotadi.com";
+        platformPath = "";
+        headers = {};
+        break;
+      case GTDEnvType.BmeEnglish:
+        baseUrl = "103.161.173.59";
         platformPath = "";
         headers = {};
         break;

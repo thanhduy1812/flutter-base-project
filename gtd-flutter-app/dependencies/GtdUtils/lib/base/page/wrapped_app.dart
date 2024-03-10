@@ -6,8 +6,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/settings/setting_cupid.dart';
 import 'package:gtd_utils/constants/app_const.dart';
+import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/utils/app_bloc_observer/app_bloc_observer.dart';
+
+import '../bloc/local_cubit.dart';
 
 class WrappedApp {
   WrappedApp._();
@@ -40,6 +43,12 @@ class GtdBaseApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => SettingCubit()),
+          BlocProvider(
+            create: (context) => LocalCubit()
+              ..initCached()
+              ..initSetting(lang: "en"),
+            lazy: false,
+          ),
         ],
         child: BlocBuilder<SettingCubit, ThemeData>(builder: (context, state) {
           return MaterialApp.router(

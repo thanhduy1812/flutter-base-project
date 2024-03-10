@@ -8,7 +8,7 @@ class AddUserPageViewModel extends BasePageViewModel {
     switch (homePageTab) {
       case HomePageTab.mentor:
         // title = "Mentor";
-        headerTitle = "Add a mentor";
+        headerTitle = "Add a User";
         break;
       case HomePageTab.student:
         // title = "Student";

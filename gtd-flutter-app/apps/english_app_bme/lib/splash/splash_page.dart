@@ -1,3 +1,5 @@
+import 'package:english_app_bme/login/view_controller/login_page.dart';
+import 'package:english_app_bme/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
@@ -33,7 +35,8 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     Future.delayed(const Duration(seconds: 2)).then((value) {
-      context.pushReplacement(HomePage.route);
+      var viewModel = LoginPageViewModel();
+      context.pushReplacement(LoginPage.route, extra: viewModel);
     });
     return ColoredBox(
       color: Colors.white,

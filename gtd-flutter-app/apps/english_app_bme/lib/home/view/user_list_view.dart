@@ -13,18 +13,27 @@ class UserListView extends BaseView<UserListViewModel> {
   Widget buildWidget(BuildContext context) {
     return ListView.separated(
         itemBuilder: (context, index) {
+          var user = viewModel.bmeUsers[index];
           return SizedBox(
-              // height: 50,
-              child: ListTile(
-            leading:
-                GtdImage.svgFromAsset(assetPath: "assets/image/ico-contact.svg", color: appBlueDeepColor, width: 32),
-            title: Text("Henry Itondo",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-            subtitle:
-                Text("09xxx", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.subText)),
-          ));
+            // height: 50,
+            child: ListTile(
+              leading:
+                  GtdImage.svgFromAsset(assetPath: "assets/image/ico-contact.svg", color: appBlueDeepColor, width: 32),
+              title: Text(user.fullName ?? "--",
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: AppColors.boldText)),
+              subtitle: Text(user.phoneNumber ?? "--",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.subText)),
+              trailing: Card(
+                  elevation: 0,
+                  color: appOrangeDarkColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: Text(user.role ?? ""),
+                  )),
+            ),
+          );
         },
         separatorBuilder: (context, index) => Divider(color: Colors.grey.shade300),
-        itemCount: 40);
+        itemCount: viewModel.bmeUsers.length);
   }
 }

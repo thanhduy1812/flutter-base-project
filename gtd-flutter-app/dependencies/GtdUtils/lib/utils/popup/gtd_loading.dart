@@ -42,4 +42,12 @@ class GtdLoading {
   static Future<void> hide() {
     return EasyLoading.dismiss(animation: true);
   }
+
+  static Future<void> showError(String message) {
+    return EasyLoading.showError(message, dismissOnTap: true);
+  }
+
+  static Future<void> showSuccess() {
+    return EasyLoading.showSuccess("Success!", dismissOnTap: true);
+  }
 }

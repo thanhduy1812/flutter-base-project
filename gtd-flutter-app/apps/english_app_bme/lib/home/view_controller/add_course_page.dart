@@ -2,6 +2,7 @@ import 'package:english_app_bme/home/app_bottom_bar.dart';
 import 'package:english_app_bme/home/view/input_text_field.dart';
 import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_lunar_calendar/gtd_calendar_helper.dart';
@@ -113,7 +114,9 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                       colorText: Colors.red,
                       color: Colors.red.shade50,
                       height: 60,
-                      onPressed: (value) {},
+                      onPressed: (value) {
+                        pageContext.pop();
+                      },
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -125,7 +128,9 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                       colorText: Colors.white,
                       color: Colors.orange,
                       height: 60,
-                      onPressed: (value) {},
+                      onPressed: (value) {
+                        pageContext.pop();
+                      },
                     ),
                   ),
                 ],

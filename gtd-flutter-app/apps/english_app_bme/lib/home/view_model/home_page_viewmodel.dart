@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
+import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
   course(0, "Courses"),
@@ -15,8 +19,48 @@ enum HomePageTab {
 class HomePageViewModel extends BasePageViewModel {
   HomePageTab seletedTab = HomePageTab.course;
   StreamController<String> querySearchController = StreamController();
+  TextEditingController searchFieldController = TextEditingController();
+
+  List<BmeUser> originUsers = [];
+  List<BmeUser> filteredUsers = [];
+  List<BmeOriginCourse> originCourses = [];
+  List<BmeOriginCourse> filteredCourses = [];
+
   HomePageViewModel() {
     title = seletedTab.title;
+    querySearchController.stream.debounceTime(const Duration(milliseconds: 300)).listen((event) {
+      if (seletedTab == HomePageTab.course) {
+        if (event.isEmpty) {
+          filteredCourses = List.from(originCourses);
+        } else {
+          filteredCourses = List<BmeOriginCourse>.from(originCourses)
+              .where((element) =>
+                  element.maLop
+                      ?.trim()
+                      .replaceAll(RegExp(r'\s+'), '')
+                      .toLowerCase()
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()) ??
+                  false)
+              .toList();
+        }
+      }
+      if (seletedTab == HomePageTab.mentor) {
+        if (event.isEmpty) {
+          filteredUsers = List.from(originUsers);
+        } else {
+          filteredUsers = List<BmeUser>.from(originUsers)
+              .where((element) =>
+                  element.phoneNumber
+                      ?.trim()
+                      .replaceAll(RegExp(r'\s+'), '')
+                      .toLowerCase()
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()) ??
+                  false)
+              .toList();
+        }
+      }
+      notifyListeners();
+    });
   }
 
   void selectTab(int value) {
@@ -24,6 +68,10 @@ class HomePageViewModel extends BasePageViewModel {
         HomePageTab.values.firstWhere((element) => element.tabValue == value, orElse: () => HomePageTab.course);
     seletedTab = tab;
     title = seletedTab.title;
+    if (seletedTab != HomePageTab.course) {
+      filteredCourses = List.from(originCourses);
+    }
+    searchFieldController.clear();
     notifyListeners();
   }
 }
