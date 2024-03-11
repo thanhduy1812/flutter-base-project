@@ -40,7 +40,17 @@ class BmeRepository {
       final response = await bmeClientResourceApi.findBmeUserByKey({"username": phoneNumber});
       return Success(response);
     } on GtdApiError catch (e) {
-      Logger.e("searchUserByKeyword: $e");
+      Logger.e("findUserByKey: $e");
+      return Error(e);
+    }
+  }
+
+    Future<Result<List<BmeUser>, GtdApiError>> findUserByClassCode(String classCode) async {
+    try {
+      final response = await bmeClientResourceApi.findBmeUserByKey({"tag": classCode});
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("findUserByClassCode: $e");
       return Error(e);
     }
   }

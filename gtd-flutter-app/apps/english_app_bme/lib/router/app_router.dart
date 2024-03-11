@@ -59,7 +59,7 @@ final List<RouteBase> homeRouters = [
     builder: (context, state) {
       var viewModel = state.extra as LessonDetailPageViewModel?;
       return LessonDetailPage(
-        viewModel: viewModel ?? LessonDetailPageViewModel(),
+        viewModel: viewModel!,
       );
     },
   ),

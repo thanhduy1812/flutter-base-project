@@ -10,8 +10,8 @@ class AddCoursePageViewModel extends BasePageViewModel {
   final bool isAddLesson;
   String titleField = "";
   DateTime startDate = DateTime.now();
-  final BmeOriginCourse course;
-  AddCoursePageViewModel({super.title, this.isAddLesson = false, required this.course});
+  final BmeOriginCourse? course;
+  AddCoursePageViewModel({super.title, this.isAddLesson = false, this.course});
 
   void setStartDate(DateTime date) {
     startDate = DateTime(date.year, date.month, date.day);
@@ -30,7 +30,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap() async {
-    var lessonRoadmapRq = AddLessonRq(classCode: course.maLop, lessonName: titleField, startDate: startDate);
+    var lessonRoadmapRq = AddLessonRq(classCode: course?.maLop ?? "", lessonName: titleField, startDate: startDate);
     return BmeRepository.shared.createLessonRoadmap(addLessonRq: lessonRoadmapRq);
   }
 }

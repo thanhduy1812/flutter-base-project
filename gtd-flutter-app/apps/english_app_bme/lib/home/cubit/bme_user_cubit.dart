@@ -15,4 +15,14 @@ class BmeUserCubit extends Cubit<BmeUserState> {
       });
     });
   }
+
+  Future<void> loadBmeUsersByClassCode(String classCode) async {
+    emit(BmeUserLoading());
+    await BmeRepository.shared.findUserByClassCode(classCode).then((value) {
+      value.whenSuccess((success) {
+        emit(BmeUserInitial(bmeUsers: success));
+      });
+      value.whenError((error) => emit(BmeUserInitial(bmeUsers: const [])));
+    });
+  }
 }

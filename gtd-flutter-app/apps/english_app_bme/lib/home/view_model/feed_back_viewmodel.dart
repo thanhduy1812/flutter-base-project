@@ -6,9 +6,9 @@ class FeedbackViewModel extends BaseViewModel {
   List<FeedbackModel> feedbackModels = [];
   FeedbackViewModel() {
     feedbackModels = [
-      FeedbackModel(question: "Học viên hiểu bài không", rating: LessonRating.happy),
-      FeedbackModel(question: "Học viên vui không", rating: LessonRating.normal),
-      FeedbackModel(question: "Học viên chán không", rating: LessonRating.happy)
+      FeedbackModel(question: "Học viên có hiểu bài không?", rating: LessonRating.happy),
+      FeedbackModel(question: "Học viên có tập trung không?", rating: LessonRating.normal),
+      FeedbackModel(question: "Học viên có hài lòng không?", rating: LessonRating.happy)
     ];
   }
 }

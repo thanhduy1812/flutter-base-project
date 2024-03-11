@@ -135,7 +135,8 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               margin: EdgeInsets.zero,
                               child: ListTile(
                                 onTap: () {
-                                  var detailPageViewModel = LessonDetailPageViewModel(title: lesson.lessonName);
+                                  var detailPageViewModel =
+                                      LessonDetailPageViewModel(course: viewModel.course, lessonRoadmapRs: lesson);
                                   context.push(LessonDetailPage.route, extra: detailPageViewModel);
                                 },
                                 leading: const Icon(

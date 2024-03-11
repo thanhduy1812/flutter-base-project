@@ -4,6 +4,7 @@ import 'package:english_app_bme/home/cubit/bme_user_cubit.dart';
 import 'package:english_app_bme/home/view/user_list_view.dart';
 import 'package:english_app_bme/home/view_controller/add_course_page.dart';
 import 'package:english_app_bme/home/view_controller/add_user_page.dart';
+import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
 import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
 import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
 import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
@@ -139,7 +140,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
       backgroundColor: appBlueDeepColor,
       onPressed: () => {
         switch (viewModel.seletedTab) {
-          HomePageTab.course => context.push(AddCoursePage.route),
+          HomePageTab.course => context.push(AddCoursePage.route, extra: AddCoursePageViewModel()),
           HomePageTab.mentor =>
             context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)),
           HomePageTab.student =>
@@ -202,7 +203,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                                     Text(course.ngayKhaiGiang ?? "--",
                                         style: TextStyle(
                                             fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-                                    Text("15 Lessons", style: TextStyle(fontSize: 15, color: AppColors.subText)),
+                                    // Text("15 Lessons", style: TextStyle(fontSize: 15, color: AppColors.subText)),
                                     Row(
                                       children: [
                                         GtdImage.svgFromAsset(

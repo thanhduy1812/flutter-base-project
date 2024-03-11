@@ -7,7 +7,7 @@ class BmeUser {
   bool? isDeleted;
   String? fullName;
   String? socialName;
-  DateTime? dob;
+  String? dob;
   String? avatar;
   String? username;
   String? password;
@@ -46,7 +46,7 @@ class BmeUser {
         isDeleted: json["is_deleted"],
         fullName: json["fullName"],
         socialName: json["socialName"],
-        dob: json["dob"] == null ? null : DateTime.parse(json["dob"]),
+        dob: json["dob"],
         avatar: json["avatar"],
         username: json["username"],
         password: json["password"],
@@ -66,7 +66,7 @@ class BmeUser {
         "is_deleted": isDeleted,
         "fullName": fullName,
         "socialName": socialName,
-        "dob": dob?.toIso8601String(),
+        "dob": dob,
         "avatar": avatar,
         "username": username,
         "password": password,
