@@ -35,8 +35,8 @@ class BmeClientResourceApi {
 
   Future<BmeUser> createBmeUser({required BmeUser bmeUser}) async {
     try {
-      final networkRequest = GTDNetworkRequest(type: GtdMethod.post, enpoint: BmeApiEndpoint.createBmeUser(envType));
-      networkRequest.queryParams = bmeUser.toJson();
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.post, enpoint: BmeApiEndpoint.createBmeUser(envType), data: bmeUser.toJson());
       networkService.request = networkRequest;
       final Response response = await networkService.execute();
       var result = JsonParser.jsonToModel(BmeUser.fromJson, response.data);
@@ -162,10 +162,9 @@ class BmeClientResourceApi {
     }
   }
 
-    Future<List<LessonRoadmapRs>> findLessonRoadmapByKey(Map<String, dynamic> dict) async {
+  Future<List<LessonRoadmapRs>> findLessonRoadmapByKey(Map<String, dynamic> dict) async {
     try {
-      final networkRequest =
-          GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.findLessonByKey(envType));
+      final networkRequest = GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.findLessonByKey(envType));
       networkRequest.queryParams = dict;
       networkService.request = networkRequest;
       final Response response = await networkService.execute();

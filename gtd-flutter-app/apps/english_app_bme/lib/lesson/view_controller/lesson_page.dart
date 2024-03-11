@@ -74,6 +74,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 16),
                     Row(
                       children: [
                         SizedBox(

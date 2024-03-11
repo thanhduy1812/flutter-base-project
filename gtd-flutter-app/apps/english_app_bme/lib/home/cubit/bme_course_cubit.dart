@@ -14,7 +14,13 @@ class BmeCourseCubit extends Cubit<BmeCourseState> {
   Future<void> loadCourse() async {
     await BmeRepository.shared.getListBmeCourse().then((value) {
       value.whenSuccess((success) {
-        emit(BmeCourseInitial(courses: success));
+        var filterCourse = success.where((element) =>
+            element.dinhHuong == "X" ||
+            element.phatAm == "X" ||
+            element.nghe == "X" ||
+            element.noi == "X" ||
+            element.nguPhap == "X").toList();
+        emit(BmeCourseInitial(courses: filterCourse));
       });
     });
   }

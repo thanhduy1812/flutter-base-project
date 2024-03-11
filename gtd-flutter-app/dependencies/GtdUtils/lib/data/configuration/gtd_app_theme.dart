@@ -224,7 +224,7 @@ abstract class GtdThemeData {
                 const TextStyle(fontSize: 18),
               ),
             ),
-          )
+          ),
           // RefreshIndicator
           ).copyWith(
         extensions: <ThemeExtension<dynamic>>[
