@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_lunar_calendar/gtd_calendar_helper.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_lunar_calendar/gtd_lunar_calendar.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 
 class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
@@ -195,7 +193,7 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                                     if (viewModel.validateForm()) {
                                       await viewModel.createUser().then((value) {
                                         value.when((success) {
-                                          pageContext.pop();
+                                          pageContext.pop(success);
                                         }, (error) {
                                           GtdPopupMessage(pageContext).showError(error: error.message);
                                         });

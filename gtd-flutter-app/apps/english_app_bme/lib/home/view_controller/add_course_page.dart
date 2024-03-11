@@ -6,8 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_lunar_calendar/gtd_calendar_helper.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_lunar_calendar/gtd_lunar_calendar.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 import 'package:intl/intl.dart';
 
@@ -61,7 +59,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                         showDatePicker(
                           context: pageContext,
                           firstDate: DateTime.now().subtract(const Duration(days: 36500)),
-                          lastDate: DateTime.now(),
+                          lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
                           initialDate: viewModel.startDate,
                           builder: (context, child) {
                             return Theme(
@@ -178,7 +176,13 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                 height: 60,
                                 onPressed: (value) async {
                                   if (viewModel.validateForm()) {
-                                    await viewModel.createLessonRoadmap().then((value) => pageContext.pop());
+                                    await viewModel.createLessonRoadmap().then((value) {
+                                      value.when((success) {
+                                        pageContext.pop(success);
+                                      }, (error) {
+                                        GtdPopupMessage(context).showError(error: error.message);
+                                      });
+                                    });
                                   } else {
                                     GtdPopupMessage(context).showError(error: "Please input full field!");
                                   }

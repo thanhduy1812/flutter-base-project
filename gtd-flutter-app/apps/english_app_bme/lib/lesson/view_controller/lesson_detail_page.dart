@@ -28,28 +28,24 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
           return ColoredBox(
             color: Colors.white,
             child: DefaultTabController(
-                length: 2,
+                length: _tabViews().length,
                 child: Column(
                   children: [
-                    const ColoredBox(
-                      color: appBlueDeepColor,
-                      child: TabBar(
-                        labelStyle: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-                        tabs: [
-                          Tab(text: "Students"),
-                          Tab(text: "Rating"),
-                        ],
-                        unselectedLabelColor: Colors.orangeAccent,
-                        labelColor: Colors.orangeAccent,
-                        indicatorColor: Colors.orangeAccent,
-                        // dividerColor: appBlueDeepColor,
-                      ),
-                    ),
+                    _tabViews().length == 1
+                        ? const SizedBox()
+                        : ColoredBox(
+                            color: appBlueDeepColor,
+                            child: TabBar(
+                              labelStyle: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                              tabs: _tabViews(),
+                              unselectedLabelColor: Colors.orangeAccent,
+                              labelColor: Colors.orangeAccent,
+                              indicatorColor: Colors.orangeAccent,
+                              // dividerColor: appBlueDeepColor,
+                            ),
+                          ),
                     Expanded(
-                      child: TabBarView(children: [
-                        UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers)),
-                        FeedbackView(viewModel: FeedbackViewModel()),
-                      ]),
+                      child: TabBarView(children: _generateTabarView()),
                     )
                   ],
                 )),
@@ -57,5 +53,33 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
         },
       ),
     );
+  }
+
+  List<Widget> _tabViews() {
+    if (viewModel.role == "ADMIN" || viewModel.role == "MENTOR") {
+      return [
+        const Tab(text: "Students"),
+      ];
+    } else if (viewModel.role == "MENTOR") {
+      return [
+        const Tab(text: "Students"),
+        const Tab(text: "Rating"),
+      ];
+    } else {
+      return [const Tab(text: "Rating")];
+    }
+  }
+
+  List<Widget> _generateTabarView() {
+    if (viewModel.role == "ADMIN" || viewModel.role == "MENTOR") {
+      return [UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers))];
+    } else if (viewModel.role == "MENTOR") {
+      return [
+        UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers)),
+        FeedbackView(viewModel: FeedbackViewModel())
+      ];
+    } else {
+      return [FeedbackView(viewModel: FeedbackViewModel())];
+    }
   }
 }

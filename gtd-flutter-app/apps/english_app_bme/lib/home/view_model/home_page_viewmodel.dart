@@ -50,12 +50,14 @@ class HomePageViewModel extends BasePageViewModel {
         } else {
           filteredUsers = List<BmeUser>.from(originUsers)
               .where((element) =>
-                  element.phoneNumber
-                      ?.trim()
+                  ((element.fullName ?? "")
+                      .trim()
                       .replaceAll(RegExp(r'\s+'), '')
                       .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()) ??
-                  false)
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase())) ||
+                  (element.phoneNumber ?? "")
+                      .toLowerCase()
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()))
               .toList();
         }
       }

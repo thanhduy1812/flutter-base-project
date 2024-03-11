@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
+import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
@@ -70,7 +71,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                           //     subtitle: Text("45 Lessons", style: TextStyle(fontWeight: FontWeight.w500)),
                           //   ),
                           // ),
-                          Expanded(child: rowIconRating(pageContext)),
+                          // Expanded(child: rowIconRating(pageContext)),
                         ],
                       ),
                     ),
@@ -97,10 +98,16 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                           height: 50,
                           width: 125,
                           child: InkWell(
-                            onTap: () {
-                              pageContext.push(AddCoursePage.route,
-                                  extra:
-                                      AddCoursePageViewModel(title: "", isAddLesson: true, course: viewModel.course));
+                            onTap: () async {
+                              await pageContext
+                                  .push(AddCoursePage.route,
+                                      extra: AddCoursePageViewModel(
+                                          title: "", isAddLesson: true, course: viewModel.course))
+                                  .then((value) {
+                                if (value != null) {
+                                  viewModel.loadLessonRoadmaps();
+                                }
+                              });
                             },
                             child: const Card(
                                 margin: EdgeInsets.zero,
@@ -146,16 +153,17 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 ),
                                 title: Text(lesson.lessonName ?? "",
                                     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
-                                subtitle: const Text("1h30m"),
-                                trailing: (index == 0)
-                                    ? const Icon(
-                                        Icons.check_box_rounded,
-                                        color: appOrangeDarkColor,
-                                      )
-                                    : const Icon(
-                                        Icons.lock,
-                                        color: appBlueDeepColor,
-                                      ),
+                                subtitle: Text(dateFormat.format(lesson.startDate ?? DateTime.now())),
+                                trailing: rowIconRating(pageContext),
+                                // trailing: (index == 0)
+                                //     ? const Icon(
+                                //         Icons.check_box_rounded,
+                                //         color: appOrangeDarkColor,
+                                //       )
+                                //     : const Icon(
+                                //         Icons.lock,
+                                //         color: appBlueDeepColor,
+                                //       ),
                               ),
                             ));
                       },

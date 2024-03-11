@@ -45,7 +45,7 @@ class BmeRepository {
     }
   }
 
-    Future<Result<List<BmeUser>, GtdApiError>> findUserByClassCode(String classCode) async {
+  Future<Result<List<BmeUser>, GtdApiError>> findUserByClassCode(String classCode) async {
     try {
       final response = await bmeClientResourceApi.findBmeUserByKey({"tag": classCode});
       return Success(response);
@@ -70,7 +70,7 @@ class BmeRepository {
       var request = {"username": username, "password": password};
       final response = await bmeClientResourceApi.findBmeUserByKey(request);
       if (response.isNotEmpty) {
-        // await CacheHelper.shared.saveSharedObject(response.first.toJson(), key: CacheStorageType.accountBox.name);
+        await CacheHelper.shared.saveSharedObject(response.first.toJson(), key: CacheStorageType.accountBox.name);
         return Success(response);
       }
       return Error(GtdApiError(code: "404", message: "User not found"));

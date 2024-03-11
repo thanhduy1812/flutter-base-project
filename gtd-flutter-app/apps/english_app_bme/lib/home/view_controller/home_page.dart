@@ -24,83 +24,85 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
   const HomePage({super.key, required super.viewModel});
 
   @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => BmeCourseCubit()..loadCourse(),
+      ),
+      BlocProvider(
+        create: (context) => BmeUserCubit()..loadBmeUsers(),
+      ),
+    ], child: super.build(context));
+  }
+
+  @override
   Widget buildBody(BuildContext pageContext) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => BmeCourseCubit()..loadCourse(),
-        ),
-        BlocProvider(
-          create: (context) => BmeUserCubit()..loadBmeUsers(),
-        ),
-      ],
-      child: BlocBuilder<BmeCourseCubit, BmeCourseState>(
-        builder: (context, state) {
-          if (state is BmeCourseInitial) {
-            viewModel.originCourses = state.courses;
-            viewModel.filteredCourses = List.from(viewModel.originCourses);
-          }
-          return BlocBuilder<BmeUserCubit, BmeUserState>(
-            builder: (context, state) {
-              if (state is BmeUserInitial) {
-                viewModel.originUsers = state.bmeUsers;
-                viewModel.filteredUsers = List.from(viewModel.originUsers);
-              }
-              return Column(
-                children: [
-                  ColoredBox(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: TextField(
-                        controller: viewModel.searchFieldController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                              borderSide: const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
-                          hintText: 'Search...',
-                          hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
-                          filled: false,
-                          fillColor: Colors.white,
-                          focusColor: appBlueDeepColor,
-                          hoverColor: appBlueDeepColor,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey.shade500,
-                          ),
+    return BlocBuilder<BmeCourseCubit, BmeCourseState>(
+      builder: (context, state) {
+        if (state is BmeCourseInitial) {
+          viewModel.originCourses = state.courses;
+          viewModel.filteredCourses = List.from(viewModel.originCourses);
+        }
+        return BlocBuilder<BmeUserCubit, BmeUserState>(
+          builder: (context, state) {
+            if (state is BmeUserInitial) {
+              viewModel.originUsers = state.bmeUsers;
+              viewModel.filteredUsers = List.from(viewModel.originUsers);
+            }
+            return Column(
+              children: [
+                ColoredBox(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: TextField(
+                      controller: viewModel.searchFieldController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
+                        hintText: 'Search...',
+                        hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
+                        filled: false,
+                        fillColor: Colors.white,
+                        focusColor: appBlueDeepColor,
+                        hoverColor: appBlueDeepColor,
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.grey.shade500,
                         ),
-                        onTapOutside: (event) {
-                          FocusScope.of(pageContext).unfocus();
-                        },
-                        onChanged: (value) {
-                          viewModel.querySearchController.sink.add(value);
-                        },
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: ListenableBuilder(
-                      listenable: viewModel,
-                      builder: (context, child) {
-                        switch (viewModel.seletedTab) {
-                          case HomePageTab.course:
-                            return _courseList(context);
-                          case HomePageTab.mentor:
-                            return ColoredBox(
-                                color: Colors.white,
-                                child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                          default:
-                            return ColoredBox(color: Colors.white, child: UserListView(viewModel: UserListViewModel()));
-                        }
+                      onTapOutside: (event) {
+                        FocusScope.of(pageContext).unfocus();
+                      },
+                      onChanged: (value) {
+                        viewModel.querySearchController.sink.add(value);
                       },
                     ),
                   ),
-                ],
-              );
-            },
-          );
-        },
-      ),
+                ),
+                Expanded(
+                  child: ListenableBuilder(
+                    listenable: viewModel,
+                    builder: (context, child) {
+                      switch (viewModel.seletedTab) {
+                        case HomePageTab.course:
+                          return _courseList(context);
+                        case HomePageTab.mentor:
+                          return ColoredBox(
+                              color: Colors.white,
+                              child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                        default:
+                          return ColoredBox(color: Colors.white, child: UserListView(viewModel: UserListViewModel()));
+                      }
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 
@@ -140,9 +142,17 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
       backgroundColor: appBlueDeepColor,
       onPressed: () => {
         switch (viewModel.seletedTab) {
-          HomePageTab.course => context.push(AddCoursePage.route, extra: AddCoursePageViewModel()),
+          HomePageTab.course => context.push(AddCoursePage.route, extra: AddCoursePageViewModel()).then((value) {
+              if (value != null) {
+                BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+              }
+            }),
           HomePageTab.mentor =>
-            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)),
+            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)).then((value) {
+              if (value != null) {
+                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers();
+              }
+            }),
           HomePageTab.student =>
             context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student)),
         }
