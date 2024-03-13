@@ -38,7 +38,7 @@ dependencies:
   go_router: ^13.2.0
   hive: any
   shared_preferences: ^2.1.1
-  path_provider: ^2.0.14
+  # path_provider: ^2.0.14
   syncfusion_flutter_datepicker: ^24.2.7
   easy_localization: ^3.0.1
   flutter_localizations:
@@ -52,7 +52,7 @@ dependencies:
   async:
   # Dependencies for Repositories
   # freezed: ^2.3.2
-  dio: ^5.3.3
+  dio: ^5.4.1
   shimmer: ^3.0.0
   flutter_dotenv: ^5.0.2
   azlistview: any

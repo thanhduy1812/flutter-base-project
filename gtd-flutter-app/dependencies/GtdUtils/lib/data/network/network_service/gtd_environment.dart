@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // ignore: constant_identifier_names
 enum GTDEnvType { CMSBannerAPI, GTDBannerAPI, B2CAPI, AgentAPI, VIBAPI, BmeEnglish }
@@ -17,17 +18,21 @@ class GtdEnvironment {
     if (AppConst.shared.appScheme.appSupplier == GtdAppSupplier.vib) {
       platformPath = dotenv.get("API_VIB_PATH", fallback: "vib");
     } else {
-      String platform = Platform.operatingSystem;
-      switch (platform) {
-        case "ios":
-          platformPath = dotenv.get("API_IOS_PATH", fallback: "b2c-web");
-          break;
-        case "android":
-          platformPath = dotenv.get("API_ANDROID_PATH", fallback: "b2c-web");
-          break;
-        default:
-          platformPath = dotenv.get("API_WEB_PATH", fallback: "b2c-web");
-          break;
+      if (kIsWeb) {
+        platformPath = dotenv.get("API_WEB_PATH", fallback: "b2c-web");
+      } else {
+        String platform = Platform.operatingSystem;
+        switch (platform) {
+          case "ios":
+            platformPath = dotenv.get("API_IOS_PATH", fallback: "b2c-web");
+            break;
+          case "android":
+            platformPath = dotenv.get("API_ANDROID_PATH", fallback: "b2c-web");
+            break;
+          default:
+            platformPath = dotenv.get("API_IOS_PATH", fallback: "b2c-web");
+            break;
+        }
       }
     }
 

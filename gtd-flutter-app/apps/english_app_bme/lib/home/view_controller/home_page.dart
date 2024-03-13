@@ -108,6 +108,9 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? buildBottomBar(BuildContext pageContext) {
+    if (viewModel.role != "ADMIN") {
+      return null;
+    }
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context, child) {
@@ -138,6 +141,9 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? floatingButton(BuildContext context) {
+    if (viewModel.role != "ADMIN") {
+      return null;
+    }
     return FloatingActionButton(
       backgroundColor: appBlueDeepColor,
       onPressed: () => {

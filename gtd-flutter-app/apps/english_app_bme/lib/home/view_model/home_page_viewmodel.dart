@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
+import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
@@ -26,8 +27,12 @@ class HomePageViewModel extends BasePageViewModel {
   List<BmeOriginCourse> originCourses = [];
   List<BmeOriginCourse> filteredCourses = [];
 
+  String role = "";
+
   HomePageViewModel() {
     title = seletedTab.title;
+    var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    role = bmeUser?.role ?? "USER";
     querySearchController.stream.debounceTime(const Duration(milliseconds: 300)).listen((event) {
       if (seletedTab == HomePageTab.course) {
         if (event.isEmpty) {

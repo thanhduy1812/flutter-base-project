@@ -1,6 +1,8 @@
+
 import 'package:dio/dio.dart';
 import 'gtd_dio_curl_logging.dart';
 import 'gtd_network_request.dart';
+
 
 class GtdNetworkService {
   // dio instance
@@ -10,6 +12,13 @@ class GtdNetworkService {
   late GTDNetworkRequest request;
   // injecting dio instance
   GtdNetworkService._() {
+    // if (kIsWeb) {
+    //   _dio.httpClientAdapter = BrowserHttpClientAdapter();
+    // } else {
+    //   _dio.httpClientAdapter = HttpClientAdapter();
+    // }
+    _dio.httpClientAdapter = HttpClientAdapter();
+
     _dio.interceptors.add(GtdDioInterceptor(printOnSuccess: true));
   }
   static final shared = GtdNetworkService._();

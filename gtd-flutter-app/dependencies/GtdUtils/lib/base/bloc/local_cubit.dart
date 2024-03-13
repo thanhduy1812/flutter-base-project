@@ -22,7 +22,7 @@ class LocalCubit extends Cubit<LocalState> {
   }
 
   void initCached() async {
-    CacheHelper.shared.initCachedStorage();
+    // CacheHelper.shared.initCachedStorage();
     CacheHelper.shared.initCachedMemory();
   }
 

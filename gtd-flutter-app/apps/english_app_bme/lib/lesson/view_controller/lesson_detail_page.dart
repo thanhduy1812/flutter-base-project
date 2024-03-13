@@ -56,7 +56,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   }
 
   List<Widget> _tabViews() {
-    if (viewModel.role == "ADMIN" || viewModel.role == "MENTOR") {
+    if (viewModel.role == "ADMIN") {
       return [
         const Tab(text: "Students"),
       ];
@@ -71,7 +71,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   }
 
   List<Widget> _generateTabarView() {
-    if (viewModel.role == "ADMIN" || viewModel.role == "MENTOR") {
+    if (viewModel.role == "ADMIN") {
       return [UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers))];
     } else if (viewModel.role == "MENTOR") {
       return [
