@@ -71,15 +71,16 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   }
 
   List<Widget> _generateTabarView() {
+    
     if (viewModel.role == "ADMIN") {
       return [UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers))];
     } else if (viewModel.role == "MENTOR") {
       return [
         UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers)),
-        FeedbackView(viewModel: FeedbackViewModel())
+        FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))
       ];
     } else {
-      return [FeedbackView(viewModel: FeedbackViewModel())];
+      return [FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))];
     }
   }
 }

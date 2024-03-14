@@ -9,6 +9,7 @@ import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
 import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
 import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
 import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:english_app_bme/login/view_controller/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +48,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
           builder: (context, state) {
             if (state is BmeUserInitial) {
               viewModel.originUsers = state.bmeUsers;
-              viewModel.filteredUsers = List.from(viewModel.originUsers);
+              viewModel.updateFilteredUser();
             }
             return Column(
               children: [
@@ -92,8 +93,10 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                           return ColoredBox(
                               color: Colors.white,
                               child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                        default:
-                          return ColoredBox(color: Colors.white, child: UserListView(viewModel: UserListViewModel()));
+                        case HomePageTab.student:
+                          return ColoredBox(
+                              color: Colors.white,
+                              child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
                       }
                     },
                   ),
@@ -140,6 +143,18 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
   }
 
   @override
+  List<Widget> buildTrailingActions(BuildContext pageContext) {
+    // TODO: implement buildTrailingActions
+    return [
+      IconButton(
+          onPressed: () {
+            pageContext.pushReplacement(LoginPage.route);
+          },
+          icon: const Icon(Icons.exit_to_app_rounded))
+    ];
+  }
+
+  @override
   Widget? floatingButton(BuildContext context) {
     if (viewModel.role != "ADMIN") {
       return null;
@@ -156,11 +171,16 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
           HomePageTab.mentor =>
             context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)).then((value) {
               if (value != null) {
-                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers();
+                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "MENTOR");
               }
             }),
-          HomePageTab.student =>
-            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student)),
+          HomePageTab.student => context
+                .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student))
+                .then((value) {
+              if (value != null) {
+                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
+              }
+            }),
         }
       },
       tooltip: 'Add ${viewModel.seletedTab.title}',

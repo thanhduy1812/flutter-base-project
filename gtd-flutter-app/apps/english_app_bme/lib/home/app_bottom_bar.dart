@@ -20,19 +20,19 @@ final List<BottomNavBarItem> tabs = [
     activeIcon: ColorFiltered(
         colorFilter: const ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn),
         child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-mentor.svg", width: 24)),
-    label: 'Users',
+    label: 'Mentors',
     initialLocation: '/mentor',
   ),
-  // BottomNavBarItem(
-  //   icon: ColorFiltered(
-  //       colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcIn),
-  //       child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-student.svg", width: 24)),
-  //   activeIcon: ColorFiltered(
-  //       colorFilter: const ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn),
-  //       child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-student.svg", width: 24)),
-  //   label: 'Student',
-  //   initialLocation: "/student",
-  // ),
+  BottomNavBarItem(
+    icon: ColorFiltered(
+        colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcIn),
+        child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-student.svg", width: 24)),
+    activeIcon: ColorFiltered(
+        colorFilter: const ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn),
+        child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-student.svg", width: 24)),
+    label: 'Student',
+    initialLocation: "/student",
+  ),
 ];
 
 const appBlueDeepColor = Color(0xFF005248);

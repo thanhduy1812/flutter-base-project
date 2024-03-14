@@ -17,6 +17,14 @@ class BmeApiEndpoint extends GtdEndpoint {
   static const String kBmeLessonRoadmapCreate = "v1/lesson-roadmap/create";
   static const String kLessonRoadmapFindByKey = "v1/lesson-roadmap/find-by-key";
 
+  //Feedback
+  static const String kFeedbackList = "v1/feedbacks";
+  //UserFeedback
+  static const String kUserFeedbackCreate = "v1/user-feedback/create";
+  static const String kUserFeedbacks = "v1/user-feedback";
+  static const String kUserFeedbackFindByKey = "v1/user-feedback/find-by-key";
+  static const String kUserFeedbackFindByLessonRoadmapIds = "v1/user-feedback/find-by-lessons";
+
 //User
   static GtdEndpoint getListBmeUser(GTDEnvType envType) {
     const path = kUsers;
@@ -54,8 +62,35 @@ class BmeApiEndpoint extends GtdEndpoint {
     const path = kBmeLessonRoadmapCreate;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
   }
-    static GtdEndpoint findLessonByKey(GTDEnvType envType) {
+
+  static GtdEndpoint findLessonByKey(GTDEnvType envType) {
     const path = kLessonRoadmapFindByKey;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  //Feedback
+  static GtdEndpoint getListFeedbackQuestion(GTDEnvType envType) {
+    const path = kFeedbackList;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  static GtdEndpoint createUserFeedback(GTDEnvType envType) {
+    const path = kUserFeedbackCreate;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  static GtdEndpoint getListUserFeedbacks(GTDEnvType envType) {
+    const path = kUserFeedbacks;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  static GtdEndpoint getListUserFeedbackByKey(GTDEnvType envType) {
+    const path = kUserFeedbackFindByKey;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  static GtdEndpoint getListUserFeedbackByLessonids(GTDEnvType envType) {
+    const path = kUserFeedbackFindByLessonRoadmapIds;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
   }
 }

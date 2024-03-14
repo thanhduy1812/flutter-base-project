@@ -51,9 +51,27 @@ class HomePageViewModel extends BasePageViewModel {
       }
       if (seletedTab == HomePageTab.mentor) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers);
+          filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers)
+          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role != "USER").toList())
+              .where((element) =>
+                  ((element.fullName ?? "")
+                      .trim()
+                      .replaceAll(RegExp(r'\s+'), '')
+                      .toLowerCase()
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase())) ||
+                  (element.phoneNumber ?? "")
+                      .toLowerCase()
+                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()))
+              .toList();
+        }
+      }
+
+      if (seletedTab == HomePageTab.student) {
+        if (event.isEmpty) {
+          filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+        } else {
+          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role == "USER").toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -78,7 +96,26 @@ class HomePageViewModel extends BasePageViewModel {
     if (seletedTab != HomePageTab.course) {
       filteredCourses = List.from(originCourses);
     }
+    if (tab == HomePageTab.mentor) {
+      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+    }
+    if (tab == HomePageTab.student) {
+      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+    }
     searchFieldController.clear();
     notifyListeners();
+  }
+
+  void updateFilteredUser() {
+    if (searchFieldController.text.isNotEmpty) {
+      filteredUsers = filteredUsers;
+      return;
+    }
+    if (seletedTab == HomePageTab.mentor) {
+      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+    }
+    if (seletedTab == HomePageTab.student) {
+      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+    }
   }
 }

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_api_endpoint.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/feedback_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/lesson_roadmap_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';
 import 'package:gtd_utils/data/network/gtd_json_parser.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 
@@ -176,6 +180,128 @@ class BmeClientResourceApi {
       throw GtdApiError(message: dioException.message);
     } catch (e) {
       Logger.e("Error findLessonRoadmapByKey: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  //Feedback
+  Future<UserFeedback> createUserFeedback({required UserFeedback userFeedback}) async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.post,
+          enpoint: BmeApiEndpoint.createUserFeedback(envType),
+          data: userFeedback.toRequestJson());
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonToModel(UserFeedback.fromJson, response.data["data"]);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error createUserFeedback: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<UserFeedback>> getListFeedbackQuestion() async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+        type: GtdMethod.get,
+        enpoint: BmeApiEndpoint.getListFeedbackQuestion(envType),
+      );
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(UserFeedback.fromJson, response.data["data"]);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getListFeedbackQuestion: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<FeedbackAsk>> getFeedbackList() async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+        type: GtdMethod.get,
+        enpoint: BmeApiEndpoint.getListFeedbackQuestion(envType),
+      );
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(FeedbackAsk.fromJson, response.data["data"]);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getFeedbackList: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<UserFeedback>> getUserFeedbackList() async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+        type: GtdMethod.get,
+        enpoint: BmeApiEndpoint.getListUserFeedbacks(envType),
+      );
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(UserFeedback.fromJson, response.data["data"]);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getUserFeedbackList: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<UserFeedback>> getUserFeedbacksByKey(Map<String, dynamic> queryParams) async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+        type: GtdMethod.get,
+        enpoint: BmeApiEndpoint.getListUserFeedbackByKey(envType),
+      );
+      networkRequest.queryParams = queryParams;
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(UserFeedback.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getUserFeedbackList: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<UserFeedback>> getUserFeedbacksByLessonIds(List<int> lessonIds) async {
+    try {
+      var data = json.encode(lessonIds);
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.post, enpoint: BmeApiEndpoint.getListUserFeedbackByLessonids(envType), data: data);
+
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(UserFeedback.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getUserFeedbackList: $e");
       throw GtdApiError.handleObjectError(e);
     }
   }

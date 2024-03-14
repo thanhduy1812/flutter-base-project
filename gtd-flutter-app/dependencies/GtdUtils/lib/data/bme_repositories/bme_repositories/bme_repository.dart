@@ -2,7 +2,9 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/api/bme_client_resour
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/feedback_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/lesson_roadmap_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 
 import '../../network/network.dart';
@@ -127,6 +129,56 @@ class BmeRepository {
       return Success(response);
     } on GtdApiError catch (e) {
       Logger.e("findLessonRoadmapByKey: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<FeedbackAsk>, GtdApiError>> getFeedbackList() async {
+    try {
+      final response = await bmeClientResourceApi.getFeedbackList();
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("getFeedbackList: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<UserFeedback>, GtdApiError>> getUserFeedbackList() async {
+    try {
+      final response = await bmeClientResourceApi.getUserFeedbackList();
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("getUserFeedbackList: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<UserFeedback, GtdApiError>> createUserFeedback(UserFeedback userFeedback) async {
+    try {
+      final response = await bmeClientResourceApi.createUserFeedback(userFeedback: userFeedback);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("createUserFeedback: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<UserFeedback>, GtdApiError>> getUserFeedbackListByKey(Map<String, dynamic> queryParams) async {
+    try {
+      final response = await bmeClientResourceApi.getUserFeedbacksByKey(queryParams);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("getUserFeedbackListByKey: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<UserFeedback>, GtdApiError>> getUserFeedbackListByLessonIds(List<int> lessonIds) async {
+    try {
+      final response = await bmeClientResourceApi.getUserFeedbacksByLessonIds(lessonIds);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("getUserFeedbackListByLessonIds: $e");
       return Error(e);
     }
   }

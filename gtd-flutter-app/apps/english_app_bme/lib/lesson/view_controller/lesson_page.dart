@@ -94,33 +94,36 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               )),
                         ),
                         const Spacer(),
-                        SizedBox(
-                          height: 50,
-                          width: 125,
-                          child: InkWell(
-                            onTap: () async {
-                              await pageContext
-                                  .push(AddCoursePage.route,
-                                      extra: AddCoursePageViewModel(
-                                          title: "", isAddLesson: true, course: viewModel.course))
-                                  .then((value) {
-                                if (value != null) {
-                                  viewModel.loadLessonRoadmaps();
-                                }
-                              });
-                            },
-                            child: const Card(
-                                margin: EdgeInsets.zero,
-                                elevation: 0,
-                                color: appBlueDeepColor,
-                                child: Center(
-                                  child: Text(
-                                    "Add lesson",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
-                                  ),
-                                )),
-                          ),
-                        )
+                        viewModel.role != "ADMIN"
+                            ? const SizedBox()
+                            : SizedBox(
+                                height: 50,
+                                width: 125,
+                                child: InkWell(
+                                  onTap: () async {
+                                    await pageContext
+                                        .push(AddCoursePage.route,
+                                            extra: AddCoursePageViewModel(
+                                                title: "", isAddLesson: true, course: viewModel.course))
+                                        .then((value) {
+                                      if (value != null) {
+                                        viewModel.loadLessonRoadmaps();
+                                      }
+                                    });
+                                  },
+                                  child: const Card(
+                                      margin: EdgeInsets.zero,
+                                      elevation: 0,
+                                      color: appBlueDeepColor,
+                                      child: Center(
+                                        child: Text(
+                                          "Add lesson",
+                                          style:
+                                              TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
+                                        ),
+                                      )),
+                                ),
+                              )
                       ],
                     )
                   ],
@@ -136,6 +139,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         var lesson = viewModel.lessonRoadmaps[index];
+                        var rating = viewModel.arrangeRating(lesson.id ?? 0);
                         return SizedBox(
                             height: 65,
                             child: Card(
@@ -154,16 +158,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 title: Text(lesson.lessonName ?? "",
                                     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
                                 subtitle: Text(dateFormat.format(lesson.startDate ?? DateTime.now())),
-                                trailing: rowIconRating(pageContext),
-                                // trailing: (index == 0)
-                                //     ? const Icon(
-                                //         Icons.check_box_rounded,
-                                //         color: appOrangeDarkColor,
-                                //       )
-                                //     : const Icon(
-                                //         Icons.lock,
-                                //         color: appBlueDeepColor,
-                                //       ),
+                                trailing: rating == null ? const SizedBox() : iconRating(rating),
                               ),
                             ));
                       },
@@ -176,6 +171,21 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
         },
       ),
     );
+  }
+
+  static Widget iconRating(LessonRating groupRating) {
+    return GtdImage.svgFromAsset(
+        assetPath: switch (groupRating) {
+          LessonRating.happy => "assets/image/ico-happy.svg",
+          LessonRating.sad => "assets/image/ico-sad.svg",
+          LessonRating.normal => "assets/image/ico-normal.svg",
+        },
+        color: switch (groupRating) {
+          LessonRating.happy => appBlueDeepColor,
+          LessonRating.sad => Colors.red,
+          LessonRating.normal => Colors.amberAccent,
+        },
+        width: 32);
   }
 
   static Widget rowIconRating(BuildContext context,
@@ -202,7 +212,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
         InkWell(
           onTap: () => onChanged?.call(LessonRating.happy),
           child: GtdImage.svgFromAsset(
-              assetPath: "assets/image/ico-normal.svg",
+              assetPath: "assets/image/ico-happy.svg",
               color: groupRating == LessonRating.happy ? appBlueDeepColor : appBlueLightColor,
               width: 32),
         ),
