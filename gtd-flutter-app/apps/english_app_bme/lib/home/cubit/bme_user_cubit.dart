@@ -13,16 +13,16 @@ class BmeUserCubit extends Cubit<BmeUserState> {
   Future<void> loadBmeUsers({String role = "USER"}) async {
     await BmeRepository.shared.getListUser().then((value) {
       value.whenSuccess((success) {
-        List<BmeUser> result = [];
-        if (role == "USER") {
-          result = success.where((element) => element.role == role).toList();
-        }
-        if (role == "MENTOR") {
-          result = success.where((element) => element.role != "USER").toList();
-        }
-        if (role == "ADMIN") {
-          result = success;
-        }
+        // List<BmeUser> result = [];
+        // if (role == "USER") {
+        //   result = success.where((element) => element.role == role).toList();
+        // }
+        // if (role == "MENTOR") {
+        //   result = success.where((element) => element.role != "USER").toList();
+        // }
+        // if (role == "ADMIN") {
+        //   result = success;
+        // }
         emit(BmeUserInitial(bmeUsers: success));
       });
     });
