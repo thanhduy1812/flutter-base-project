@@ -3,12 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:gtd_utils/data/cache_helper/models/gtd_account_hive.dart';
-import 'package:gtd_utils/data/cache_helper/models/gtd_cached_object.dart';
-import 'package:gtd_utils/data/cache_helper/models/search_flight_info_hive.dart';
 import 'package:gtd_utils/data/network/gtd_json_parser.dart';
 import 'package:gtd_utils/utils/native_communicate/gtd_native_channel.dart';
-import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:path_provider/path_provider.dart' as path_provider;
@@ -67,11 +63,6 @@ class CacheHelper {
         print("Path Temp: $pathDirectoryHive");
       }
     }
-    //Register Adapter Hive Objects
-    Hive
-      ..init(pathDirectoryHive)
-      ..registerAdapter(SearchFlightInfoHiveAdapter())
-      ..registerAdapter(GtdAccountHiveAdapter());
   }
 
   String getCachedLanguage() {
@@ -152,36 +143,6 @@ class CacheHelper {
 
   void removeCachedSharedObject(String key) async {
     await prefs?.remove(key);
-  }
-
-  static Future<void> cacheObject<T extends GtdCachedObject>(T object,
-      {required CacheStorageType cacheStorageType}) async {
-    var box = await Hive.openBox(cacheStorageType.name);
-    box.put(T.toString(), object);
-  }
-
-  static void updateCache<T extends HiveObject>() {}
-
-  static Future<T?> getCachedObject<T extends GtdCachedObject>({required CacheStorageType cacheStorageType}) async {
-    var box = await Hive.openBox(cacheStorageType.name);
-    T? result = box.get(T.toString(), defaultValue: null);
-    return result;
-  }
-
-  static Future<void> closeCachedBox<T extends HiveObject>({required CacheStorageType cacheStorageType}) async {
-    var box = await Hive.openBox(cacheStorageType.name);
-    box.deleteFromDisk();
-  }
-
-  static Future<void> deleteKeyCached<T extends HiveObject>({required CacheStorageType cacheStorageType}) async {
-    var box = await Hive.openBox(cacheStorageType.name);
-    box.delete(T.toString());
-  }
-
-  static Future<void> deleteCachedAtIndex<T extends HiveObject>(int index,
-      {required CacheStorageType cacheStorageType}) async {
-    var box = await Hive.openBox(cacheStorageType.name);
-    box.deleteAt(index);
   }
 
   void removeUserCache() {

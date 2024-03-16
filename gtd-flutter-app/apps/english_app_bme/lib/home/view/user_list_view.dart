@@ -1,18 +1,20 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
+import 'package:beme_english/lesson/view_controller/lesson_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class UserListView extends BaseView<UserListViewModel> {
   final bool isShowRating;
-  const UserListView({super.key, required super.viewModel, this.isShowRating = false});
+  final GtdCallback<BmeUser>? onSelected;
+  const UserListView({super.key, required super.viewModel, this.isShowRating = false, this.onSelected});
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -62,6 +64,11 @@ class UserListView extends BaseView<UserListViewModel> {
                       ),
                     ),
               onTap: () {
+                if (onSelected != null) {
+                  onSelected?.call(user);
+                  context.pop();
+                  return;
+                }
                 GtdPresentViewHelper.presentSheet(
                     title: "",
                     context: context,

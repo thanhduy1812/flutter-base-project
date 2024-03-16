@@ -110,6 +110,60 @@ class BmeClientResourceApi {
     }
   }
 
+  Future<BmeOriginCourse> createCourse(BmeOriginCourse course) async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.post, enpoint: BmeApiEndpoint.createBmeCourse(envType), data: course.toRequest());
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonToModel(BmeOriginCourse.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error createCourse: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<BmeOriginCourse> updateCourse(BmeOriginCourse course, int id) async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.put, enpoint: BmeApiEndpoint.updateBmeCourse(envType, id), data: course.toRequest());
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonToModel(BmeOriginCourse.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error updateCourse: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<bool> deleteCourse(int id) async {
+    try {
+      final networkRequest =
+          GTDNetworkRequest(type: GtdMethod.delete, enpoint: BmeApiEndpoint.deleteBmeCourse(envType, id));
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      Logger.i(response.toString());
+      return true;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error deleteCourse: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
   Future<List<BmeOriginCourse>> findBmeCourseByKey(Map<String, dynamic> dict) async {
     try {
       final networkRequest =

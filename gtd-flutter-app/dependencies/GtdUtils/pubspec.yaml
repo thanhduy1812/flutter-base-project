@@ -36,7 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: any
   go_router: ^13.2.0
-  hive: any
+  # hive: any
   shared_preferences: ^2.1.1
   # path_provider: ^2.0.14
   syncfusion_flutter_datepicker: ^24.2.7
@@ -59,7 +59,7 @@ dependencies:
   path_drawing: any
   path: ^1.8.3
   flutter_html: any
-  webview_flutter: ^4.2.2
+  # webview_flutter: ^4.2.2
   url_launcher: ^6.1.12
   cached_network_image: ^3.2.3
   flutter_rating_bar: ^4.0.1

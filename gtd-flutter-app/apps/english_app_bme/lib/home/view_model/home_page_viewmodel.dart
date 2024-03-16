@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
+import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/helpers/extension/string_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
@@ -42,9 +46,10 @@ class HomePageViewModel extends BasePageViewModel {
               .where((element) =>
                   element.maLop
                       ?.trim()
-                      .replaceAll(RegExp(r'\s+'), '')
+                      // .replaceAll(RegExp(r'\s+'), '')
+                      .removeDiacritics()
                       .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()) ??
+                      .contains(event.trim().removeDiacritics().toLowerCase()) ??
                   false)
               .toList();
         }
@@ -57,12 +62,11 @@ class HomePageViewModel extends BasePageViewModel {
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
-                      .replaceAll(RegExp(r'\s+'), '')
+                      // .replaceAll(RegExp(r'\s+'), '')
+                      .removeDiacritics()
                       .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase())) ||
-                  (element.phoneNumber ?? "")
-                      .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()))
+                      .contains(event.trim().removeDiacritics().toLowerCase())) ||
+                  (element.phoneNumber ?? "").toLowerCase().contains(event.trim().removeDiacritics().toLowerCase()))
               .toList();
         }
       }
@@ -75,12 +79,12 @@ class HomePageViewModel extends BasePageViewModel {
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
-                      .replaceAll(RegExp(r'\s+'), '')
+                      // .replaceAll(RegExp(r'\s+'), '')
+                      // .replaceAll(RegExp(r'[^a-zA-Z0-9\s]'), '')
+                      .removeDiacritics()
                       .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase())) ||
-                  (element.phoneNumber ?? "")
-                      .toLowerCase()
-                      .contains(event.trim().replaceAll(RegExp(r'\s+'), '').toLowerCase()))
+                      .contains(event.trim().removeDiacritics().toLowerCase())) ||
+                  (element.phoneNumber ?? "").toLowerCase().contains(event.trim().removeDiacritics().toLowerCase()))
               .toList();
         }
       }
@@ -117,5 +121,9 @@ class HomePageViewModel extends BasePageViewModel {
     if (seletedTab == HomePageTab.student) {
       filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
     }
+  }
+
+  Future<Result<bool, GtdApiError>> deleteCourse(int id) async {
+    return await BmeRepository.shared.deleteBmeCourse(id);
   }
 }

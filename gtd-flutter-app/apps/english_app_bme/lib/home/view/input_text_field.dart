@@ -1,4 +1,4 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
@@ -6,14 +6,32 @@ class InputTextField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final Widget? leadingIcon;
-  final GtdCallback<String> onChanged;
+  final GtdCallback<String>? onChanged;
+  final GtdVoidCallback? onTap;
   final focusNode = FocusNode();
-  InputTextField({super.key, required this.hintText, this.labelText, this.leadingIcon, required this.onChanged});
+  final TextEditingController _textEditingController = TextEditingController();
+  final bool isSelection;
+  InputTextField(
+      {super.key,
+      required this.hintText,
+      this.labelText,
+      this.leadingIcon,
+      this.onChanged,
+      this.isSelection = false,
+      String initText = "",
+      this.onTap}) {
+    _textEditingController.text = initText;
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (isSelection) {
+      _textEditingController.selection = const TextSelection(baseOffset: 0, extentOffset: 0);
+    }
     return TextField(
+      controller: _textEditingController,
       focusNode: focusNode,
+      readOnly: isSelection,
       onTapOutside: (event) {
         focusNode.unfocus();
       },
@@ -35,7 +53,8 @@ class InputTextField extends StatelessWidget {
         hoverColor: appBlueDeepColor,
         prefixIcon: leadingIcon,
       ),
-      onChanged: (value) => onChanged.call(value),
+      onChanged: (value) => onChanged?.call(value),
+      onTap: () => onTap?.call(),
     );
   }
 }

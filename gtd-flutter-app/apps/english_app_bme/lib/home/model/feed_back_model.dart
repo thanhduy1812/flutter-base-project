@@ -1,4 +1,4 @@
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 
 class FeedbackModel {
   final int id;

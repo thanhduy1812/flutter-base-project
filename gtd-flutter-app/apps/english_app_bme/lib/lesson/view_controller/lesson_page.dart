@@ -1,9 +1,9 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view_controller/add_course_page.dart';
-import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_controller/lesson_detail_page.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_detail_page_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view_controller/add_lesson_page.dart';
+import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_controller/lesson_detail_page.dart';
+import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
@@ -102,9 +102,8 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 child: InkWell(
                                   onTap: () async {
                                     await pageContext
-                                        .push(AddCoursePage.route,
-                                            extra: AddCoursePageViewModel(
-                                                title: "", isAddLesson: true, course: viewModel.course))
+                                        .push(AddLessonPage.route,
+                                            extra: AddCoursePageViewModel.initAddLessonPage(course: viewModel.course))
                                         .then((value) {
                                       if (value != null) {
                                         viewModel.loadLessonRoadmaps();
@@ -149,10 +148,12 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 onTap: () {
                                   var detailPageViewModel =
                                       LessonDetailPageViewModel(course: viewModel.course, lessonRoadmapRs: lesson);
-                                  context.push(LessonDetailPage.route, extra: detailPageViewModel);
+                                  context
+                                      .push(LessonDetailPage.route, extra: detailPageViewModel)
+                                      .then((value) => viewModel.loadLessonRoadmaps());
                                 },
                                 leading: const Icon(
-                                  Icons.play_circle_outline,
+                                  Icons.menu_book,
                                   color: appBlueDeepColor,
                                 ),
                                 title: Text(lesson.lessonName ?? "",
