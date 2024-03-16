@@ -1,5 +1,5 @@
-import 'package:english_app_bme/login/view_controller/login_page.dart';
-import 'package:english_app_bme/login/view_model/login_page_viewmodel.dart';
+import 'package:beme_english/login/view_controller/login_page.dart';
+import 'package:beme_english/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';

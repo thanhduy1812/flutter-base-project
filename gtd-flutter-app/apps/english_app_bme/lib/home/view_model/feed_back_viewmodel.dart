@@ -1,5 +1,5 @@
-import 'package:english_app_bme/home/model/feed_back_model.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/home/model/feed_back_model.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';

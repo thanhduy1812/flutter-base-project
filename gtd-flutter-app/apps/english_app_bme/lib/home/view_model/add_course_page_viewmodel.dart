@@ -16,7 +16,20 @@ class AddCoursePageViewModel extends BasePageViewModel {
   final BmeOriginCourse? course;
   final bool isEditMode;
   List<BmeUser> mentors = [];
+  bool isOrient = false;
+  bool isIPA = false;
+  bool isSpeaking = false;
+  bool isListening = false;
+  bool isGrammar = false;
+  Color selectedColor = Colors.teal;
   AddCoursePageViewModel({super.title, this.isAddLesson = false, this.course, this.isEditMode = false}) {
+    isOrient = course?.dinhHuong?.toLowerCase() == "x";
+    isIPA = course?.phatAm?.toLowerCase() == "x";
+    isSpeaking = course?.noi?.toLowerCase() == "x";
+    isListening = course?.nghe?.toLowerCase() == "x";
+    isGrammar = course?.nguPhap?.toLowerCase() == "x";
+    int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.teal.value;
+    selectedColor = Color(originColor);
     loadMentors();
   }
 
@@ -39,7 +52,12 @@ class AddCoursePageViewModel extends BasePageViewModel {
         AddCoursePageViewModel(title: "Edit this course", course: course, isAddLesson: false, isEditMode: true);
     viewModel.titleField = course.maLop ?? "";
     viewModel.seletedMentor = BmeUser(fullName: course.giaoVienHienTai ?? "");
-    viewModel.startDate = dateFormat.parse(course.ngayKhaiGiang ?? "");
+    try {
+      viewModel.startDate = dateFormat.parse(course.ngayKhaiGiang ?? "");
+    } catch (e) {
+      viewModel.startDate = DateTime.now();
+    }
+
     return viewModel;
   }
 
@@ -68,8 +86,12 @@ class AddCoursePageViewModel extends BasePageViewModel {
     BmeOriginCourse course = BmeOriginCourse(
         maLop: titleField,
         ngayKhaiGiang: startDate.toUtc().toIso8601String(),
-        mau: "246",
-        dinhHuong: "X",
+        mau: "${selectedColor.value}",
+        dinhHuong: isOrient ? "X" : "",
+        phatAm: isIPA ? "X" : "",
+        nghe: isListening ? "X" : "",
+        noi: isSpeaking ? "X" : "",
+        nguPhap: isGrammar ? "X" : "",
         giaoVienHienTai: seletedMentor?.fullName ?? "");
     return await BmeRepository.shared.createBmeCourse(course);
   }
@@ -79,10 +101,15 @@ class AddCoursePageViewModel extends BasePageViewModel {
       return Error(GtdApiError(message: "Missing course id!"));
     }
     course?.maLop = titleField;
-    course?.ngayKhaiGiang = startDate.toUtc().toIso8601String();
-    course?.mau = "246";
+    course?.ngayKhaiGiang = dateFormat.format(startDate);
     course?.giaoVienHienTai = seletedMentor?.fullName;
-    return await BmeRepository.shared.createBmeCourse(course!);
+    course?.dinhHuong = isOrient ? "X" : "";
+    course?.phatAm = isIPA ? "X" : "";
+    course?.nghe = isListening ? "X" : "";
+    course?.noi = isSpeaking ? "X" : "";
+    course?.nguPhap = isGrammar ? "X" : "";
+    course?.mau = "${selectedColor.value}";
+    return await BmeRepository.shared.updateBmeCourse(course!);
   }
 
   void loadMentors() async {
@@ -91,5 +118,15 @@ class AddCoursePageViewModel extends BasePageViewModel {
         mentors = success;
       });
     });
+  }
+}
+
+extension ColorExtension on Color {
+  String toHex() {
+    String hexAlpha = alpha.toRadixString(16).padLeft(2, '0');
+    String hexRed = red.toRadixString(16).padLeft(2, '0');
+    String hexGreen = green.toRadixString(16).padLeft(2, '0');
+    String hexBlue = blue.toRadixString(16).padLeft(2, '0');
+    return '#$hexAlpha$hexRed$hexGreen$hexBlue';
   }
 }

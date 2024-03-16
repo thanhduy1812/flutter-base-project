@@ -1,4 +1,4 @@
-name: english_app_bme
+name: beme_english
 description: "A English App Project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -44,6 +44,7 @@ dependencies:
   rxdart: ^0.27.7
   equatable: ^2.0.5
   flutter_slidable: ^3.1.0
+  flutter_material_color_picker: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -131,7 +131,7 @@ class BmeClientResourceApi {
   Future<BmeOriginCourse> updateCourse(BmeOriginCourse course, int id) async {
     try {
       final networkRequest = GTDNetworkRequest(
-          type: GtdMethod.post, enpoint: BmeApiEndpoint.updateBmeCourse(envType, id), data: course.toRequest());
+          type: GtdMethod.put, enpoint: BmeApiEndpoint.updateBmeCourse(envType, id), data: course.toRequest());
       networkService.request = networkRequest;
       final Response response = await networkService.execute();
       var result = JsonParser.jsonToModel(BmeOriginCourse.fromJson, response.data);

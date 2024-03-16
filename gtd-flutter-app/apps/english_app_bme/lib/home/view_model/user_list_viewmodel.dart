@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';
@@ -7,10 +7,7 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_r
 class UserListViewModel extends BaseViewModel {
   List<BmeUser> bmeUsers = [];
   List<UserFeedback> userFeedbacks = [];
-  UserListViewModel({
-    this.bmeUsers = const [],
-    this.userFeedbacks = const []
-  });
+  UserListViewModel({this.bmeUsers = const [], this.userFeedbacks = const []});
 
   LessonRating? ratingByUsername(String username) {
     var feedbacks = userFeedbacks

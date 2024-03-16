@@ -1,6 +1,6 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view/input_text_field.dart';
-import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view/input_text_field.dart';
+import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';

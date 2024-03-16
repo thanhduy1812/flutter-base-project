@@ -1,10 +1,10 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/cubit/bme_user_cubit.dart';
-import 'package:english_app_bme/home/view/feed_back_view.dart';
-import 'package:english_app_bme/home/view/user_list_view.dart';
-import 'package:english_app_bme/home/view_model/feed_back_viewmodel.dart';
-import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_detail_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/cubit/bme_user_cubit.dart';
+import 'package:beme_english/home/view/feed_back_view.dart';
+import 'package:beme_english/home/view/user_list_view.dart';
+import 'package:beme_english/home/view_model/feed_back_viewmodel.dart';
+import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
+import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';

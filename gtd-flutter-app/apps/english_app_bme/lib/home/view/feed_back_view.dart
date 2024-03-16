@@ -1,14 +1,15 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/cubit/user_feedback_cubit.dart';
-import 'package:english_app_bme/home/view_model/feed_back_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/cubit/user_feedback_cubit.dart';
+import 'package:beme_english/lesson/view_controller/lesson_page.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+
+import '../view_model/feed_back_viewmodel.dart';
 
 class FeedbackView extends BaseView<FeedbackViewModel> {
   final GtdCallback<LessonRating>? onChanged;

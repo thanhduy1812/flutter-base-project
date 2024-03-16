@@ -1,15 +1,15 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/cubit/bme_course_cubit.dart';
-import 'package:english_app_bme/home/cubit/bme_user_cubit.dart';
-import 'package:english_app_bme/home/view/user_list_view.dart';
-import 'package:english_app_bme/home/view_controller/add_course_page.dart';
-import 'package:english_app_bme/home/view_controller/add_user_page.dart';
-import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
-import 'package:english_app_bme/home/view_model/add_user_page_viewmodel.dart';
-import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
-import 'package:english_app_bme/login/view_controller/login_page.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/cubit/bme_course_cubit.dart';
+import 'package:beme_english/home/cubit/bme_user_cubit.dart';
+import 'package:beme_english/home/view/user_list_view.dart';
+import 'package:beme_english/home/view_controller/add_course_page.dart';
+import 'package:beme_english/home/view_controller/add_user_page.dart';
+import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
+import 'package:beme_english/lesson/view_controller/lesson_page.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/login/view_controller/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -249,7 +249,9 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(16)),
                       child: ColoredBox(
-                          color: appBlueDeepColor,
+                          color: ((course.mau?.length ?? 0) < 5)
+                              ? appBlueLightColor
+                              : Color(int.tryParse(course.mau!) ?? appBlueDeepColor.value),
                           child: SizedBox(
                             height: 170,
                             child: Padding(

@@ -1,4 +1,4 @@
-import 'package:english_app_bme/home/view_model/home_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/home_page_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';

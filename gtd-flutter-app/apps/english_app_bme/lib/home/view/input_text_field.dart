@@ -1,4 +1,4 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 

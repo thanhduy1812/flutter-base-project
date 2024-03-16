@@ -1,7 +1,7 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view_controller/home_page.dart';
-import 'package:english_app_bme/home/view_model/home_page_viewmodel.dart';
-import 'package:english_app_bme/login/view_model/login_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view_controller/home_page.dart';
+import 'package:beme_english/home/view_model/home_page_viewmodel.dart';
+import 'package:beme_english/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

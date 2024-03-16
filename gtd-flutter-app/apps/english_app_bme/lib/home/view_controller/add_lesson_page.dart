@@ -1,15 +1,12 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view/input_text_field.dart';
-import 'package:english_app_bme/home/view/user_list_view.dart';
-import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
-import 'package:english_app_bme/home/view_model/user_list_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view/input_text_field.dart';
+import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 import 'package:intl/intl.dart';
 
 class AddLessonPage extends BaseStatelessPage<AddCoursePageViewModel> {

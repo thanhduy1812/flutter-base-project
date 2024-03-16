@@ -54,7 +54,7 @@ class BmeApiEndpoint extends GtdEndpoint {
   }
 
   static GtdEndpoint updateBmeCourse(GTDEnvType envType, int id) {
-    const path = kBmeCoursesCreate;
+    const path = kBmeCoursesUpdate;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id", hasScheme: false);
   }
 

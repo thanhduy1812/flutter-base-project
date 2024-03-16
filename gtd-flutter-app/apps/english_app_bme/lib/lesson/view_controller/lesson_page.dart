@@ -1,10 +1,9 @@
-import 'package:english_app_bme/home/app_bottom_bar.dart';
-import 'package:english_app_bme/home/view_controller/add_course_page.dart';
-import 'package:english_app_bme/home/view_controller/add_lesson_page.dart';
-import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_controller/lesson_detail_page.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_detail_page_viewmodel.dart';
-import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/view_controller/add_lesson_page.dart';
+import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_controller/lesson_detail_page.dart';
+import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
