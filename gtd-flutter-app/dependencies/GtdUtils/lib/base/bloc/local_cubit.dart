@@ -6,7 +6,6 @@ import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/extension/string_extension.dart';
-import 'package:hive/hive.dart';
 
 class LocalCubit extends Cubit<LocalState> {
   LocalCubit() : super(LocalInitState());
@@ -43,11 +42,5 @@ class LocalCubit extends Cubit<LocalState> {
     LocalSettingState settingState =
         LocalSettingState(locale: cachedLocale, packageResource: appScheme.packageResoure.resource);
     emit(settingState);
-  }
-
-  @override
-  Future<void> close() {
-    Hive.close();
-    return super.close();
   }
 }
