@@ -47,6 +47,16 @@ class BmeRepository {
     }
   }
 
+  Future<Result<List<BmeUser>, GtdApiError>> findUserByRole(String role) async {
+    try {
+      final response = await bmeClientResourceApi.findBmeUserByKey({"role": role});
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("findUserByRole: $e");
+      return Error(e);
+    }
+  }
+
   Future<Result<List<BmeUser>, GtdApiError>> findUserByClassCode(String classCode) async {
     try {
       final response = await bmeClientResourceApi.findBmeUserByKey({"tag": classCode});
@@ -109,6 +119,26 @@ class BmeRepository {
       return Success(response);
     } on GtdApiError catch (e) {
       Logger.e("findBmeCourseByKey: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<BmeOriginCourse, GtdApiError>> createBmeCourse(BmeOriginCourse course) async {
+    try {
+      final response = await bmeClientResourceApi.createCourse(course);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("createBmeCourse: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<BmeOriginCourse, GtdApiError>> updateBmeCourse(BmeOriginCourse course) async {
+    try {
+      final response = await bmeClientResourceApi.updateCourse(course, course.id!);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("updateBmeCourse: $e");
       return Error(e);
     }
   }

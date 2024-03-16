@@ -1,4 +1,5 @@
 import 'package:english_app_bme/home/view_controller/add_course_page.dart';
+import 'package:english_app_bme/home/view_controller/add_lesson_page.dart';
 import 'package:english_app_bme/home/view_controller/add_user_page.dart';
 import 'package:english_app_bme/home/view_controller/home_page.dart';
 import 'package:english_app_bme/home/view_model/add_course_page_viewmodel.dart';
@@ -69,6 +70,16 @@ final List<RouteBase> homeRouters = [
     builder: (context, state) {
       var viewModel = state.extra as AddCoursePageViewModel?;
       return AddCoursePage(
+        viewModel: viewModel!,
+      );
+    },
+  ),
+  GoRoute(
+    parentNavigatorKey: _rootNavigatorKey,
+    path: AddLessonPage.route,
+    builder: (context, state) {
+      var viewModel = state.extra as AddCoursePageViewModel?;
+      return AddLessonPage(
         viewModel: viewModel!,
       );
     },

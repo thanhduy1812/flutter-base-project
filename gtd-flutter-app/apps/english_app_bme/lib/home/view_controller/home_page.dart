@@ -40,74 +40,78 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    return BlocBuilder<BmeCourseCubit, BmeCourseState>(
-      builder: (context, state) {
+    return BlocListener<BmeCourseCubit, BmeCourseState>(
+      listener: (context, state) {
         if (state is BmeCourseInitial) {
           viewModel.originCourses = state.courses;
           viewModel.filteredCourses = List.from(viewModel.originCourses);
         }
-        return BlocBuilder<BmeUserCubit, BmeUserState>(
-          builder: (context, state) {
-            if (state is BmeUserInitial) {
-              viewModel.originUsers = state.bmeUsers;
-              viewModel.updateFilteredUser();
-            }
-            return Column(
-              children: [
-                ColoredBox(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: TextField(
-                      controller: viewModel.searchFieldController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6),
-                            borderSide: const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
-                        hintText: 'Search...',
-                        hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
-                        filled: false,
-                        fillColor: Colors.white,
-                        focusColor: appBlueDeepColor,
-                        hoverColor: appBlueDeepColor,
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey.shade500,
+      },
+      child: BlocBuilder<BmeCourseCubit, BmeCourseState>(
+        builder: (context, state) {
+          return BlocBuilder<BmeUserCubit, BmeUserState>(
+            builder: (context, state) {
+              if (state is BmeUserInitial) {
+                viewModel.originUsers = state.bmeUsers;
+                viewModel.updateFilteredUser();
+              }
+              return Column(
+                children: [
+                  ColoredBox(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: TextField(
+                        controller: viewModel.searchFieldController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
+                          hintText: 'Search...',
+                          hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
+                          filled: false,
+                          fillColor: Colors.white,
+                          focusColor: appBlueDeepColor,
+                          hoverColor: appBlueDeepColor,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.grey.shade500,
+                          ),
                         ),
+                        onTapOutside: (event) {
+                          FocusScope.of(pageContext).unfocus();
+                        },
+                        onChanged: (value) {
+                          viewModel.querySearchController.sink.add(value);
+                        },
                       ),
-                      onTapOutside: (event) {
-                        FocusScope.of(pageContext).unfocus();
-                      },
-                      onChanged: (value) {
-                        viewModel.querySearchController.sink.add(value);
+                    ),
+                  ),
+                  Expanded(
+                    child: ListenableBuilder(
+                      listenable: viewModel,
+                      builder: (context, child) {
+                        switch (viewModel.seletedTab) {
+                          case HomePageTab.course:
+                            return _courseList(context);
+                          case HomePageTab.mentor:
+                            return ColoredBox(
+                                color: Colors.white,
+                                child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                          case HomePageTab.student:
+                            return ColoredBox(
+                                color: Colors.white,
+                                child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                        }
                       },
                     ),
                   ),
-                ),
-                Expanded(
-                  child: ListenableBuilder(
-                    listenable: viewModel,
-                    builder: (context, child) {
-                      switch (viewModel.seletedTab) {
-                        case HomePageTab.course:
-                          return _courseList(context);
-                        case HomePageTab.mentor:
-                          return ColoredBox(
-                              color: Colors.white,
-                              child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                        case HomePageTab.student:
-                          return ColoredBox(
-                              color: Colors.white,
-                              child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                      }
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
-        );
-      },
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -165,7 +169,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
       backgroundColor: appBlueDeepColor,
       onPressed: () => {
         switch (viewModel.seletedTab) {
-          HomePageTab.course => context.push(AddCoursePage.route, extra: AddCoursePageViewModel()).then((value) {
+          HomePageTab.course =>
+            context.push(AddCoursePage.route, extra: AddCoursePageViewModel.initAddcoursePage()).then((value) {
               if (value != null) {
                 BlocProvider.of<BmeCourseCubit>(context).loadCourse();
               }
@@ -207,7 +212,15 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                 key: ValueKey(index),
                 endActionPane: ActionPane(motion: const ScrollMotion(), children: [
                   SlidableAction(
-                    onPressed: (context) {},
+                    onPressed: (context) {
+                      context
+                          .push(AddCoursePage.route, extra: AddCoursePageViewModel.initEditcoursePage(course))
+                          .then((value) {
+                        if (value != null) {
+                          BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+                        }
+                      });
+                    },
                     label: "Edit",
                     icon: Icons.edit,
                     backgroundColor: Colors.blue,
@@ -314,6 +327,4 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
   //       separatorBuilder: (context, index) => Divider(color: Colors.grey.shade300),
   //       itemCount: 40);
   // }
-
-  
 }

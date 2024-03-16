@@ -79,7 +79,9 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
       ];
     } else if (viewModel.role == "MENTOR") {
       return [
-        UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers)),
+        UserListView(
+            viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers, userFeedbacks: viewModel.userFeedbacks),
+            isShowRating: true),
         FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))
       ];
     } else {

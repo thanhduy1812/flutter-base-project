@@ -12,9 +12,9 @@ import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 import 'package:intl/intl.dart';
 
-class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
-  static const String route = '/addCourse';
-  const AddCoursePage({super.key, required super.viewModel});
+class AddLessonPage extends BaseStatelessPage<AddCoursePageViewModel> {
+  static const String route = '/addLesson';
+  const AddLessonPage({super.key, required super.viewModel});
 
   @override
   Widget? titleWidget() {
@@ -33,15 +33,14 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(viewModel.title ?? "",
+                    Text(viewModel.isEditMode ? "Edit this lesson" : "Add a lesson",
                         style: const TextStyle(fontSize: 24, color: appBlueDeepColor, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 16),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: InputTextField(
-                          hintText: viewModel.isAddLesson ? 'Please input lesson title' : 'Please input course title',
-                          labelText: viewModel.isAddLesson ? 'Lesson name' : "Course title",
-                          initText: viewModel.titleField,
+                          hintText: 'Please input lesson title',
+                          labelText: 'Lesson name',
                           leadingIcon: Icon(
                             Icons.menu_book,
                             color: Colors.grey.shade400,
@@ -49,43 +48,6 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                           onChanged: (value) {
                             viewModel.titleField = value;
                           }),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: StatefulBuilder(
-                        builder: (context, setStateMentor) {
-                          return InputTextField(
-                            hintText: 'Please input mentor name',
-                            labelText: "Mentor name",
-                            initText: viewModel.seletedMentor?.fullName ?? "",
-                            leadingIcon: Icon(
-                              Icons.person,
-                              color: Colors.grey.shade400,
-                            ),
-                            isSelection: true,
-                            // onChanged: (value) {},
-                            onTap: () {
-                              GtdPresentViewHelper.presentView(
-                                  title: "Mentors",
-                                  context: pageContext,
-                                  builder: Builder(
-                                    builder: (context) {
-                                      return UserListView(
-                                        viewModel: UserListViewModel(bmeUsers: viewModel.mentors),
-                                        onSelected: (value) {
-                                          setStateMentor(
-                                            () {
-                                              viewModel.seletedMentor = value;
-                                            },
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ));
-                            },
-                          );
-                        },
-                      ),
                     ),
                     InkWell(
                       onTap: () {
@@ -211,23 +173,13 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                 height: 60,
                                 onPressed: (value) async {
                                   if (viewModel.validateForm()) {
-                                    if (!viewModel.isEditMode) {
-                                      await viewModel.createCourse().then((value) {
-                                        value.when((success) {
-                                          pageContext.pop(success);
-                                        }, (error) {
-                                          GtdPopupMessage(context).showError(error: error.message);
-                                        });
+                                    await viewModel.createLessonRoadmap().then((value) {
+                                      value.when((success) {
+                                        pageContext.pop(success);
+                                      }, (error) {
+                                        GtdPopupMessage(context).showError(error: error.message);
                                       });
-                                    } else {
-                                      await viewModel.updateCourse().then((value) {
-                                        value.when((success) {
-                                          pageContext.pop(success);
-                                        }, (error) {
-                                          GtdPopupMessage(context).showError(error: error.message);
-                                        });
-                                      });
-                                    }
+                                    });
                                   } else {
                                     GtdPopupMessage(context).showError(error: "Please input full field!");
                                   }

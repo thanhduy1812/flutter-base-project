@@ -5,11 +5,9 @@ import 'package:english_app_bme/lesson/view_controller/lesson_page.dart';
 import 'package:english_app_bme/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 
 class FeedbackView extends BaseView<FeedbackViewModel> {

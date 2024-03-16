@@ -85,4 +85,24 @@ class BmeOriginCourse {
         "note": note,
         "content": content,
     };
+
+    Map<String, dynamic> toRequest() => {
+        "ma_lop": maLop,
+        "shv_danh_sach": shvDanhSach,
+        "shv_toi_da": shvToiDa,
+        "shv_bo_sung": shvBoSung,
+        "tong_hv_dang_hoc": tongHvDangHoc,
+        "giao_vien_hien_tai": giaoVienHienTai,
+        "ngay_khai_giang": ngayKhaiGiang,
+        "dinh_huong": dinhHuong,
+        "phat_am": phatAm,
+        "ngu_phap": nguPhap,
+        "nghe": nghe,
+        "noi": noi,
+        "nkht_gv": nkhtGv,
+        "nkht_hv": nkhtHv,
+        "mau": mau,
+        "note": note,
+        "content": content,
+    };
 }
