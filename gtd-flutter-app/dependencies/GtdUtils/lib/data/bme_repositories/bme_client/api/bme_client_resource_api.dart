@@ -146,6 +146,24 @@ class BmeClientResourceApi {
     }
   }
 
+  Future<bool> deleteCourse(int id) async {
+    try {
+      final networkRequest =
+          GTDNetworkRequest(type: GtdMethod.delete, enpoint: BmeApiEndpoint.deleteBmeCourse(envType, id));
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      Logger.i(response.toString());
+      return true;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error deleteCourse: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
   Future<List<BmeOriginCourse>> findBmeCourseByKey(Map<String, dynamic> dict) async {
     try {
       final networkRequest =

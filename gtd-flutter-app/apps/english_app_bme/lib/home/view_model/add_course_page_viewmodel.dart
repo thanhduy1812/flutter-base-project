@@ -85,7 +85,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   Future<Result<BmeOriginCourse, GtdApiError>> createCourse() async {
     BmeOriginCourse course = BmeOriginCourse(
         maLop: titleField,
-        ngayKhaiGiang: startDate.toUtc().toIso8601String(),
+        ngayKhaiGiang: dateFormat.format(startDate),
         mau: "${selectedColor.value}",
         dinhHuong: isOrient ? "X" : "",
         phatAm: isIPA ? "X" : "",

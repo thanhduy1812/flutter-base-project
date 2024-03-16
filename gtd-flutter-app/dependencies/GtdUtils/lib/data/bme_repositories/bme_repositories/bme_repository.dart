@@ -143,6 +143,16 @@ class BmeRepository {
     }
   }
 
+  Future<Result<bool, GtdApiError>> deleteBmeCourse(int id) async {
+    try {
+      final response = await bmeClientResourceApi.deleteCourse(id);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("deleteBmeCourse: $e");
+      return Error(e);
+    }
+  }
+
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap({required AddLessonRq addLessonRq}) async {
     try {
       final response = await bmeClientResourceApi.createLessonRoadmap(addLessonRq: addLessonRq);

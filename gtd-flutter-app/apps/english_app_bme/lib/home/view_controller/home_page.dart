@@ -51,6 +51,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
         builder: (context, state) {
           return BlocBuilder<BmeUserCubit, BmeUserState>(
             builder: (context, state) {
+              if (state is BmeUserLoading) {
+              }
               if (state is BmeUserInitial) {
                 viewModel.originUsers = state.bmeUsers;
                 viewModel.updateFilteredUser();
@@ -205,109 +207,119 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
         if (state is BmeCourseLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        return ListView.separated(
-            itemBuilder: (context, index) {
-              var course = viewModel.filteredCourses[index];
-              return Slidable(
-                key: ValueKey(index),
-                endActionPane: ActionPane(motion: const ScrollMotion(), children: [
-                  SlidableAction(
-                    onPressed: (context) {
-                      context
-                          .push(AddCoursePage.route, extra: AddCoursePageViewModel.initEditcoursePage(course))
-                          .then((value) {
-                        if (value != null) {
-                          BlocProvider.of<BmeCourseCubit>(context).loadCourse();
-                        }
-                      });
+        return Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: ListView.separated(
+              itemBuilder: (context, index) {
+                var course = viewModel.filteredCourses[index];
+                return Slidable(
+                  key: ValueKey(index),
+                  enabled: viewModel.role == "ADMIN",
+                  endActionPane: ActionPane(motion: const ScrollMotion(), children: [
+                    SlidableAction(
+                      onPressed: (contextSlide) {
+                        context
+                            .push(AddCoursePage.route, extra: AddCoursePageViewModel.initEditcoursePage(course))
+                            .then((value) {
+                          if (value != null) {
+                            BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+                          }
+                        });
+                      },
+                      label: "Edit",
+                      icon: Icons.edit,
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                    ),
+                    SlidableAction(
+                      onPressed: (contextSlide) {
+                        GtdPopupMessage(context).showError(
+                          error: "Do you want to delete this course?",
+                          onConfirm: (value) async {
+                            if (course.id != null) {
+                              viewModel.deleteCourse(course.id!).then((value) {
+                                BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+                              });
+                            }
+                          },
+                        );
+                      },
+                      label: "Delete",
+                      icon: Icons.delete,
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                    )
+                  ]),
+                  child: InkWell(
+                    onTap: () {
+                      var lessonPageViewModel = LessonPageViewModel(course: course);
+                      context.push(LessonPage.route, extra: lessonPageViewModel);
                     },
-                    label: "Edit",
-                    icon: Icons.edit,
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                  ),
-                  SlidableAction(
-                    onPressed: (pageContext) {
-                      GtdPopupMessage(context).showError(
-                        error: "Do you want to delete this course?",
-                        onConfirm: (value) {},
-                      );
-                    },
-                    label: "Delete",
-                    icon: Icons.delete,
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
-                  )
-                ]),
-                child: InkWell(
-                  onTap: () {
-                    var lessonPageViewModel = LessonPageViewModel(course: course);
-                    context.push(LessonPage.route, extra: lessonPageViewModel);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: ColoredBox(
-                          color: ((course.mau?.length ?? 0) < 5)
-                              ? appBlueLightColor
-                              : Color(int.tryParse(course.mau!) ?? appBlueDeepColor.value),
-                          child: SizedBox(
-                            height: 170,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: ColoredBox(
-                                color: Colors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Card(
-                                        color: appBlueLightColor,
-                                        elevation: 0,
-                                        margin: EdgeInsets.zero,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
-                                          child: Text(
-                                            course.maLop ?? "",
-                                            style:
-                                                const TextStyle(fontWeight: FontWeight.w800, color: appBlueDeepColor),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        child: ColoredBox(
+                            color: ((course.mau?.length ?? 0) < 5)
+                                ? appBlueLightColor
+                                : Color(int.tryParse(course.mau!) ?? appBlueDeepColor.value),
+                            child: SizedBox(
+                              height: 170,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: ColoredBox(
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Card(
+                                          color: appBlueLightColor,
+                                          elevation: 0,
+                                          margin: EdgeInsets.zero,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text(
+                                              course.maLop ?? "",
+                                              style:
+                                                  const TextStyle(fontWeight: FontWeight.w800, color: appBlueDeepColor),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Text(course.ngayKhaiGiang ?? "--",
-                                          style: TextStyle(
-                                              fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-                                      // Text("15 Lessons", style: TextStyle(fontSize: 15, color: AppColors.subText)),
-                                      Row(
-                                        children: [
-                                          GtdImage.svgFromAsset(
-                                              assetPath: "assets/image/ico-contact.svg",
-                                              color: appBlueDeepColor,
-                                              width: 32),
-                                          const SizedBox(width: 8),
-                                          Text(course.giaoVienHienTai ?? "--",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: AppColors.boldText)),
-                                        ],
-                                      ),
-                                    ],
+                                        Text(course.ngayKhaiGiang ?? "--",
+                                            style: TextStyle(
+                                                fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText)),
+                                        // Text("15 Lessons", style: TextStyle(fontSize: 15, color: AppColors.subText)),
+                                        Row(
+                                          children: [
+                                            GtdImage.svgFromAsset(
+                                                assetPath: "assets/image/ico-contact.svg",
+                                                color: appBlueDeepColor,
+                                                width: 32),
+                                            const SizedBox(width: 8),
+                                            Text(course.giaoVienHienTai ?? "--",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: AppColors.boldText)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          )),
+                            )),
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (context, index) => const SizedBox(height: 0),
-            itemCount: viewModel.filteredCourses.length);
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
+              itemCount: viewModel.filteredCourses.length),
+        );
       },
     );
   }
