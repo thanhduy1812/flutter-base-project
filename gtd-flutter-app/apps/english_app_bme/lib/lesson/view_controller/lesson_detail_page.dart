@@ -8,6 +8,7 @@ import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   static const String route = '/lessonDetail';
@@ -45,7 +46,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                             ),
                           ),
                     Expanded(
-                      child: TabBarView(children: _generateTabarView()),
+                      child: TabBarView(children: _generateTabarView(pageContext)),
                     )
                   ],
                 )),
@@ -59,6 +60,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
     if (viewModel.role == "ADMIN") {
       return [
         const Tab(text: "Students"),
+        const Tab(text: "Mentors"),
       ];
     } else if (viewModel.role == "MENTOR") {
       return [
@@ -70,17 +72,77 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
     }
   }
 
-  List<Widget> _generateTabarView() {
+  List<Widget> _generateTabarView(BuildContext context) {
     if (viewModel.role == "ADMIN") {
       return [
         UserListView(
-            viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers, userFeedbacks: viewModel.userFeedbacks),
-            isShowRating: true)
+            viewModel: UserListViewModel(
+                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "USER").toList(),
+                userFeedbacks: viewModel.userFeedbacks),
+            onSelected: (value) {
+              var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
+              if (userFeedbacks.isEmpty) {
+                return;
+              }
+              GtdPresentViewHelper.presentView(
+                title: "${value.fullName} feedback!",
+                context: context,
+                builder: Builder(
+                  builder: (context) {
+                    return FeedbackView(
+                        viewModel:
+                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                  },
+                ),
+              );
+            },
+            isShowRating: true),
+        UserListView(
+            viewModel: UserListViewModel(
+                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "MENTOR").toList(),
+                userFeedbacks: viewModel.userFeedbacks),
+            onSelected: (value) {
+              var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
+              if (userFeedbacks.isEmpty) {
+                return;
+              }
+              GtdPresentViewHelper.presentView(
+                title: "${value.fullName} feedback!",
+                context: context,
+                builder: Builder(
+                  builder: (context) {
+                    return FeedbackView(
+                        viewModel:
+                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                  },
+                ),
+              );
+            },
+            isShowRating: true),
       ];
     } else if (viewModel.role == "MENTOR") {
       return [
         UserListView(
-            viewModel: UserListViewModel(bmeUsers: viewModel.bmeUsers, userFeedbacks: viewModel.userFeedbacks),
+            viewModel: UserListViewModel(
+                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "USER").toList(),
+                userFeedbacks: viewModel.userFeedbacks),
+            onSelected: (value) {
+              var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
+              if (userFeedbacks.isEmpty) {
+                return;
+              }
+              GtdPresentViewHelper.presentView(
+                title: "${value.fullName} feedback!",
+                context: context,
+                builder: Builder(
+                  builder: (context) {
+                    return FeedbackView(
+                        viewModel:
+                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                  },
+                ),
+              );
+            },
             isShowRating: true),
         FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))
       ];

@@ -62,32 +62,45 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: BorderSide(color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
-                      hintText: 'Please input your password',
-                      labelText: "Password",
-                      labelStyle: TextStyle(color: AppColors.subText),
-                      floatingLabelStyle: const TextStyle(color: appBlueDeepColor),
-                      hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade300),
-                      filled: false,
-                      fillColor: Colors.white,
-                      focusColor: appBlueDeepColor,
-                      hoverColor: appBlueDeepColor,
-                      prefixIcon: Icon(
-                        Icons.key,
-                        color: Colors.grey.shade500,
-                      ),
-                    ),
-                    onChanged: (value) {
-                      viewModel.password = value;
-                    },
-                  ),
+                  child: StatefulBuilder(builder: (context, statePass) {
+                    return TextField(
+                      obscureText: !viewModel.isShowPassword,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
+                          hintText: 'Please input your password',
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: AppColors.subText),
+                          floatingLabelStyle: const TextStyle(color: appBlueDeepColor),
+                          hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade300),
+                          filled: false,
+                          fillColor: Colors.white,
+                          focusColor: appBlueDeepColor,
+                          hoverColor: appBlueDeepColor,
+                          prefixIcon: Icon(
+                            Icons.key,
+                            color: Colors.grey.shade500,
+                          ),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                statePass(
+                                  () {
+                                    viewModel.isShowPassword = !viewModel.isShowPassword;
+                                  },
+                                );
+                              },
+                              icon: const Icon(Icons.visibility))),
+                      onChanged: (value) {
+                        viewModel.password = value;
+                      },
+                    );
+                  }),
                 ),
                 SizedBox(
                   width: double.infinity,

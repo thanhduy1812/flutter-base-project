@@ -1,48 +1,47 @@
-
 class BmeOriginCourse {
-    int? id;
-    String? ownerId;
-    String? maLop;
-    String? shvDanhSach;
-    String? shvToiDa;
-    String? shvBoSung;
-    String? tongHvDangHoc;
-    String? giaoVienHienTai;
-    String? ngayKhaiGiang;
-    String? dinhHuong;
-    String? phatAm;
-    String? nguPhap;
-    String? nghe;
-    String? noi;
-    String? nkhtGv;
-    String? nkhtHv;
-    String? mau;
-    String? note;
-    String? content;
+  int? id;
+  String? ownerId;
+  String? maLop;
+  String? shvDanhSach;
+  String? shvToiDa;
+  String? shvBoSung;
+  String? tongHvDangHoc;
+  String? giaoVienHienTai;
+  String? ngayKhaiGiang;
+  String? dinhHuong;
+  String? phatAm;
+  String? nguPhap;
+  String? nghe;
+  String? noi;
+  String? nkhtGv;
+  String? nkhtHv;
+  String? mau;
+  String? note;
+  String? content;
 
-    BmeOriginCourse({
-        this.id,
-        this.ownerId,
-        this.maLop,
-        this.shvDanhSach,
-        this.shvToiDa,
-        this.shvBoSung,
-        this.tongHvDangHoc,
-        this.giaoVienHienTai,
-        this.ngayKhaiGiang,
-        this.dinhHuong,
-        this.phatAm,
-        this.nguPhap,
-        this.nghe,
-        this.noi,
-        this.nkhtGv,
-        this.nkhtHv,
-        this.mau,
-        this.note,
-        this.content,
-    });
+  BmeOriginCourse({
+    this.id,
+    this.ownerId,
+    this.maLop,
+    this.shvDanhSach,
+    this.shvToiDa,
+    this.shvBoSung,
+    this.tongHvDangHoc,
+    this.giaoVienHienTai,
+    this.ngayKhaiGiang,
+    this.dinhHuong,
+    this.phatAm,
+    this.nguPhap,
+    this.nghe,
+    this.noi,
+    this.nkhtGv,
+    this.nkhtHv,
+    this.mau,
+    this.note,
+    this.content,
+  });
 
-    factory BmeOriginCourse.fromJson(Map<String, dynamic> json) => BmeOriginCourse(
+  factory BmeOriginCourse.fromJson(Map<String, dynamic> json) => BmeOriginCourse(
         id: json["ID"],
         ownerId: json["owner_id"],
         maLop: json["ma_lop"],
@@ -62,9 +61,9 @@ class BmeOriginCourse {
         mau: json["mau"],
         note: json["note"],
         content: json["content"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "ID": id,
         "owner_id": ownerId,
         "ma_lop": maLop,
@@ -84,9 +83,9 @@ class BmeOriginCourse {
         "mau": mau,
         "note": note,
         "content": content,
-    };
+      };
 
-    Map<String, dynamic> toRequest() => {
+  Map<String, dynamic> toRequest() => {
         "ma_lop": maLop,
         "shv_danh_sach": shvDanhSach,
         "shv_toi_da": shvToiDa,
@@ -104,5 +103,27 @@ class BmeOriginCourse {
         "mau": mau,
         "note": note,
         "content": content,
-    };
+      };
+
+  Map<String, dynamic> toDataSheet() => {
+        "index": id,
+        "Owner id": ownerId,
+        "Ma lop": maLop,
+        "shv danh sach": shvDanhSach,
+        "shv toi da": shvToiDa,
+        "shv bo sung": shvBoSung,
+        "tong hv dang hoc": tongHvDangHoc,
+        "giao vien hien tai": giaoVienHienTai,
+        "ngay khai giang": ngayKhaiGiang,
+        "dinh huong": dinhHuong,
+        "phat am": phatAm,
+        "ngu phap": nguPhap,
+        "nghe": nghe,
+        "noi": noi,
+        "nkht gv": nkhtGv,
+        "nkht hv": nkhtHv,
+        "mau": mau,
+        "note": note,
+        "content": content,
+      };
 }

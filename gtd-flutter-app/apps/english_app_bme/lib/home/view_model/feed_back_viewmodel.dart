@@ -20,6 +20,13 @@ class FeedbackViewModel extends BaseViewModel {
     ];
   }
 
+  factory FeedbackViewModel.loadExistFeedback(int lessonRoadmapId, List<UserFeedback> userFeedbacks) {
+    FeedbackViewModel viewModel = FeedbackViewModel(lessonRoadmapId);
+    viewModel.isEnableFeedbackSubmit = false;
+    viewModel.updateDataFromUserFeedbacks(userFeedbacks);
+    return viewModel;
+  }
+
   void updateDataFromUserFeedbacks(List<UserFeedback> userFeedbacks) {
     this.userFeedbacks = userFeedbacks;
     userFeedbacks.map((e) {

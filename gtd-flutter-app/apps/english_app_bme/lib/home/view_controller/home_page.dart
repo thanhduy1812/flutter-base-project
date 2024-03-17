@@ -4,8 +4,10 @@ import 'package:beme_english/home/cubit/bme_user_cubit.dart';
 import 'package:beme_english/home/view/user_list_view.dart';
 import 'package:beme_english/home/view_controller/add_course_page.dart';
 import 'package:beme_english/home/view_controller/add_user_page.dart';
+import 'package:beme_english/home/view_controller/import_csv_page.dart';
 import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/import_csv_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
 import 'package:beme_english/lesson/view_controller/lesson_page.dart';
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
@@ -49,9 +51,16 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
       },
       child: BlocBuilder<BmeCourseCubit, BmeCourseState>(
         builder: (context, state) {
+          if (viewModel.originCourses.isEmpty) {
+            return const Center(
+                child: Text(
+              "You haven't participated in any courses.",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: appBlueDeepColor),
+              textAlign: TextAlign.center,
+            ));
+          }
           return BlocBuilder<BmeUserCubit, BmeUserState>(
             builder: (context, state) {
-              if (state is BmeUserLoading) {}
               if (state is BmeUserInitial) {
                 viewModel.originUsers = state.bmeUsers;
                 viewModel.updateFilteredUser();
@@ -151,13 +160,40 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   List<Widget> buildTrailingActions(BuildContext pageContext) {
-    return [
+    var widgets = [
       IconButton(
           onPressed: () {
-            pageContext.pushReplacement(LoginPage.route);
+            var importViewModel = ImportCSVPageViewModel(viewModel.originCourses);
+            pageContext.push(ImportCSVPage.route, extra: importViewModel);
           },
-          icon: const Icon(Icons.logout, size: 36, color: appBlueDeepColor))
+          icon: const Icon(Icons.import_export_outlined, size: 36, color: appBlueDeepColor)),
+      IconButton(
+          onPressed: () {
+            GtdPopupMessage(pageContext).showError(
+              error: "Do you want logout?",
+              onConfirm: (value) {
+                pageContext.pushReplacement(LoginPage.route);
+              },
+            );
+          },
+          icon: const Icon(Icons.logout, size: 36, color: appOrangeDarkColor))
     ];
+    if (viewModel.role != "ADMIN") {
+      widgets = [
+        IconButton(
+            onPressed: () {
+              GtdPopupMessage(pageContext).showError(
+                error: "Do you want logout?",
+                onConfirm: (value) {
+                  pageContext.pushReplacement(LoginPage.route);
+                },
+              );
+            },
+            icon: const Icon(Icons.logout, size: 36, color: appOrangeDarkColor))
+      ];
+    }
+
+    return widgets;
   }
 
   @override

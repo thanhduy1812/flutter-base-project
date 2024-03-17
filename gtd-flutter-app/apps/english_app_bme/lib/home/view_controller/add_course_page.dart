@@ -77,6 +77,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                         onSelected: (value) {
                                           setStateMentor(
                                             () {
+                                              context.pop();
                                               viewModel.seletedMentor = value;
                                             },
                                           );

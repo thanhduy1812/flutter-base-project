@@ -25,6 +25,9 @@ class BmeCourseCubit extends Cubit<BmeCourseState> {
                 element.noi == "X" ||
                 element.nguPhap == "X")
             .toList();
+        if (bmeUser?.role == "MENTOR" || bmeUser?.role == "USER") {
+          filterCourse = filterCourse.where((element) => element.maLop == bmeUser?.tag).toList();
+        }
         emit(BmeCourseInitial(courses: filterCourse));
       });
     });

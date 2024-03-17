@@ -7,6 +7,7 @@ import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.d
 class LoginPageViewModel extends BasePageViewModel {
   String username = "";
   String password = "";
+  bool isShowPassword = false;
 
   Future<Result<List<BmeUser>, GtdApiError>> login() async {
     return BmeRepository.shared.login(username: username, password: password);

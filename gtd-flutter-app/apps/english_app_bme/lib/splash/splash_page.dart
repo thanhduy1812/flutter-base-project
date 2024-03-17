@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 
-import '../home/view_controller/home_page.dart';
-
 class SplashScreen extends StatefulWidget {
   static const String route = '/';
   const SplashScreen({super.key});

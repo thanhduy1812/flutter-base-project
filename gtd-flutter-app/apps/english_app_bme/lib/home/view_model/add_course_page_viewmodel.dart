@@ -109,6 +109,12 @@ class AddCoursePageViewModel extends BasePageViewModel {
     course?.noi = isSpeaking ? "X" : "";
     course?.nguPhap = isGrammar ? "X" : "";
     course?.mau = "${selectedColor.value}";
+    if (seletedMentor != null) {
+      if (seletedMentor?.id != null) {
+        seletedMentor?.tag = course?.maLop;
+        BmeRepository.shared.updateBmeUser(seletedMentor!);
+      }
+    }
     return await BmeRepository.shared.updateBmeCourse(course!);
   }
 

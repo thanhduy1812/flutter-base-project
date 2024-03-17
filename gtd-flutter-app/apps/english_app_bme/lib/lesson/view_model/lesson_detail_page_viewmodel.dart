@@ -41,4 +41,8 @@ class LessonDetailPageViewModel extends BasePageViewModel {
     var ratingScore = feedbacks.fold(0, (previousValue, element) => previousValue + element) / feedbacks.length;
     return LessonRating.fromValue(ratingScore.toInt());
   }
+
+  List<UserFeedback> userFeedbacksByUserName(String username) {
+    return userFeedbacks.where((element) => element.userName == username).toList();
+  }
 }

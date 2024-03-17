@@ -28,6 +28,7 @@ class FeedbackView extends BaseView<FeedbackViewModel> {
             padding: const EdgeInsets.all(16.0),
             child: ListView.builder(
               itemCount: 1,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 var focusNode = FocusNode();
                 return Material(
@@ -111,7 +112,7 @@ class FeedbackView extends BaseView<FeedbackViewModel> {
                                 const SizedBox(height: 16),
                                 SizedBox(
                                   width: double.infinity,
-                                  child: viewModel.userFeedbacks.isNotEmpty
+                                  child: viewModel.userFeedbacks.isNotEmpty || !viewModel.isEnableFeedbackSubmit
                                       ? const SizedBox()
                                       : GtdButton(
                                           text: "Submit",

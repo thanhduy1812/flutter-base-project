@@ -77,6 +77,16 @@ class BmeRepository {
     }
   }
 
+  Future<Result<BmeUser, GtdApiError>> updateBmeUser(BmeUser bmeUser) async {
+    try {
+      final response = await bmeClientResourceApi.updateBmeUser(bmeUser, bmeUser.id!);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("updateBmeUser: $e");
+      return Error(e);
+    }
+  }
+
   Future<Result<List<BmeUser>, GtdApiError>> login({required String username, required String password}) async {
     try {
       var request = {"username": username, "password": password};

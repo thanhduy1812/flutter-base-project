@@ -3,6 +3,9 @@ import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
+import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 
 class UserListViewModel extends BaseViewModel {
   List<BmeUser> bmeUsers = [];
@@ -20,5 +23,10 @@ class UserListViewModel extends BaseViewModel {
     }
     var ratingScore = feedbacks.fold(0, (previousValue, element) => previousValue + element) / feedbacks.length;
     return LessonRating.fromValue(ratingScore.toInt());
+  }
+
+  Future<Result<BmeUser, GtdApiError>> updateUser(BmeUser bmeUser, String courseCode) async {
+    bmeUser.tag = courseCode;
+    return await BmeRepository.shared.updateBmeUser(bmeUser);
   }
 }

@@ -55,6 +55,24 @@ class BmeClientResourceApi {
     }
   }
 
+    Future<BmeUser> updateBmeUser(BmeUser user, int id) async {
+    try {
+      final networkRequest = GTDNetworkRequest(
+          type: GtdMethod.put, enpoint: BmeApiEndpoint.updateBmeUser(envType, id), data: user.toJson());
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonToModel(BmeUser.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error updateBmeUser: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
   Future<List<BmeUser>> findBmeUserByKey(Map<String, dynamic> dict) async {
     try {
       final networkRequest = GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.findBmeUserByKey(envType));

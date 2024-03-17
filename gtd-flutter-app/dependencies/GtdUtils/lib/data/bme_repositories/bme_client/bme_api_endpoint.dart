@@ -5,6 +5,7 @@ class BmeApiEndpoint extends GtdEndpoint {
   BmeApiEndpoint({required super.env, required super.path});
   static const String kUsers = "v1/users";
   static const String kUserCreate = "v1/users/create";
+  static const String kUserUpdate = "v1/users/update";
   static const String kUserFindByKey = "v1/users/find-by-key";
   static const String kUserSearchByColumn = "v1/users/search-by-column";
 
@@ -35,6 +36,11 @@ class BmeApiEndpoint extends GtdEndpoint {
   static GtdEndpoint createBmeUser(GTDEnvType envType) {
     const path = kUserCreate;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+  }
+
+  static GtdEndpoint updateBmeUser(GTDEnvType envType, int id) {
+    const path = kUserUpdate;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id", hasScheme: false);
   }
 
   static GtdEndpoint findBmeUserByKey(GTDEnvType envType) {

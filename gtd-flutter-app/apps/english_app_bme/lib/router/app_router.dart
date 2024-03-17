@@ -2,9 +2,11 @@ import 'package:beme_english/home/view_controller/add_course_page.dart';
 import 'package:beme_english/home/view_controller/add_lesson_page.dart';
 import 'package:beme_english/home/view_controller/add_user_page.dart';
 import 'package:beme_english/home/view_controller/home_page.dart';
+import 'package:beme_english/home/view_controller/import_csv_page.dart';
 import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/home_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/import_csv_page_viewmodel.dart';
 import 'package:beme_english/lesson/view_controller/lesson_detail_page.dart';
 import 'package:beme_english/lesson/view_controller/lesson_page.dart';
 import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
@@ -90,6 +92,16 @@ final List<RouteBase> homeRouters = [
     builder: (context, state) {
       return AddUserPage(
         viewModel: AddUserPageViewModel(),
+      );
+    },
+  ),
+  GoRoute(
+    parentNavigatorKey: _rootNavigatorKey,
+    path: ImportCSVPage.route,
+    builder: (context, state) {
+      var viewModel = state.extra as ImportCSVPageViewModel?;
+      return ImportCSVPage(
+        viewModel: viewModel ?? ImportCSVPageViewModel([]),
       );
     },
   ),
