@@ -45,12 +45,16 @@ class LessonPageViewModel extends BasePageViewModel {
   List<UserFeedback> userFeedbacks = [];
   String role = "";
   BmeUser? bmeUser;
+  List<BmeUser> classUsers = [];
   LessonPageViewModel({required this.course}) {
     title = course.maLop ?? "--";
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
     this.bmeUser = bmeUser;
     role = bmeUser?.role ?? "USER";
     loadLessonRoadmaps();
+    if (course.maLop != null) {
+      loadBmeUsersByClassCode(course.maLop!);
+    }
   }
 
   void loadLessonRoadmaps() async {
@@ -68,6 +72,15 @@ class LessonPageViewModel extends BasePageViewModel {
       value.whenSuccess((success) {
         // userFeedbackDict = success.fold<Map<int, List<LessonRating>>>({}, (map, element) => map..[element.id]);
         userFeedbacks = success;
+        notifyListeners();
+      });
+    });
+  }
+
+  Future<void> loadBmeUsersByClassCode(String classCode) async {
+    await BmeRepository.shared.findUserByClassCode(classCode).then((value) {
+      value.whenSuccess((success) {
+        classUsers = success;
         notifyListeners();
       });
     });

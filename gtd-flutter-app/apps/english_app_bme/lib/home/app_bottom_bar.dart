@@ -37,5 +37,7 @@ final List<BottomNavBarItem> tabs = [
 
 const appBlueDeepColor = Color(0xFF005248);
 const appBlueLightColor = Color(0xFFCCDCDA);
+// const appBlueDeepColor = Colors.blueAccent;
+// final appBlueLightColor = Colors.blue.shade50;
 const appOrangeLightColor = Color(0xFFFFB057);
 const appOrangeDarkColor = Color(0xFFFFB057);

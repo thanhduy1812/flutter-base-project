@@ -63,6 +63,21 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                             ),
                           ),
                           const Spacer(),
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(
+                                Icons.groups_outlined,
+                                size: 32,
+                                color: appBlueDeepColor,
+                              ),
+                              title: Text(
+                                "${viewModel.classUsers.length}",
+                                textAlign: TextAlign.center,
+                              ),
+                              subtitle: Text("Members", style: TextStyle(color: AppColors.subText)),
+                            ),
+                          ),
                           // const Expanded(
                           //   child: ListTile(
                           //     contentPadding: EdgeInsets.zero,

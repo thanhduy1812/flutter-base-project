@@ -191,6 +191,8 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                         content: MaterialColorPicker(
+                                                      alignment: WrapAlignment.start,
+                                                      spacing: 9,
                                                       onColorChange: (value) {
                                                         setStateColor(
                                                           () {

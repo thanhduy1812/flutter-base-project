@@ -18,6 +18,11 @@ class UserListView extends BaseView<UserListViewModel> {
 
   @override
   Widget buildWidget(BuildContext context) {
+    if (viewModel.bmeUsers.isEmpty) {
+      return const Center(
+          child: Text("No Students",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: appBlueDeepColor)));
+    }
     return ListView.separated(
         itemBuilder: (context, index) {
           var user = viewModel.bmeUsers[index];
@@ -176,6 +181,31 @@ class UserListView extends BaseView<UserListViewModel> {
               ),
             ),
             subtitle: Text(user.dob ?? "---"),
+          ),
+        ),
+        Card(
+          color: Colors.white,
+          margin: const EdgeInsets.symmetric(
+            vertical: 15.0,
+            horizontal: 60.0,
+          ),
+          child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            leading: const Icon(
+              Icons.class_rounded,
+              size: 40.0,
+              color: appOrangeDarkColor,
+            ),
+            title: const Text(
+              'Class',
+              style: TextStyle(
+                fontSize: 15.0,
+                fontFamily: 'SourceSansPro',
+                color: appBlueDeepColor,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            subtitle: Text(user.tag ?? "---"),
           ),
         ),
       ],
