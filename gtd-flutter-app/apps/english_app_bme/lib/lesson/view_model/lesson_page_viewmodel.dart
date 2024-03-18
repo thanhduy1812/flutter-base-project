@@ -86,7 +86,7 @@ class LessonPageViewModel extends BasePageViewModel {
     });
   }
 
-  LessonRating? arrangeRating(int lessonId) {
+  (LessonRating, double)? arrangeRating(int lessonId) {
     List<int> ratings = userFeedbacks
         .where((element) {
           if (role != "ADMIN") {
@@ -101,6 +101,6 @@ class LessonPageViewModel extends BasePageViewModel {
       return null;
     }
     double average = ratings.reduce((value, element) => value + element) / ratings.length;
-    return LessonRating.fromValue(average.toInt());
+    return (LessonRating.fromValue(average.toInt()), average);
   }
 }

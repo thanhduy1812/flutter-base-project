@@ -22,8 +22,8 @@ class UserListView extends BaseView<UserListViewModel> {
   Widget buildWidget(BuildContext context) {
     if (viewModel.bmeUsers.isEmpty) {
       return const Center(
-          child: Text("No Students",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: appBlueDeepColor)));
+          child:
+              Text("No content", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: appBlueDeepColor)));
     }
     return ListView.separated(
         itemBuilder: (context, index) {

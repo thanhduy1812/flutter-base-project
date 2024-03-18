@@ -62,7 +62,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               subtitle: Text("Teacher", style: TextStyle(color: AppColors.subText)),
                             ),
                           ),
-                          const Spacer(),
+                          // const Spacer(),
                           Expanded(
                             child: ListTile(
                               contentPadding: EdgeInsets.zero,
@@ -71,22 +71,15 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 size: 32,
                                 color: appBlueDeepColor,
                               ),
+                              titleTextStyle: const TextStyle(fontSize: 14, color: appBlueDeepColor),
+                              subtitleTextStyle: const TextStyle(fontSize: 14, color: appBlueDeepColor),
                               title: Text(
-                                "${viewModel.classUsers.length}",
-                                textAlign: TextAlign.center,
+                                "Students: ${viewModel.classUsers.where((element) => element.role == "USER").length}",
                               ),
-                              subtitle: Text("Members", style: TextStyle(color: AppColors.subText)),
+                              subtitle: Text(
+                                  "Mentors: ${viewModel.classUsers.where((element) => element.role == "MENTOR").length}"),
                             ),
                           ),
-                          // const Expanded(
-                          //   child: ListTile(
-                          //     contentPadding: EdgeInsets.zero,
-                          //     title: Text("9h 33m",
-                          //         style: TextStyle(fontWeight: FontWeight.w500, color: Colors.deepOrangeAccent)),
-                          //     subtitle: Text("45 Lessons", style: TextStyle(fontWeight: FontWeight.w500)),
-                          //   ),
-                          // ),
-                          // Expanded(child: rowIconRating(pageContext)),
                         ],
                       ),
                     ),
@@ -174,7 +167,22 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 title: Text(lesson.lessonName ?? "",
                                     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
                                 subtitle: Text(dateFormat.format(lesson.startDate ?? DateTime.now())),
-                                trailing: rating == null ? const SizedBox() : iconRating(rating),
+                                trailing: rating == null
+                                    ? const SizedBox()
+                                    : Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            rating.$2.toStringAsFixed(1),
+                                            style: const TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
+                                          ),
+                                          const SizedBox(width: 7),
+                                          iconRating(rating.$1),
+                                        ],
+                                      ),
                               ),
                             ));
                       },
