@@ -30,48 +30,48 @@ class BmeApiEndpoint extends GtdEndpoint {
 //User
   static GtdEndpoint getListBmeUser(GTDEnvType envType) {
     const path = kUsers;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint createBmeUser(GTDEnvType envType) {
     const path = kUserCreate;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint updateBmeUser(GTDEnvType envType, int id) {
     const path = kUserUpdate;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id", hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id");
   }
 
   static GtdEndpoint findBmeUserByKey(GTDEnvType envType) {
     const path = kUserFindByKey;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
 //BME
   static GtdEndpoint getListBmeOriginCourse(GTDEnvType envType) {
     const path = kBmeCourses;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint createBmeCourse(GTDEnvType envType) {
     const path = kBmeCoursesCreate;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint updateBmeCourse(GTDEnvType envType, int id) {
     const path = kBmeCoursesUpdate;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id", hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id");
   }
 
   static GtdEndpoint deleteBmeCourse(GTDEnvType envType, int id) {
     const path = kBmeCourses;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id", hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: "$path/$id");
   }
 
   static GtdEndpoint findBmeCoursesByKey(GTDEnvType envType) {
     const path = kBmeCoursesFindByKey;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   //Lesson
@@ -82,32 +82,32 @@ class BmeApiEndpoint extends GtdEndpoint {
 
   static GtdEndpoint findLessonByKey(GTDEnvType envType) {
     const path = kLessonRoadmapFindByKey;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   //Feedback
   static GtdEndpoint getListFeedbackQuestion(GTDEnvType envType) {
     const path = kFeedbackList;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint createUserFeedback(GTDEnvType envType) {
     const path = kUserFeedbackCreate;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint getListUserFeedbacks(GTDEnvType envType) {
     const path = kUserFeedbacks;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint getListUserFeedbackByKey(GTDEnvType envType) {
     const path = kUserFeedbackFindByKey;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
   static GtdEndpoint getListUserFeedbackByLessonids(GTDEnvType envType) {
     const path = kUserFeedbackFindByLessonRoadmapIds;
-    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path, hasScheme: false);
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 }

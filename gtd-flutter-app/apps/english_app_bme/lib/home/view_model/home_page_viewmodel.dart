@@ -56,9 +56,11 @@ class HomePageViewModel extends BasePageViewModel {
       }
       if (seletedTab == HomePageTab.mentor) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+          filteredUsers = List.from(
+              originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role != "USER").toList())
+          filteredUsers = List<BmeUser>.from(
+                  originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -73,9 +75,9 @@ class HomePageViewModel extends BasePageViewModel {
 
       if (seletedTab == HomePageTab.student) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+          filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role == "USER").toList())
+          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -101,10 +103,10 @@ class HomePageViewModel extends BasePageViewModel {
       filteredCourses = List.from(originCourses);
     }
     if (tab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (tab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
     searchFieldController.clear();
     notifyListeners();
@@ -116,10 +118,10 @@ class HomePageViewModel extends BasePageViewModel {
       return;
     }
     if (seletedTab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (seletedTab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
   }
 

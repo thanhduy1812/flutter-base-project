@@ -57,7 +57,12 @@ class UserListView extends BaseView<UserListViewModel> {
               ),
               trailing: isShowRating
                   ? viewModel.ratingByUsername(user.username ?? "") != null
-                      ? LessonPage.iconRating(viewModel.ratingByUsername(user.username ?? "")!)
+                      ? switch (viewModel.viewMode) {
+                          UserListViewMode.user =>
+                            LessonPage.iconRating(viewModel.ratingByUsername(user.username ?? "")!),
+                          UserListViewMode.mentor =>
+                            LessonPage.iconRating(viewModel.ratingByFeedbackTo(user.username ?? "")!),
+                        }
                       : const SizedBox()
                   : Card(
                       elevation: 0,

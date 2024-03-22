@@ -6,6 +6,7 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/model/lesson_roadmap_
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
+import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 
 class LessonDetailPageViewModel extends BasePageViewModel {
   final BmeOriginCourse course;
@@ -17,7 +18,7 @@ class LessonDetailPageViewModel extends BasePageViewModel {
   LessonDetailPageViewModel({required this.course, required this.lessonRoadmapRs}) {
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
     role = bmeUser?.role ?? "USER";
-    title = lessonRoadmapRs.lessonName ?? "";
+    title = dateFormat.format(lessonRoadmapRs.startDate ?? DateTime.now());
     loadUserFeebacks(lessonRoadmapRs.id ?? -1);
   }
 
@@ -42,7 +43,24 @@ class LessonDetailPageViewModel extends BasePageViewModel {
     return LessonRating.fromValue(ratingScore.toInt());
   }
 
+  LessonRating? ratingByFeedbackTo(String feedbackTo) {
+    var feedbacks = userFeedbacks
+        .where((element) => element.feedbackTo == feedbackTo)
+        .map((e) => int.tryParse(e.feedbackAnswer ?? "unknown"))
+        .whereType<int>()
+        .toList();
+    if (feedbacks.isEmpty) {
+      return null;
+    }
+    var ratingScore = feedbacks.fold(0, (previousValue, element) => previousValue + element) / feedbacks.length;
+    return LessonRating.fromValue(ratingScore.toInt());
+  }
+
   List<UserFeedback> userFeedbacksByUserName(String username) {
     return userFeedbacks.where((element) => element.userName == username).toList();
+  }
+
+  List<UserFeedback> userFeedbacksByFeedbackTo(String feedBackTo) {
+    return userFeedbacks.where((element) => element.feedbackTo == feedBackTo).toList();
   }
 }

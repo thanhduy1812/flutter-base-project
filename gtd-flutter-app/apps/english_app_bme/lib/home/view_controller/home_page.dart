@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
@@ -127,7 +128,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? buildBottomBar(BuildContext pageContext) {
-    if (viewModel.role != "ADMIN") {
+    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue) {
       return null;
     }
     return ListenableBuilder(
@@ -178,7 +179,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
           },
           icon: const Icon(Icons.logout, size: 36, color: appOrangeDarkColor))
     ];
-    if (viewModel.role != "ADMIN") {
+    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue) {
       widgets = [
         IconButton(
             onPressed: () {
@@ -198,7 +199,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? floatingButton(BuildContext context) {
-    if (viewModel.role != "ADMIN") {
+    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue) {
       return null;
     }
     return FloatingActionButton(
@@ -252,7 +253,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                   var course = viewModel.filteredCourses[index];
                   return Slidable(
                     key: ValueKey(index),
-                    enabled: viewModel.role == "ADMIN",
+                    enabled: viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue,
                     endActionPane: ActionPane(motion: const ScrollMotion(), children: [
                       SlidableAction(
                         onPressed: (contextSlide) {

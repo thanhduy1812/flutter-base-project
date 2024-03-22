@@ -87,13 +87,19 @@ class AddCoursePageViewModel extends BasePageViewModel {
         maLop: titleField,
         ngayKhaiGiang: dateFormat.format(startDate),
         mau: "${selectedColor.value}",
-        dinhHuong: isOrient ? "X" : "",
-        phatAm: isIPA ? "X" : "",
-        nghe: isListening ? "X" : "",
-        noi: isSpeaking ? "X" : "",
-        nguPhap: isGrammar ? "X" : "",
+        dinhHuong: isOrient ? "x" : "",
+        phatAm: isIPA ? "x" : "",
+        nghe: isListening ? "x" : "",
+        noi: isSpeaking ? "x" : "",
+        nguPhap: isGrammar ? "x" : "",
         giaoVienHienTai: seletedMentor?.fullName ?? "");
-    return await BmeRepository.shared.createBmeCourse(course);
+    return await BmeRepository.shared.createBmeCourse(course).then((value) {
+      if (seletedMentor != null) {
+        seletedMentor?.tag = titleField;
+        BmeRepository.shared.updateBmeUser(seletedMentor!);
+      }
+      return value;
+    });
   }
 
   Future<Result<BmeOriginCourse, GtdApiError>> updateCourse() async {
@@ -103,11 +109,11 @@ class AddCoursePageViewModel extends BasePageViewModel {
     course?.maLop = titleField;
     course?.ngayKhaiGiang = dateFormat.format(startDate);
     course?.giaoVienHienTai = seletedMentor?.fullName;
-    course?.dinhHuong = isOrient ? "X" : "";
-    course?.phatAm = isIPA ? "X" : "";
-    course?.nghe = isListening ? "X" : "";
-    course?.noi = isSpeaking ? "X" : "";
-    course?.nguPhap = isGrammar ? "X" : "";
+    course?.dinhHuong = isOrient ? "x" : "";
+    course?.phatAm = isIPA ? "x" : "";
+    course?.nghe = isListening ? "x" : "";
+    course?.noi = isSpeaking ? "x" : "";
+    course?.nguPhap = isGrammar ? "x" : "";
     course?.mau = "${selectedColor.value}";
     if (seletedMentor != null) {
       if (seletedMentor?.id != null) {

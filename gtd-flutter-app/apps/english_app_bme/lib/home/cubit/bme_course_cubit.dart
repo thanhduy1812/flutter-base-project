@@ -19,13 +19,15 @@ class BmeCourseCubit extends Cubit<BmeCourseState> {
       value.whenSuccess((success) {
         var filterCourse = success
             .where((element) =>
-                element.dinhHuong == "X" ||
-                element.phatAm == "X" ||
-                element.nghe == "X" ||
-                element.noi == "X" ||
-                element.nguPhap == "X")
+                element.dinhHuong == "x" ||
+                element.phatAm == "x" ||
+                element.nghe == "x" ||
+                element.noi == "x" ||
+                element.nguPhap == "x")
+            .where((element) => element.ngayKhaiGiang != "huy")
             .toList();
-        if (bmeUser?.role == "MENTOR" || bmeUser?.role == "USER") {
+        if (bmeUser?.role?.toUpperCase() == BmeUserRole.mentor.roleValue ||
+            bmeUser?.role?.toUpperCase() == BmeUserRole.user.roleValue) {
           filterCourse = filterCourse.where((element) => element.maLop == bmeUser?.tag).toList();
         }
         emit(BmeCourseInitial(courses: filterCourse));

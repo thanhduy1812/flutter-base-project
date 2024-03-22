@@ -2,8 +2,10 @@ import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:beme_english/home/view/input_text_field.dart';
 import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
@@ -33,8 +35,9 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                         child: InputTextField(
                             hintText: 'Please input full name',
                             labelText: "Full name",
+                            initText: viewModel.fullName,
                             leadingIcon: Icon(
-                              Icons.person,
+                              Icons.supervised_user_circle,
                               color: Colors.grey.shade400,
                             ),
                             onChanged: (value) {
@@ -46,8 +49,9 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                         child: InputTextField(
                             hintText: 'Please input facebook name',
                             labelText: "Facebook name",
+                            initText: viewModel.facebookName,
                             leadingIcon: Icon(
-                              Icons.person,
+                              Icons.facebook,
                               color: Colors.grey.shade400,
                             ),
                             onChanged: (value) {
@@ -56,16 +60,28 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: InputTextField(
-                            hintText: '09xxxxxxxx',
-                            labelText: "Phone Number",
-                            leadingIcon: Icon(
-                              Icons.phone,
-                              color: Colors.grey.shade400,
-                            ),
-                            onChanged: (value) {
-                              viewModel.phoneNumber = value;
-                            }),
+                        child: ListenableBuilder(
+                          listenable: viewModel,
+                          builder: (context, child) {
+                            return InputTextField(
+                                hintText: viewModel.role.toUpperCase() == BmeUserRole.user.roleValue
+                                    ? '09xxxxxxxx'
+                                    : "Username",
+                                labelText: viewModel.role.toUpperCase() == BmeUserRole.user.roleValue
+                                    ? "Phone Number"
+                                    : "UserName",
+                                initText: viewModel.phoneNumber,
+                                leadingIcon: Icon(
+                                  viewModel.role.toUpperCase() == BmeUserRole.user.roleValue
+                                      ? Icons.phone
+                                      : Icons.person_2,
+                                  color: Colors.grey.shade400,
+                                ),
+                                onChanged: (value) {
+                                  viewModel.phoneNumber = value;
+                                });
+                          },
+                        ),
                       ),
                       Row(
                         children: [
@@ -98,22 +114,6 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                                   viewModel.setDobDate(value);
                                 }
                               });
-                              // GtdCalendarHelper.presentLunaCalendar(
-                              //   context: pageContext,
-                              //   lunaDateMode: GtdLunarDateMode.single,
-                              //   lunaDayBehavior: GtdLunaDayBehavior.onlyStart,
-                              //   title: "Choose Date",
-                              //   dayStartLabel: "Start",
-                              //   selectDayViewStartLabel: "Selected Date",
-                              //   minDate: DateTime.now().subtract(const Duration(days: 36500)),
-                              //   initEndate: DateTime.now(),
-                              //   initStartDate: viewModel.dob,
-                              //   onSelected: (value) {
-                              //     if (value.startDate != null) {
-                              //       viewModel.setDobDate(value.startDate!);
-                              //     }
-                              //   },
-                              // );
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(16),
@@ -140,25 +140,35 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                             "Role:  ",
                             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                           ),
-                          DropdownButton<String>(
-                            value: viewModel.role,
-                            icon: const Icon(Icons.arrow_drop_down_circle_outlined, color: appBlueDeepColor),
-                            elevation: 16,
-                            style: const TextStyle(color: appBlueDeepColor, fontSize: 17, fontWeight: FontWeight.w700),
-                            underline: Container(
-                              height: 2,
-                              color: appBlueDeepColor,
-                            ),
-                            onChanged: (String? value) {
-                              viewModel.setRole(value ?? viewModel.listRole.first);
-                            },
-                            items: viewModel.listRole.map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
+                          StatefulBuilder(builder: (context, roleState) {
+                            return DropdownButton<String>(
+                              value: viewModel.role,
+                              icon: const Icon(Icons.arrow_drop_down_circle_outlined, color: appBlueDeepColor),
+                              elevation: 16,
+                              style:
+                                  const TextStyle(color: appBlueDeepColor, fontSize: 17, fontWeight: FontWeight.w700),
+                              underline: Container(
+                                height: 2,
+                                color: appBlueDeepColor,
+                              ),
+                              onChanged: (String? value) {
+                                if (value != null) {
+                                  roleState(
+                                    () {
+                                      viewModel.role = value;
+                                      viewModel.updateRole();
+                                    },
+                                  );
+                                }
+                              },
+                              items: viewModel.listRole.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            );
+                          }),
                         ],
                       ),
                       SizedBox(

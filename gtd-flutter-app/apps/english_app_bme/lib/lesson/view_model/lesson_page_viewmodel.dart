@@ -89,7 +89,7 @@ class LessonPageViewModel extends BasePageViewModel {
   (LessonRating, double)? arrangeRating(int lessonId) {
     List<int> ratings = userFeedbacks
         .where((element) {
-          if (role != "ADMIN") {
+          if (role.toUpperCase() != BmeUserRole.admin.roleValue) {
             return element.lessonRoadmapId == lessonId && element.userName == bmeUser?.username;
           }
           return element.lessonRoadmapId == lessonId;

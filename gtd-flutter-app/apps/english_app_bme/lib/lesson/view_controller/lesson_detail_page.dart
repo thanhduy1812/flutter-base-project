@@ -8,6 +8,7 @@ import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
@@ -57,15 +58,15 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   }
 
   List<Widget> _tabViews() {
-    if (viewModel.role == "ADMIN") {
+    if (viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue) {
       return [
         const Tab(text: "Students"),
         const Tab(text: "Mentors"),
       ];
-    } else if (viewModel.role == "MENTOR") {
+    } else if (viewModel.role.toUpperCase() == BmeUserRole.mentor.roleValue) {
       return [
         const Tab(text: "Students"),
-        const Tab(text: "Rating"),
+        // const Tab(text: "Rating"),
       ];
     } else {
       return [const Tab(text: "Rating")];
@@ -73,11 +74,13 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
   }
 
   List<Widget> _generateTabarView(BuildContext context) {
-    if (viewModel.role == "ADMIN") {
+    if (viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue) {
       return [
         UserListView(
             viewModel: UserListViewModel(
-                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "USER").toList(),
+                bmeUsers: viewModel.bmeUsers
+                    .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
+                    .toList(),
                 userFeedbacks: viewModel.userFeedbacks),
             onSelected: (value) {
               var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
@@ -99,10 +102,13 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
             isShowRating: true),
         UserListView(
             viewModel: UserListViewModel(
-                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "MENTOR").toList(),
-                userFeedbacks: viewModel.userFeedbacks),
+                bmeUsers: viewModel.bmeUsers
+                    .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
+                    .toList(),
+                userFeedbacks: viewModel.userFeedbacks,
+                viewMode: UserListViewMode.mentor),
             onSelected: (value) {
-              var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
+              var userFeedbacks = viewModel.userFeedbacksByFeedbackTo(value.username!);
               if (userFeedbacks.isEmpty) {
                 return;
               }
@@ -120,31 +126,34 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
             },
             isShowRating: true),
       ];
-    } else if (viewModel.role == "MENTOR") {
+    } else if (viewModel.role.toUpperCase() == BmeUserRole.mentor.roleValue) {
       return [
         UserListView(
             viewModel: UserListViewModel(
-                bmeUsers: viewModel.bmeUsers.where((element) => element.role == "USER").toList(),
+                bmeUsers: viewModel.bmeUsers
+                    .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
+                    .toList(),
                 userFeedbacks: viewModel.userFeedbacks),
             onSelected: (value) {
-              var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
-              if (userFeedbacks.isEmpty) {
-                return;
-              }
+              var userFeedbacks = viewModel.userFeedbacksByFeedbackTo(value.username!);
+              // if (userFeedbacks.isEmpty) {
+              //   return;
+              // }
               GtdPresentViewHelper.presentView(
                 title: "${value.fullName} feedback!",
                 context: context,
                 builder: Builder(
                   builder: (context) {
                     return FeedbackView(
-                        viewModel:
-                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                      viewModel: FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks,
+                          feedbackTo: value.username),
+                    );
                   },
                 ),
               );
             },
             isShowRating: true),
-        FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))
+        // FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))
       ];
     } else {
       return [FeedbackView(viewModel: FeedbackViewModel(viewModel.lessonRoadmapRs.id ?? 0))];
