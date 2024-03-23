@@ -68,7 +68,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
     if (viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue) {
       return [
         const Tab(text: "Students"),
-        const Tab(text: "Mentors"),
+        const Tab(text: "Teachers"),
       ];
     } else if (viewModel.role.toUpperCase() == BmeUserRole.mentor.roleValue) {
       return [

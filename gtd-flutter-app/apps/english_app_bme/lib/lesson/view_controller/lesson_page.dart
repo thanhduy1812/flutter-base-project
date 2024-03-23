@@ -78,7 +78,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 "Students: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).length}",
                               ),
                               subtitle: Text(
-                                  "Mentors: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.mentor.roleValue).length}"),
+                                  "Teacher: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.mentor.roleValue).length}"),
                             ),
                           ),
                         ],

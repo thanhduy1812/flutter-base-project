@@ -57,8 +57,8 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                       child: StatefulBuilder(
                         builder: (context, setStateMentor) {
                           return InputTextField(
-                            hintText: 'Please input mentor name',
-                            labelText: "Mentor name",
+                            hintText: 'Please input Teacher name',
+                            labelText: "Teacher name",
                             initText: viewModel.seletedMentor?.fullName ?? "",
                             leadingIcon: Icon(
                               Icons.person,
@@ -68,7 +68,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                             // onChanged: (value) {},
                             onTap: () {
                               GtdPresentViewHelper.presentView(
-                                  title: "Mentors",
+                                  title: "Teachers",
                                   context: pageContext,
                                   builder: Builder(
                                     builder: (context) {

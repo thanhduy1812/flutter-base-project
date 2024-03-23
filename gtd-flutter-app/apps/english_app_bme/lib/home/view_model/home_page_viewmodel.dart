@@ -13,7 +13,7 @@ import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
   course(0, "Courses"),
-  mentor(1, "Mentors"),
+  mentor(1, "Teachers"),
   student(2, "Students"),
   account(3, "Account"),
   ;

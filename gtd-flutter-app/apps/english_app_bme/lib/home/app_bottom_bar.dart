@@ -20,7 +20,7 @@ final List<BottomNavBarItem> tabs = [
     activeIcon: ColorFiltered(
         colorFilter: const ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn),
         child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-mentor.svg", width: 24)),
-    label: 'Mentors',
+    label: 'Teachers',
     initialLocation: '/mentor',
   ),
   BottomNavBarItem(

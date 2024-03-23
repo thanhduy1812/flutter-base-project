@@ -174,16 +174,16 @@ class UserListView extends BaseView<UserListViewModel> {
                 size: 40.0,
                 color: appOrangeLightColor,
               ),
-              title: const Text(
-                'Phone',
-                style: TextStyle(
+              title: Text(
+                (user.role?.toUpperCase() == BmeUserRole.user.roleValue) ? 'Phone' : "Teacher Code",
+                style: const TextStyle(
                   fontSize: 15.0,
                   fontFamily: 'SourceSansPro',
                   color: appBlueDeepColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              subtitle: Text(user.phoneNumber ?? "---"),
+              subtitle: Text(user.username ?? "---"),
             ),
           ),
           Card(
