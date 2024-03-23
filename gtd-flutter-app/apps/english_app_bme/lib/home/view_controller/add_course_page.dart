@@ -192,23 +192,27 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                         content: MaterialColorPicker(
+                                                      allowShades: false,
                                                       alignment: WrapAlignment.start,
                                                       spacing: 9,
-                                                      onColorChange: (value) {
-                                                        setStateColor(
-                                                          () {
-                                                            viewModel.selectedColor = value;
-                                                          },
-                                                        );
+                                                      onMainColorChange: (value) {
+                                                        if (value != null) {
+                                                          setStateColor(
+                                                            () {
+                                                              viewModel.selectedColor = Color(value.value);
+                                                            },
+                                                          );
+                                                        }
                                                       },
+                                                      // onColorChange: (value) {
+                                                      //   setStateColor(
+                                                      //     () {
+                                                      //       viewModel.selectedColor = value;
+                                                      //     },
+                                                      //   );
+                                                      // },
                                                       selectedColor: viewModel.selectedColor,
-                                                      colors: const [
-                                                        Colors.red,
-                                                        Colors.deepOrange,
-                                                        Colors.yellow,
-                                                        Colors.blueAccent,
-                                                        Colors.teal
-                                                      ],
+                                                      colors: const [Colors.deepOrange, Colors.teal],
                                                     ));
                                                   },
                                                 );

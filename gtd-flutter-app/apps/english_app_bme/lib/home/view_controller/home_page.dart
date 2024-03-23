@@ -58,10 +58,13 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
         builder: (context, state) {
           if (viewModel.originCourses.isEmpty) {
             return const Center(
-                child: Text(
-              "You haven't participated in any courses.",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: appBlueDeepColor),
-              textAlign: TextAlign.center,
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                "You haven't participated in any courses.",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: appBlueDeepColor),
+                textAlign: TextAlign.center,
+              ),
             ));
           }
           return BlocBuilder<BmeUserCubit, BmeUserState>(
@@ -211,41 +214,48 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? floatingButton(BuildContext context) {
-    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue || viewModel.seletedTab == HomePageTab.account) {
-      return null;
-    }
-    return FloatingActionButton(
-      backgroundColor: appBlueDeepColor,
-      onPressed: () => {
-        switch (viewModel.seletedTab) {
-          HomePageTab.course =>
-            context.push(AddCoursePage.route, extra: AddCoursePageViewModel.initAddcoursePage()).then((value) {
-              if (value != null) {
-                BlocProvider.of<BmeCourseCubit>(context).loadCourse();
-              }
-            }),
-          HomePageTab.mentor =>
-            context.push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor)).then((value) {
-              if (value != null) {
-                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "MENTOR");
-              }
-            }),
-          HomePageTab.student => context
-                .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student))
-                .then((value) {
-              if (value != null) {
-                BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
-              }
-            }),
-          HomePageTab.account => (),
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, child) {
+        if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue ||
+            viewModel.seletedTab == HomePageTab.account) {
+          return const SizedBox();
         }
+        return FloatingActionButton(
+          backgroundColor: appBlueDeepColor,
+          onPressed: () => {
+            switch (viewModel.seletedTab) {
+              HomePageTab.course =>
+                context.push(AddCoursePage.route, extra: AddCoursePageViewModel.initAddcoursePage()).then((value) {
+                  if (value != null) {
+                    BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+                  }
+                }),
+              HomePageTab.mentor => context
+                    .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor))
+                    .then((value) {
+                  if (value != null) {
+                    BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "MENTOR");
+                  }
+                }),
+              HomePageTab.student => context
+                    .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student))
+                    .then((value) {
+                  if (value != null) {
+                    BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
+                  }
+                }),
+              HomePageTab.account => (),
+            }
+          },
+          tooltip: 'Add ${viewModel.seletedTab.title}',
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 45,
+          ),
+        );
       },
-      tooltip: 'Add ${viewModel.seletedTab.title}',
-      child: const Icon(
-        Icons.add,
-        color: Colors.white,
-        size: 45,
-      ),
     );
   }
 
