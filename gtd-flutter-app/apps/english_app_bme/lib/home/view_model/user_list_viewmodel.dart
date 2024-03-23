@@ -18,7 +18,16 @@ class UserListViewModel extends BaseViewModel {
   List<BmeUser> bmeUsers = [];
   List<UserFeedback> userFeedbacks = [];
   UserListViewMode viewMode = UserListViewMode.user;
-  UserListViewModel({this.bmeUsers = const [], this.userFeedbacks = const [], this.viewMode = UserListViewMode.user});
+  UserListViewModel(
+      {this.bmeUsers = const [],
+      this.userFeedbacks = const [],
+      this.viewMode = UserListViewMode.user,
+      LessonRating? rating}) {
+    if (rating != null) {
+      //Filter List
+      bmeUsers = bmeUsers.where((element) => ratingByUsername(element.username!)?.$1 == rating).toList();
+    }
+  }
 
   (LessonRating, double)? ratingByUsername(String username) {
     var feedbacks = userFeedbacks
