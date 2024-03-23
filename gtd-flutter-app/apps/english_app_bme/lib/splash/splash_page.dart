@@ -1,8 +1,11 @@
+import 'package:beme_english/home/view_model/home_page_viewmodel.dart';
 import 'package:beme_english/login/view_controller/login_page.dart';
 import 'package:beme_english/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
+
+import '../home/view_controller/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   static const String route = '/';
@@ -32,9 +35,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    Future.delayed(const Duration(seconds: 2)).then((value) {
+    Future.delayed(const Duration(seconds: 1)).then((value) {
       var viewModel = LoginPageViewModel();
-      context.pushReplacement(LoginPage.route, extra: viewModel);
+      if (viewModel.cachedUser?.isRemember == true) {
+        viewModel.login().whenComplete(() {
+          context.pushReplacement(HomePage.route, extra: HomePageViewModel());
+        });
+      } else {
+        context.pushReplacement(LoginPage.route, extra: viewModel);
+      }
     });
     return ColoredBox(
       color: Colors.white,

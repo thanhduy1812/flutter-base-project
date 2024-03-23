@@ -18,11 +18,13 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    return ColoredBox(
-      color: Colors.white,
-      child: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
+    return Column(
+      children: [
+        ColoredBox(
+          color: Colors.white,
+          child: SizedBox(
+              // height: double.infinity,
+              child: SingleChildScrollView(
             child: Column(
               children: [
                 Center(child: GtdImage.imgFromAsset(assetPath: "assets/icon/beme-logo.png", width: 150)),
@@ -102,6 +104,54 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                     );
                   }),
                 ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: SizedBox(
+                        width: 200,
+                        height: 60,
+                        child: StatefulBuilder(builder: (context, setStateRemember) {
+                          return CheckboxListTile(
+                            value: viewModel.rememberPassword,
+                            controlAffinity: ListTileControlAffinity.leading,
+                            contentPadding: EdgeInsets.zero,
+                            title: const Text(
+                              "Remember me!",
+                              style: TextStyle(color: appOrangeDarkColor),
+                            ),
+                            onChanged: (value) {
+                              setStateRemember(
+                                () {
+                                  viewModel.rememberPassword = value ?? false;
+                                },
+                              );
+                            },
+                          );
+                        }),
+                      ),
+                    ),
+                    const Spacer()
+                  ],
+                ),
+                // const SizedBox(
+                //   width: 100,
+                //   height: 80,
+                //   child: Row(
+                //     children: [
+                //       // Spacer(),
+                //       // SizedBox(
+                //       //   width: 150,
+                //       //   height: 60,
+                //       //   child: CheckboxListTile(
+                //       //     value: false,
+                //       //     onChanged: (value) {},
+                //       //     title: const Text("Remember me!"),
+                //       //   ),
+                //       // ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(
                   width: double.infinity,
                   child: Padding(
@@ -131,6 +181,8 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
               ],
             ),
           )),
+        ),
+      ],
     );
   }
 }

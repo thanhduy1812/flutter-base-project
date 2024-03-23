@@ -25,7 +25,12 @@ class UserListViewModel extends BaseViewModel {
       LessonRating? rating}) {
     if (rating != null) {
       //Filter List
-      bmeUsers = bmeUsers.where((element) => ratingByUsername(element.username!)?.$1 == rating).toList();
+      if (viewMode == UserListViewMode.user) {
+        bmeUsers = bmeUsers.where((element) => ratingByUsername(element.username!)?.$1 == rating).toList();
+      }
+      if (viewMode == UserListViewMode.mentor) {
+        bmeUsers = bmeUsers.where((element) => ratingByFeedbackTo(element.username!)?.$1 == rating).toList();
+      }
     }
   }
 

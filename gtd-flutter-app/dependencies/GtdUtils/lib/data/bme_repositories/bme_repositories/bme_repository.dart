@@ -87,12 +87,15 @@ class BmeRepository {
     }
   }
 
-  Future<Result<List<BmeUser>, GtdApiError>> login({required String username, required String password}) async {
+  Future<Result<List<BmeUser>, GtdApiError>> login(
+      {required String username, required String password, bool rememberPassword = false}) async {
     try {
       var request = {"username": username, "password": password};
       final response = await bmeClientResourceApi.findBmeUserByKey(request);
       if (response.isNotEmpty) {
-        await CacheHelper.shared.saveSharedObject(response.first.toJson(), key: CacheStorageType.accountBox.name);
+        var bmeUser = response.first;
+        bmeUser.isRemember = rememberPassword;
+        await CacheHelper.shared.saveSharedObject(bmeUser.toJson(), key: CacheStorageType.accountBox.name);
         return Success(response);
       }
       return Error(GtdApiError(code: "404", message: "User not found"));

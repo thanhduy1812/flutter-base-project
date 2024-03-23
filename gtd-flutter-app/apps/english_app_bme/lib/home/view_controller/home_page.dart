@@ -18,6 +18,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
+import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
@@ -173,6 +174,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
             GtdPopupMessage(pageContext).showError(
               error: "Do you want logout?",
               onConfirm: (value) {
+                // CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name)
+                CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
                 pageContext.pushReplacement(LoginPage.route);
               },
             );

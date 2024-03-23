@@ -16,6 +16,7 @@ class BmeUser {
   String? phoneNumber;
   String? address;
   String? tag;
+  bool? isRemember;
 
   BmeUser({
     this.id,
@@ -35,6 +36,7 @@ class BmeUser {
     this.phoneNumber,
     this.address,
     this.tag,
+    this.isRemember,
   });
 
   factory BmeUser.fromJson(Map<String, dynamic> json) => BmeUser(
@@ -55,6 +57,7 @@ class BmeUser {
         phoneNumber: json["phoneNumber"],
         address: json["address"],
         tag: json["tag"],
+        isRemember: json["isRemember"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +78,7 @@ class BmeUser {
         "phoneNumber": phoneNumber,
         "address": address,
         "tag": tag,
+        "isRemember": isRemember,
       };
 }
 
