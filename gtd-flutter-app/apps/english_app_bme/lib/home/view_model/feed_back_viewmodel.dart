@@ -15,6 +15,7 @@ class FeedbackViewModel extends BaseViewModel {
   String? feedbackTo;
   String? role;
   BmeUser? bmeUser;
+  bool neeReloadUserFeedbacks = true;
   FeedbackViewModel(this.lessonRoadmapId, {this.feedbackTo = ""}) {
     feedbackModels = [
       FeedbackModel(id: 1, question: "Học viên có hiểu bài không?", rating: LessonRating.happy),
@@ -29,6 +30,8 @@ class FeedbackViewModel extends BaseViewModel {
   factory FeedbackViewModel.loadExistFeedback(int lessonRoadmapId, List<UserFeedback> userFeedbacks,
       {String? feedbackTo}) {
     FeedbackViewModel viewModel = FeedbackViewModel(lessonRoadmapId);
+    viewModel.neeReloadUserFeedbacks = false;
+    viewModel.userFeedbacks = userFeedbacks;
     // viewModel.isEnableFeedbackSubmit = userFeedbacks.isEmpty;
     viewModel.feedbackTo = feedbackTo;
     viewModel.updateDataFromUserFeedbacks(userFeedbacks);
@@ -43,7 +46,7 @@ class FeedbackViewModel extends BaseViewModel {
       userFeedbacks = userFeedbacks.where((element) => element.userName == bmeUser?.username).toList();
     }
     this.userFeedbacks = userFeedbacks;
-    userFeedbacks.map((e) {
+    this.userFeedbacks.map((e) {
       if (e.feedbackId == 1) {
         feedbackModels[0].rating = LessonRating.fromValue(int.tryParse(e.feedbackAnswer ?? "10") ?? 10);
       }

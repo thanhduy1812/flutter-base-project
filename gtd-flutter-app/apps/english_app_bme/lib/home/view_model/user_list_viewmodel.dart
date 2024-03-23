@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:ffi';
+
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
@@ -18,7 +20,7 @@ class UserListViewModel extends BaseViewModel {
   UserListViewMode viewMode = UserListViewMode.user;
   UserListViewModel({this.bmeUsers = const [], this.userFeedbacks = const [], this.viewMode = UserListViewMode.user});
 
-  LessonRating? ratingByUsername(String username) {
+  (LessonRating, double)? ratingByUsername(String username) {
     var feedbacks = userFeedbacks
         .where((element) => element.userName == username)
         .map((e) => int.tryParse(e.feedbackAnswer ?? "unknown"))
@@ -28,10 +30,10 @@ class UserListViewModel extends BaseViewModel {
       return null;
     }
     var ratingScore = feedbacks.fold(0, (previousValue, element) => previousValue + element) / feedbacks.length;
-    return LessonRating.fromValue(ratingScore.toInt());
+    return (LessonRating.fromValue(ratingScore.toInt()), ratingScore);
   }
 
-  LessonRating? ratingByFeedbackTo(String feedbackTo) {
+  (LessonRating, double)? ratingByFeedbackTo(String feedbackTo) {
     var feedbacks = userFeedbacks
         .where((element) => element.feedbackTo == feedbackTo)
         .map((e) => int.tryParse(e.feedbackAnswer ?? "unknown"))
@@ -41,7 +43,7 @@ class UserListViewModel extends BaseViewModel {
       return null;
     }
     var ratingScore = feedbacks.fold(0, (previousValue, element) => previousValue + element) / feedbacks.length;
-    return LessonRating.fromValue(ratingScore.toInt());
+    return (LessonRating.fromValue(ratingScore.toInt()), ratingScore);
   }
 
   Future<Result<BmeUser, GtdApiError>> updateUser(BmeUser bmeUser, String courseCode) async {

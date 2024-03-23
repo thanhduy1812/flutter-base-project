@@ -2,6 +2,7 @@ import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:beme_english/home/view/input_text_field.dart';
 import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
 import 'package:beme_english/lesson/view_controller/lesson_page.dart';
+import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -56,14 +57,33 @@ class UserListView extends BaseView<UserListViewModel> {
                 ],
               ),
               trailing: isShowRating
-                  ? viewModel.ratingByUsername(user.username ?? "") != null
-                      ? switch (viewModel.viewMode) {
-                          UserListViewMode.user =>
-                            LessonPage.iconRating(viewModel.ratingByUsername(user.username ?? "")!),
-                          UserListViewMode.mentor =>
-                            LessonPage.iconRating(viewModel.ratingByFeedbackTo(user.username ?? "")!),
-                        }
-                      : const SizedBox()
+                  ? Builder(builder: (context) {
+                      (LessonRating, double)? rating;
+                      switch (viewModel.viewMode) {
+                        case UserListViewMode.user:
+                          rating = viewModel.ratingByUsername(user.username ?? "");
+                          break;
+                        case UserListViewMode.mentor:
+                          rating = viewModel.ratingByFeedbackTo(user.username ?? "");
+                          break;
+                      }
+                      return rating != null
+                          ? Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  rating.$2.toStringAsFixed(1),
+                                  style: const TextStyle(
+                                      fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
+                                ),
+                                const SizedBox(width: 7),
+                                LessonPage.iconRating(rating.$1),
+                              ],
+                            )
+                          : const SizedBox();
+                    })
                   : Card(
                       elevation: 0,
                       color: appOrangeDarkColor,

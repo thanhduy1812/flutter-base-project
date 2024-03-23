@@ -81,7 +81,7 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                 bmeUsers: viewModel.bmeUsers
                     .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
                     .toList(),
-                userFeedbacks: viewModel.userFeedbacks),
+                userFeedbacks: viewModel.studentFeedbacks),
             onSelected: (value) {
               var userFeedbacks = viewModel.userFeedbacksByUserName(value.username!);
               if (userFeedbacks.isEmpty) {
@@ -100,31 +100,50 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
               );
             },
             isShowRating: true),
-        UserListView(
-            viewModel: UserListViewModel(
-                bmeUsers: viewModel.bmeUsers
-                    .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
-                    .toList(),
-                userFeedbacks: viewModel.userFeedbacks,
-                viewMode: UserListViewMode.mentor),
-            onSelected: (value) {
-              var userFeedbacks = viewModel.userFeedbacksByFeedbackTo(value.username!);
-              if (userFeedbacks.isEmpty) {
-                return;
-              }
-              GtdPresentViewHelper.presentView(
-                title: "${value.fullName} feedback!",
-                context: context,
-                builder: Builder(
-                  builder: (context) {
-                    return FeedbackView(
-                        viewModel:
-                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
-                  },
+        Column(
+          children: [
+            Builder(builder: (context) {
+              return SizedBox(
+                  // height: 48,
+                  child: Card(
+                color: appBlueLightColor,
+                child: ListTile(
+                  title: Text("Teacher Name: ${viewModel.mentorUser?.fullName ?? "---"}",
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17, color: appBlueDeepColor)),
+                  subtitle: Text("Teacher ID: ${viewModel.mentorUser?.username ?? "---"}",
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17, color: appBlueDeepColor)),
                 ),
-              );
-            },
-            isShowRating: true),
+              ));
+            }),
+            Expanded(
+              child: UserListView(
+                  viewModel: UserListViewModel(
+                      bmeUsers: viewModel.bmeUsers
+                          .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
+                          .toList(),
+                      userFeedbacks: viewModel.mentorFeedbacks,
+                      viewMode: UserListViewMode.mentor),
+                  onSelected: (value) {
+                    var userFeedbacks = viewModel.userFeedbacksByFeedbackTo(value.username!);
+                    if (userFeedbacks.isEmpty) {
+                      return;
+                    }
+                    GtdPresentViewHelper.presentView(
+                      title: "${value.fullName} feedback!",
+                      context: context,
+                      builder: Builder(
+                        builder: (context) {
+                          return FeedbackView(
+                              viewModel: FeedbackViewModel.loadExistFeedback(
+                                  viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                        },
+                      ),
+                    );
+                  },
+                  isShowRating: true),
+            ),
+          ],
+        ),
       ];
     } else if (viewModel.role.toUpperCase() == BmeUserRole.mentor.roleValue) {
       return [

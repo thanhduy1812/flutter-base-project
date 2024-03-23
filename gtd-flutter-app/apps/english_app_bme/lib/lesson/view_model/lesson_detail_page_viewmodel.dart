@@ -63,4 +63,16 @@ class LessonDetailPageViewModel extends BasePageViewModel {
   List<UserFeedback> userFeedbacksByFeedbackTo(String feedBackTo) {
     return userFeedbacks.where((element) => element.feedbackTo == feedBackTo).toList();
   }
+
+  BmeUser? get mentorUser {
+    return bmeUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.mentor.roleValue).firstOrNull;
+  }
+
+  List<UserFeedback> get mentorFeedbacks {
+    return userFeedbacks.where((element) => element.userName == mentorUser?.username).toList();
+  }
+
+    List<UserFeedback> get studentFeedbacks {
+    return userFeedbacks.where((element) => element.userName != mentorUser?.username).toList();
+  }
 }
