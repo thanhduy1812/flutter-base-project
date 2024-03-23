@@ -28,10 +28,15 @@ class BmeCourseCubit extends Cubit<BmeCourseState> {
                   element.nguPhap == "x")
               .where((element) => element.ngayKhaiGiang != "huy")
               .toList();
-          if (bmeUser?.role?.toUpperCase() == BmeUserRole.mentor.roleValue ||
-              bmeUser?.role?.toUpperCase() == BmeUserRole.user.roleValue) {
+          if (bmeUser?.role?.toUpperCase() == BmeUserRole.user.roleValue) {
             filterCourse = filterCourse
                 .where((element) => (element.maLop == bmeUser?.tag ||
+                    courseHobuCodes.where((hocbuCode) => element.maLop?.contains(hocbuCode) ?? false).isNotEmpty))
+                .toList();
+          }
+          if (bmeUser?.role?.toUpperCase() == BmeUserRole.mentor.roleValue) {
+            filterCourse = filterCourse
+                .where((element) => (element.maGV == bmeUser?.username ||
                     courseHobuCodes.where((hocbuCode) => element.maLop?.contains(hocbuCode) ?? false).isNotEmpty))
                 .toList();
           }

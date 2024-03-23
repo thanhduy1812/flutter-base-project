@@ -54,32 +54,38 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
           viewModel.filteredCourses = List.from(viewModel.originCourses);
         }
       },
-      child: BlocBuilder<BmeCourseCubit, BmeCourseState>(
-        builder: (context, state) {
-          if (viewModel.originCourses.isEmpty) {
-            return const Center(
-                child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                "You haven't participated in any courses.",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: appBlueDeepColor),
-                textAlign: TextAlign.center,
-              ),
-            ));
-          }
-          return BlocBuilder<BmeUserCubit, BmeUserState>(
-            builder: (context, state) {
-              if (state is BmeUserInitial) {
-                viewModel.originUsers = state.bmeUsers;
-                viewModel.updateFilteredUser();
-              }
-              return Column(
-                children: [
-                  (viewModel.seletedTab == HomePageTab.account)
-                      ? const SizedBox()
-                      : ColoredBox(
-                          color: Colors.white,
-                          child: Padding(
+      child: ListenableBuilder(
+        listenable: viewModel,
+        builder: (context, child) => BlocBuilder<BmeCourseCubit, BmeCourseState>(
+          builder: (context, state) {
+            if (viewModel.originCourses.isEmpty && viewModel.seletedTab != HomePageTab.account) {
+              return const Center(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  "You haven't participated in any courses.",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: appBlueDeepColor),
+                  textAlign: TextAlign.center,
+                ),
+              ));
+            }
+            return BlocBuilder<BmeUserCubit, BmeUserState>(
+              builder: (context, state) {
+                if (state is BmeUserInitial) {
+                  viewModel.originUsers = state.bmeUsers;
+                  viewModel.updateFilteredUser();
+                }
+                return Column(
+                  children: [
+                    ColoredBox(
+                      color: Colors.white,
+                      child: ListenableBuilder(
+                        listenable: viewModel,
+                        builder: (context, child) {
+                          if (viewModel.seletedTab == HomePageTab.account) {
+                            return const SizedBox();
+                          }
+                          return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                             child: TextField(
                               controller: viewModel.searchFieldController,
@@ -107,43 +113,43 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                                 viewModel.querySearchController.sink.add(value);
                               },
                             ),
-                          ),
-                        ),
-                  Expanded(
-                    child: ListenableBuilder(
-                      listenable: viewModel,
-                      builder: (context, child) {
-                        switch (viewModel.seletedTab) {
-                          case HomePageTab.course:
-                            return _courseList(context);
-                          case HomePageTab.mentor:
-                            return ColoredBox(
-                                color: Colors.white,
-                                child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                          case HomePageTab.student:
-                            return ColoredBox(
-                                color: Colors.white,
-                                child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
-                          case HomePageTab.account:
-                            return _accountInfo(context);
-                        }
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+                    Expanded(
+                      child: ListenableBuilder(
+                        listenable: viewModel,
+                        builder: (context, child) {
+                          switch (viewModel.seletedTab) {
+                            case HomePageTab.course:
+                              return _courseList(context);
+                            case HomePageTab.mentor:
+                              return ColoredBox(
+                                  color: Colors.white,
+                                  child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                            case HomePageTab.student:
+                              return ColoredBox(
+                                  color: Colors.white,
+                                  child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                            case HomePageTab.account:
+                              return _accountInfo(context);
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
 
   @override
   Widget? buildBottomBar(BuildContext pageContext) {
-    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue) {
-      return null;
-    }
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context, child) {
@@ -152,12 +158,13 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
             backgroundColor: Colors.white,
             elevation: 10,
             selectedItemColor: Colors.orangeAccent,
-            currentIndex: viewModel.seletedTab.tabValue,
+            currentIndex:
+                viewModel.finalTabs.map((e) => e.initialLocation).toList().indexOf(viewModel.seletedTab.location),
             onTap: (value) {
               Logger.i("index");
-              viewModel.selectTab(value);
+              viewModel.selectTab(viewModel.finalTabs[value].initialLocation);
             },
-            items: tabs);
+            items: viewModel.finalTabs);
       },
     );
   }
@@ -201,6 +208,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
               GtdPopupMessage(pageContext).showError(
                 error: "Do you want logout?",
                 onConfirm: (value) {
+                  CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
                   pageContext.pushReplacement(LoginPage.route);
                 },
               );

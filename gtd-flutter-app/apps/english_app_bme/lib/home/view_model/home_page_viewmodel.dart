@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_utils/base/view/bottom_nav_bar_item.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
@@ -12,15 +14,15 @@ import 'package:gtd_utils/helpers/extension/string_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
-  course(0, "Courses"),
-  mentor(1, "Teachers"),
-  student(2, "Students"),
-  account(3, "Account"),
+  course("/course", "Courses"),
+  mentor("/teacher", "Teachers"),
+  student("/student", "Students"),
+  account("/account", "Account"),
   ;
 
-  final int tabValue;
+  final String location;
   final String title;
-  const HomePageTab(this.tabValue, this.title);
+  const HomePageTab(this.location, this.title);
 }
 
 class HomePageViewModel extends BasePageViewModel {
@@ -100,9 +102,9 @@ class HomePageViewModel extends BasePageViewModel {
     });
   }
 
-  void selectTab(int value) {
+  void selectTab(String value) {
     HomePageTab tab =
-        HomePageTab.values.firstWhere((element) => element.tabValue == value, orElse: () => HomePageTab.course);
+        HomePageTab.values.firstWhere((element) => element.location == value, orElse: () => HomePageTab.course);
     seletedTab = tab;
     title = seletedTab.title;
     if (seletedTab != HomePageTab.course) {
@@ -144,5 +146,13 @@ class HomePageViewModel extends BasePageViewModel {
       CacheHelper.shared.saveSharedObject(loggedUser!.toJson(), key: CacheStorageType.accountBox.name);
       return value;
     });
+  }
+
+  List<BottomNavBarItem> get finalTabs {
+    if (role == BmeUserRole.admin.roleValue) {
+      return tabs;
+    } else {
+      return usertabs;
+    }
   }
 }
