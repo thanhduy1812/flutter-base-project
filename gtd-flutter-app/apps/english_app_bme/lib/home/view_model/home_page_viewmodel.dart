@@ -14,7 +14,9 @@ import 'package:rxdart/rxdart.dart';
 enum HomePageTab {
   course(0, "Courses"),
   mentor(1, "Mentors"),
-  student(2, "Students");
+  student(2, "Students"),
+  account(3, "Account"),
+  ;
 
   final int tabValue;
   final String title;
@@ -32,10 +34,12 @@ class HomePageViewModel extends BasePageViewModel {
   List<BmeOriginCourse> filteredCourses = [];
 
   String role = "";
+  BmeUser? loggedUser;
 
   HomePageViewModel() {
     title = seletedTab.title;
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    loggedUser = bmeUser;
     role = bmeUser?.role ?? "USER";
     querySearchController.stream.debounceTime(const Duration(milliseconds: 300)).listen((event) {
       if (seletedTab == HomePageTab.course) {
@@ -75,9 +79,11 @@ class HomePageViewModel extends BasePageViewModel {
 
       if (seletedTab == HomePageTab.student) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
+          filteredUsers = List.from(
+              originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList())
+          filteredUsers = List<BmeUser>.from(
+                  originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -103,10 +109,12 @@ class HomePageViewModel extends BasePageViewModel {
       filteredCourses = List.from(originCourses);
     }
     if (tab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (tab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
     searchFieldController.clear();
     notifyListeners();
@@ -118,14 +126,23 @@ class HomePageViewModel extends BasePageViewModel {
       return;
     }
     if (seletedTab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (seletedTab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
   }
 
   Future<Result<bool, GtdApiError>> deleteCourse(int id) async {
     return await BmeRepository.shared.deleteBmeCourse(id);
+  }
+
+  Future<Result<BmeUser, GtdApiError>> updateUser() async {
+    return await BmeRepository.shared.updateBmeUser(loggedUser!).then((value) {
+      CacheHelper.shared.saveSharedObject(loggedUser!.toJson(), key: CacheStorageType.accountBox.name);
+      return value;
+    });
   }
 }

@@ -33,6 +33,16 @@ final List<BottomNavBarItem> tabs = [
     label: 'Student',
     initialLocation: "/student",
   ),
+  const BottomNavBarItem(
+    icon: ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.black54, BlendMode.srcIn),
+        child: Icon(Icons.account_circle_rounded, size: 24)),
+    activeIcon: ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn),
+        child: Icon(Icons.account_circle_rounded, size: 24)),
+    label: 'Account',
+    initialLocation: "/account",
+  ),
 ];
 
 const appBlueDeepColor = Color(0xFF005248);

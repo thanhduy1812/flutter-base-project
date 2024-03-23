@@ -1,6 +1,7 @@
 import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:beme_english/home/cubit/bme_course_cubit.dart';
 import 'package:beme_english/home/cubit/bme_user_cubit.dart';
+import 'package:beme_english/home/view/input_text_field.dart';
 import 'package:beme_english/home/view/user_list_view.dart';
 import 'package:beme_english/home/view_controller/add_course_page.dart';
 import 'package:beme_english/home/view_controller/add_user_page.dart';
@@ -22,7 +23,9 @@ import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import '../view_model/home_page_viewmodel.dart';
 
@@ -69,36 +72,40 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
               }
               return Column(
                 children: [
-                  ColoredBox(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: TextField(
-                        controller: viewModel.searchFieldController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                              borderSide: const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
-                          hintText: 'Search...',
-                          hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
-                          filled: false,
-                          fillColor: Colors.white,
-                          focusColor: appBlueDeepColor,
-                          hoverColor: appBlueDeepColor,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey.shade500,
+                  (viewModel.seletedTab == HomePageTab.account)
+                      ? const SizedBox()
+                      : ColoredBox(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            child: TextField(
+                              controller: viewModel.searchFieldController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                    borderSide:
+                                        const BorderSide(color: Colors.black, width: 1.0, style: BorderStyle.none)),
+                                hintText: 'Search...',
+                                hintStyle:
+                                    TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade500),
+                                filled: false,
+                                fillColor: Colors.white,
+                                focusColor: appBlueDeepColor,
+                                hoverColor: appBlueDeepColor,
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              onTapOutside: (event) {
+                                FocusScope.of(pageContext).unfocus();
+                              },
+                              onChanged: (value) {
+                                viewModel.querySearchController.sink.add(value);
+                              },
+                            ),
                           ),
                         ),
-                        onTapOutside: (event) {
-                          FocusScope.of(pageContext).unfocus();
-                        },
-                        onChanged: (value) {
-                          viewModel.querySearchController.sink.add(value);
-                        },
-                      ),
-                    ),
-                  ),
                   Expanded(
                     child: ListenableBuilder(
                       listenable: viewModel,
@@ -114,6 +121,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                             return ColoredBox(
                                 color: Colors.white,
                                 child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
+                          case HomePageTab.account:
+                            return _accountInfo(context);
                         }
                       },
                     ),
@@ -202,7 +211,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   Widget? floatingButton(BuildContext context) {
-    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue) {
+    if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue || viewModel.seletedTab == HomePageTab.account) {
       return null;
     }
     return FloatingActionButton(
@@ -228,6 +237,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                 BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
               }
             }),
+          HomePageTab.account => (),
         }
       },
       tooltip: 'Add ${viewModel.seletedTab.title}',
@@ -369,21 +379,165 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
     );
   }
 
-  // Widget _userList(BuildContext context) {
-  //   return ListView.separated(
-  //       itemBuilder: (context, index) {
-  //         return SizedBox(
-  //             // height: 50,
-  //             child: ListTile(
-  //           leading:
-  //               GtdImage.svgFromAsset(assetPath: "assets/image/ico-contact.svg", color: appBlueDeepColor, width: 32),
-  //           title: Text("Henry Itondo",
-  //               style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-  //           subtitle:
-  //               Text("09xxx", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.subText)),
-  //         ));
-  //       },
-  //       separatorBuilder: (context, index) => Divider(color: Colors.grey.shade300),
-  //       itemCount: 40);
-  // }
+  Widget _accountInfo(BuildContext context) {
+    return StatefulBuilder(builder: (context, accountInfoState) {
+      var user = viewModel.loggedUser;
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          // CircleAvatar(
+          //   radius: 50.0,
+          //   backgroundImage: AssetImage('images/profile.jpg'),
+          // ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            user?.fullName ?? "",
+            style: const TextStyle(
+              fontFamily: 'DancingScript',
+              fontSize: 28.0,
+              color: appBlueDeepColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Text(
+            user?.socialName ?? "",
+            style: const TextStyle(
+              fontFamily: 'SourceSansPro',
+              color: appOrangeDarkColor,
+              letterSpacing: 5,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+            width: 180,
+            child: Divider(
+              color: appOrangeDarkColor,
+            ),
+          ),
+          Card(
+            color: Colors.white,
+            margin: const EdgeInsets.symmetric(
+              vertical: 10.0,
+              horizontal: 60.0,
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              leading: const Icon(
+                Icons.call,
+                size: 40.0,
+                color: appOrangeLightColor,
+              ),
+              title: const Text(
+                'Phone',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'SourceSansPro',
+                  color: appBlueDeepColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(user?.phoneNumber ?? "---"),
+            ),
+          ),
+          Card(
+            color: Colors.white,
+            margin: const EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 60.0,
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              leading: const Icon(
+                Icons.date_range,
+                size: 40.0,
+                color: appOrangeDarkColor,
+              ),
+              title: const Text(
+                'BirthDate',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'SourceSansPro',
+                  color: appBlueDeepColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(user?.dob ?? "---"),
+            ),
+          ),
+          Card(
+            color: Colors.white,
+            margin: const EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 60.0,
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              leading: const Icon(
+                Icons.key,
+                size: 40.0,
+                color: appOrangeDarkColor,
+              ),
+              title: const Text(
+                'Password',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontFamily: 'SourceSansPro',
+                  color: appBlueDeepColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: const Text("*******"),
+              onTap: () {
+                String? password = user?.password;
+                GtdPresentViewHelper.presentSheet(
+                    title: "Change password",
+                    context: context,
+                    builder: Builder(
+                      builder: (popupContext) {
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              InputTextField(
+                                hintText: "Input new password",
+                                initText: "",
+                                onChanged: (value) {
+                                  password = value;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              SizedBox(
+                                  width: double.infinity,
+                                  child: GtdButton(
+                                    text: "Save",
+                                    height: 60,
+                                    fontSize: 17,
+                                    color: appOrangeDarkColor,
+                                    onPressed: (value) async {
+                                      viewModel.loggedUser?.password = password;
+                                      await viewModel.updateUser().then((value) {
+                                        popupContext.pop();
+                                      });
+                                    },
+                                  )),
+                              const SizedBox(height: 40),
+                            ],
+                          ),
+                        );
+                      },
+                    ));
+              },
+            ),
+          ),
+        ],
+      );
+    });
+  }
 }
