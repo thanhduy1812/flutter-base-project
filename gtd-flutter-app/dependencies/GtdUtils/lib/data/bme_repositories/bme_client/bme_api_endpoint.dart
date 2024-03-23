@@ -15,6 +15,9 @@ class BmeApiEndpoint extends GtdEndpoint {
   static const String kBmeCoursesFindByKey = "v1/bme/courses/find-by-key";
   static const String kBmeCoursesSearchByColumn = "v1/bme/Courses/search-by-column";
 
+  static const String kBmeCoursesHocBu = "v1/bme/courses-other";
+  static const String kBmeCoursesHocBuFindByKey = "v1/bme/courses-other/find-by-key";
+
   //Lesson
   static const String kBmeLessonRoadmapCreate = "v1/lesson-roadmap/create";
   static const String kLessonRoadmapFindByKey = "v1/lesson-roadmap/find-by-key";
@@ -71,6 +74,16 @@ class BmeApiEndpoint extends GtdEndpoint {
 
   static GtdEndpoint findBmeCoursesByKey(GTDEnvType envType) {
     const path = kBmeCoursesFindByKey;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
+  }
+
+    static GtdEndpoint getListBmeCourseHocBu(GTDEnvType envType) {
+    const path = kBmeCoursesHocBu;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
+  }
+
+    static GtdEndpoint findBmeCoursesHocBuByKey(GTDEnvType envType) {
+    const path = kBmeCoursesHocBuFindByKey;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 

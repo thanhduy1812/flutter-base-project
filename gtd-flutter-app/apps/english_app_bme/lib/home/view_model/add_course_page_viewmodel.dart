@@ -92,7 +92,8 @@ class AddCoursePageViewModel extends BasePageViewModel {
         nghe: isListening ? "x" : "",
         noi: isSpeaking ? "x" : "",
         nguPhap: isGrammar ? "x" : "",
-        giaoVienHienTai: seletedMentor?.fullName ?? "");
+        giaoVienHienTai: seletedMentor?.fullName ?? "",
+        maGV: seletedMentor?.username);
     return await BmeRepository.shared.createBmeCourse(course).then((value) {
       if (seletedMentor != null) {
         seletedMentor?.tag = titleField;
@@ -115,9 +116,12 @@ class AddCoursePageViewModel extends BasePageViewModel {
     course?.noi = isSpeaking ? "x" : "";
     course?.nguPhap = isGrammar ? "x" : "";
     course?.mau = "${selectedColor.value}";
+
     if (seletedMentor != null) {
       if (seletedMentor?.id != null) {
         seletedMentor?.tag = course?.maLop;
+        course?.maGV = seletedMentor?.username;
+        course?.giaoVienHienTai = seletedMentor?.fullName;
         BmeRepository.shared.updateBmeUser(seletedMentor!);
       }
     }

@@ -1,5 +1,6 @@
 import 'package:gtd_utils/data/bme_repositories/bme_client/api/bme_client_resource_api.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_course_hocbu.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/feedback_rs.dart';
@@ -163,6 +164,16 @@ class BmeRepository {
     } on GtdApiError catch (e) {
       Logger.e("deleteBmeCourse: $e");
       return Error(e);
+    }
+  }
+
+  Future<List<BmeCourseHocBu>> findBmeCoursesHocBuByKey(String phoneNumber) async {
+    try {
+      final response = await bmeClientResourceApi.findBmeCoursesHocBuByKey({"so_dien_thoai": phoneNumber});
+      return response;
+    } on GtdApiError catch (e) {
+      Logger.e("findBmeCoursesHocBuByKey: $e");
+      return [];
     }
   }
 

@@ -18,28 +18,29 @@ class BmeOriginCourse {
   String? mau;
   String? note;
   String? content;
+  String? maGV;
 
-  BmeOriginCourse({
-    this.id,
-    this.ownerId,
-    this.maLop,
-    this.shvDanhSach,
-    this.shvToiDa,
-    this.shvBoSung,
-    this.tongHvDangHoc,
-    this.giaoVienHienTai,
-    this.ngayKhaiGiang,
-    this.dinhHuong,
-    this.phatAm,
-    this.nguPhap,
-    this.nghe,
-    this.noi,
-    this.nkhtGv,
-    this.nkhtHv,
-    this.mau,
-    this.note,
-    this.content,
-  });
+  BmeOriginCourse(
+      {this.id,
+      this.ownerId,
+      this.maLop,
+      this.shvDanhSach,
+      this.shvToiDa,
+      this.shvBoSung,
+      this.tongHvDangHoc,
+      this.giaoVienHienTai,
+      this.ngayKhaiGiang,
+      this.dinhHuong,
+      this.phatAm,
+      this.nguPhap,
+      this.nghe,
+      this.noi,
+      this.nkhtGv,
+      this.nkhtHv,
+      this.mau,
+      this.note,
+      this.content,
+      this.maGV});
 
   factory BmeOriginCourse.fromJson(Map<String, dynamic> json) => BmeOriginCourse(
         id: json["ID"],
@@ -61,6 +62,7 @@ class BmeOriginCourse {
         mau: json["mau"],
         note: json["note"],
         content: json["content"],
+        maGV: json["maGV"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,10 +85,12 @@ class BmeOriginCourse {
         "mau": mau,
         "note": note,
         "content": content,
+        "maGV": maGV,
       };
 
   Map<String, dynamic> toRequest() => {
         "ma_lop": maLop,
+        "owner_id": maLop,
         "shv_danh_sach": shvDanhSach,
         "shv_toi_da": shvToiDa,
         "shv_bo_sung": shvBoSung,
@@ -103,6 +107,7 @@ class BmeOriginCourse {
         "mau": mau,
         "note": note,
         "content": content,
+        "maGV": maGV,
       };
 
   Map<String, dynamic> toDataSheet() => {
@@ -114,6 +119,7 @@ class BmeOriginCourse {
         "shv bo sung": shvBoSung,
         "tong hv dang hoc": tongHvDangHoc,
         "giao vien hien tai": giaoVienHienTai,
+        "ma giao vien": maGV,
         "ngay khai giang": ngayKhaiGiang,
         "dinh huong": dinhHuong,
         "phat am": phatAm,

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_api_endpoint.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_course_hocbu.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/feedback_rs.dart';
@@ -55,7 +56,7 @@ class BmeClientResourceApi {
     }
   }
 
-    Future<BmeUser> updateBmeUser(BmeUser user, int id) async {
+  Future<BmeUser> updateBmeUser(BmeUser user, int id) async {
     try {
       final networkRequest = GTDNetworkRequest(
           type: GtdMethod.put, enpoint: BmeApiEndpoint.updateBmeUser(envType, id), data: user.toJson());
@@ -215,6 +216,43 @@ class BmeClientResourceApi {
       throw GtdApiError(message: dioException.message);
     } catch (e) {
       Logger.e("Error searchBmeCourseByKey: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<BmeCourseHocBu>> getListBmeCourseHocBu() async {
+    try {
+      final networkRequest =
+          GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.getListBmeCourseHocBu(envType));
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(BmeCourseHocBu.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error getListBmeCourseHocBu: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
+
+  Future<List<BmeCourseHocBu>> findBmeCoursesHocBuByKey(Map<String, dynamic> dict) async {
+    try {
+      final networkRequest =
+          GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.findBmeCoursesHocBuByKey(envType));
+      networkRequest.queryParams = dict;
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(BmeCourseHocBu.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error findBmeCoursesHocBuByKey: $e");
       throw GtdApiError.handleObjectError(e);
     }
   }
