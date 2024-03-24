@@ -4,6 +4,7 @@ import 'package:beme_english/lesson/view_controller/lesson_detail_page.dart';
 import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
@@ -103,7 +104,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               )),
                         ),
                         const Spacer(),
-                        (viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue)
+                        (viewModel.role.toUpperCase() != BmeUserRole.mentor.roleValue)
                             ? const SizedBox()
                             : SizedBox(
                                 height: 50,
@@ -156,7 +157,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                         var lesson = viewModel.lessonRoadmaps[index];
                         var rating = viewModel.arrangeRating(lesson.id ?? 0);
                         return SizedBox(
-                            height: 65,
+                            height: 90,
                             child: Card(
                               elevation: 0,
                               margin: EdgeInsets.zero,
@@ -178,23 +179,41 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                 ),
                                 // title: Text(lesson.lessonName ?? "",
                                 //     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
-                                // subtitle: Text(dateFormat.format(lesson.startDate ?? DateTime.now())),
-                                trailing: rating == null
-                                    ? const SizedBox()
-                                    : Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Text(
+                                // subtitle: Text("Teacher: ${lesson.mentorName ?? "---"}"),
+                                subtitle: Text.rich(
+                                  TextSpan(children: [
+                                    TextSpan(
+                                        text: "Teacher: ${lesson.mentorName ?? "---"} \n",
+                                        style: const TextStyle(color: Colors.blueAccent)),
+                                    TextSpan(
+                                        text: "Total Feedback: ${viewModel.countFeedbacks}",
+                                        style: const TextStyle(color: Colors.deepOrange))
+                                  ]),
+                                  textAlign: TextAlign.left,
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    // Text.rich(
+                                    //   TextSpan(
+                                    //       text: "Total Feedback: \n",
+                                    //       children: [TextSpan(text: "${viewModel.countFeedbacks}")]),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
+                                    // const SizedBox(width: 10),
+                                    rating == null
+                                        ? const SizedBox()
+                                        : Text(
                                             rating.$2.toStringAsFixed(1),
                                             style: const TextStyle(
                                                 fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
                                           ),
-                                          const SizedBox(width: 7),
-                                          iconRating(rating.$1),
-                                        ],
-                                      ),
+                                    const SizedBox(width: 7),
+                                    rating == null ? const SizedBox() : iconRating(rating.$1),
+                                  ],
+                                ),
                               ),
                             ));
                       },

@@ -4,9 +4,11 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
+import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:intl/intl.dart';
 
 class AddCoursePageViewModel extends BasePageViewModel {
   final bool isAddLesson;
@@ -78,7 +80,15 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap() async {
-    var lessonRoadmapRq = AddLessonRq(classCode: course?.maLop ?? "", lessonName: titleField, startDate: startDate);
+    var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    var mentor = seletedMentor ?? bmeUser;
+    var lessonRoadmapRq = AddLessonRq(
+      classCode: course?.maLop ?? "",
+      lessonName: DateFormat("dd/MM/yyyy").format(startDate) ,
+      mentorName: mentor?.fullName,
+      mentorId: mentor?.username,
+      startDate: startDate,
+    );
     return BmeRepository.shared.createLessonRoadmap(addLessonRq: lessonRoadmapRq);
   }
 

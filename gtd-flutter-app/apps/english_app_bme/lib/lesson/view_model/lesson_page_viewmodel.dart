@@ -57,6 +57,10 @@ class LessonPageViewModel extends BasePageViewModel {
     }
   }
 
+  int get countFeedbacks {
+    return userFeedbacks.map((e) => e.userName).toSet().length;
+  }
+
   void loadLessonRoadmaps() async {
     await BmeRepository.shared.findLessonRoadmapByKey(course.maLop!).then((value) {
       value.whenSuccess((success) {

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
+import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/popup/gtd_loading.dart';
@@ -22,6 +23,7 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
       color: Colors.white,
       child: SizedBox(
           // height: double.infinity,
+          height: pageContext.mediaQuery.size.height,
           child: SingleChildScrollView(
         child: Column(
           children: [
@@ -40,8 +42,8 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
                       borderSide: BorderSide(color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
-                  hintText: 'Please input your phone number',
-                  labelText: "Phone number",
+                  hintText: 'Please input your username',
+                  labelText: "Username",
                   labelStyle: TextStyle(color: AppColors.subText),
                   floatingLabelStyle: const TextStyle(color: appBlueDeepColor),
                   hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade300),
@@ -92,7 +94,7 @@ class LoginPage extends BaseStatelessPage<LoginPageViewModel> {
                               },
                             );
                           },
-                          icon: const Icon(Icons.visibility))),
+                          icon: Icon(viewModel.isShowPassword ? Icons.visibility : Icons.visibility_off))),
                   onChanged: (value) {
                     viewModel.password = value;
                   },
