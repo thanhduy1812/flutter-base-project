@@ -1,6 +1,7 @@
 import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:beme_english/home/cubit/bme_course_cubit.dart';
 import 'package:beme_english/home/cubit/bme_user_cubit.dart';
+import 'package:beme_english/home/view/home_explore_view.dart';
 import 'package:beme_english/home/view/input_text_field.dart';
 import 'package:beme_english/home/view/user_list_view.dart';
 import 'package:beme_english/home/view_controller/add_course_page.dart';
@@ -8,11 +9,13 @@ import 'package:beme_english/home/view_controller/add_user_page.dart';
 import 'package:beme_english/home/view_controller/import_csv_page.dart';
 import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/add_user_page_viewmodel.dart';
+import 'package:beme_english/home/view_model/home_explore_viewmodel.dart';
 import 'package:beme_english/home/view_model/import_csv_page_viewmodel.dart';
 import 'package:beme_english/home/view_model/user_list_viewmodel.dart';
 import 'package:beme_english/lesson/view_controller/lesson_page.dart';
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:beme_english/login/view_controller/login_page.dart';
+import 'package:beme_english/login/view_model/login_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -58,7 +61,9 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
         listenable: viewModel,
         builder: (context, child) => BlocBuilder<BmeCourseCubit, BmeCourseState>(
           builder: (context, state) {
-            if (viewModel.originCourses.isEmpty && viewModel.seletedTab != HomePageTab.account) {
+            if (viewModel.originCourses.isEmpty &&
+                viewModel.seletedTab != HomePageTab.account &&
+                viewModel.seletedTab != HomePageTab.home) {
               return const Center(
                   child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
@@ -82,7 +87,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                       child: ListenableBuilder(
                         listenable: viewModel,
                         builder: (context, child) {
-                          if (viewModel.seletedTab == HomePageTab.account) {
+                          if (viewModel.seletedTab == HomePageTab.account || viewModel.seletedTab == HomePageTab.home) {
                             return const SizedBox();
                           }
                           return Padding(
@@ -122,6 +127,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                         listenable: viewModel,
                         builder: (context, child) {
                           switch (viewModel.seletedTab) {
+                            case HomePageTab.home:
+                              return HomeExploreView(viewModel: HomeExploreViewModel());
                             case HomePageTab.course:
                               return _courseList(context);
                             case HomePageTab.mentor:
@@ -133,7 +140,14 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                                   color: Colors.white,
                                   child: UserListView(viewModel: UserListViewModel(bmeUsers: viewModel.filteredUsers)));
                             case HomePageTab.account:
-                              return _accountInfo(context);
+                              return Builder(
+                                builder: (context) {
+                                  if (viewModel.loggedUser == null) {
+                                    return LoginPage(viewModel: LoginPageViewModel());
+                                  }
+                                  return _accountInfo(context);
+                                },
+                              );
                           }
                         },
                       ),
@@ -181,6 +195,9 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
 
   @override
   List<Widget> buildTrailingActions(BuildContext pageContext) {
+    if (viewModel.loggedUser == null) {
+      return [];
+    }
     var widgets = [
       IconButton(
           onPressed: () {
@@ -195,7 +212,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
               onConfirm: (value) {
                 // CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name)
                 CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
-                pageContext.pushReplacement(LoginPage.route);
+                // pageContext.pushReplacement(LoginPage.route);
+                pageContext.pushReplacement(HomePage.route, extra: HomePageViewModel());
               },
             );
           },
@@ -254,6 +272,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                   }
                 }),
               HomePageTab.account => (),
+              HomePageTab.home => (),
             }
           },
           tooltip: 'Add ${viewModel.seletedTab.title}',

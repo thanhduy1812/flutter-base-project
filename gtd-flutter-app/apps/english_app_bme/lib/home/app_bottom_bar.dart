@@ -5,6 +5,14 @@ import 'package:gtd_utils/helpers/extension/image_extension.dart';
 
 final List<BottomNavBarItem> tabs = [
   BottomNavBarItem(
+    icon: const ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.black54, BlendMode.srcIn), child: Icon(Icons.home_sharp, size: 24)),
+    activeIcon: const ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn), child: Icon(Icons.home_sharp, size: 24)),
+    label: 'Home',
+    initialLocation: HomePageTab.home.location,
+  ),
+  BottomNavBarItem(
     icon: ColorFiltered(
         colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcIn),
         child: GtdImage.svgFromAsset(assetPath: "assets/image/bottom-course.svg", width: 24)),
@@ -47,6 +55,14 @@ final List<BottomNavBarItem> tabs = [
 ];
 
 final List<BottomNavBarItem> usertabs = [
+  BottomNavBarItem(
+    icon: const ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.black54, BlendMode.srcIn), child: Icon(Icons.home_sharp, size: 24)),
+    activeIcon: const ColorFiltered(
+        colorFilter: ColorFilter.mode(Colors.orangeAccent, BlendMode.srcIn), child: Icon(Icons.home_sharp, size: 24)),
+    label: 'Home',
+    initialLocation: HomePageTab.home.location,
+  ),
   BottomNavBarItem(
     icon: ColorFiltered(
         colorFilter: const ColorFilter.mode(Colors.black54, BlendMode.srcIn),

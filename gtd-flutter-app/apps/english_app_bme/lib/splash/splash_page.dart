@@ -36,14 +36,15 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     Future.delayed(const Duration(seconds: 1)).then((value) {
-      var viewModel = LoginPageViewModel();
-      if (viewModel.cachedUser?.isRemember == true) {
-        viewModel.login().whenComplete(() {
-          context.pushReplacement(HomePage.route, extra: HomePageViewModel());
-        });
-      } else {
-        context.pushReplacement(LoginPage.route, extra: viewModel);
-      }
+      context.pushReplacement(HomePage.route, extra: HomePageViewModel());
+      // var viewModel = LoginPageViewModel();
+      // if (viewModel.cachedUser?.isRemember == true) {
+      //   viewModel.login().whenComplete(() {
+      //     context.pushReplacement(HomePage.route, extra: HomePageViewModel());
+      //   });
+      // } else {
+      //   context.pushReplacement(LoginPage.route, extra: viewModel);
+      // }
     });
     return ColoredBox(
       color: Colors.white,

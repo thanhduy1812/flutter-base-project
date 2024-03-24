@@ -14,6 +14,7 @@ import 'package:gtd_utils/helpers/extension/string_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
+  home("/home", "Explore the Beme class"),
   course("/course", "Courses"),
   mentor("/teacher", "Teachers"),
   student("/student", "Students"),
@@ -26,7 +27,7 @@ enum HomePageTab {
 }
 
 class HomePageViewModel extends BasePageViewModel {
-  HomePageTab seletedTab = HomePageTab.course;
+  HomePageTab seletedTab = HomePageTab.home;
   StreamController<String> querySearchController = StreamController();
   TextEditingController searchFieldController = TextEditingController();
 
