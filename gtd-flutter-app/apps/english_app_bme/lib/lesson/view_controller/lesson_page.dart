@@ -251,7 +251,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
           onTap: () => onChanged?.call(LessonRating.sad),
           child: GtdImage.svgFromAsset(
               assetPath: "assets/image/ico-sad.svg",
-              color: groupRating == LessonRating.sad ? appBlueDeepColor : appBlueLightColor,
+              color: groupRating == LessonRating.sad ? Colors.red : appBlueLightColor,
               width: 32),
         ),
         SizedBox(width: spacing),
@@ -259,7 +259,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
           onTap: () => onChanged?.call(LessonRating.normal),
           child: GtdImage.svgFromAsset(
               assetPath: "assets/image/ico-normal.svg",
-              color: groupRating == LessonRating.normal ? appBlueDeepColor : appBlueLightColor,
+              color: groupRating == LessonRating.normal ? Colors.amberAccent : appBlueLightColor,
               width: 32),
         ),
         SizedBox(width: spacing),

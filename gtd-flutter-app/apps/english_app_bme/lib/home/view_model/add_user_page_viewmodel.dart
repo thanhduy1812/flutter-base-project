@@ -9,7 +9,8 @@ import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 class AddUserPageViewModel extends BasePageViewModel {
   final HomePageTab homePageTab;
   late final String headerTitle;
-  final List<String> listRole = <String>['USER', 'MENTOR', 'ADMIN'];
+  // final List<String> listRole = <String>['USER', 'MENTOR', 'ADMIN'];
+  final List<String> listRole = <String>['USER', 'MENTOR'];
   String fullName = "";
   String facebookName = "";
   String phoneNumber = "";
@@ -46,6 +47,10 @@ class AddUserPageViewModel extends BasePageViewModel {
       return false;
     }
     return true;
+  }
+
+  Future<Result<List<BmeUser>, GtdApiError>> validateExistPhoneNumber() {
+    return BmeRepository.shared.findUserByKey(phoneNumber);
   }
 
   Future<Result<BmeUser, GtdApiError>> createUser() async {

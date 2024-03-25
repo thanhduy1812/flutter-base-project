@@ -201,9 +201,19 @@ class AddUserPage extends BaseStatelessPage<AddUserPageViewModel> {
                                   height: 60,
                                   onPressed: (value) async {
                                     if (viewModel.validateForm()) {
-                                      await viewModel.createUser().then((value) {
-                                        value.when((success) {
-                                          pageContext.pop(success);
+                                      await viewModel.validateExistPhoneNumber().then((value) {
+                                        value.when((success) async {
+                                          if (success.isNotEmpty) {
+                                            GtdPopupMessage(pageContext).showError(error: "Số điện thoại đã tồn tại!");
+                                          } else {
+                                            await viewModel.createUser().then((value) {
+                                              value.when((success) {
+                                                pageContext.pop(success);
+                                              }, (error) {
+                                                GtdPopupMessage(pageContext).showError(error: error.message);
+                                              });
+                                            });
+                                          }
                                         }, (error) {
                                           GtdPopupMessage(pageContext).showError(error: error.message);
                                         });

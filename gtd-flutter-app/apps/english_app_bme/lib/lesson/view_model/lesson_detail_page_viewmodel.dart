@@ -7,6 +7,7 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/model/user_feedback_r
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class LessonDetailPageViewModel extends BasePageViewModel {
   final BmeOriginCourse course;
@@ -23,7 +24,7 @@ class LessonDetailPageViewModel extends BasePageViewModel {
     loadUserFeebacks(lessonRoadmapRs.id ?? -1);
   }
 
-  void loadUserFeebacks(int lessonRoadmapId) async {
+  Future<void> loadUserFeebacks(int lessonRoadmapId) async {
     BmeRepository.shared.getUserFeedbackListByLessonIds([lessonRoadmapId]).then((value) {
       value.whenSuccess((success) {
         userFeedbacks = success;
@@ -79,5 +80,16 @@ class LessonDetailPageViewModel extends BasePageViewModel {
 
   void reloadDetailPage() {
     notifyListeners();
+  }
+
+  void reloadDataDetailPage(GtdVoidCallback? onFinish) async {
+    await BmeRepository.shared.getUserFeedbackListByLessonIds([lessonRoadmapRs.id ?? -1]).then((value) {
+      value.when((success) {
+        userFeedbacks = success;
+        onFinish?.call();
+      }, (error) {
+        onFinish?.call();
+      });
+    });
   }
 }
