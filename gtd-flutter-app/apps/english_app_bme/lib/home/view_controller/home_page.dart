@@ -227,7 +227,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                 error: "Do you want logout?",
                 onConfirm: (value) {
                   CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
-                  pageContext.pushReplacement(LoginPage.route);
+                  // pageContext.pushReplacement(LoginPage.route);
+                  pageContext.pushReplacement(HomePage.route, extra: HomePageViewModel());
                 },
               );
             },
