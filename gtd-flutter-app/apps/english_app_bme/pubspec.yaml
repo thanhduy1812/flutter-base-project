@@ -57,6 +57,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+  msix: ^3.16.7
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
@@ -75,6 +76,29 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "assets/icon/beme-logo.png"
+
+  # msix_config:
+  #   display_name: Beme English
+  #   app_installer:
+  #     publish_folder_path: C:\Users
+  #     hours_between_update_checks: 0
+  #     automatic_background_task: true
+  #     update_blocks_activation: true
+  #     show_prompt: true
+  #     force_update_from_any_version: false
+  #   msix_version: 1.0.3.0
+
+  # msix_config:
+  #   display_name: Beme English
+  #   publisher_display_name: DVT Solutions
+  #   identity_name: com.dvt.beme_english
+  #   msix_version: 1.0.0.0
+  #   logo_path: C:\Users\ADMIN\Documents\GitHub\flutter-base-project\gtd-flutter-app\apps\english_app_bme\assets\icon\beme-logo.png
+  #   capabilities: internetClient
+  msix_config:
+    display_name: Beme English
+    msix_version: 1.0.0.0
+    logo_path: C:\Users\ADMIN\Documents\GitHub\flutter-base-project\gtd-flutter-app\apps\english_app_bme\assets\icon\beme-logo.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
