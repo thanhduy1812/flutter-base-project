@@ -99,10 +99,18 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                 title: "${value.fullName} feedback!",
                 context: context,
                 builder: Builder(
-                  builder: (context) {
+                  builder: (feedbackContext) {
                     return FeedbackView(
-                        viewModel:
-                            FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                      viewModel: FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks),
+                      onConfirm: () {
+                        feedbackContext.pop();
+                        Future.delayed(const Duration(seconds: 1)).then((value) {
+                          viewModel.reloadDataDetailPage(() {
+                            viewModel.reloadDetailPage();
+                          });
+                        });
+                      },
+                    );
                   },
                 ),
               );
@@ -141,10 +149,19 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                       title: "${value.fullName} feedback!",
                       context: context,
                       builder: Builder(
-                        builder: (context) {
+                        builder: (feedbackContext) {
                           return FeedbackView(
-                              viewModel: FeedbackViewModel.loadExistFeedback(
-                                  viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks));
+                            viewModel:
+                                FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks),
+                            onConfirm: () {
+                              feedbackContext.pop();
+                              Future.delayed(const Duration(seconds: 1)).then((value) {
+                                viewModel.reloadDataDetailPage(() {
+                                  viewModel.reloadDetailPage();
+                                });
+                              });
+                            },
+                          );
                         },
                       ),
                     );
@@ -161,7 +178,8 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                 bmeUsers: viewModel.bmeUsers
                     .where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue)
                     .toList(),
-                userFeedbacks: viewModel.userFeedbacks),
+                viewMode: UserListViewMode.mentor,
+                userFeedbacks: viewModel.mentorFeedbacks),
             onSelected: (value) {
               var userFeedbacks = viewModel.userFeedbacksByFeedbackTo(value.username!);
               // if (userFeedbacks.isEmpty) {
@@ -171,10 +189,18 @@ class LessonDetailPage extends BaseStatelessPage<LessonDetailPageViewModel> {
                 title: "${value.fullName} feedback!",
                 context: context,
                 builder: Builder(
-                  builder: (context) {
+                  builder: (feedbackContext) {
                     return FeedbackView(
                       viewModel: FeedbackViewModel.loadExistFeedback(viewModel.lessonRoadmapRs.id ?? 0, userFeedbacks,
                           feedbackTo: value.username),
+                      onConfirm: () {
+                        feedbackContext.pop();
+                        Future.delayed(const Duration(seconds: 1)).then((value) {
+                          viewModel.reloadDataDetailPage(() {
+                            viewModel.reloadDetailPage();
+                          });
+                        });
+                      },
                     );
                   },
                 ),

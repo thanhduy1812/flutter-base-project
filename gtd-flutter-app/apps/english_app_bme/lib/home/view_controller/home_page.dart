@@ -227,7 +227,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                 error: "Do you want logout?",
                 onConfirm: (value) {
                   CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
-                  pageContext.pushReplacement(LoginPage.route);
+                  // pageContext.pushReplacement(LoginPage.route);
+                  pageContext.pushReplacement(HomePage.route, extra: HomePageViewModel());
                 },
               );
             },
@@ -244,7 +245,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
       listenable: viewModel,
       builder: (context, child) {
         if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue ||
-            viewModel.seletedTab == HomePageTab.account) {
+            viewModel.seletedTab == HomePageTab.account ||
+            viewModel.seletedTab == HomePageTab.home) {
           return const SizedBox();
         }
         return FloatingActionButton(

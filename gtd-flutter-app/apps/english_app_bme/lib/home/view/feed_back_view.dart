@@ -13,7 +13,8 @@ import '../view_model/feed_back_viewmodel.dart';
 
 class FeedbackView extends BaseView<FeedbackViewModel> {
   final GtdCallback<LessonRating>? onChanged;
-  const FeedbackView({super.key, required super.viewModel, this.onChanged});
+  final GtdVoidCallback? onConfirm;
+  const FeedbackView({super.key, required super.viewModel, this.onChanged, this.onConfirm});
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -131,15 +132,20 @@ class FeedbackView extends BaseView<FeedbackViewModel> {
                                             fontSize: 17,
                                             onPressed: (value) async {
                                               // await GtdLoading.showSuccess();
-                                              await viewModel.createUserFeedback().then(
-                                                (value) {
-                                                  viewModel.isEnableFeedbackSubmit = false;
-                                                  GtdPopupMessage(context).showError(error: "Congratulation!");
+                                              GtdPopupMessage(context).showError(
+                                                error: "Do you want to confirm?",
+                                                onConfirm: (value) async {
+                                                  await viewModel.createUserFeedback().then(
+                                                    (value) {
+                                                      viewModel.isEnableFeedbackSubmit = false;
+                                                    },
+                                                  ).whenComplete(() {
+                                                    BlocProvider.of<UserFeedbackCubit>(context).loadUserFeedbackByKey(
+                                                        lessonRoadmapId: viewModel.lessonRoadmapId);
+                                                    onConfirm?.call();
+                                                  });
                                                 },
-                                              ).whenComplete(() {
-                                                BlocProvider.of<UserFeedbackCubit>(context)
-                                                    .loadUserFeedbackByKey(lessonRoadmapId: viewModel.lessonRoadmapId);
-                                              });
+                                              );
                                             },
                                           ),
                                   ),
