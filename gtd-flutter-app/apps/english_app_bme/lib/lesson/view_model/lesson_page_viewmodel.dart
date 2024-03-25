@@ -45,12 +45,20 @@ class LessonPageViewModel extends BasePageViewModel {
   List<UserFeedback> userFeedbacks = [];
   String role = "";
   BmeUser? bmeUser;
+  List<BmeUser> classUsers = [];
   LessonPageViewModel({required this.course}) {
     title = course.maLop ?? "--";
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
     this.bmeUser = bmeUser;
     role = bmeUser?.role ?? "USER";
     loadLessonRoadmaps();
+    if (course.maLop != null) {
+      loadBmeUsersByClassCode(course.maLop!);
+    }
+  }
+
+  int get countFeedbacks {
+    return userFeedbacks.map((e) => e.userName).toSet().length;
   }
 
   void loadLessonRoadmaps() async {
@@ -73,10 +81,19 @@ class LessonPageViewModel extends BasePageViewModel {
     });
   }
 
-  LessonRating? arrangeRating(int lessonId) {
+  Future<void> loadBmeUsersByClassCode(String classCode) async {
+    await BmeRepository.shared.findUserByClassCode(classCode).then((value) {
+      value.whenSuccess((success) {
+        classUsers = success;
+        notifyListeners();
+      });
+    });
+  }
+
+  (LessonRating, double)? arrangeRating(int lessonId) {
     List<int> ratings = userFeedbacks
         .where((element) {
-          if (role != "ADMIN") {
+          if (role.toUpperCase() != BmeUserRole.admin.roleValue) {
             return element.lessonRoadmapId == lessonId && element.userName == bmeUser?.username;
           }
           return element.lessonRoadmapId == lessonId;
@@ -88,6 +105,6 @@ class LessonPageViewModel extends BasePageViewModel {
       return null;
     }
     double average = ratings.reduce((value, element) => value + element) / ratings.length;
-    return LessonRating.fromValue(average.toInt());
+    return (LessonRating.fromValue(average.toInt()), average);
   }
 }

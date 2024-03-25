@@ -4,9 +4,11 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
+import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:intl/intl.dart';
 
 class AddCoursePageViewModel extends BasePageViewModel {
   final bool isAddLesson;
@@ -78,7 +80,15 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap() async {
-    var lessonRoadmapRq = AddLessonRq(classCode: course?.maLop ?? "", lessonName: titleField, startDate: startDate);
+    var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    var mentor = seletedMentor ?? bmeUser;
+    var lessonRoadmapRq = AddLessonRq(
+      classCode: course?.maLop ?? "",
+      lessonName: DateFormat("dd/MM/yyyy").format(startDate) ,
+      mentorName: mentor?.fullName,
+      mentorId: mentor?.username,
+      startDate: startDate,
+    );
     return BmeRepository.shared.createLessonRoadmap(addLessonRq: lessonRoadmapRq);
   }
 
@@ -87,13 +97,20 @@ class AddCoursePageViewModel extends BasePageViewModel {
         maLop: titleField,
         ngayKhaiGiang: dateFormat.format(startDate),
         mau: "${selectedColor.value}",
-        dinhHuong: isOrient ? "X" : "",
-        phatAm: isIPA ? "X" : "",
-        nghe: isListening ? "X" : "",
-        noi: isSpeaking ? "X" : "",
-        nguPhap: isGrammar ? "X" : "",
-        giaoVienHienTai: seletedMentor?.fullName ?? "");
-    return await BmeRepository.shared.createBmeCourse(course);
+        dinhHuong: isOrient ? "x" : "",
+        phatAm: isIPA ? "x" : "",
+        nghe: isListening ? "x" : "",
+        noi: isSpeaking ? "x" : "",
+        nguPhap: isGrammar ? "x" : "",
+        giaoVienHienTai: seletedMentor?.fullName ?? "",
+        maGV: seletedMentor?.username);
+    return await BmeRepository.shared.createBmeCourse(course).then((value) {
+      if (seletedMentor != null) {
+        seletedMentor?.tag = titleField;
+        BmeRepository.shared.updateBmeUser(seletedMentor!);
+      }
+      return value;
+    });
   }
 
   Future<Result<BmeOriginCourse, GtdApiError>> updateCourse() async {
@@ -103,12 +120,21 @@ class AddCoursePageViewModel extends BasePageViewModel {
     course?.maLop = titleField;
     course?.ngayKhaiGiang = dateFormat.format(startDate);
     course?.giaoVienHienTai = seletedMentor?.fullName;
-    course?.dinhHuong = isOrient ? "X" : "";
-    course?.phatAm = isIPA ? "X" : "";
-    course?.nghe = isListening ? "X" : "";
-    course?.noi = isSpeaking ? "X" : "";
-    course?.nguPhap = isGrammar ? "X" : "";
+    course?.dinhHuong = isOrient ? "x" : "";
+    course?.phatAm = isIPA ? "x" : "";
+    course?.nghe = isListening ? "x" : "";
+    course?.noi = isSpeaking ? "x" : "";
+    course?.nguPhap = isGrammar ? "x" : "";
     course?.mau = "${selectedColor.value}";
+
+    if (seletedMentor != null) {
+      if (seletedMentor?.id != null) {
+        seletedMentor?.tag = course?.maLop;
+        course?.maGV = seletedMentor?.username;
+        course?.giaoVienHienTai = seletedMentor?.fullName;
+        BmeRepository.shared.updateBmeUser(seletedMentor!);
+      }
+    }
     return await BmeRepository.shared.updateBmeCourse(course!);
   }
 

@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_utils/base/view/bottom_nav_bar_item.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
@@ -12,17 +14,20 @@ import 'package:gtd_utils/helpers/extension/string_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum HomePageTab {
-  course(0, "Courses"),
-  mentor(1, "Mentors"),
-  student(2, "Students");
+  home("/home", "Explore the Beme class"),
+  course("/course", "Courses"),
+  mentor("/teacher", "Teachers"),
+  student("/student", "Students"),
+  account("/account", "Account"),
+  ;
 
-  final int tabValue;
+  final String location;
   final String title;
-  const HomePageTab(this.tabValue, this.title);
+  const HomePageTab(this.location, this.title);
 }
 
 class HomePageViewModel extends BasePageViewModel {
-  HomePageTab seletedTab = HomePageTab.course;
+  HomePageTab seletedTab = HomePageTab.home;
   StreamController<String> querySearchController = StreamController();
   TextEditingController searchFieldController = TextEditingController();
 
@@ -32,10 +37,12 @@ class HomePageViewModel extends BasePageViewModel {
   List<BmeOriginCourse> filteredCourses = [];
 
   String role = "";
+  BmeUser? loggedUser;
 
   HomePageViewModel() {
     title = seletedTab.title;
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    loggedUser = bmeUser;
     role = bmeUser?.role ?? "USER";
     querySearchController.stream.debounceTime(const Duration(milliseconds: 300)).listen((event) {
       if (seletedTab == HomePageTab.course) {
@@ -56,9 +63,11 @@ class HomePageViewModel extends BasePageViewModel {
       }
       if (seletedTab == HomePageTab.mentor) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+          filteredUsers = List.from(
+              originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role != "USER").toList())
+          filteredUsers = List<BmeUser>.from(
+                  originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -73,9 +82,11 @@ class HomePageViewModel extends BasePageViewModel {
 
       if (seletedTab == HomePageTab.student) {
         if (event.isEmpty) {
-          filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+          filteredUsers = List.from(
+              originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
         } else {
-          filteredUsers = List<BmeUser>.from(originUsers.where((element) => element.role == "USER").toList())
+          filteredUsers = List<BmeUser>.from(
+                  originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList())
               .where((element) =>
                   ((element.fullName ?? "")
                       .trim()
@@ -92,19 +103,21 @@ class HomePageViewModel extends BasePageViewModel {
     });
   }
 
-  void selectTab(int value) {
+  void selectTab(String value) {
     HomePageTab tab =
-        HomePageTab.values.firstWhere((element) => element.tabValue == value, orElse: () => HomePageTab.course);
+        HomePageTab.values.firstWhere((element) => element.location == value, orElse: () => HomePageTab.course);
     seletedTab = tab;
     title = seletedTab.title;
     if (seletedTab != HomePageTab.course) {
       filteredCourses = List.from(originCourses);
     }
     if (tab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (tab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
     searchFieldController.clear();
     notifyListeners();
@@ -116,14 +129,31 @@ class HomePageViewModel extends BasePageViewModel {
       return;
     }
     if (seletedTab == HomePageTab.mentor) {
-      filteredUsers = List.from(originUsers.where((element) => element.role != "USER").toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() != BmeUserRole.user.roleValue).toList());
     }
     if (seletedTab == HomePageTab.student) {
-      filteredUsers = List.from(originUsers.where((element) => element.role == "USER").toList());
+      filteredUsers =
+          List.from(originUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).toList());
     }
   }
 
   Future<Result<bool, GtdApiError>> deleteCourse(int id) async {
     return await BmeRepository.shared.deleteBmeCourse(id);
+  }
+
+  Future<Result<BmeUser, GtdApiError>> updateUser() async {
+    return await BmeRepository.shared.updateBmeUser(loggedUser!).then((value) {
+      CacheHelper.shared.saveSharedObject(loggedUser!.toJson(), key: CacheStorageType.accountBox.name);
+      return value;
+    });
+  }
+
+  List<BottomNavBarItem> get finalTabs {
+    if (role == BmeUserRole.admin.roleValue) {
+      return tabs;
+    } else {
+      return usertabs;
+    }
   }
 }

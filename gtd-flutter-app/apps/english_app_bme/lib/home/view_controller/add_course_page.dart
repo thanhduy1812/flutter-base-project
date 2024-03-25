@@ -57,8 +57,8 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                       child: StatefulBuilder(
                         builder: (context, setStateMentor) {
                           return InputTextField(
-                            hintText: 'Please input mentor name',
-                            labelText: "Mentor name",
+                            hintText: 'Please input Teacher name',
+                            labelText: "Teacher name",
                             initText: viewModel.seletedMentor?.fullName ?? "",
                             leadingIcon: Icon(
                               Icons.person,
@@ -68,7 +68,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                             // onChanged: (value) {},
                             onTap: () {
                               GtdPresentViewHelper.presentView(
-                                  title: "Mentors",
+                                  title: "Teachers",
                                   context: pageContext,
                                   builder: Builder(
                                     builder: (context) {
@@ -77,6 +77,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                         onSelected: (value) {
                                           setStateMentor(
                                             () {
+                                              context.pop();
                                               viewModel.seletedMentor = value;
                                             },
                                           );
@@ -191,21 +192,27 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                                   builder: (context) {
                                                     return AlertDialog(
                                                         content: MaterialColorPicker(
-                                                      onColorChange: (value) {
-                                                        setStateColor(
-                                                          () {
-                                                            viewModel.selectedColor = value;
-                                                          },
-                                                        );
+                                                      allowShades: false,
+                                                      alignment: WrapAlignment.start,
+                                                      spacing: 9,
+                                                      onMainColorChange: (value) {
+                                                        if (value != null) {
+                                                          setStateColor(
+                                                            () {
+                                                              viewModel.selectedColor = Color(value.value);
+                                                            },
+                                                          );
+                                                        }
                                                       },
+                                                      // onColorChange: (value) {
+                                                      //   setStateColor(
+                                                      //     () {
+                                                      //       viewModel.selectedColor = value;
+                                                      //     },
+                                                      //   );
+                                                      // },
                                                       selectedColor: viewModel.selectedColor,
-                                                      colors: const [
-                                                        Colors.red,
-                                                        Colors.deepOrange,
-                                                        Colors.yellow,
-                                                        Colors.blueAccent,
-                                                        Colors.teal
-                                                      ],
+                                                      colors: const [Colors.deepOrange, Colors.teal],
                                                     ));
                                                   },
                                                 );

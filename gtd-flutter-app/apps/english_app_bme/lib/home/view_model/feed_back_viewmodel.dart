@@ -12,17 +12,41 @@ class FeedbackViewModel extends BaseViewModel {
   String feedbackComment = "";
   bool isEnableFeedbackSubmit = true;
   List<UserFeedback> userFeedbacks = [];
-  FeedbackViewModel(this.lessonRoadmapId) {
+  String? feedbackTo;
+  String? role;
+  BmeUser? bmeUser;
+  bool neeReloadUserFeedbacks = true;
+  FeedbackViewModel(this.lessonRoadmapId, {this.feedbackTo = ""}) {
     feedbackModels = [
       FeedbackModel(id: 1, question: "Học viên có hiểu bài không?", rating: LessonRating.happy),
       FeedbackModel(id: 2, question: "Học viên có tập trung không?", rating: LessonRating.happy),
       FeedbackModel(id: 3, question: "Học viên có hài lòng không?", rating: LessonRating.happy)
     ];
+    bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+    role = bmeUser?.role;
+    isEnableFeedbackSubmit = role?.toUpperCase() != BmeUserRole.admin.roleValue;
+  }
+
+  factory FeedbackViewModel.loadExistFeedback(int lessonRoadmapId, List<UserFeedback> userFeedbacks,
+      {String? feedbackTo}) {
+    FeedbackViewModel viewModel = FeedbackViewModel(lessonRoadmapId);
+    viewModel.neeReloadUserFeedbacks = false;
+    viewModel.userFeedbacks = userFeedbacks;
+    // viewModel.isEnableFeedbackSubmit = userFeedbacks.isEmpty;
+    viewModel.feedbackTo = feedbackTo;
+    viewModel.updateDataFromUserFeedbacks(userFeedbacks);
+    return viewModel;
   }
 
   void updateDataFromUserFeedbacks(List<UserFeedback> userFeedbacks) {
+    if (role?.toUpperCase() == BmeUserRole.mentor.roleValue) {
+      userFeedbacks = userFeedbacks.where((element) => element.feedbackTo == feedbackTo).toList();
+    }
+    if (role?.toUpperCase() == BmeUserRole.user.roleValue) {
+      userFeedbacks = userFeedbacks.where((element) => element.userName == bmeUser?.username).toList();
+    }
     this.userFeedbacks = userFeedbacks;
-    userFeedbacks.map((e) {
+    this.userFeedbacks.map((e) {
       if (e.feedbackId == 1) {
         feedbackModels[0].rating = LessonRating.fromValue(int.tryParse(e.feedbackAnswer ?? "10") ?? 10);
       }
@@ -47,6 +71,7 @@ class FeedbackViewModel extends BaseViewModel {
         lessonRoadmapId: lessonRoadmapId,
         feedbackId: e.id,
         feedbackAnswer: "${e.rating.score}",
+        feedbackTo: feedbackTo,
         feedbackDate: DateTime.now().toUtc(),
       );
       BmeRepository.shared.createUserFeedback(userFeedback);
@@ -57,6 +82,7 @@ class FeedbackViewModel extends BaseViewModel {
       lessonRoadmapId: lessonRoadmapId,
       feedbackId: 4,
       feedbackAnswer: feedbackComment,
+      feedbackTo: feedbackTo,
       feedbackDate: DateTime.now().toUtc(),
     );
     BmeRepository.shared.createUserFeedback(userFeedback);

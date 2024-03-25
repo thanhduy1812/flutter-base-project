@@ -36,10 +36,10 @@ class AddUserPageViewModel extends BasePageViewModel {
     notifyListeners();
   }
 
-  void setRole(String role) {
-    this.role = role;
-    notifyListeners();
-  }
+  // void setRole(String role) {
+  //   this.role = role;
+  //   notifyListeners();
+  // }
 
   bool validateForm() {
     if (fullName.isEmpty || facebookName.isEmpty || phoneNumber.isEmpty) {
@@ -56,5 +56,9 @@ class AddUserPageViewModel extends BasePageViewModel {
         dob: dateFormat.format(dob),
         role: role);
     return BmeRepository.shared.createBmeUser(bmeUser: bmeUser);
+  }
+
+  void updateRole() {
+    notifyListeners();
   }
 }

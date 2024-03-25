@@ -1,16 +1,17 @@
 import 'package:beme_english/home/app_bottom_bar.dart';
 import 'package:beme_english/home/view_controller/add_lesson_page.dart';
-import 'package:beme_english/home/view_model/add_course_page_viewmodel.dart';
 import 'package:beme_english/lesson/view_controller/lesson_detail_page.dart';
 import 'package:beme_english/lesson/view_model/lesson_detail_page_viewmodel.dart';
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
+import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
   static const String route = '/lessons';
@@ -62,16 +63,24 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               subtitle: Text("Teacher", style: TextStyle(color: AppColors.subText)),
                             ),
                           ),
-                          const Spacer(),
-                          // const Expanded(
-                          //   child: ListTile(
-                          //     contentPadding: EdgeInsets.zero,
-                          //     title: Text("9h 33m",
-                          //         style: TextStyle(fontWeight: FontWeight.w500, color: Colors.deepOrangeAccent)),
-                          //     subtitle: Text("45 Lessons", style: TextStyle(fontWeight: FontWeight.w500)),
-                          //   ),
-                          // ),
-                          // Expanded(child: rowIconRating(pageContext)),
+                          // const Spacer(),
+                          Expanded(
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(
+                                Icons.groups_outlined,
+                                size: 32,
+                                color: appBlueDeepColor,
+                              ),
+                              titleTextStyle: const TextStyle(fontSize: 14, color: appBlueDeepColor),
+                              subtitleTextStyle: const TextStyle(fontSize: 14, color: appBlueDeepColor),
+                              title: Text(
+                                "Students: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).length}",
+                              ),
+                              subtitle: Text(
+                                  "Teacher: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.mentor.roleValue).length}"),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -94,21 +103,28 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               )),
                         ),
                         const Spacer(),
-                        viewModel.role != "ADMIN"
+                        (viewModel.role.toUpperCase() != BmeUserRole.mentor.roleValue)
                             ? const SizedBox()
                             : SizedBox(
                                 height: 50,
                                 width: 125,
                                 child: InkWell(
                                   onTap: () async {
-                                    await pageContext
-                                        .push(AddLessonPage.route,
-                                            extra: AddCoursePageViewModel.initAddLessonPage(course: viewModel.course))
-                                        .then((value) {
-                                      if (value != null) {
-                                        viewModel.loadLessonRoadmaps();
-                                      }
-                                    });
+                                    GtdPresentViewHelper.presentSheet(
+                                        title: "Add Feedback",
+                                        context: pageContext,
+                                        builder: Builder(
+                                          builder: (feedbackContext) {
+                                            return AddLessonPage.addLessonForm(
+                                              pageContext,
+                                              course: viewModel.course,
+                                              onCompleted: (value) {
+                                                feedbackContext.pop();
+                                                viewModel.loadLessonRoadmaps();
+                                              },
+                                            );
+                                          },
+                                        ));
                                   },
                                   child: const Card(
                                       margin: EdgeInsets.zero,
@@ -116,7 +132,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                       color: appBlueDeepColor,
                                       child: Center(
                                         child: Text(
-                                          "Add lesson",
+                                          "Feedback",
                                           style:
                                               TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 14),
                                         ),
@@ -140,7 +156,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                         var lesson = viewModel.lessonRoadmaps[index];
                         var rating = viewModel.arrangeRating(lesson.id ?? 0);
                         return SizedBox(
-                            height: 65,
+                            height: 90,
                             child: Card(
                               elevation: 0,
                               margin: EdgeInsets.zero,
@@ -156,10 +172,47 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                   Icons.menu_book,
                                   color: appBlueDeepColor,
                                 ),
-                                title: Text(lesson.lessonName ?? "",
-                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
-                                subtitle: Text(dateFormat.format(lesson.startDate ?? DateTime.now())),
-                                trailing: rating == null ? const SizedBox() : iconRating(rating),
+                                title: Text(
+                                  dateFormat.format(lesson.startDate ?? DateTime.now()),
+                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+                                ),
+                                // title: Text(lesson.lessonName ?? "",
+                                //     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
+                                // subtitle: Text("Teacher: ${lesson.mentorName ?? "---"}"),
+                                subtitle: Text.rich(
+                                  TextSpan(children: [
+                                    TextSpan(
+                                        text: "Teacher: ${lesson.mentorName ?? "---"} \n",
+                                        style: const TextStyle(color: Colors.blueAccent)),
+                                    TextSpan(
+                                        text: "Total Feedback: ${viewModel.countFeedbacks}",
+                                        style: const TextStyle(color: Colors.deepOrange))
+                                  ]),
+                                  textAlign: TextAlign.left,
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    // Text.rich(
+                                    //   TextSpan(
+                                    //       text: "Total Feedback: \n",
+                                    //       children: [TextSpan(text: "${viewModel.countFeedbacks}")]),
+                                    //   textAlign: TextAlign.center,
+                                    // ),
+                                    // const SizedBox(width: 10),
+                                    rating == null
+                                        ? const SizedBox()
+                                        : Text(
+                                            rating.$2.toStringAsFixed(1),
+                                            style: const TextStyle(
+                                                fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
+                                          ),
+                                    const SizedBox(width: 7),
+                                    rating == null ? const SizedBox() : iconRating(rating.$1),
+                                  ],
+                                ),
                               ),
                             ));
                       },

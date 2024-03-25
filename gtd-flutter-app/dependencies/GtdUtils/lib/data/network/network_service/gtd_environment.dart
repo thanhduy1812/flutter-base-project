@@ -59,7 +59,7 @@ class GtdEnvironment {
         headers = {};
         break;
       case GTDEnvType.BmeEnglish:
-        baseUrl = "103.161.173.59";
+        baseUrl = "careandshare.io.vn";
         platformPath = "";
         headers = {};
         break;

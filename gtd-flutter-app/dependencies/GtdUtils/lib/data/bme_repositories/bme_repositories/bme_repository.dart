@@ -1,5 +1,6 @@
 import 'package:gtd_utils/data/bme_repositories/bme_client/api/bme_client_resource_api.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
+import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_course_hocbu.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_user_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/feedback_rs.dart';
@@ -77,12 +78,25 @@ class BmeRepository {
     }
   }
 
-  Future<Result<List<BmeUser>, GtdApiError>> login({required String username, required String password}) async {
+  Future<Result<BmeUser, GtdApiError>> updateBmeUser(BmeUser bmeUser) async {
+    try {
+      final response = await bmeClientResourceApi.updateBmeUser(bmeUser, bmeUser.id!);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("updateBmeUser: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<BmeUser>, GtdApiError>> login(
+      {required String username, required String password, bool rememberPassword = false}) async {
     try {
       var request = {"username": username, "password": password};
       final response = await bmeClientResourceApi.findBmeUserByKey(request);
       if (response.isNotEmpty) {
-        await CacheHelper.shared.saveSharedObject(response.first.toJson(), key: CacheStorageType.accountBox.name);
+        var bmeUser = response.first;
+        bmeUser.isRemember = rememberPassword;
+        await CacheHelper.shared.saveSharedObject(bmeUser.toJson(), key: CacheStorageType.accountBox.name);
         return Success(response);
       }
       return Error(GtdApiError(code: "404", message: "User not found"));
@@ -150,6 +164,16 @@ class BmeRepository {
     } on GtdApiError catch (e) {
       Logger.e("deleteBmeCourse: $e");
       return Error(e);
+    }
+  }
+
+  Future<List<BmeCourseHocBu>> findBmeCoursesHocBuByKey(String phoneNumber) async {
+    try {
+      final response = await bmeClientResourceApi.findBmeCoursesHocBuByKey({"so_dien_thoai": phoneNumber});
+      return response;
+    } on GtdApiError catch (e) {
+      Logger.e("findBmeCoursesHocBuByKey: $e");
+      return [];
     }
   }
 

@@ -11,6 +11,7 @@ class UserFeedback {
   DateTime? cancelDate;
   int? feedbackId;
   String? feedbackAnswer;
+  String? feedbackTo;
   DateTime? feedbackDate;
   DateTime? catchUpDate;
 
@@ -25,6 +26,7 @@ class UserFeedback {
     this.cancelDate,
     this.feedbackId,
     this.feedbackAnswer,
+    this.feedbackTo,
     this.feedbackDate,
     this.catchUpDate,
   });
@@ -40,6 +42,7 @@ class UserFeedback {
         cancelDate: json["cancelDate"] == null ? null : DateTime.parse(json["cancelDate"]),
         feedbackId: json["feedbackId"],
         feedbackAnswer: json["feedbackAnswer"],
+        feedbackTo: json["feedbackTo"],
         feedbackDate: json["feedbackDate"] == null ? null : DateTime.parse(json["feedbackDate"]),
         catchUpDate: json["catchUpDate"] == null ? null : DateTime.parse(json["catchUpDate"]),
       );
@@ -55,6 +58,7 @@ class UserFeedback {
         "cancelDate": cancelDate?.toIso8601String(),
         "feedbackId": feedbackId,
         "feedbackAnswer": feedbackAnswer,
+        "feedbackTo": feedbackTo,
         "feedbackDate": feedbackDate?.toIso8601String(),
         "catchUpDate": catchUpDate?.toIso8601String(),
       };
@@ -64,6 +68,7 @@ class UserFeedback {
         "lessonRoadmapId": lessonRoadmapId,
         "feedbackId": feedbackId,
         "feedbackAnswer": feedbackAnswer,
+        "feedbackTo": feedbackTo,
         "feedbackDate": feedbackDate?.toIso8601String()
       };
 }
