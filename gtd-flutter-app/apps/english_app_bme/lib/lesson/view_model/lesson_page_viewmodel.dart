@@ -45,12 +45,14 @@ class LessonPageViewModel extends BasePageViewModel {
   List<UserFeedback> userFeedbacks = [];
   String role = "";
   BmeUser? bmeUser;
+  String mentorId = "";
   List<BmeUser> classUsers = [];
   LessonPageViewModel({required this.course}) {
     title = course.maLop ?? "--";
     var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
     this.bmeUser = bmeUser;
     role = bmeUser?.role ?? "USER";
+    mentorId = course.maGV ?? "";
     loadLessonRoadmaps();
     if (course.maLop != null) {
       loadBmeUsersByClassCode(course.maLop!);
@@ -58,7 +60,13 @@ class LessonPageViewModel extends BasePageViewModel {
   }
 
   int get countFeedbacks {
-    return userFeedbacks.map((e) => e.userName).toSet().length;
+    if (role == BmeUserRole.admin.roleValue) {
+      return userFeedbacks.map((e) => e.userName).where((element) => element != mentorId).toSet().length;
+    }
+    if (role == BmeUserRole.mentor.roleValue) {
+      return userFeedbacks.map((e) => e.userName).where((element) => element != bmeUser?.username).toSet().length;
+    }
+    return 0;
   }
 
   void loadLessonRoadmaps() async {

@@ -106,7 +106,7 @@ class FeedbackView extends BaseView<FeedbackViewModel> {
                                           borderRadius: BorderRadius.circular(6),
                                           borderSide: BorderSide(
                                               color: Colors.grey.shade500, width: 1.0, style: BorderStyle.solid)),
-                                      hintText: 'Please input your feedback',
+                                      hintText: 'Hôm nay tậm trạng bạn thế nào, chia sẻ với bé me nhé!',
                                       hintStyle: TextStyle(
                                           fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade300),
                                       filled: false,

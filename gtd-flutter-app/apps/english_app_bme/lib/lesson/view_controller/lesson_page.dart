@@ -156,65 +156,74 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                         var lesson = viewModel.lessonRoadmaps[index];
                         var rating = viewModel.arrangeRating(lesson.id ?? 0);
                         return SizedBox(
-                            height: 90,
+                            // height: 90,
                             child: Card(
-                              elevation: 0,
-                              margin: EdgeInsets.zero,
-                              child: ListTile(
-                                onTap: () {
-                                  var detailPageViewModel =
-                                      LessonDetailPageViewModel(course: viewModel.course, lessonRoadmapRs: lesson);
-                                  context
-                                      .push(LessonDetailPage.route, extra: detailPageViewModel)
-                                      .then((value) => viewModel.loadLessonRoadmaps());
-                                },
-                                leading: const Icon(
-                                  Icons.menu_book,
-                                  color: appBlueDeepColor,
-                                ),
-                                title: Text(
-                                  dateFormat.format(lesson.startDate ?? DateTime.now()),
-                                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
-                                ),
-                                // title: Text(lesson.lessonName ?? "",
-                                //     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
-                                // subtitle: Text("Teacher: ${lesson.mentorName ?? "---"}"),
-                                subtitle: Text.rich(
-                                  TextSpan(children: [
-                                    TextSpan(
-                                        text: "Teacher: ${lesson.mentorName ?? "---"} \n",
-                                        style: const TextStyle(color: Colors.blueAccent)),
-                                    TextSpan(
-                                        text: "Total Feedback: ${viewModel.countFeedbacks}",
-                                        style: const TextStyle(color: Colors.deepOrange))
-                                  ]),
-                                  textAlign: TextAlign.left,
-                                ),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // Text.rich(
-                                    //   TextSpan(
-                                    //       text: "Total Feedback: \n",
-                                    //       children: [TextSpan(text: "${viewModel.countFeedbacks}")]),
-                                    //   textAlign: TextAlign.center,
-                                    // ),
-                                    // const SizedBox(width: 10),
-                                    rating == null
-                                        ? const SizedBox()
-                                        : Text(
-                                            rating.$2.toStringAsFixed(1),
-                                            style: const TextStyle(
-                                                fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
-                                          ),
-                                    const SizedBox(width: 7),
-                                    rating == null ? const SizedBox() : iconRating(rating.$1),
-                                  ],
-                                ),
-                              ),
-                            ));
+                          elevation: 0,
+                          margin: EdgeInsets.zero,
+                          child: ListTile(
+                            onTap: () {
+                              var detailPageViewModel =
+                                  LessonDetailPageViewModel(course: viewModel.course, lessonRoadmapRs: lesson);
+                              context
+                                  .push(LessonDetailPage.route, extra: detailPageViewModel)
+                                  .then((value) => viewModel.loadLessonRoadmaps());
+                            },
+                            leading: const Icon(
+                              Icons.menu_book,
+                              color: appBlueDeepColor,
+                            ),
+                            title: Text(
+                              dateFormat.format(lesson.startDate ?? DateTime.now()),
+                              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+                            ),
+                            // title: Text(lesson.lessonName ?? "",
+                            //     style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 17)),
+                            // subtitle: Text("Teacher: ${lesson.mentorName ?? "---"}"),
+                            subtitle: Text.rich(
+                              TextSpan(
+                                  children: viewModel.role == BmeUserRole.user.roleValue
+                                      ? [
+                                          TextSpan(
+                                              text: "Teacher: ${lesson.mentorName ?? "---"}",
+                                              style: const TextStyle(color: Colors.blueAccent)),
+                                        ]
+                                      : [
+                                          TextSpan(
+                                              text: "Teacher: ${lesson.mentorName ?? "---"} \n",
+                                              style: const TextStyle(color: Colors.blueAccent)),
+                                          viewModel.role == BmeUserRole.user.roleValue
+                                              ? const TextSpan()
+                                              : TextSpan(
+                                                  text: "Total Feedback: ${viewModel.countFeedbacks}",
+                                                  style: const TextStyle(color: Colors.deepOrange))
+                                        ]),
+                              textAlign: TextAlign.left,
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Text.rich(
+                                //   TextSpan(
+                                //       text: "Total Feedback: \n",
+                                //       children: [TextSpan(text: "${viewModel.countFeedbacks}")]),
+                                //   textAlign: TextAlign.center,
+                                // ),
+                                // const SizedBox(width: 10),
+                                rating == null
+                                    ? const SizedBox()
+                                    : Text(
+                                        rating.$2.toStringAsFixed(1),
+                                        style: const TextStyle(
+                                            fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
+                                      ),
+                                const SizedBox(width: 7),
+                                rating == null ? const SizedBox() : iconRating(rating.$1),
+                              ],
+                            ),
+                          ),
+                        ));
                       },
                       separatorBuilder: (context, index) => const SizedBox(height: 16),
                       itemCount: viewModel.lessonRoadmaps.length),

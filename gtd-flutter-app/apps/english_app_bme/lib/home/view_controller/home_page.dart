@@ -342,10 +342,12 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                       )
                     ]),
                     child: InkWell(
-                      onTap: () {
-                        var lessonPageViewModel = LessonPageViewModel(course: course);
-                        context.push(LessonPage.route, extra: lessonPageViewModel);
-                      },
+                      onTap: viewModel.loggedUser == null
+                          ? () => ()
+                          : () {
+                              var lessonPageViewModel = LessonPageViewModel(course: course);
+                              context.push(LessonPage.route, extra: lessonPageViewModel);
+                            },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ClipRRect(

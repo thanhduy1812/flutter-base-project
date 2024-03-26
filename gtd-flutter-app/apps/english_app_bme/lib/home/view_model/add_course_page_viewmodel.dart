@@ -18,20 +18,22 @@ class AddCoursePageViewModel extends BasePageViewModel {
   final BmeOriginCourse? course;
   final bool isEditMode;
   List<BmeUser> mentors = [];
-  bool isOrient = false;
+  bool isOrient = true;
   bool isIPA = false;
   bool isSpeaking = false;
   bool isListening = false;
   bool isGrammar = false;
-  Color selectedColor = Colors.teal;
+  Color selectedColor = Colors.deepOrange;
   AddCoursePageViewModel({super.title, this.isAddLesson = false, this.course, this.isEditMode = false}) {
-    isOrient = course?.dinhHuong?.toLowerCase() == "x";
-    isIPA = course?.phatAm?.toLowerCase() == "x";
-    isSpeaking = course?.noi?.toLowerCase() == "x";
-    isListening = course?.nghe?.toLowerCase() == "x";
-    isGrammar = course?.nguPhap?.toLowerCase() == "x";
-    int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.teal.value;
-    selectedColor = Color(originColor);
+    if (course != null) {
+      isOrient = course?.dinhHuong?.toLowerCase() == "x";
+      isIPA = course?.phatAm?.toLowerCase() == "x";
+      isSpeaking = course?.noi?.toLowerCase() == "x";
+      isListening = course?.nghe?.toLowerCase() == "x";
+      isGrammar = course?.nguPhap?.toLowerCase() == "x";
+      int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.teal.value;
+      selectedColor = Color(originColor);
+    }
     loadMentors();
   }
 
@@ -46,7 +48,10 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   factory AddCoursePageViewModel.initAddcoursePage() {
-    return AddCoursePageViewModel(title: "Add a Course", isAddLesson: false, isEditMode: false);
+    AddCoursePageViewModel addCoursePageViewModel =
+        AddCoursePageViewModel(title: "Add a Course", isAddLesson: false, isEditMode: false);
+    addCoursePageViewModel.selectedColor = Colors.deepOrange;
+    return addCoursePageViewModel;
   }
 
   factory AddCoursePageViewModel.initEditcoursePage(BmeOriginCourse course) {
@@ -76,7 +81,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   bool validateForm() {
-    return titleField.isNotEmpty;
+    return titleField.isNotEmpty && (isOrient || isGrammar || isSpeaking || isListening || isIPA);
   }
 
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap() async {
@@ -84,7 +89,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
     var mentor = seletedMentor ?? bmeUser;
     var lessonRoadmapRq = AddLessonRq(
       classCode: course?.maLop ?? "",
-      lessonName: DateFormat("dd/MM/yyyy").format(startDate) ,
+      lessonName: DateFormat("dd/MM/yyyy").format(startDate),
       mentorName: mentor?.fullName,
       mentorId: mentor?.username,
       startDate: startDate,
