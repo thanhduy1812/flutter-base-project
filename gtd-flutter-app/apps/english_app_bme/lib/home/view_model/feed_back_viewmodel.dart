@@ -18,9 +18,9 @@ class FeedbackViewModel extends BaseViewModel {
   bool neeReloadUserFeedbacks = true;
   FeedbackViewModel(this.lessonRoadmapId, {this.feedbackTo = ""}) {
     feedbackModels = [
-      FeedbackModel(id: 1, question: "Học viên có hiểu bài không?", rating: LessonRating.happy),
-      FeedbackModel(id: 2, question: "Học viên có tập trung không?", rating: LessonRating.happy),
-      FeedbackModel(id: 3, question: "Học viên có hài lòng không?", rating: LessonRating.happy)
+      FeedbackModel(id: 1, question: "Bạn đã thật sự hiểu bài chưa?", rating: LessonRating.happy),
+      FeedbackModel(id: 2, question: "Bạn có tập trung học bài không đó?", rating: LessonRating.happy),
+      FeedbackModel(id: 3, question: "Bạn có hài lòng về buổi học ngày hôm nay không nè?", rating: LessonRating.happy)
     ];
     bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
     role = bmeUser?.role;

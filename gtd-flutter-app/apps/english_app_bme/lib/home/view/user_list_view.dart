@@ -12,7 +12,6 @@ import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class UserListView extends BaseView<UserListViewModel> {
