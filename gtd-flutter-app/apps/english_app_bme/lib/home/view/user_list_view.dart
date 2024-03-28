@@ -45,7 +45,7 @@ class UserListView extends BaseView<UserListViewModel> {
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Text(
-                              user.role ?? "",
+                              BmeUserRole.roleFromValue(user.role ?? "").localizeValue,
                               style: const TextStyle(fontSize: 13),
                             ),
                           ),
@@ -90,7 +90,7 @@ class UserListView extends BaseView<UserListViewModel> {
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
-                          user.role ?? "",
+                          BmeUserRole.roleFromValue(user.role ?? "").localizeValue,
                           style: const TextStyle(fontSize: 13),
                         ),
                       ),

@@ -194,7 +194,8 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                                           viewModel.role == BmeUserRole.user.roleValue
                                               ? const TextSpan()
                                               : TextSpan(
-                                                  text: "Total Feedback: ${viewModel.countFeedbacks}",
+                                                  text:
+                                                      "Total Feedback: ${viewModel.countFeedbacksForLesson(lesson.id!)}",
                                                   style: const TextStyle(color: Colors.deepOrange))
                                         ]),
                               textAlign: TextAlign.left,
