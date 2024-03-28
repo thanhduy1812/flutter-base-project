@@ -59,12 +59,12 @@ class LessonPageViewModel extends BasePageViewModel {
     }
   }
 
-  int get countFeedbacks {
+  int  countFeedbacksForLesson(int lessonRoadmapId) {
     if (role == BmeUserRole.admin.roleValue) {
-      return userFeedbacks.map((e) => e.userName).where((element) => element != mentorId).toSet().length;
+      return userFeedbacks.where((element) => element.lessonRoadmapId == lessonRoadmapId).map((e) => e.userName).where((element) => element != mentorId).toSet().length;
     }
     if (role == BmeUserRole.mentor.roleValue) {
-      return userFeedbacks.map((e) => e.userName).where((element) => element != bmeUser?.username).toSet().length;
+      return userFeedbacks.where((element) => element.lessonRoadmapId == lessonRoadmapId).map((e) => e.userName).where((element) => element != bmeUser?.username).toSet().length;
     }
     return 0;
   }

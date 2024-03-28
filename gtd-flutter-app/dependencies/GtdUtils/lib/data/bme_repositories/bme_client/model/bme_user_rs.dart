@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 class BmeUser {
   int? id;
   DateTime? createdAt;
@@ -83,10 +85,16 @@ class BmeUser {
 }
 
 enum BmeUserRole {
-  admin("ADMIN"),
-  mentor("MENTOR"),
-  user("USER");
+  admin("ADMIN", "Quản lý"),
+  mentor("MENTOR", "Giáo Viên"),
+  user("USER", "Học Viên");
 
   final String roleValue;
-  const BmeUserRole(this.roleValue);
+  final String localizeValue;
+  const BmeUserRole(this.roleValue, this.localizeValue);
+
+  static BmeUserRole roleFromValue(String value) {
+    return BmeUserRole.values.firstWhereOrNull((element) => element.roleValue == value.toUpperCase()) ??
+        BmeUserRole.user;
+  }
 }
