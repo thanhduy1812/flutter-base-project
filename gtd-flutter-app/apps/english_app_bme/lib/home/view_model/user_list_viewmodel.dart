@@ -22,6 +22,8 @@ class UserListViewModel extends BaseViewModel {
       this.userFeedbacks = const [],
       this.viewMode = UserListViewMode.user,
       LessonRating? rating}) {
+    //Find left User was feedback
+
     if (rating != null) {
       //Filter List
       if (viewMode == UserListViewMode.user) {
@@ -31,6 +33,26 @@ class UserListViewModel extends BaseViewModel {
         bmeUsers = bmeUsers.where((element) => ratingByFeedbackTo(element.username!)?.$1 == rating).toList();
       }
     }
+
+    loadLeftFeedbackUsers();
+  }
+
+  void loadLeftFeedbackUsers() async {
+    List<BmeUser> leftBmeUsers = [];
+    var result = userFeedbacks
+        .where((element) =>
+            bmeUsers.map((e) => e.username).whereType<String>().toList().contains(element.userName) == false)
+        .map((e) async {
+      var result = await BmeRepository.shared.findUserByKey(e.userName!).then((value) => value.when((success) {
+                leftBmeUsers.addAll(success.where((element) => element.role == BmeUserRole.user.roleValue));
+              }, (error) => null)) ??
+          [];
+      return result;
+    }).toList();
+    await Future.wait(result);
+    bmeUsers.addAll(leftBmeUsers.toSet().toList());
+    bmeUsers = bmeUsers.toSet().toList();
+    notifyListeners();
   }
 
   (LessonRating, double)? ratingByUsername(String username) {

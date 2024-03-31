@@ -23,7 +23,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   bool isSpeaking = false;
   bool isListening = false;
   bool isGrammar = false;
-  Color selectedColor = Colors.deepOrange;
+  Color selectedColor = Colors.red;
   AddCoursePageViewModel({super.title, this.isAddLesson = false, this.course, this.isEditMode = false}) {
     if (course != null) {
       isOrient = course?.dinhHuong?.toLowerCase() == "x";
@@ -31,7 +31,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
       isSpeaking = course?.noi?.toLowerCase() == "x";
       isListening = course?.nghe?.toLowerCase() == "x";
       isGrammar = course?.nguPhap?.toLowerCase() == "x";
-      int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.teal.value;
+      int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.green.value;
       selectedColor = Color(originColor);
     }
     loadMentors();
@@ -50,7 +50,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   factory AddCoursePageViewModel.initAddcoursePage() {
     AddCoursePageViewModel addCoursePageViewModel =
         AddCoursePageViewModel(title: "Add a Course", isAddLesson: false, isEditMode: false);
-    addCoursePageViewModel.selectedColor = Colors.deepOrange;
+    addCoursePageViewModel.selectedColor = Colors.red;
     return addCoursePageViewModel;
   }
 

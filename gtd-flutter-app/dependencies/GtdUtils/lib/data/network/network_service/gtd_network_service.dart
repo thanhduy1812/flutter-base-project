@@ -1,8 +1,6 @@
-
 import 'package:dio/dio.dart';
 import 'gtd_dio_curl_logging.dart';
 import 'gtd_network_request.dart';
-
 
 class GtdNetworkService {
   // dio instance
@@ -145,6 +143,8 @@ class GtdNetworkService {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
+      Map<String, dynamic> headers = {"Access-Control-Allow-Origin": "*"};
+      headers.addAll(request.headers ?? {});
       _dio.options.connectTimeout = Duration(seconds: request.connectTimeout);
       _dio.options.receiveTimeout = Duration(seconds: request.receiveTimeout);
       // _dio.interceptors.add(GtdDioInterceptor(printOnSuccess: true));

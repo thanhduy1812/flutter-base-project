@@ -239,54 +239,55 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
     return widgets;
   }
 
-  @override
-  Widget? floatingButton(BuildContext context) {
-    return ListenableBuilder(
-      listenable: viewModel,
-      builder: (context, child) {
-        if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue ||
-            viewModel.seletedTab == HomePageTab.account ||
-            viewModel.seletedTab == HomePageTab.home) {
-          return const SizedBox();
-        }
-        return FloatingActionButton(
-          backgroundColor: appBlueDeepColor,
-          onPressed: () => {
-            switch (viewModel.seletedTab) {
-              HomePageTab.course =>
-                context.push(AddCoursePage.route, extra: AddCoursePageViewModel.initAddcoursePage()).then((value) {
-                  if (value != null) {
-                    BlocProvider.of<BmeCourseCubit>(context).loadCourse();
-                  }
-                }),
-              HomePageTab.mentor => context
-                    .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor))
-                    .then((value) {
-                  if (value != null) {
-                    BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "MENTOR");
-                  }
-                }),
-              HomePageTab.student => context
-                    .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student))
-                    .then((value) {
-                  if (value != null) {
-                    BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
-                  }
-                }),
-              HomePageTab.account => (),
-              HomePageTab.home => (),
-            }
-          },
-          tooltip: 'Add ${viewModel.seletedTab.title}',
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 45,
-          ),
-        );
-      },
-    );
-  }
+  //Remove Floating Button
+  // @override
+  // Widget? floatingButton(BuildContext context) {
+  //   return ListenableBuilder(
+  //     listenable: viewModel,
+  //     builder: (context, child) {
+  //       if (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue ||
+  //           viewModel.seletedTab == HomePageTab.account ||
+  //           viewModel.seletedTab == HomePageTab.home) {
+  //         return const SizedBox();
+  //       }
+  //       return FloatingActionButton(
+  //         backgroundColor: appBlueDeepColor,
+  //         onPressed: () => {
+  //           switch (viewModel.seletedTab) {
+  //             HomePageTab.course =>
+  //               context.push(AddCoursePage.route, extra: AddCoursePageViewModel.initAddcoursePage()).then((value) {
+  //                 if (value != null) {
+  //                   BlocProvider.of<BmeCourseCubit>(context).loadCourse();
+  //                 }
+  //               }),
+  //             HomePageTab.mentor => context
+  //                   .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.mentor))
+  //                   .then((value) {
+  //                 if (value != null) {
+  //                   BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "MENTOR");
+  //                 }
+  //               }),
+  //             HomePageTab.student => context
+  //                   .push(AddUserPage.route, extra: AddUserPageViewModel(homePageTab: HomePageTab.student))
+  //                   .then((value) {
+  //                 if (value != null) {
+  //                   BlocProvider.of<BmeUserCubit>(context).loadBmeUsers(role: "USER");
+  //                 }
+  //               }),
+  //             HomePageTab.account => (),
+  //             HomePageTab.home => (),
+  //           }
+  //         },
+  //         tooltip: 'Add ${viewModel.seletedTab.title}',
+  //         child: const Icon(
+  //           Icons.add,
+  //           color: Colors.white,
+  //           size: 45,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget _courseList(BuildContext pageContext) {
     return BlocBuilder<BmeCourseCubit, BmeCourseState>(
@@ -305,7 +306,8 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                   var course = viewModel.filteredCourses[index];
                   return Slidable(
                     key: ValueKey(index),
-                    enabled: viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue,
+                    // enabled: viewModel.role.toUpperCase() == BmeUserRole.admin.roleValue,
+                    enabled: false,
                     endActionPane: ActionPane(motion: const ScrollMotion(), children: [
                       SlidableAction(
                         onPressed: (contextSlide) {
@@ -353,9 +355,10 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                         child: ClipRRect(
                           borderRadius: const BorderRadius.all(Radius.circular(16)),
                           child: ColoredBox(
-                              color: ((course.mau?.length ?? 0) < 5)
-                                  ? appBlueLightColor
-                                  : Color(int.tryParse(course.mau!) ?? appBlueDeepColor.value),
+                              // color: ((course.mau?.length ?? 0) < 5)
+                              //     ? appBlueLightColor
+                              //     : Color(int.tryParse(course.mau!) ?? (appBlueDeepColor.value)),
+                              color: viewModel.getColorByCourse(course),
                               child: SizedBox(
                                 height: 170,
                                 child: Padding(
@@ -537,6 +540,7 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
               subtitle: const Text("*******"),
               onTap: () {
                 String? password = user?.password;
+                String? confirmPassword = "";
                 GtdPresentViewHelper.presentSheet(
                     title: "Change password",
                     context: context,
@@ -548,9 +552,19 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                             children: [
                               InputTextField(
                                 hintText: "Input new password",
+                                labelText: "New Password",
                                 initText: "",
                                 onChanged: (value) {
                                   password = value;
+                                },
+                              ),
+                              const SizedBox(height: 16),
+                              InputTextField(
+                                hintText: "Confirm new password",
+                                labelText: "Confirm Password",
+                                initText: "",
+                                onChanged: (value) {
+                                  confirmPassword = value;
                                 },
                               ),
                               const SizedBox(height: 16),
@@ -562,6 +576,11 @@ class HomePage extends BaseStatelessPage<HomePageViewModel> {
                                     fontSize: 17,
                                     color: appOrangeDarkColor,
                                     onPressed: (value) async {
+                                      if (password != confirmPassword) {
+                                        GtdPopupMessage(context)
+                                            .showError(error: "The password does not match the confirm password.");
+                                        return;
+                                      }
                                       viewModel.loggedUser?.password = password;
                                       await viewModel.updateUser().then((value) {
                                         popupContext.pop();
