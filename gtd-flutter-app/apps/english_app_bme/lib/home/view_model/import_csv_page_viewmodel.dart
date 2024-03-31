@@ -1,4 +1,10 @@
+import 'dart:io';
+import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:csv/csv.dart';
+
 import 'package:beme_english/lesson/view_model/lesson_page_viewmodel.dart';
+import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/lesson_roadmap_rs.dart';
@@ -77,5 +83,65 @@ class ImportCSVPageViewModel extends BasePageViewModel {
           id: 4, question: "Hôm nay tâm trạng bạn thế nào, chia sẻ với bé me nhé!", rating: LessonRating.happy),
     ];
     return feedbackModels;
+  }
+
+  DataTable generateDataTable() {
+    return DataTable(
+      headingRowColor: const MaterialStatePropertyAll(appOrangeDarkColor),
+      border: TableBorder.all(color: appBlueDeepColor),
+      columns: _generateColumns(),
+      rows: _generateRows(),
+    );
+  }
+
+  List<DataColumn> _generateColumns() {
+    // var rawData = viewModel.courses.map((e) => e.toDataSheet()).first;
+    var rawData = generateColumn;
+    var columns = rawData.keys
+        .map(
+          (e) => DataColumn(label: Text(e)),
+        )
+        .toList();
+    return columns;
+  }
+
+  List<DataRow> _generateRows() {
+    // var rawData = viewModel.courses.map((e) => e.toDataSheet());
+    var rawData = generateDataFeedbacks();
+    var rows = rawData
+        .map((e) => e.values.map((rawValue) => DataCell(Text(rawValue.toString()))).toList())
+        .map((e) => DataRow(cells: e))
+        .toList();
+    return rows;
+  }
+
+  Future<void> exportDataTableToCsv(DataTable dataTable) async {
+    List<List<dynamic>> csvData = [];
+
+    // Add header row
+    List<dynamic> headerRow = dataTable.columns.map((column) => column.label).toList();
+    csvData.add(headerRow);
+
+    // Add data rows
+    for (DataRow row in dataTable.rows) {
+      List<dynamic> rowData = row.cells.map((cell) => cell.child).toList();
+      csvData.add(rowData);
+    }
+
+    // Convert data to CSV string
+    String csvString = const ListToCsvConverter().convert(csvData);
+
+    // Get the document directory path
+    Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
+    String documentsPath = appDocumentsDirectory.path;
+
+    // Create the output file path
+    String filePath = '$documentsPath/data.csv';
+
+    // Write the CSV string to a file
+    File file = File(filePath);
+    await file.writeAsString(csvString);
+
+    print('CSV file exported to: $filePath');
   }
 }
