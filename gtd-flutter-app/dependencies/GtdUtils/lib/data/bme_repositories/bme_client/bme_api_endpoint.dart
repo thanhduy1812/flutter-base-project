@@ -29,6 +29,7 @@ class BmeApiEndpoint extends GtdEndpoint {
   static const String kUserFeedbacks = "v1/user-feedback";
   static const String kUserFeedbackFindByKey = "v1/user-feedback/find-by-key";
   static const String kUserFeedbackFindByLessonRoadmapIds = "v1/user-feedback/find-by-lessons";
+  static const String kUserFeedbackSearchByColumn = "v1/user-feedback/search-by-column";
 
 //User
   static GtdEndpoint getListBmeUser(GTDEnvType envType) {
@@ -77,12 +78,12 @@ class BmeApiEndpoint extends GtdEndpoint {
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
-    static GtdEndpoint getListBmeCourseHocBu(GTDEnvType envType) {
+  static GtdEndpoint getListBmeCourseHocBu(GTDEnvType envType) {
     const path = kBmeCoursesHocBu;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 
-    static GtdEndpoint findBmeCoursesHocBuByKey(GTDEnvType envType) {
+  static GtdEndpoint findBmeCoursesHocBuByKey(GTDEnvType envType) {
     const path = kBmeCoursesHocBuFindByKey;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
@@ -121,6 +122,11 @@ class BmeApiEndpoint extends GtdEndpoint {
 
   static GtdEndpoint getListUserFeedbackByLessonids(GTDEnvType envType) {
     const path = kUserFeedbackFindByLessonRoadmapIds;
+    return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
+  }
+
+  static GtdEndpoint searchUserFeedbackByColumn(GTDEnvType envType) {
+    const path = kUserFeedbackSearchByColumn;
     return GtdEndpoint(env: GtdEnvironment(env: envType), path: path);
   }
 }

@@ -197,6 +197,16 @@ class BmeRepository {
     }
   }
 
+  Future<LessonRoadmapRs?> findLessonRoadmapById(int lessonRoadmapId) async {
+    try {
+      final response = await bmeClientResourceApi.findLessonRoadmapByKey({"id": lessonRoadmapId});
+      return response.firstOrNull;
+    } on GtdApiError catch (e) {
+      Logger.e("findLessonRoadmapByKey: $e");
+      return null;
+    }
+  }
+
   Future<Result<List<FeedbackAsk>, GtdApiError>> getFeedbackList() async {
     try {
       final response = await bmeClientResourceApi.getFeedbackList();
@@ -243,6 +253,16 @@ class BmeRepository {
       return Success(response);
     } on GtdApiError catch (e) {
       Logger.e("getUserFeedbackListByLessonIds: $e");
+      return Error(e);
+    }
+  }
+
+  Future<Result<List<UserFeedback>, GtdApiError>> searchUserFeedbacksByDate(String feedbackDate) async {
+    try {
+      final response = await bmeClientResourceApi.searchUserFeedbacksByKey("feedback_date", feedbackDate);
+      return Success(response);
+    } on GtdApiError catch (e) {
+      Logger.e("searchUserFeedbacksByDate: $e");
       return Error(e);
     }
   }

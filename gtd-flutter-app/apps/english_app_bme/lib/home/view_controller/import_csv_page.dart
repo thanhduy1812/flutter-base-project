@@ -14,18 +14,24 @@ class ImportCSVPage extends BaseStatelessPage<ImportCSVPageViewModel> {
       scrollDirection: Axis.horizontal,
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: DataTable(
-          headingRowColor: const MaterialStatePropertyAll(appOrangeDarkColor),
-          border: TableBorder.all(color: appBlueDeepColor),
-          columns: _generateColumns(),
-          rows: _generateRows(),
+        child: ListenableBuilder(
+          listenable: viewModel,
+          builder: (context, child) {
+            return DataTable(
+              headingRowColor: const MaterialStatePropertyAll(appOrangeDarkColor),
+              border: TableBorder.all(color: appBlueDeepColor),
+              columns: _generateColumns(),
+              rows: _generateRows(),
+            );
+          },
         ),
       ),
     );
   }
 
   List<DataColumn> _generateColumns() {
-    var rawData = viewModel.courses.map((e) => e.toDataSheet()).first;
+    // var rawData = viewModel.courses.map((e) => e.toDataSheet()).first;
+    var rawData = viewModel.generateColumn;
     var columns = rawData.keys
         .map(
           (e) => DataColumn(label: Text(e)),
@@ -35,7 +41,8 @@ class ImportCSVPage extends BaseStatelessPage<ImportCSVPageViewModel> {
   }
 
   List<DataRow> _generateRows() {
-    var rawData = viewModel.courses.map((e) => e.toDataSheet());
+    // var rawData = viewModel.courses.map((e) => e.toDataSheet());
+    var rawData = viewModel.generateDataFeedbacks();
     var rows = rawData
         .map((e) => e.values.map((rawValue) => DataCell(Text(rawValue.toString()))).toList())
         .map((e) => DataRow(cells: e))
