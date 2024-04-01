@@ -60,5 +60,26 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access temporary directory to save files</string>
+	<key>NSFileProviderDomainUsageDescription</key>
+	<string>Access directory to save files</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Access temporary directory to save files</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Access temporary directory to save files</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Access temporary directory to save files</string>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UISupportsDocumentBrowser</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

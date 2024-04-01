@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:csv/csv.dart';
 
@@ -17,13 +18,22 @@ class ImportCSVPageViewModel extends BasePageViewModel {
   List<BmeOriginCourse> courses = [];
   List<UserFeedback> userFeedbacks = [];
   List<LessonRoadmapRs> lessonRoadmaps = [];
+
+  String dateExport = DateFormat("yyyy-MM-dd").format(DateTime.now());
+  DateTime dateExportTime = DateTime.now();
   ImportCSVPageViewModel(this.courses) {
     title = "Data Sheet";
-    loadUserFeedbacks();
+    loadUserFeedbacks(dateExport);
   }
 
-  void loadUserFeedbacks() async {
-    await BmeRepository.shared.searchUserFeedbacksByDate("2024-03-28").then((value) {
+  void setExportDate(DateTime dateTime) {
+    dateExport = DateFormat("yyyy-MM-dd").format(dateTime);
+    dateExportTime = dateTime;
+    loadUserFeedbacks(dateExport);
+  }
+
+  void loadUserFeedbacks(String dateExport) async {
+    await BmeRepository.shared.searchUserFeedbacksByDate(dateExport).then((value) {
       value.whenSuccess((success) {
         userFeedbacks = success;
         loadLessonRoadmaps(success.map((e) => e.lessonRoadmapId).whereType<int>().toList());
@@ -115,16 +125,16 @@ class ImportCSVPageViewModel extends BasePageViewModel {
     return rows;
   }
 
-  Future<void> exportDataTableToCsv(DataTable dataTable) async {
+  Future<void> exportDataTableToCsv(DataTable dataTable, BuildContext context) async {
     List<List<dynamic>> csvData = [];
 
     // Add header row
-    List<dynamic> headerRow = dataTable.columns.map((column) => column.label).toList();
+    List<dynamic> headerRow = dataTable.columns.map((column) => (column.label as Text).data).toList();
     csvData.add(headerRow);
 
     // Add data rows
     for (DataRow row in dataTable.rows) {
-      List<dynamic> rowData = row.cells.map((cell) => cell.child).toList();
+      List<dynamic> rowData = row.cells.map((cell) => (cell.child as Text).data).toList();
       csvData.add(rowData);
     }
 
@@ -133,15 +143,35 @@ class ImportCSVPageViewModel extends BasePageViewModel {
 
     // Get the document directory path
     Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    String documentsPath = appDocumentsDirectory.path;
+    String downloadsPath = appDocumentsDirectory.path;
+
+    if (Platform.isIOS) {
+      Directory directory = await getApplicationDocumentsDirectory();
+      downloadsPath = directory.path;
+    }
+    if (Platform.isAndroid) {
+      final directory = await getApplicationSupportDirectory();
+      downloadsPath = '${directory.path}/BemeExport';
+    }
 
     // Create the output file path
-    String filePath = '$documentsPath/data.csv';
+    String filePath = '$downloadsPath/$dateExport.csv';
 
     // Write the CSV string to a file
     File file = File(filePath);
-    await file.writeAsString(csvString);
+    await file.writeAsString(csvString).whenComplete(() {
+      if (!isFileExists(filePath)) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('File path not exist: $filePath')));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('File saved: $filePath')));
+      }
+    });
 
     print('CSV file exported to: $filePath');
+  }
+
+  bool isFileExists(String filePath) {
+    File file = File(filePath);
+    return file.existsSync();
   }
 }
