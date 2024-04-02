@@ -125,7 +125,7 @@ class ImportCSVPageViewModel extends BasePageViewModel {
     return rows;
   }
 
-  Future<void> exportDataTableToCsv(DataTable dataTable, BuildContext context) async {
+  Future<void> exportDataTableToCsv(DataTable dataTable, BuildContext context, String? directoryPath) async {
     List<List<dynamic>> csvData = [];
 
     // Add header row
@@ -143,22 +143,24 @@ class ImportCSVPageViewModel extends BasePageViewModel {
 
     // Get the document directory path
     Directory appDocumentsDirectory = await getApplicationDocumentsDirectory();
-    String downloadsPath = appDocumentsDirectory.path;
+    String downloadsPath = directoryPath ?? appDocumentsDirectory.path;
 
-    if (Platform.isIOS) {
-      Directory directory = await getApplicationDocumentsDirectory();
-      downloadsPath = directory.path;
-    }
-    if (Platform.isAndroid) {
-      final directory = await getApplicationSupportDirectory();
-      downloadsPath = '${directory.path}/BemeExport';
-    }
-
+    // if (Platform.isIOS) {
+    //   Directory directory = await getApplicationDocumentsDirectory();
+    //   downloadsPath = directory.path;
+    // }
+    // if (Platform.isAndroid) {
+    //   final directory = await getApplicationSupportDirectory();
+    //   downloadsPath = '${directoryPath ?? directory.path}/BemeExport';
+    // }
+    final directory = Directory("/storage/emulated/0/Download");
+    downloadsPath = directory.path;
     // Create the output file path
     String filePath = '$downloadsPath/$dateExport.csv';
+    // final newFilePath = path.join(downloadsPath, '$dateExport.csv');
 
     // Write the CSV string to a file
-    File file = File(filePath);
+    File file = File(downloadsPath);
     await file.writeAsString(csvString).whenComplete(() {
       if (!isFileExists(filePath)) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('File path not exist: $filePath')));
@@ -168,6 +170,24 @@ class ImportCSVPageViewModel extends BasePageViewModel {
     });
 
     print('CSV file exported to: $filePath');
+  }
+
+  ({String fileByte, String fileName}) generateCSVString(DataTable dataTable) {
+    List<List<dynamic>> csvData = [];
+
+    // Add header row
+    List<dynamic> headerRow = dataTable.columns.map((column) => (column.label as Text).data).toList();
+    csvData.add(headerRow);
+
+    // Add data rows
+    for (DataRow row in dataTable.rows) {
+      List<dynamic> rowData = row.cells.map((cell) => (cell.child as Text).data).toList();
+      csvData.add(rowData);
+    }
+
+    // Convert data to CSV string
+    String csvString = const ListToCsvConverter().convert(csvData);
+    return (fileByte: csvString, fileName: '$dateExport.csv');
   }
 
   bool isFileExists(String filePath) {

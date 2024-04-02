@@ -1,15 +1,19 @@
+
+
 import 'package:beme_english/home/app_bottom_bar.dart';
+import 'package:beme_english/home/helper/file_storage.dart';
 import 'package:beme_english/home/view_model/import_csv_page_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 
+
 //!Table
 class ImportCSVPage extends BaseStatelessPage<ImportCSVPageViewModel> {
   static const String route = '/importCSVPage';
+
   const ImportCSVPage({super.key, required super.viewModel});
 
   @override
@@ -20,7 +24,10 @@ class ImportCSVPage extends BaseStatelessPage<ImportCSVPageViewModel> {
             GtdPopupMessage(pageContext).showError(
               error: "Do you want Export?",
               onConfirm: (value) async {
-                viewModel.exportDataTableToCsv(viewModel.generateDataTable(), pageContext);
+                final fileTuple = viewModel.generateCSVString(viewModel.generateDataTable());
+                FileStorage.writeCounter(fileTuple.fileByte, fileTuple.fileName).then((value) {
+                  ScaffoldMessenger.of(pageContext).showSnackBar(SnackBar(content: Text('File saved: ${value.path}')));
+                });
               },
             );
           },
@@ -39,7 +46,7 @@ class ImportCSVPage extends BaseStatelessPage<ImportCSVPageViewModel> {
                 context: pageContext,
                 firstDate: DateTime.now().subtract(const Duration(days: 36500)),
                 lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
-                initialDate: viewModel.dateExportTime ?? DateTime.now(),
+                initialDate: viewModel.dateExportTime,
                 builder: (context, child) {
                   return Theme(
                     data: Theme.of(context).copyWith(
