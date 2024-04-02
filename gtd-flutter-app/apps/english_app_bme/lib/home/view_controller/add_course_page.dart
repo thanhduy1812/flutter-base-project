@@ -212,7 +212,7 @@ class AddCoursePage extends BaseStatelessPage<AddCoursePageViewModel> {
                                                       //   );
                                                       // },
                                                       selectedColor: viewModel.selectedColor,
-                                                      colors: const [Colors.deepOrange, Colors.teal],
+                                                      colors: const [Colors.red, Colors.green],
                                                     ));
                                                   },
                                                 );

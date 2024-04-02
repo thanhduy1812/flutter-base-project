@@ -156,4 +156,18 @@ class HomePageViewModel extends BasePageViewModel {
       return usertabs;
     }
   }
+
+  Color getColorByCourse(BmeOriginCourse course) {
+    if (int.tryParse(course.shvDanhSach ?? "0") == 0) {
+      return Colors.grey;
+    }
+
+    if (course.ownerId?.startsWith("ONL") == true) {
+      return Colors.green;
+    } else if (course.ownerId?.startsWith("OFF") == true) {
+      return Colors.red;
+    } else {
+      return appBlueLightColor;
+    }
+  }
 }

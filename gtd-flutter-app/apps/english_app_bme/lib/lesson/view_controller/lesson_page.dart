@@ -77,8 +77,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               title: Text(
                                 "Students: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.user.roleValue).length}",
                               ),
-                              subtitle: Text(
-                                  "Teacher: ${viewModel.classUsers.where((element) => element.role?.toUpperCase() == BmeUserRole.mentor.roleValue).length}"),
+                              subtitle: Text("Teacher: ${viewModel.course.giaoVienHienTai != null ? 1 : 0}"),
                             ),
                           ),
                         ],
@@ -103,7 +102,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
                               )),
                         ),
                         const Spacer(),
-                        (viewModel.role.toUpperCase() != BmeUserRole.mentor.roleValue)
+                        (viewModel.role.toUpperCase() != BmeUserRole.admin.roleValue || viewModel.classUsers.isEmpty)
                             ? const SizedBox()
                             : SizedBox(
                                 height: 50,
@@ -245,7 +244,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
           LessonRating.normal => "assets/image/ico-normal.svg",
         },
         color: switch (groupRating) {
-          LessonRating.happy => appBlueDeepColor,
+          LessonRating.happy => Colors.green,
           LessonRating.sad => Colors.red,
           LessonRating.normal => Colors.amberAccent,
         },
@@ -277,7 +276,7 @@ class LessonPage extends BaseStatelessPage<LessonPageViewModel> {
           onTap: () => onChanged?.call(LessonRating.happy),
           child: GtdImage.svgFromAsset(
               assetPath: "assets/image/ico-happy.svg",
-              color: groupRating == LessonRating.happy ? appBlueDeepColor : appBlueLightColor,
+              color: groupRating == LessonRating.happy ? Colors.green : appBlueLightColor,
               width: 32),
         ),
       ],

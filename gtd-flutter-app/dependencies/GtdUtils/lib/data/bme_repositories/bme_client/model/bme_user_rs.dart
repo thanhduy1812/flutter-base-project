@@ -82,6 +82,12 @@ class BmeUser {
         "tag": tag,
         "isRemember": isRemember,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is BmeUser && runtimeType == other.runtimeType && username == other.username;
+  @override
+  int get hashCode => username.hashCode;
 }
 
 enum BmeUserRole {

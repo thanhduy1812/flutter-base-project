@@ -59,12 +59,22 @@ class LessonPageViewModel extends BasePageViewModel {
     }
   }
 
-  int  countFeedbacksForLesson(int lessonRoadmapId) {
+  int countFeedbacksForLesson(int lessonRoadmapId) {
     if (role == BmeUserRole.admin.roleValue) {
-      return userFeedbacks.where((element) => element.lessonRoadmapId == lessonRoadmapId).map((e) => e.userName).where((element) => element != mentorId).toSet().length;
+      return userFeedbacks
+          .where((element) => element.lessonRoadmapId == lessonRoadmapId)
+          .map((e) => e.userName)
+          .where((element) => element != mentorId)
+          .toSet()
+          .length;
     }
     if (role == BmeUserRole.mentor.roleValue) {
-      return userFeedbacks.where((element) => element.lessonRoadmapId == lessonRoadmapId).map((e) => e.userName).where((element) => element != bmeUser?.username).toSet().length;
+      return userFeedbacks
+          .where((element) => element.lessonRoadmapId == lessonRoadmapId)
+          .map((e) => e.userName)
+          .where((element) => element != bmeUser?.username)
+          .toSet()
+          .length;
     }
     return 0;
   }
@@ -72,6 +82,17 @@ class LessonPageViewModel extends BasePageViewModel {
   void loadLessonRoadmaps() async {
     await BmeRepository.shared.findLessonRoadmapByKey(course.maLop!).then((value) {
       value.whenSuccess((success) {
+        success.sort((a, b) {
+          if (a.startDate == null && b.startDate == null) {
+            return 0;
+          } else if (a.startDate == null) {
+            return 1;
+          } else if (b.startDate == null) {
+            return -1;
+          } else {
+            return b.startDate!.compareTo(a.startDate!);
+          }
+        });
         lessonRoadmaps = success;
         notifyListeners();
       });
@@ -100,6 +121,7 @@ class LessonPageViewModel extends BasePageViewModel {
 
   (LessonRating, double)? arrangeRating(int lessonId) {
     List<int> ratings = userFeedbacks
+        .where((element) => (element.feedbackTo ?? "").isEmpty)
         .where((element) {
           if (role.toUpperCase() != BmeUserRole.admin.roleValue) {
             return element.lessonRoadmapId == lessonId && element.userName == bmeUser?.username;

@@ -415,4 +415,23 @@ class BmeClientResourceApi {
       throw GtdApiError.handleObjectError(e);
     }
   }
+
+  Future<List<UserFeedback>> searchUserFeedbacksByKey(String column, String substring) async {
+    try {
+      final networkRequest =
+          GTDNetworkRequest(type: GtdMethod.get, enpoint: BmeApiEndpoint.searchUserFeedbackByColumn(envType));
+      networkRequest.queryParams = {"column": column, "substring": substring};
+      networkService.request = networkRequest;
+      final Response response = await networkService.execute();
+      var result = JsonParser.jsonArrayToModel(UserFeedback.fromJson, response.data);
+      return result;
+    } on DioException catch (e) {
+      Logger.e('Trace: ${e.stackTrace} \nErrorMess: ${e.toString()}');
+      GtdDioException dioException = GtdDioException.fromDioError(e);
+      throw GtdApiError(message: dioException.message);
+    } catch (e) {
+      Logger.e("Error searchUserFeedbacksByKey: $e");
+      throw GtdApiError.handleObjectError(e);
+    }
+  }
 }

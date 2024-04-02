@@ -4,7 +4,6 @@ import 'package:gtd_utils/data/bme_repositories/bme_client/bme_client.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/add_lesson_rq.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_client/model/bme_origin_course_rs.dart';
 import 'package:gtd_utils/data/bme_repositories/bme_repositories/bme_repository.dart';
-import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
@@ -23,7 +22,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   bool isSpeaking = false;
   bool isListening = false;
   bool isGrammar = false;
-  Color selectedColor = Colors.deepOrange;
+  Color selectedColor = Colors.red;
   AddCoursePageViewModel({super.title, this.isAddLesson = false, this.course, this.isEditMode = false}) {
     if (course != null) {
       isOrient = course?.dinhHuong?.toLowerCase() == "x";
@@ -31,7 +30,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
       isSpeaking = course?.noi?.toLowerCase() == "x";
       isListening = course?.nghe?.toLowerCase() == "x";
       isGrammar = course?.nguPhap?.toLowerCase() == "x";
-      int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.teal.value;
+      int originColor = int.tryParse(course?.mau ?? "0") ?? Colors.green.value;
       selectedColor = Color(originColor);
     }
     loadMentors();
@@ -50,7 +49,7 @@ class AddCoursePageViewModel extends BasePageViewModel {
   factory AddCoursePageViewModel.initAddcoursePage() {
     AddCoursePageViewModel addCoursePageViewModel =
         AddCoursePageViewModel(title: "Add a Course", isAddLesson: false, isEditMode: false);
-    addCoursePageViewModel.selectedColor = Colors.deepOrange;
+    addCoursePageViewModel.selectedColor = Colors.red;
     return addCoursePageViewModel;
   }
 
@@ -85,8 +84,10 @@ class AddCoursePageViewModel extends BasePageViewModel {
   }
 
   Future<Result<AddLessonRq, GtdApiError>> createLessonRoadmap() async {
-    var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
-    var mentor = seletedMentor ?? bmeUser;
+    // var bmeUser = CacheHelper.shared.loadSavedObject(BmeUser.fromJson, key: CacheStorageType.accountBox.name);
+
+    // var mentor = seletedMentor ?? bmeUser;
+    var mentor = mentors.where((element) => element.username == course?.maGV).firstOrNull;
     var lessonRoadmapRq = AddLessonRq(
       classCode: course?.maLop ?? "",
       lessonName: DateFormat("dd/MM/yyyy").format(startDate),

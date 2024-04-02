@@ -62,6 +62,10 @@ class GtdEnvironment {
         baseUrl = "careandshare.io.vn";
         platformPath = "";
         headers = {};
+        // headers = {
+        //   'Access-Control-Request-Headers': 'access-control-allow-origin',
+        //   'Origin': 'http://localhost:8888',
+        // };
         break;
 
       default:

@@ -26,20 +26,68 @@ class UserListView extends BaseView<UserListViewModel> {
           child:
               Text("No content", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: appBlueDeepColor)));
     }
-    return ListView.separated(
-        itemBuilder: (context, index) {
-          var user = viewModel.bmeUsers[index];
-          return SizedBox(
-            // height: 50,
-            child: ListTile(
-              leading:
-                  GtdImage.svgFromAsset(assetPath: "assets/image/ico-contact.svg", color: appBlueDeepColor, width: 32),
-              title: Text(user.fullName ?? "--",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: AppColors.boldText)),
-              subtitle: Row(
-                children: [
-                  isShowRating
-                      ? Card(
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, child) {
+        return ListView.separated(
+            itemBuilder: (context, index) {
+              var user = viewModel.bmeUsers[index];
+              return SizedBox(
+                // height: 50,
+                child: ListTile(
+                  leading: GtdImage.svgFromAsset(
+                      assetPath: "assets/image/ico-contact.svg", color: appBlueDeepColor, width: 32),
+                  title: Text(user.fullName ?? "--",
+                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: AppColors.boldText)),
+                  subtitle: Row(
+                    children: [
+                      isShowRating
+                          ? Card(
+                              elevation: 0,
+                              color: appOrangeDarkColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  BmeUserRole.roleFromValue(user.role ?? "").localizeValue,
+                                  style: const TextStyle(fontSize: 13),
+                                ),
+                              ),
+                            )
+                          : const SizedBox(),
+                      SizedBox(width: isShowRating ? 8 : 0),
+                      Text(user.phoneNumber ?? "--",
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.subText)),
+                    ],
+                  ),
+                  trailing: isShowRating
+                      ? Builder(builder: (context) {
+                          (LessonRating, double)? rating;
+                          switch (viewModel.viewMode) {
+                            case UserListViewMode.user:
+                              rating = viewModel.ratingByUsername(user.username ?? "");
+                              break;
+                            case UserListViewMode.mentor:
+                              rating = viewModel.ratingByFeedbackTo(user.username ?? "");
+                              break;
+                          }
+                          return rating != null
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      rating.$2.toStringAsFixed(1),
+                                      style: const TextStyle(
+                                          fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
+                                    ),
+                                    const SizedBox(width: 7),
+                                    LessonPage.iconRating(rating.$1),
+                                  ],
+                                )
+                              : const SizedBox();
+                        })
+                      : Card(
                           elevation: 0,
                           color: appOrangeDarkColor,
                           child: Padding(
@@ -49,75 +97,32 @@ class UserListView extends BaseView<UserListViewModel> {
                               style: const TextStyle(fontSize: 13),
                             ),
                           ),
-                        )
-                      : const SizedBox(),
-                  SizedBox(width: isShowRating ? 8 : 0),
-                  Text(user.phoneNumber ?? "--",
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.subText)),
-                ],
-              ),
-              trailing: isShowRating
-                  ? Builder(builder: (context) {
-                      (LessonRating, double)? rating;
-                      switch (viewModel.viewMode) {
-                        case UserListViewMode.user:
-                          rating = viewModel.ratingByUsername(user.username ?? "");
-                          break;
-                        case UserListViewMode.mentor:
-                          rating = viewModel.ratingByFeedbackTo(user.username ?? "");
-                          break;
-                      }
-                      return rating != null
-                          ? Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  rating.$2.toStringAsFixed(1),
-                                  style: const TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w500, color: appOrangeDarkColor),
-                                ),
-                                const SizedBox(width: 7),
-                                LessonPage.iconRating(rating.$1),
-                              ],
-                            )
-                          : const SizedBox();
-                    })
-                  : Card(
-                      elevation: 0,
-                      color: appOrangeDarkColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text(
-                          BmeUserRole.roleFromValue(user.role ?? "").localizeValue,
-                          style: const TextStyle(fontSize: 13),
                         ),
-                      ),
-                    ),
-              onTap: () {
-                if (onSelected != null) {
-                  onSelected?.call(user);
-                  // context.pop();
-                  return;
-                }
-                GtdPresentViewHelper.presentSheet(
-                    title: "",
-                    context: context,
-                    builder: Builder(
-                      builder: (context) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: _accountInfo(context, user),
-                        );
-                      },
-                    ));
-              },
-            ),
-          );
-        },
-        separatorBuilder: (context, index) => Divider(color: Colors.grey.shade300),
-        itemCount: viewModel.bmeUsers.length);
+                  onTap: () {
+                    if (onSelected != null) {
+                      onSelected?.call(user);
+                      // context.pop();
+                      return;
+                    }
+                    GtdPresentViewHelper.presentSheet(
+                        title: "",
+                        context: context,
+                        builder: Builder(
+                          builder: (context) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: _accountInfo(context, user),
+                            );
+                          },
+                        ));
+                  },
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => Divider(color: Colors.grey.shade300),
+            itemCount: viewModel.bmeUsers.length);
+      },
+    );
   }
 
   Widget _accountInfo(BuildContext context, BmeUser user) {
