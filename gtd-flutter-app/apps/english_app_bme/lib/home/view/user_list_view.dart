@@ -239,48 +239,48 @@ class UserListView extends BaseView<UserListViewModel> {
                 ),
               ),
               subtitle: Text(user.tag ?? "---"),
-              onTap: () {
-                String? classCode = user.tag;
-                GtdPresentViewHelper.presentSheet(
-                    title: "Update Class",
-                    context: context,
-                    builder: Builder(
-                      builder: (popupContext) {
-                        return Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              InputTextField(
-                                hintText: "Course Code",
-                                initText: classCode ?? "",
-                                onChanged: (value) {
-                                  classCode = value;
-                                },
-                              ),
-                              const SizedBox(height: 16),
-                              SizedBox(
-                                  width: double.infinity,
-                                  child: GtdButton(
-                                    text: "Confirm",
-                                    height: 60,
-                                    color: appOrangeDarkColor,
-                                    onPressed: (value) async {
-                                      await viewModel.updateUser(user, classCode ?? "").then((value) {
-                                        accountInfoState(
-                                          () {
-                                            popupContext.pop();
-                                          },
-                                        );
-                                      });
-                                    },
-                                  )),
-                              const SizedBox(height: 40),
-                            ],
-                          ),
-                        );
-                      },
-                    ));
-              },
+              // onTap: () {
+              //   String? classCode = user.tag;
+              //   GtdPresentViewHelper.presentSheet(
+              //       title: "Update Class",
+              //       context: context,
+              //       builder: Builder(
+              //         builder: (popupContext) {
+              //           return Padding(
+              //             padding: const EdgeInsets.all(16.0),
+              //             child: Column(
+              //               children: [
+              //                 InputTextField(
+              //                   hintText: "Course Code",
+              //                   initText: classCode ?? "",
+              //                   onChanged: (value) {
+              //                     classCode = value;
+              //                   },
+              //                 ),
+              //                 const SizedBox(height: 16),
+              //                 SizedBox(
+              //                     width: double.infinity,
+              //                     child: GtdButton(
+              //                       text: "Confirm",
+              //                       height: 60,
+              //                       color: appOrangeDarkColor,
+              //                       onPressed: (value) async {
+              //                         await viewModel.updateUser(user, classCode ?? "").then((value) {
+              //                           accountInfoState(
+              //                             () {
+              //                               popupContext.pop();
+              //                             },
+              //                           );
+              //                         });
+              //                       },
+              //                     )),
+              //                 const SizedBox(height: 40),
+              //               ],
+              //             ),
+              //           );
+              //         },
+              //       ));
+              // },
             ),
           ),
         ],
