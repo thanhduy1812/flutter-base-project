@@ -1,15 +1,15 @@
 import 'package:collection/collection.dart';
-
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/json_models/hotel_product.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/booking_detail_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/search_booking_rs.dart';
+import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/json_models/hotel_product.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_final_booking_status.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/payment_method_type.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_item.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
+import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 
 class BookingDetailDTO {
   BookingDetailDTO(
@@ -22,6 +22,7 @@ class BookingDetailDTO {
       this.roundType,
       this.flightDetailItems,
       this.paymentInfo});
+
   String? status;
   String? bookingNumber;
   String? bookingCode;
@@ -44,8 +45,11 @@ class BookingDetailDTO {
   }
 
   bool get isOneWay => roundType == "OneWay";
-  bool get isRoundTrip => roundType == "Roundtrip";
-  bool get isInternational => bookingType == "INTE";
+
+  bool get isRoundTrip => roundType?.toLowerCase() == "roundtrip";
+
+  bool get isInternational => bookingType?.toLowerCase() == "inte";
+
   bool get hasInsurance => (flightDetailItems ?? [])
       .map((e) => (e.travelersInfo ?? []))
       .flattened
@@ -54,6 +58,77 @@ class BookingDetailDTO {
       .where((e) => e.serviceType?.toUpperCase() == ServiceType.insurance.name)
       .toList()
       .isNotEmpty;
+
+  String paymentDate() {
+    return paymentInfo?.paymentDate?.localDate(fullDateTimePattern) ?? '';
+  }
+
+  String paymentMethod() {
+    return paymentInfo?.paymentType?.title ?? '';
+  }
+
+  String ticketType() {
+    final originalCity = flightDetailItems
+        ?.firstOrNull?.flightItem.flightItemInfo?.originLocation?.locationCode;
+    final destinationCity = flightDetailItems
+        ?.firstOrNull?.flightItem.flightItemInfo?.destinationLocation?.locationCode;
+    if (isRoundTrip) {
+      return 'Vé khứ hồi, $originalCity - $destinationCity';
+    }
+    return 'Vé 1 chiều, $originalCity - $destinationCity';
+  }
+
+  String departFlightTitle() {
+    final originalCity = flightDetailItems
+        ?.firstOrNull?.flightItem.flightItemInfo?.originLocation?.city;
+    final destinationCity = flightDetailItems
+        ?.firstOrNull?.flightItem.flightItemInfo?.destinationLocation?.city;
+    return '$originalCity - $destinationCity';
+  }
+
+  String departPassengers() {
+    final adults = flightDetailItems?.firstOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.adult.value)
+        .length;
+    final children = flightDetailItems?.firstOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.child.value)
+        .length;
+    final infants = flightDetailItems?.firstOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.infant.value)
+        .length;
+    return '$adults Người lớn'
+        '${(children ?? 0) > 0 ? ', $children Trẻ em' : ''}'
+        '${(infants ?? 0) > 0 ? ', $infants Em bé' : ''}';
+  }
+  String departFlightCode() {
+    return flightDetailItems
+        ?.firstOrNull?.transactionInfo?.passengerNameRecord ?? '---';
+  }
+  String returnFlightTitle() {
+    final originalCity = flightDetailItems
+        ?.lastOrNull?.flightItem.flightItemInfo?.originLocation?.city;
+    final destinationCity = flightDetailItems
+        ?.lastOrNull?.flightItem.flightItemInfo?.destinationLocation?.city;
+    return '$originalCity - $destinationCity';
+  }
+  String returnPassengers() {
+    final adults = flightDetailItems?.lastOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.adult.value)
+        .length;
+    final children = flightDetailItems?.lastOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.child.value)
+        .length;
+    final infants = flightDetailItems?.lastOrNull?.travelersInfo
+        ?.where((info) => info.adultType == FlightAdultType.infant.value)
+        .length;
+    return '$adults Người lớn'
+        '${(children ?? 0) > 0 ? ', $children Trẻ em' : ''}'
+        '${(infants ?? 0) > 0 ? ', $infants Em bé' : ''}';
+  }
+  String returnFlightCode() {
+    return flightDetailItems
+        ?.lastOrNull?.transactionInfo?.passengerNameRecord ?? '---';
+  }
 }
 
 class GtdFlightItemDetail {
@@ -62,6 +137,7 @@ class GtdFlightItemDetail {
   final TransactionInfo? transactionInfo;
   final List<AirTraveler>? airTravelersInfo;
   final List<TravelerInfoElement>? travelersInfo;
+
   const GtdFlightItemDetail(
       {required this.flightDirection,
       required this.flightItem,
@@ -81,10 +157,21 @@ class GtdFlightItemDetail {
     return inineraryCodeTitle;
   }
 
-  int get countAdult => (travelersInfo ?? []).where((e) => e.adultType == FlightAdultType.adult.value).toList().length;
-  int get countChild => (travelersInfo ?? []).where((e) => e.adultType == FlightAdultType.child.value).toList().length;
-  int get countInfant =>
-      (travelersInfo ?? []).where((e) => e.adultType == FlightAdultType.infant.value).toList().length;
+  int get countAdult => (travelersInfo ?? [])
+      .where((e) => e.adultType == FlightAdultType.adult.value)
+      .toList()
+      .length;
+
+  int get countChild => (travelersInfo ?? [])
+      .where((e) => e.adultType == FlightAdultType.child.value)
+      .toList()
+      .length;
+
+  int get countInfant => (travelersInfo ?? [])
+      .where((e) => e.adultType == FlightAdultType.infant.value)
+      .toList()
+      .length;
+
   String get inineraryPassengerTitle {
     String result = "";
     result += countAdult > 0 ? "$countAdult người lớn" : "";
@@ -93,7 +180,8 @@ class GtdFlightItemDetail {
     return result;
   }
 
-  String get flightDirectionTitle => flightDirection == FlightDirection.d ? "Chiều đi" : "Chiều về";
+  String get flightDirectionTitle =>
+      flightDirection == FlightDirection.d ? "Chiều đi" : "Chiều về";
 }
 
 class HotelProductDetail {
@@ -101,9 +189,13 @@ class HotelProductDetail {
   final TransactionInfo? transactionInfo;
   final List<TravelerInfoElement>? travelersInfo;
 
-  HotelProductDetail(this.hotelProduct, this.transactionInfo, this.travelersInfo);
-  factory HotelProductDetail.fromBookingDetailRs(BookingDetailRs bookingDetailRs) {
-    TransactionInfo? hotelTransactionInfo = bookingDetailRs.bookingInfo?.transactionInfoHotel();
+  HotelProductDetail(
+      this.hotelProduct, this.transactionInfo, this.travelersInfo);
+
+  factory HotelProductDetail.fromBookingDetailRs(
+      BookingDetailRs bookingDetailRs) {
+    TransactionInfo? hotelTransactionInfo =
+        bookingDetailRs.bookingInfo?.transactionInfoHotel();
     return HotelProductDetail(
         bookingDetailRs.hotelProduct
           ?..checkinDate = bookingDetailRs.bookingInfo?.departureDate
@@ -116,7 +208,9 @@ class HotelProductDetail {
     String info = "";
     int roomCount = totalRooms;
     info += "$roomCount phòng";
-    var paxPrices = hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ?? [];
+    var paxPrices =
+        hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ??
+            [];
     int adult = paxPrices
         .map((e) => e.paxInfo?.adultQuantity ?? 0)
         .fold(0, (previousValue, element) => previousValue + element);
@@ -125,21 +219,29 @@ class HotelProductDetail {
         .map((e) => e.paxInfo?.childQuantity ?? 0)
         .fold(0, (previousValue, element) => previousValue + element);
     if (child > 0) {
-      var childAges = paxPrices.map((e) => e.paxInfo?.childAges ?? []).flattened.toList();
+      var childAges =
+          paxPrices.map((e) => e.paxInfo?.childAges ?? []).flattened.toList();
       info += " - $child trẻ em ($childAges)";
     }
     return info;
   }
 
-  int get totalRooms => (hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ?? []).length;
+  int get totalRooms =>
+      (hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ?? [])
+          .length;
+
   int get totalNight =>
-      hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice?.firstOrNull?.nightPrices?.length ?? 0;
+      hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice
+          ?.firstOrNull?.nightPrices?.length ??
+      0;
 
   String get bookHotelSumaryInfo {
     String info = "";
     int roomCount = (hotelProduct?.rooms ?? []).length;
     info += "$roomCount phòng";
-    var paxPrices = hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ?? [];
+    var paxPrices =
+        hotelProduct?.rooms?.firstOrNull?.ratePlans?.firstOrNull?.paxPrice ??
+            [];
     int adult = paxPrices
         .map((e) => e.paxInfo?.adultQuantity ?? 0)
         .fold(0, (previousValue, element) => previousValue + element);
@@ -151,7 +253,9 @@ class HotelProductDetail {
   }
 
   List<GtdHotelRoomDetailDTO> get litsHotelRoomDetail =>
-      (hotelProduct?.rooms ?? []).map((e) => GtdHotelRoomDetailDTO.fromGtdHotelRoom(e)).toList();
+      (hotelProduct?.rooms ?? [])
+          .map((e) => GtdHotelRoomDetailDTO.fromGtdHotelRoom(e))
+          .toList();
 }
 
 class GtdDisplayPaymentInfo {
@@ -170,6 +274,7 @@ class GtdDisplayPaymentInfo {
   PaymentMethodType? paymentType;
   DateTime? paymentDate;
   String? paymentRefNumber;
+
   GtdDisplayPaymentInfo({
     this.baseFare = 0,
     this.equivFare = 0,
@@ -203,7 +308,8 @@ class GtdDisplayPaymentInfo {
         paymentTotalAmount: info.paymentTotalAmount,
         paymentFee: info.paymentFee,
         paymentType: PaymentMethodType.values
-            .where((element) => element.code.toUpperCase() == info.paymentType?.toUpperCase())
+            .where((element) =>
+                element.code.toUpperCase() == info.paymentType?.toUpperCase())
             .firstOrNull,
         paymentDate: info.paymentDate,
         paymentRefNumber: info.paymentRefNumber);
@@ -224,6 +330,7 @@ class GtdInvoiceBookingInfo {
   String? taxNumber;
   bool? taxReceiptRequest;
   String? note;
+
   GtdInvoiceBookingInfo({
     this.customerFirstName,
     this.customerLastName,
@@ -252,6 +359,7 @@ class GtdInvoiceBookingInfo {
     );
     return invoiceBookingInfo;
   }
+
   TaxReceiptRequest toReceiptRequest(String bookingNumber) {
     TaxReceiptRequest taxReceiptRequest = TaxReceiptRequest()
       ..bookingNumber = bookingNumber
@@ -276,21 +384,26 @@ class GtdContactBookingInfo {
   String? phoneNumber;
   String? email;
   DateTime? dob;
+
   GtdContactBookingInfo({
     this.fullName,
     this.phoneNumber,
     this.email,
     this.dob,
   });
-  factory GtdContactBookingInfo.fromTravelerInfoContactInfo(TravelerInfoContactInfo travelerInfoContactInfo) {
+
+  factory GtdContactBookingInfo.fromTravelerInfoContactInfo(
+      TravelerInfoContactInfo travelerInfoContactInfo) {
     GtdContactBookingInfo contactBookingInfo = GtdContactBookingInfo()
-      ..fullName = "${travelerInfoContactInfo.lastName} ${travelerInfoContactInfo.firstName}"
+      ..fullName =
+          "${travelerInfoContactInfo.lastName} ${travelerInfoContactInfo.firstName}"
       ..email = travelerInfoContactInfo.email
       ..phoneNumber = travelerInfoContactInfo.phoneNumber1;
     return contactBookingInfo;
   }
 
-  factory GtdContactBookingInfo.fromBookingInfoContactInfo(BookingInfoContactInfo contactInfo) {
+  factory GtdContactBookingInfo.fromBookingInfoContactInfo(
+      BookingInfoContactInfo contactInfo) {
     GtdContactBookingInfo contactBookingInfo = GtdContactBookingInfo()
       ..fullName = "${contactInfo.surName} ${contactInfo.firstName}"
       ..email = contactInfo.email
@@ -302,7 +415,8 @@ class GtdContactBookingInfo {
 
 extension GtdBookingDetailMapper on BookingDetailDTO {
   void mappingBookingDetail(BookingDetailRs bookingDetailRs) {
-    bookingDetailRs.bookingInfo?.updateStatusItemMyBooking(bookingDetailRs.bookingInfo!);
+    bookingDetailRs.bookingInfo
+        ?.updateStatusItemMyBooking(bookingDetailRs.bookingInfo!);
     status = (bookingDetailRs.bookingInfo?.status)!;
     supplierType = bookingDetailRs.supplierType!;
     bookingType = bookingDetailRs.bookingType!;
@@ -311,26 +425,34 @@ extension GtdBookingDetailMapper on BookingDetailDTO {
     flightDetailItems = generateFlightItems(bookingDetailRs);
     bookingNumber = bookingDetailRs.bookingInfo?.bookingNumber;
     bookingCode = bookingDetailRs.bookingCode;
-    paymentInfo = GtdDisplayPaymentInfo.fromBookingInfoRs(bookingDetailRs.bookingInfo!);
-    invoiceBookingInfo = GtdInvoiceBookingInfo.fromBookingInfoRs(bookingDetailRs.bookingInfo!);
-    bookingFinalStatus = BookingFinalStatus.findByStatus(bookingDetailRs.bookingInfo?.bookingFinalStatus ?? "");
-    hotelProductDetail = HotelProductDetail.fromBookingDetailRs(bookingDetailRs);
+    paymentInfo =
+        GtdDisplayPaymentInfo.fromBookingInfoRs(bookingDetailRs.bookingInfo!);
+    invoiceBookingInfo =
+        GtdInvoiceBookingInfo.fromBookingInfoRs(bookingDetailRs.bookingInfo!);
+    bookingFinalStatus = BookingFinalStatus.findByStatus(
+        bookingDetailRs.bookingInfo?.bookingFinalStatus ?? "");
+    hotelProductDetail =
+        HotelProductDetail.fromBookingDetailRs(bookingDetailRs);
     if (bookingDetailRs.travelerInfo?.contactInfos?.firstOrNull != null) {
-      contactBookingInfo =
-          GtdContactBookingInfo.fromBookingInfoContactInfo(bookingDetailRs.bookingInfo!.contactInfos!.first);
+      contactBookingInfo = GtdContactBookingInfo.fromBookingInfoContactInfo(
+          bookingDetailRs.bookingInfo!.contactInfos!.first);
     }
   }
 
-  List<GtdFlightItemDetail> generateFlightItems(BookingDetailRs bookingDetailRs) {
+  List<GtdFlightItemDetail> generateFlightItems(
+      BookingDetailRs bookingDetailRs) {
     var items = FlightDirection.values
         .map((flightDirection) {
-          var groupPricedItinerary = bookingDetailRs.groupPricedItineraryDirection(flightDirection);
+          var groupPricedItinerary =
+              bookingDetailRs.groupPricedItineraryDirection(flightDirection);
           return (flightDirection, groupPricedItinerary);
         })
         .whereType<(FlightDirection, GroupPricedItinerary)>()
         .map((tuple) {
-          GtdFlightItem item = GtdFlightItem.fromGroupPricedItinerary(tuple.$2, tuple.$1);
-          TransactionInfo? transactionInfo = bookingDetailRs.bookingInfo?.transactionInfoFlight(tuple.$1);
+          GtdFlightItem item =
+              GtdFlightItem.fromGroupPricedItinerary(tuple.$2, tuple.$1);
+          TransactionInfo? transactionInfo =
+              bookingDetailRs.bookingInfo?.transactionInfoFlight(tuple.$1);
           GtdFlightItemDetail flightItemDetail = GtdFlightItemDetail(
               flightItem: item,
               flightDirection: tuple.$1,

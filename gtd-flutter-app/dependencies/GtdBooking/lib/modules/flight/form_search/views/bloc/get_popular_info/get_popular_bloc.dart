@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/response/gtd_popular_airport_rs.dart';
+import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository.dart';
 
 part 'get_popular_event.dart';
@@ -31,5 +31,4 @@ class GetPopularBloc extends Bloc<GetPopularEvent, GetPopularState> {
       emit(state.copyWith(status: GetPopularStatus.failure));
     }
   }
-
 }

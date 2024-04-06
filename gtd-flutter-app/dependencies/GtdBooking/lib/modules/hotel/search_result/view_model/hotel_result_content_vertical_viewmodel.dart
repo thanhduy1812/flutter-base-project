@@ -12,16 +12,33 @@ class HotelResultContentVerticalViewModel extends BaseViewModel {
   int totalPage = 0;
   bool hasNextPage = false;
   final int totalNights;
-  HotelResultContentVerticalViewModel({required this.totalNights});
+  final int totalRoom;
 
-  factory HotelResultContentVerticalViewModel.fromHotelSearchDTO(GtdHotelSearchResultDTO hotelSearchResultDTO, {required int totalNights}) {
-    HotelResultContentVerticalViewModel viewModel = HotelResultContentVerticalViewModel(totalNights: totalNights);
+  HotelResultContentVerticalViewModel({
+    required this.totalNights,
+    required this.totalRoom,
+  });
+
+  factory HotelResultContentVerticalViewModel.fromHotelSearchDTO(
+    GtdHotelSearchResultDTO hotelSearchResultDTO, {
+    required int totalNights,
+    required int totalRoom,
+  }) {
+    HotelResultContentVerticalViewModel viewModel =
+        HotelResultContentVerticalViewModel(
+      totalNights: totalNights,
+      totalRoom: totalRoom,
+    );
     viewModel.totalItem = hotelSearchResultDTO.pageData.totalItem;
     viewModel.totalPage = hotelSearchResultDTO.pageData.totalPage;
     viewModel.currentPage = hotelSearchResultDTO.pageData.page;
     viewModel.hasNextPage = hotelSearchResultDTO.pageData.hasNextPage;
     viewModel.hotelCardItemViewModels = hotelSearchResultDTO.pageData.data
-        .map((e) => HotelResultCardItemViewModel.fromHotelItemDTO(hotelItemDTO: e, totalNight: totalNights))
+        .map((e) => HotelResultCardItemViewModel.fromHotelItemDTO(
+              hotelItemDTO: e,
+              totalNight: totalNights,
+              totalRoom: totalRoom,
+            ))
         .toList();
     return viewModel;
   }
@@ -32,19 +49,29 @@ class HotelResultContentVerticalViewModel extends BaseViewModel {
     currentPage = hotelSearchResultDTO.pageData.page;
     hasNextPage = hotelSearchResultDTO.pageData.hasNextPage;
     var nextItems = hotelSearchResultDTO.pageData.data
-        .map((e) => HotelResultCardItemViewModel.fromHotelItemDTO(hotelItemDTO: e, totalNight: totalNights))
+        .map((e) => HotelResultCardItemViewModel.fromHotelItemDTO(
+              hotelItemDTO: e,
+              totalNight: totalNights,
+              totalRoom: totalRoom,
+            ))
         .toList();
     hotelCardItemViewModels.addAll(nextItems);
   }
 
   void addLoadingItems() {
-    List<HotelResultCardItemViewModel> hotelCardItemLoadingViewModels = Iterable<int>.generate(4)
-        .map((e) => HotelResultCardItemViewModel(cardItemType: HotelResultCardItemType.loading, totalNight: 1))
-        .toList();
+    List<HotelResultCardItemViewModel> hotelCardItemLoadingViewModels =
+        Iterable<int>.generate(4)
+            .map((e) => HotelResultCardItemViewModel(
+                  cardItemType: HotelResultCardItemType.loading,
+                  totalNight: totalNights,
+                  totalRoom: totalRoom,
+                ))
+            .toList();
     hotelCardItemViewModels.addAll(hotelCardItemLoadingViewModels);
   }
 
   void finishLoadingItems() {
-    hotelCardItemViewModels.removeWhere((element) => element.cardItemType == HotelResultCardItemType.loading);
+    hotelCardItemViewModels.removeWhere(
+        (element) => element.cardItemType == HotelResultCardItemType.loading);
   }
 }

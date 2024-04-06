@@ -11,6 +11,7 @@ class GtdPresentViewHelper {
     bool isFullScreen = true,
     bool useRootContext = false,
     bool hasInsetBottom = true,
+    bool enableDrag = true,
     Color? contentColor,
     EdgeInsets? contentPadding,
     Function(T result)? onChanged,
@@ -20,6 +21,7 @@ class GtdPresentViewHelper {
     final result = await showModalBottomSheet<T>(
         context: context,
         useSafeArea: true,
+        enableDrag: enableDrag,
         isScrollControlled: isFullScreen,
         // backgroundColor: contentColor,
         builder: (BuildContext context) {
@@ -171,7 +173,7 @@ class GtdPresentViewHelper {
                     padding: const EdgeInsets.all(0),
                     child: Text(
                       title,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
                     ),
                   ),
                   automaticallyImplyLeading: false,

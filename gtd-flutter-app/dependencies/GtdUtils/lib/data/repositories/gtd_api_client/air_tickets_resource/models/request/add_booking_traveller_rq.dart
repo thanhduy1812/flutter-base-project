@@ -141,7 +141,7 @@ class TravelerRq {
   String? memberCardNumber;
   String surName;
   String bookingNumber;
-  DateTime dob;
+  DateTime? dob;
   bool? personRepresentation;
 
   factory TravelerRq.fromRawJson(String str) => TravelerRq.fromJson(json.decode(str));
@@ -175,7 +175,7 @@ class TravelerRq {
         "memberCardNumber": memberCardNumber,
         "surName": surName,
         "bookingNumber": bookingNumber,
-        "dob": dob.toIso8601String(),
+        "dob": dob?.toIso8601String(),
         "personRepresentation": personRepresentation
       };
 }

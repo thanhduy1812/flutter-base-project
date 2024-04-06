@@ -43,6 +43,7 @@ class HotelSearchResultPageViewModel extends BasePageViewModel {
       supplier: "EXPEDIA");
 
   late GtdHotelSearchResultDTO hotelSearchResultDTO;
+
   HotelSearchResultPageViewModel(this.searchHotelFormModel) {
     title = "Đà Nẵng";
     subTitle = "2 Phòng, 4 Khách, 2 Đêm";
@@ -57,20 +58,32 @@ class HotelSearchResultPageViewModel extends BasePageViewModel {
         "${searchHotelFormModel.rooms.length} Phòng ${searchHotelFormModel.totalAdult + searchHotelFormModel.totalChild} Khách ${viewModel.totalNights} Đêm";
     viewModel.subTitleNotifer.value = viewModel.subTitle ?? "";
     viewModel.hotelSearchResultDTO = hotelSearchResultDTO;
-    viewModel.verticalContentViewModel = HotelResultContentVerticalViewModel.fromHotelSearchDTO(hotelSearchResultDTO,
-        totalNights: viewModel.totalNights);
-    viewModel.mapViewModel = HotelResultMapViewModel.fromListHotelItemDTO(hotelSearchResultDTO.pageData.data,
-        totalNights: viewModel.totalNights);
+    viewModel.verticalContentViewModel = HotelResultContentVerticalViewModel.fromHotelSearchDTO(
+      hotelSearchResultDTO,
+      totalNights: viewModel.totalNights,
+      totalRoom: viewModel.totalRoom,
+    );
+    viewModel.mapViewModel = HotelResultMapViewModel.fromListHotelItemDTO(
+      hotelSearchResultDTO.pageData.data,
+      totalNights: viewModel.totalNights,
+      totalRoom: viewModel.totalRoom,
+    );
     viewModel.hotelSearchRq = searchHotelFormModel.createHotelSearchRequest();
     return viewModel;
   }
 
   void updateHotelResultDTO(GtdHotelSearchResultDTO hotelSearchResultDTO) {
     this.hotelSearchResultDTO = hotelSearchResultDTO;
-    verticalContentViewModel =
-        HotelResultContentVerticalViewModel.fromHotelSearchDTO(hotelSearchResultDTO, totalNights: totalNights);
-    mapViewModel =
-        HotelResultMapViewModel.fromListHotelItemDTO(hotelSearchResultDTO.pageData.data, totalNights: totalNights);
+    verticalContentViewModel = HotelResultContentVerticalViewModel.fromHotelSearchDTO(
+      hotelSearchResultDTO,
+      totalNights: totalNights,
+      totalRoom: totalRoom,
+    );
+    mapViewModel = HotelResultMapViewModel.fromListHotelItemDTO(
+      hotelSearchResultDTO.pageData.data,
+      totalNights: totalNights,
+      totalRoom: totalRoom,
+    );
   }
 
   Map<String, dynamic> createFilterRequest() {
@@ -97,7 +110,6 @@ class HotelSearchResultPageViewModel extends BasePageViewModel {
         .flattened
         .toList();
     var finalMap = Map.fromEntries(result);
-    print(finalMap);
     return finalMap;
   }
 
@@ -137,6 +149,8 @@ class HotelSearchResultPageViewModel extends BasePageViewModel {
     int nights = searchHotelFormModel.toDate!.difference(searchHotelFormModel.fromDate!).inDays;
     return nights;
   }
+
+  int get totalRoom => searchHotelFormModel.rooms.length;
 
   @override
   void dispose() {

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/cubit/flight_fare_rules_cubit.dart';
@@ -10,8 +11,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'flight_itinerary_detail/view_model/flight_itinerary_info_viewmodel.dart';
 import 'flight_itinerary_detail/views/flight_itinerary_info_view.dart';
-
-
 
 class FlightItemDetailView extends BaseView<FlightItemDetailViewModel> {
   const FlightItemDetailView({super.key, required super.viewModel});
@@ -89,7 +88,7 @@ class FlightItemDetailView extends BaseView<FlightItemDetailViewModel> {
                         ),
                         SizedBox(
                           child: viewModel.flightFareRuleContent == null
-                              ? const Center(child: Text("Fare rule is coming"))
+                              ? const Center(child: Text("Loading..."))
                               : SingleChildScrollView(
                                   padding: EdgeInsets.zero,
                                   child: GtdHtmlView(
@@ -97,7 +96,9 @@ class FlightItemDetailView extends BaseView<FlightItemDetailViewModel> {
                                     onLinkTap: ({attributes, url}) async {
                                       final Uri policyUrl = Uri.parse(url!);
                                       if (!await launchUrl(policyUrl)) {
-                                        print("cannot open url");
+                                        if (kDebugMode) {
+                                          print("cannot open url");
+                                        }
                                       }
                                     },
                                   ),

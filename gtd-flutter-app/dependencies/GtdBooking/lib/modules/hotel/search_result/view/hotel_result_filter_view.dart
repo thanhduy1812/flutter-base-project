@@ -100,7 +100,6 @@ class HotelResultFilterView extends BaseView<HotelResultFilterViewModel> {
                       ),
                       borderRadius: 25,
                       onPressed: (value) {
-                        print("Đặt lại");
                         setState(
                           () {
                             viewModel.groupListItems.flattened.map((e) => e.isSelected = false).toList();

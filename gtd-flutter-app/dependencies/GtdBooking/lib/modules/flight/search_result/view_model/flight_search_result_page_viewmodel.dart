@@ -14,43 +14,63 @@ import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 class FlightSearchResultPageViewModel extends BasePageViewModel {
   final GtdFlightSearchResultDTO flightSearchResultDTO;
   final SearchFlightFormModel searchFlightFormModel;
-  final List<Widget> loadingItems = [1].map((e) => ListFlightItemLoading.flightItemLoadingWidget()).toList();
+  final List<Widget> loadingItems =
+      [1].map((e) => ListFlightItemLoading.flightItemLoadingWidget()).toList();
   final FlightDirection flightDirection;
   late FilterAvailabilityRq filterAvailabilityRq;
   List<AllFilterOptionsDTO> filterOptions = [];
+
   // List<GtdFlightItem> flighItems = [];
   List<ItemFlightComponentViewModel> itemFlightViewModels = [];
   GtdFlightItem? selectedFlightItem;
   int currentPage = 0;
   int totalPage = 0;
+
   // bool hasNextPage = false;
   bool isLastPage = false;
   bool beginLoadMore = false;
-  FlightSearchResultPageViewModel(
-      {required this.flightSearchResultDTO, required this.flightDirection, required this.searchFlightFormModel}) {
-    title = 'flight.searchResult'.tr(gender: flightDirection.value.toLowerCase());
+  BuildContext? pageContext;
+
+  FlightSearchResultPageViewModel({
+    required this.flightSearchResultDTO,
+    required this.flightDirection,
+    required this.searchFlightFormModel,
+  }) {
+    title = 'flight.searchResult'.tr(
+      gender: flightDirection.value.toLowerCase(),
+    );
+
+    subTitle = searchFlightFormModel.passengerCountSubtitle();
 
     if (flightDirection == FlightDirection.d) {
-      filterAvailabilityRq = flightSearchResultDTO.departureItinerary!.filterOptions!;
+      filterAvailabilityRq =
+          flightSearchResultDTO.departureItinerary!.filterOptions!;
     }
 
     if (flightDirection == FlightDirection.r) {
       String searchId = (flightDirection == FlightDirection.d)
           ? flightSearchResultDTO.departureSearchId!
-          : ((isDome) ? flightSearchResultDTO.returnSearchId! : flightSearchResultDTO.departureSearchId!);
+          : ((isDome)
+              ? flightSearchResultDTO.returnSearchId!
+              : flightSearchResultDTO.departureSearchId!);
 
       var departureItinerary = flightSearchResultDTO.initDepartureItineraryRq;
       filterAvailabilityRq = FilterAvailabilityRq.createFilterRq(
-          searchId: searchId,
-          flightDirection: flightDirection,
-          flightType: flightSearchResultDTO.flightType!,
-          departureItinerary: departureItinerary);
+        searchId: searchId,
+        flightDirection: flightDirection,
+        flightType: flightSearchResultDTO.flightType!,
+        departureItinerary: departureItinerary,
+      );
     }
   }
-  GtdFlightItinerary? get flightItinerary => flightDirection == FlightDirection.d
-      ? flightSearchResultDTO.departureItinerary
-      : flightSearchResultDTO.returnItinerary;
+
+  GtdFlightItinerary? get flightItinerary =>
+      flightDirection == FlightDirection.d
+          ? flightSearchResultDTO.departureItinerary
+          : flightSearchResultDTO.returnItinerary;
+
   bool get isDome => flightSearchResultDTO.flightType == FlightType.dom;
+
   bool get isRoundTrip => flightSearchResultDTO.isRoundTrip;
 
   bool get hideFilter => !isDome && flightDirection == FlightDirection.r;
@@ -62,14 +82,17 @@ class FlightSearchResultPageViewModel extends BasePageViewModel {
     title = (flightDirection == FlightDirection.d)
         ? "${searchFlightFormModel.fromLocation.name} - ${searchFlightFormModel.toLocation.name}"
         : "${searchFlightFormModel.toLocation.name} - ${searchFlightFormModel.fromLocation.name}";
-    int totalPassenger = (searchFlightFormModel.adult) + (searchFlightFormModel.child) + (searchFlightFormModel.infant);
+    // int totalPassenger = (searchFlightFormModel.adult) +
+    //     (searchFlightFormModel.child) +
+    //     (searchFlightFormModel.infant);
     String subTitle =
-        "${(flightDirection == FlightDirection.d ? searchFlightFormModel.departDate : searchFlightFormModel.returnDate)?.localDate('EEEE dd/MM/yyyy')} - $totalPassenger hành khách";
+        "${(flightDirection == FlightDirection.d ? searchFlightFormModel.departDate : searchFlightFormModel.returnDate)?.localDate('EEEE dd/MM/yyyy')}";
     return (title: title, subTitle: subTitle);
   }
 
   void updateFlightSearchResultDTO() {
-    flightItinerary?.flightItems = itemFlightViewModels.map((e) => e.groupItem).toList();
+    flightItinerary?.flightItems =
+        itemFlightViewModels.map((e) => e.groupItem).toList();
   }
 
   void updateFlightItems(GtdFlightSearchResultDTO flightSearchResultDTO) {
@@ -91,7 +114,13 @@ class FlightSearchResultPageViewModel extends BasePageViewModel {
     currentPage = newItinerary?.page?.pageNumber ?? 0;
     isLastPage = newItinerary?.page?.isLastPage ?? true;
     var newItems = (newItinerary?.flightItems ?? [])
-        .map((e) => ItemFlightComponentViewModel(groupItem: e, groupItemSelected: selectedFlightItem))
+        .map(
+          (e) => ItemFlightComponentViewModel(
+            groupItem: e,
+            groupItemSelected: selectedFlightItem,
+            flightType: flightSearchResultDTO.flightType ?? FlightType.dom,
+          ),
+        )
         .toList();
     itemFlightViewModels.addAll(newItems);
   }
@@ -111,24 +140,28 @@ class FlightSearchResultPageViewModel extends BasePageViewModel {
 
   void applyFilter(List<AllFilterOptionsDTO> filterOptions) {
     refresh();
-    filterAvailabilityRq.filter =
-        FlightFilter.toGtdFilterOptions(flightItinerary?.filterOptions, filterOptions, flightDirection);
+    filterAvailabilityRq.filter = FlightFilter.toGtdFilterOptions(
+        flightItinerary?.filterOptions, filterOptions, flightDirection);
   }
 
   void addLoadingItems() {
     List<ItemFlightComponentViewModel> flightLoadingItems =
-        Iterable<int>.generate(4).map((e) => ItemFlightComponentViewModel.loading()).toList();
+        Iterable<int>.generate(4)
+            .map((e) => ItemFlightComponentViewModel.loading())
+            .toList();
     itemFlightViewModels.addAll(flightLoadingItems);
     beginLoadMore = true;
   }
 
   void finishLoadingItems() {
-    itemFlightViewModels.removeWhere((element) => element.viewType == ItemFlightType.loading);
+    itemFlightViewModels
+        .removeWhere((element) => element.viewType == ItemFlightType.loading);
     beginLoadMore = false;
   }
 
   GtdFlightDraftBookingRq get draftBookingRq {
-    GtdFlightDraftBookingRq draftBookingRq = flightSearchResultDTO.createDraftBookingRq();
+    GtdFlightDraftBookingRq draftBookingRq =
+        flightSearchResultDTO.createDraftBookingRq();
     return draftBookingRq;
   }
 }

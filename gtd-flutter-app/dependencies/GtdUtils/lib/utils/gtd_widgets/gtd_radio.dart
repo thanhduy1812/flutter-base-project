@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 
 class GtdRadio<T> extends StatelessWidget {
   final Widget? selectedIcon;
@@ -8,6 +9,7 @@ class GtdRadio<T> extends StatelessWidget {
   final T? groupValue;
   final T value;
   final ValueChanged<T>? onChanged;
+
   const GtdRadio({
     Key? key,
     this.selectedIcon = const Icon(Icons.radio_button_checked),
@@ -35,5 +37,43 @@ class GtdRadio<T> extends StatelessWidget {
           padding: padding ?? const EdgeInsets.all(0),
           child: isSelected ? selectedIcon : unselectedIcon,
         ));
+  }
+}
+
+class GtdSimpleRadioWidget extends StatelessWidget {
+  final bool isSelected;
+  final double size;
+
+  const GtdSimpleRadioWidget({
+    super.key,
+    this.isSelected = false,
+    required this.size,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(size / 2),
+        border: Border.all(
+          color: GtdColors.blueGrey,
+          width: 2,
+        ),
+      ),
+      child: isSelected
+          ? Center(
+              child: Container(
+                width: size / 2,
+                height: size / 2,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(size / 4),
+                  color: GtdColors.appMainColor(context),
+                ),
+              ),
+            )
+          : const SizedBox(),
+    );
   }
 }

@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 
@@ -17,9 +18,11 @@ class GtdCheckoutContentViewModel extends BaseViewModel {
   late CheckoutTravellerFormVM contactInfo;
   BehaviorSubject<List<CheckoutTravellerFormVM>> passengersFormSubject =
       BehaviorSubject<List<CheckoutTravellerFormVM>>();
+
   Stream<List<CheckoutTravellerFormVM>> get passengersStream => passengersFormSubject.stream;
 
   BehaviorSubject<CheckoutTravellerFormVM> contactFormSubject = BehaviorSubject<CheckoutTravellerFormVM>();
+
   Stream<CheckoutTravellerFormVM> get contactStream => contactFormSubject.stream;
 
   final BookingDetailDTO bookingDetailDTO;
@@ -46,7 +49,12 @@ class GtdCheckoutContentViewModel extends BaseViewModel {
       passengers.map((e) {
         e.isContact = (e.position == key) ? usedForContact! : false;
       }).toList();
-      updateContact(fullName: "${updatePassenger?.firstName.text} ${updatePassenger?.lastName.text}");
+      updateContact(
+        firstName: updatePassenger?.firstName.text,
+        lastName: updatePassenger?.lastName.text,
+        // fullName:
+        //     "${updatePassenger?.firstName.text} ${updatePassenger?.lastName.text}",
+      );
     } else {
       updatePassenger?.isContact = usedForContact ?? updatePassenger.isContact;
     }
@@ -77,11 +85,19 @@ class GtdCheckoutContentViewModel extends BaseViewModel {
     }
   }
 
-  void updateContact({ValueKey? key, String? fullName, String? phoneNumber, String? email, bool? isValid}) {
+  void updateContact({
+    ValueKey? key,
+    String? firstName,
+    String? lastName,
+    String? phoneNumber,
+    String? email,
+    bool? isValid,
+  }) {
     CheckoutTravellerFormVM contact = contactFormSubject.value;
-    contact.fullName.onSelectedValue(fullName);
-    contact.phoneNumber.onSelectedValue(phoneNumber);
+    contact.lastName.onSelectedValue(lastName);
+    contact.firstName.onSelectedValue(firstName);
     contact.email.onSelectedValue(email);
+    contact.phoneNumber.onSelectedValue(phoneNumber);
     contactFormSubject.sink.add(contact);
   }
 
@@ -114,8 +130,16 @@ class GtdCheckoutContentViewModel extends BaseViewModel {
   }
 
   Stream<bool> get isEnableCheckoutBtn => Rx.combineLatest2(passengersStream, contactStream, (a, b) {
-        var isValidPassengers = a.map((e) => e.listTFVM).flattened.map((e) => e.validateInput()).firstWhere(
-              (element) => element == false,
+        // var isValidPassengers = a
+        //     .map((e) => e.listTFVM)
+        //     .flattened
+        //     .map((e) => e.validateInput())
+        //     .firstWhere(
+        //       (element) => element == false,
+        //       orElse: () => true,
+        //     );
+        var isValidPassengers = a.first.listTFVM.map((e) => e.validateInput()).firstWhere(
+              (valid) => valid == false,
               orElse: () => true,
             );
         var isValidContact = b.listTFVM.map((e) => e.validateInput()).firstWhere(
@@ -123,7 +147,9 @@ class GtdCheckoutContentViewModel extends BaseViewModel {
               orElse: () => true,
             );
         var isEnable = (isValidPassengers && isValidContact);
-        print("enable button: $isEnable");
+        if (kDebugMode) {
+          print("enable button: $isEnable");
+        }
         return isEnable;
         // return result ?? true;
       });

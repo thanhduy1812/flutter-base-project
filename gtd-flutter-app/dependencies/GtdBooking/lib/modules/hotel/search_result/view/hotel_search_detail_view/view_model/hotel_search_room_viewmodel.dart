@@ -12,19 +12,26 @@ class HotelSearchRoomViewModel extends BaseViewModel {
   String tripId = "";
   String roomId = "";
   double? comparePrice;
+  String? priceTitle;
+
   HotelSearchRoomViewModel();
 
-  factory HotelSearchRoomViewModel.fromRatePlan(RatePlan ratePlan,
-      {required String tripId, required String roomId}) {
+  factory HotelSearchRoomViewModel.fromRatePlan(
+    RatePlan ratePlan, {
+    required String tripId,
+    required String roomId,
+  }) {
     HotelSearchRoomViewModel viewModel = HotelSearchRoomViewModel()
       ..ratePlan = ratePlan
       ..roomId = roomId
       ..tripId = tripId;
+    viewModel.priceTitle = ratePlan.tempBasePriceInfo;
     return viewModel;
   }
 
   GtdHotelCheckoutRq createCheckoutRq() {
-    return GtdHotelCheckoutRq(tripId: tripId, roomId: roomId, ratePlanId: ratePlan.ratePlanId!);
+    return GtdHotelCheckoutRq(
+        tripId: tripId, roomId: roomId, ratePlanId: ratePlan.ratePlanId!);
   }
 
   String get netRoomPricePerNight {
@@ -43,8 +50,6 @@ class HotelSearchRoomViewModel extends BaseViewModel {
       return ratePlan.totalRoomPricePerNight.toCurrency();
     }
   }
-
-
 
   PriceBottomDetailViewModel get priceBottomDetailViewModel {
     return PriceBottomDetailViewModel.fromRatePlan(ratePlan);

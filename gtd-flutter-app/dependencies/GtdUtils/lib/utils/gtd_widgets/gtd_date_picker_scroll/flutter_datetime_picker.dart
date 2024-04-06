@@ -29,6 +29,8 @@ class GtdDatePickerScroll {
     locale = LocaleType.vi,
     DateTime? currentTime,
     GtdDatePickerTheme? theme,
+    String? title,
+    String? confirmText,
   }) async {
     return await Navigator.push(
       context,
@@ -38,6 +40,8 @@ class GtdDatePickerScroll {
         onConfirm: onConfirm,
         onCancel: onCancel,
         locale: locale,
+        title: title,
+        confirmText: confirmText,
         theme: theme,
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         pickerModel: DatePickerModel(
@@ -187,6 +191,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     GtdDatePickerTheme? theme,
     this.barrierLabel,
     this.locale,
+    this.title,
+    this.confirmText,
     RouteSettings? settings,
     BasePickerModel? pickerModel,
   })  : pickerModel = pickerModel ?? DatePickerModel(),
@@ -200,6 +206,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final LocaleType? locale;
   final GtdDatePickerTheme theme;
   final BasePickerModel pickerModel;
+  final String? title;
+  final String? confirmText;
 
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
@@ -232,6 +240,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
         locale: this.locale,
         route: this,
         pickerModel: pickerModel,
+        title: title,
+        confirmText: confirmText,
       ),
     );
     return InheritedTheme.captureAll(context, bottomSheet);
@@ -245,6 +255,8 @@ class _DatePickerComponent extends StatefulWidget {
     required this.pickerModel,
     this.onChanged,
     this.locale,
+    this.title,
+    this.confirmText,
   }) : super(key: key);
 
   final DateChangedCallback? onChanged;
@@ -254,6 +266,8 @@ class _DatePickerComponent extends StatefulWidget {
   final LocaleType? locale;
 
   final BasePickerModel pickerModel;
+  final String? title;
+  final String? confirmText;
 
   @override
   State<StatefulWidget> createState() {
@@ -339,7 +353,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
       height: theme.titleHeight,
       width: double.infinity,
       child: GtdButton(
-        text: 'Xác nhận',
+        text: widget.confirmText ?? 'Xác nhận',
         height: theme.titleHeight,
         gradient: GtdColors.appGradient(context),
         borderRadius: 10,
@@ -481,8 +495,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   // Title View
   Widget _renderTitleActionsView(GtdDatePickerTheme theme) {
-    final done = _localeDone();
-    final cancel = _localeCancel();
+    // final done = _localeDone();
+    // final cancel = _localeCancel();
 
     return Container(
       height: theme.titleHeight,
@@ -490,8 +504,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
         color: theme.headerColor ?? theme.backgroundColor,
       ),
       child: ListTile(
-        title: const Text('Ngày sinh',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
+        title: Text(widget.title ?? 'Ngày sinh',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600), textAlign: TextAlign.center),
         leading: const SizedBox(width: 30),
         trailing: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(100)),
@@ -512,7 +526,7 @@ class _DatePickerState extends State<_DatePickerComponent> {
         ),
       ),
 
-      //TODO confirm define button
+      //MARK confirm define button
       // onPressed: () {
       //   Navigator.pop(context, widget.pickerModel.finalTime());
       //   if (widget.route.onConfirm != null) {
@@ -522,13 +536,13 @@ class _DatePickerState extends State<_DatePickerComponent> {
     );
   }
 
-  String _localeDone() {
-    return i18nObjInLocale(widget.locale)['done'] as String;
-  }
+  // String _localeDone() {
+  //   return i18nObjInLocale(widget.locale)['done'] as String;
+  // }
 
-  String _localeCancel() {
-    return i18nObjInLocale(widget.locale)['cancel'] as String;
-  }
+  // String _localeCancel() {
+  //   return i18nObjInLocale(widget.locale)['cancel'] as String;
+  // }
 }
 
 class _BottomPickerLayout extends SingleChildLayoutDelegate {
@@ -541,6 +555,7 @@ class _BottomPickerLayout extends SingleChildLayoutDelegate {
   });
 
   final double progress;
+
   // final int? itemCount;
   final bool? showTitleActions;
   final GtdDatePickerTheme theme;

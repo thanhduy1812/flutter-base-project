@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_result.dart';
 import 'package:gtd_booking/modules/my_booking/view_model/my_booking_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
@@ -12,6 +13,7 @@ import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_tap_widget.dart';
 
 class MyBookingFlightItem<T> extends BaseView<MyBookingItemViewModel> {
   const MyBookingFlightItem({
@@ -220,9 +222,19 @@ class MyBookingFlightItem<T> extends BaseView<MyBookingItemViewModel> {
                       )
                     : const SizedBox(),
                 const SizedBox(width: 16),
-                Text(
-                  "Xem chi tiết",
-                  style: TextStyle(color: AppColors.mainColor),
+                GtdTapWidget(
+                  onTap: () {
+                    context.push(
+                      BookingResultPage.route,
+                      extra: {
+                        'bookingNumber': itemBooking.bookingNumber,
+                      },
+                    );
+                  },
+                  child: Text(
+                    "Xem chi tiết",
+                    style: TextStyle(color: AppColors.mainColor),
+                  ),
                 ),
                 const SizedBox(width: 16),
               ],

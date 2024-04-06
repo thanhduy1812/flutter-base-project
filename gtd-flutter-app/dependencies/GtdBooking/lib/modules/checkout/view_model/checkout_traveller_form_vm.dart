@@ -21,6 +21,7 @@ enum FieldType {
   email("email");
 
   final String rawValue;
+
   const FieldType(this.rawValue);
 }
 
@@ -31,6 +32,7 @@ class CheckoutTravellerFormVM {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late List<GtdValidateFieldVM> listTFVM = [];
   TravelerInputInfoDTO? travelerInputInfoDTO;
+
   // bool isValid;
   bool isContact;
   bool isRoundTrip;
@@ -47,13 +49,19 @@ class CheckoutTravellerFormVM {
   GtdServiceFieldVM? departBaggage;
   GtdServiceFieldVM? returnBaggage;
   List<String>? cardNumbers;
-  List<SsrItemVM> get serviceRequests =>
-      [departBaggage?.selectedSsrVM, returnBaggage?.selectedSsrVM].whereType<SsrItemVM>().toList();
 
-  List<SsrItemVM> get departServiceRequests =>
-      serviceRequests.where((element) => element.data.bookingDirection == FlightDirection.d).toList();
-  List<SsrItemVM> get returnServiceRequests =>
-      serviceRequests.where((element) => element.data.bookingDirection == FlightDirection.r).toList();
+  List<SsrItemVM> get serviceRequests => [
+        departBaggage?.selectedSsrVM,
+        returnBaggage?.selectedSsrVM
+      ].whereType<SsrItemVM>().toList();
+
+  List<SsrItemVM> get departServiceRequests => serviceRequests
+      .where((element) => element.data.bookingDirection == FlightDirection.d)
+      .toList();
+
+  List<SsrItemVM> get returnServiceRequests => serviceRequests
+      .where((element) => element.data.bookingDirection == FlightDirection.r)
+      .toList();
 
   String get shortInfoPassenger {
     return "$fullNamePassenger, ${birthDay.text}";
@@ -89,7 +97,8 @@ class CheckoutTravellerFormVM {
         adultTitle = 'Người lớn ${position.value + 1}';
       }
       if (formType == CheckoutTravellerFormType.presenterHotel) {
-        adultTitle = 'Đại diện phòng ${position.value + 1}';
+        // adultTitle = 'Đại diện phòng ${position.value + 1}';
+        adultTitle = 'Đại diện phòng';
       }
     }
     departBaggage = GtdServiceFieldVM(label: 'checkout.baggageDeparture'.tr());
@@ -98,24 +107,26 @@ class CheckoutTravellerFormVM {
     }
 
     this.lastName = GtdInputTextFieldVM(
-      type: GtdTextFieldType.name,
+      type: GtdTextFieldType.none,
       inputValidateBehavior: GtdInputValidateBehavior.auto,
-      inputUserBehavior: GtdInputUserBehavior.selection,
+      inputUserBehavior: GtdInputUserBehavior.typing,
       text: lastName ?? "",
       groupTitle: adultTitle,
-      label: "Họ",
-      placeholder: "Họ của khách hàng",
+      label: "Họ người liên hệ",
+      placeholder: "Họ người liên hệ",
       allowEmpty: false,
+      showRequired: true,
     );
     this.firstName = GtdInputTextFieldVM(
-      type: GtdTextFieldType.name,
+      type: GtdTextFieldType.none,
       inputValidateBehavior: GtdInputValidateBehavior.auto,
-      inputUserBehavior: GtdInputUserBehavior.selection,
+      inputUserBehavior: GtdInputUserBehavior.typing,
       text: firstName ?? "",
       groupTitle: adultTitle,
       label: "Tên đệm và tên",
       placeholder: "Tên đệm và tên",
       allowEmpty: false,
+      showRequired: true,
     );
     this.fullName = GtdInputTextFieldVM(
       type: GtdTextFieldType.name,
@@ -128,24 +139,29 @@ class CheckoutTravellerFormVM {
       allowEmpty: false,
     );
     this.email = GtdInputTextFieldVM(
-        type: GtdTextFieldType.email,
-        inputUserBehavior: GtdInputUserBehavior.selection,
-        inputValidateBehavior: GtdInputValidateBehavior.auto,
-        text: email ?? "",
-        groupTitle: adultTitle,
-        label: "Email",
-        placeholder: "Email của người liên hệ",
-        allowEmpty: false,
-        hasUnderlineBorder: false);
+      type: GtdTextFieldType.email,
+      inputUserBehavior: GtdInputUserBehavior.selection,
+      inputValidateBehavior: GtdInputValidateBehavior.auto,
+      text: email ?? "",
+      groupTitle: adultTitle,
+      label: "Email liên hệ",
+      placeholder: "Email liên hệ",
+      allowEmpty: false,
+      hasUnderlineBorder: false,
+      showRequired: true,
+    );
     this.phoneNumber = GtdInputTextFieldVM(
-      type: Platform.isIOS ? GtdTextFieldType.phoneIOS : GtdTextFieldType.phoneAndroid,
+      type: Platform.isIOS
+          ? GtdTextFieldType.phoneIOS
+          : GtdTextFieldType.phoneAndroid,
       inputUserBehavior: GtdInputUserBehavior.selection,
       inputValidateBehavior: GtdInputValidateBehavior.auto,
       text: phoneNumber ?? "",
       groupTitle: adultTitle,
-      label: "Số điện thoại",
-      placeholder: "Số điện thoại của người liên hệ",
+      label: "Điện thoại liên hệ",
+      placeholder: "Điện thoại liên hệ",
       allowEmpty: false,
+      showRequired: true,
     );
     this.birthDay = GtdSelectDateTextFieldVM(
       selectedDate: birthDay,
@@ -159,10 +175,12 @@ class CheckoutTravellerFormVM {
     } else if (formType == CheckoutTravellerFormType.presenterHotel) {
       listTFVM = [this.lastName, this.firstName];
     } else if (formType == CheckoutTravellerFormType.contact) {
-      listTFVM = [this.fullName, this.phoneNumber, this.email];
+      listTFVM = [this.lastName, this.firstName, this.email, this.phoneNumber];
     }
   }
-  void updateAdultTitle({int adultCount = 1, int childCount = 0, int infantCount = 0}) {
+
+  void updateAdultTitle(
+      {int adultCount = 1, int childCount = 0, int infantCount = 0}) {
     int valuePos = position.value;
     switch (adultType) {
       case FlightAdultType.adult:
@@ -193,11 +211,14 @@ extension CheckoutTravellerFormMapper on CheckoutTravellerFormVM {
 
   TravelerInputInfoDTO get toInputInfoContact {
     TravelerInputInfoDTO contactInputInfo = TravelerInputInfoDTO(
-        fullName: fullNameContact,
-        email: email.text,
-        phoneNumber: phoneNumber.text,
-        dob: birthDay.selectedDate,
-        infoType: TravelerInputInfoType.contact);
+      fullName: fullNameContact,
+      lastName: lastName.text,
+      firstName: firstName.text,
+      email: email.text,
+      phoneNumber: phoneNumber.text,
+      dob: birthDay.selectedDate,
+      infoType: TravelerInputInfoType.contact,
+    );
     return contactInputInfo;
   }
 
@@ -213,10 +234,13 @@ extension CheckoutTravellerFormMapper on CheckoutTravellerFormVM {
       bookingNumber: bookingNumber,
       dob: birthDay.selectedDate!,
     );
-    var ssrDepart = [departBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
-    var ssrReturn = [returnBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
+    var ssrDepart =
+        [departBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
+    var ssrReturn =
+        [returnBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
     List<SsrOfferDTO> serviceRequests = [...ssrDepart, ...ssrReturn];
-    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(traveler: traveler, serviceRequests: serviceRequests);
+    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(
+        traveler: traveler, serviceRequests: serviceRequests);
     return travelerInfo;
   }
 

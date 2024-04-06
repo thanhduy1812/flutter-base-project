@@ -17,6 +17,7 @@ import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
 
 class SearchComboPage extends BaseStatelessPage<SearchComboPageViewModel> {
   static const String route = '/searchComboPage';
+
   const SearchComboPage({super.key, required super.viewModel});
 
   @override
@@ -31,15 +32,27 @@ class SearchComboPage extends BaseStatelessPage<SearchComboPageViewModel> {
                 slivers: [
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                      child: LocationInfoView(viewModel: viewModel.searchFlightViewModel.locationInfoViewModel),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 16,
+                      ),
+                      child: LocationInfoView(
+                        viewModel: viewModel
+                            .searchFlightViewModel.locationInfoViewModel,
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
+                      padding: const EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: 16,
+                      ),
                       child: DateItineraryView(
-                        viewModel: viewModel.searchFlightViewModel.dateItineraryViewModel,
+                        viewModel: viewModel
+                            .searchFlightViewModel.dateItineraryViewModel,
                         onChangedRoundTrip: (value) {
                           setState(
                             () {
@@ -56,85 +69,120 @@ class SearchComboPage extends BaseStatelessPage<SearchComboPageViewModel> {
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: ComboPassengersRoomView(viewModel: viewModel.passengersRoomViewModel),
+                      child: ComboPassengersRoomView(
+                        viewModel: viewModel.passengersRoomViewModel,
+                      ),
                     ),
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: StatefulBuilder(builder: (context, setStateHotelPicker) {
-                        return Column(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                setStateHotelPicker(
-                                  () {
-                                    viewModel.toogleHotelDifference();
-                                  },
-                                );
-                              },
-                              child: Card(
-                                elevation: 1,
-                                margin: EdgeInsets.zero,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text.rich(TextSpan(
-                                            text: "Khách sạn \n",
-                                            style: const TextStyle(fontWeight: FontWeight.w600),
-                                            children: [
-                                              TextSpan(
-                                                  text: "Bạn muốn tìm khách sạn ở địa điểm khác / ngày khác?",
-                                                  style:
-                                                      TextStyle(fontWeight: FontWeight.w400, color: AppColors.subText))
-                                            ])),
-                                      ),
-                                      GtdRadio(
-                                        selectedIcon:
-                                            GtdAppIcon.iconNamedSupplier(iconName: "radio/radio-checkbox-active.svg"),
-                                        unselectedIcon:
-                                            GtdAppIcon.iconNamedSupplier(iconName: "radio/radio-checkbox.svg"),
-                                        value: viewModel.enablePickerHotel,
-                                        groupValue: true,
-                                      )
-                                    ],
+                      child: StatefulBuilder(
+                        builder: (context, setStateHotelPicker) {
+                          return Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  setStateHotelPicker(
+                                    () {
+                                      viewModel.toogleHotelDifference();
+                                    },
+                                  );
+                                },
+                                child: Card(
+                                  elevation: 1,
+                                  margin: EdgeInsets.zero,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text.rich(
+                                            TextSpan(
+                                              text: "Khách sạn \n",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                              children: [
+                                                TextSpan(
+                                                  text:
+                                                      "Bạn muốn tìm khách sạn ở địa điểm khác / ngày khác?",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: AppColors.subText),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        GtdRadio(
+                                          selectedIcon:
+                                              GtdAppIcon.iconNamedSupplier(
+                                            iconName:
+                                                "radio/radio-checkbox-active.svg",
+                                          ),
+                                          unselectedIcon:
+                                              GtdAppIcon.iconNamedSupplier(
+                                            iconName:
+                                                "radio/radio-checkbox.svg",
+                                          ),
+                                          value: viewModel.enablePickerHotel,
+                                          groupValue: true,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 4),
-                            AnimatedSize(
-                              duration: const Duration(milliseconds: 200),
-                              child: viewModel.enablePickerHotel
-                                  ? Column(
-                                      children: [
-                                        Card(
-                                          elevation: 1,
-                                          margin: EdgeInsets.zero,
-                                          color: Colors.white,
-                                          child: GtdTextField(
-                                            viewModel: viewModel.searchHotelViewModel.hotelLocation,
-                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                                            leftIcon: GtdAppIcon.iconNamedSupplier(
-                                                iconName: "hotel/hotel-grey.svg", width: 34),
-                                            rightIcon: SizedBox(
-                                                child: GtdAppIcon.iconNamedSupplier(
-                                                    iconName: "hotel/hotel-my-location.svg")),
-                                            onSelect: () => showHotelSearchLocation(pageContext, setState),
+                              const SizedBox(height: 4),
+                              AnimatedSize(
+                                duration: const Duration(milliseconds: 200),
+                                child: viewModel.enablePickerHotel
+                                    ? Column(
+                                        children: [
+                                          Card(
+                                            elevation: 1,
+                                            margin: EdgeInsets.zero,
+                                            color: Colors.white,
+                                            child: GtdTextField(
+                                              viewModel: viewModel
+                                                  .searchHotelViewModel
+                                                  .hotelLocation,
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 12),
+                                              leftIcon:
+                                                  GtdAppIcon.iconNamedSupplier(
+                                                      iconName:
+                                                          "hotel/hotel-grey.svg",
+                                                      width: 34),
+                                              rightIcon: SizedBox(
+                                                child: GtdAppIcon
+                                                    .iconNamedSupplier(
+                                                  iconName:
+                                                      "hotel/hotel-my-location.svg",
+                                                ),
+                                              ),
+                                              onSelect: () =>
+                                                  showHotelSearchLocation(
+                                                      pageContext, setState),
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        DateCheckinoutView(
-                                            viewModel: viewModel.searchHotelViewModel.checkinoutViewModel),
-                                      ],
-                                    )
-                                  : const SizedBox(),
-                            ),
-                          ],
-                        );
-                      }),
+                                          const SizedBox(height: 4),
+                                          DateCheckinoutView(
+                                            viewModel: viewModel
+                                                .searchHotelViewModel
+                                                .checkinoutViewModel,
+                                          ),
+                                        ],
+                                      )
+                                    : const SizedBox(),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -145,36 +193,56 @@ class SearchComboPage extends BaseStatelessPage<SearchComboPageViewModel> {
               child: SizedBox(
                 height: 40,
                 child: Center(
-                    child: Text.rich(TextSpan(
-                        text: "Thông tin hỗ trợ vui lòng liên hệ ",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey.shade500),
-                        children: [
-                      TextSpan(
-                        text: "1900-9002",
-                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey.shade900),
-                      )
-                    ]))),
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Thông tin hỗ trợ vui lòng liên hệ ",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.grey.shade500,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: "1900-9002",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade900,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
               child: StreamBuilder(
-                  stream: viewModel.isEnableSearchCombo,
-                  builder: (context, snapshot) {
-                    return GtdButton(
-                      text: "Tìm vé combo",
-                      color: AppColors.mainColor,
-                      isEnable: snapshot.data ?? false,
-                      height: 50,
-                      borderRadius: 25,
-                      onPressed: (value) {
-                        var comboLoadingViewModel = ComboSearchingLoadingPageViewModel(
-                            searchHotelFormModel: viewModel.searchHotelComboFormModel,
-                            searchFlightFormModel: viewModel.searchFlightComboFormModel);
-                        pageContext.push(ComboSearchingLoadingPage.route, extra: comboLoadingViewModel);
-                      },
-                    );
-                  }),
+                stream: viewModel.isEnableSearchCombo,
+                builder: (context, snapshot) {
+                  return GtdButton(
+                    text: "Tìm vé combo",
+                    color: AppColors.mainColor,
+                    isEnable: snapshot.data ?? false,
+                    height: 50,
+                    borderRadius: 25,
+                    onPressed: (value) {
+                      var comboLoadingViewModel =
+                          ComboSearchingLoadingPageViewModel(
+                        searchHotelFormModel:
+                            viewModel.searchHotelComboFormModel,
+                        searchFlightFormModel:
+                            viewModel.searchFlightComboFormModel,
+                      );
+                      pageContext.push(
+                        ComboSearchingLoadingPage.route,
+                        extra: comboLoadingViewModel,
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ],
         );

@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -32,40 +33,50 @@ class GtdNativeChannel {
 
   Future<void> gotoPaymentPartner(String bookingNumber) async {
     try {
-      var result = await navigationChannel.invokeMethod("push.partner.payment", bookingNumber);
+      var _ = await navigationChannel.invokeMethod("push.partner.payment", bookingNumber);
     } catch (e) {
-      print("Failed to navigate to payment partner");
+      if (kDebugMode) {
+        print("Failed to navigate to payment partner");
+      }
     }
   }
 
   Future<void> gotoFinalBooking(String bookingNumber) async {
     try {
-      var result = await navigationChannel.invokeMethod("push.partner.finalBooking", bookingNumber);
+      var _ = await navigationChannel.invokeMethod("push.partner.finalBooking", bookingNumber);
     } catch (e) {
-      print("Failed to navigate to final booking");
+      if (kDebugMode) {
+        print("Failed to navigate to final booking");
+      }
     }
   }
 
   Future<void> gotoBookingInvoice(String bookingNumber) async {
     try {
-      var result = await navigationChannel.invokeMethod("push.partner.bookingInvoice", bookingNumber);
+      var _ = await navigationChannel.invokeMethod("push.partner.bookingInvoice", bookingNumber);
     } catch (e) {
-      print("Failed to navigate to final booking");
+      if (kDebugMode) {
+        print("Failed to navigate to final booking");
+      }
     }
   }
 
   Future<void> popToPartnerHome() async {
     try {
-      var result = await navigationChannel.invokeMethod("pop.partner.home");
+      var _ = await navigationChannel.invokeMethod("pop.partner.home");
     } catch (e) {
-      print("Failed to navigate to payment partner");
+      if (kDebugMode) {
+        print("Failed to navigate to payment partner");
+      }
     }
   }
 
   Future<void> receivePartnerConfig() async {
     var result = await GtdNativeChannel.shared.localizationChannel.invokeMethod("partner.app.scheme");
     Map<String, dynamic>? scheme = result as Map<String, dynamic>?;
-    print("Gotadi - Partner Scheme: $scheme");
+    if (kDebugMode) {
+      print("Gotadi - Partner Scheme: $scheme");
+    }
     if (scheme != null) {
       String? env = scheme["env"];
       String? partner = scheme["partner"];
@@ -89,7 +100,9 @@ class GtdNativeChannel {
           GtdChannelSettingObject.shared.theme = ThemeMode.light;
       }
 
-      print(GtdChannelSettingObject.shared.toString());
+      if (kDebugMode) {
+        print(GtdChannelSettingObject.shared.toString());
+      }
     }
   }
 
@@ -111,7 +124,9 @@ class GtdNativeChannel {
   }
 
   void handleNativeSettingMessage() async {
-    print("Init handleNativeSettingMessage");
+    if (kDebugMode) {
+      print("Init handleNativeSettingMessage");
+    }
     localizationChannel.setMethodCallHandler((call) {
       if (call.method == "partner.app.locale") {
         String? locale = call.arguments as String?;
@@ -130,7 +145,9 @@ class GtdNativeChannel {
 
       if (call.method == "partner.app.scheme") {
         Map<String, String>? scheme = call.arguments as Map<String, String>?;
-        print("Gotadi - Partner Scheme: $scheme");
+        if (kDebugMode) {
+          print("Gotadi - Partner Scheme: $scheme");
+        }
         if (scheme != null) {
           String? env = scheme["env"];
           String? partner = scheme["partner"];

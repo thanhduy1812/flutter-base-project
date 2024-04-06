@@ -88,9 +88,7 @@ class ListVoucherView extends BaseView<ListVoucherViewModel> {
                 width: double.infinity,
                 child: GtdButton(
                   isEnable: true,
-                  onPressed: (value) {
-                    print("Áp dụng voucher");
-                  },
+                  onPressed: (value) {},
                   text: "Áp dụng",
                   fontSize: 16,
                   height: 48,

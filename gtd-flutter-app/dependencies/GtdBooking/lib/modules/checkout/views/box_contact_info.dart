@@ -8,6 +8,7 @@ import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_select_field.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
@@ -18,6 +19,7 @@ import 'input_passenger_view.dart';
 
 class BoxContactInfo extends StatelessWidget {
   final CheckoutTravellerFormVM contactForm;
+
   const BoxContactInfo({super.key, required this.contactForm});
 
   // bool genderSwitch = true;
@@ -38,20 +40,12 @@ class BoxContactInfo extends StatelessWidget {
     }
   }
 
-  Widget buildSelectableContactForm(
-      CheckoutTravellerFormVM contactForm, BuildContext context, ValueKey<dynamic> position) {
+  Widget buildSelectableContactForm(CheckoutTravellerFormVM contactForm,
+      BuildContext context, ValueKey<dynamic> position) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Thông tin liên hệ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-              Text('Vui lòng cung cấp thông tin chính xác, để chúng tôi có thể liên lạc và hỗ trợ kịp thời',
-                  style: TextStyle(fontSize: 12, color: Colors.grey.shade500))
-            ],
-          ),
+        const _ContactInfoHeader(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         ),
         Ink(
           decoration: BoxDecoration(
@@ -85,8 +79,12 @@ class BoxContactInfo extends StatelessWidget {
                         },
                       ),
                       onChanged: (value) {
-                        var checkoutContentViewModel = context.viewModelOf<GtdCheckoutContentViewModel>();
-                        checkoutContentViewModel?.updateContact(key: position, fullName: value);
+                        var checkoutContentViewModel =
+                            context.viewModelOf<GtdCheckoutContentViewModel>();
+                        checkoutContentViewModel?.updateContact(
+                          key: position,
+                          firstName: value,
+                        );
                       },
                     ),
                     rightIcon: const Icon(Icons.chevron_right),
@@ -112,7 +110,8 @@ class BoxContactInfo extends StatelessWidget {
                         },
                       ),
                       onChanged: (value) {
-                        BlocProvider.of<FlightCheckoutCubit>(context).updateContact(key: position, phoneNumber: value);
+                        BlocProvider.of<FlightCheckoutCubit>(context)
+                            .updateContact(key: position, phoneNumber: value);
                       },
                     ),
                   ),
@@ -137,7 +136,8 @@ class BoxContactInfo extends StatelessWidget {
                         },
                       ),
                       onChanged: (value) {
-                        BlocProvider.of<FlightCheckoutCubit>(context).updateContact(key: position, email: value);
+                        BlocProvider.of<FlightCheckoutCubit>(context)
+                            .updateContact(key: position, email: value);
                       },
                     ),
                   ),
@@ -150,23 +150,17 @@ class BoxContactInfo extends StatelessWidget {
     );
   }
 
-  Widget buildInputContactForm(CheckoutTravellerFormVM contactForm, BuildContext context, ValueKey<dynamic> position) {
-    var checkoutContentViewModel = context.viewModelOf<GtdCheckoutContentViewModel>();
+  Widget buildInputContactForm(CheckoutTravellerFormVM contactForm,
+      BuildContext context, ValueKey<dynamic> position) {
+    var checkoutContentViewModel =
+        context.viewModelOf<GtdCheckoutContentViewModel>();
 
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Thông tin liên hệ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-                Text('Vui lòng cung cấp thông tin chính xác, để chúng tôi có thể liên lạc và hỗ trợ kịp thời',
-                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500))
-              ],
-            ),
+          const _ContactInfoHeader(
+            padding: EdgeInsets.only(bottom: 16),
           ),
           Ink(
             decoration: BoxDecoration(
@@ -188,11 +182,14 @@ class BoxContactInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GtdTextField(
-                      viewModel: contactForm.fullName..inputUserBehavior = GtdInputUserBehavior.typing,
+                      viewModel: contactForm.lastName
+                        ..inputUserBehavior = GtdInputUserBehavior.typing,
                       onChanged: (value) {
-                        print(value);
-
-                        checkoutContentViewModel?.updateContact(key: position, fullName: value);
+                        debugPrint(value);
+                        checkoutContentViewModel?.updateContact(
+                          key: position,
+                          lastName: value,
+                        );
                       },
                     ),
                   ),
@@ -200,10 +197,14 @@ class BoxContactInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GtdTextField(
-                      viewModel: contactForm.phoneNumber..inputUserBehavior = GtdInputUserBehavior.typing,
+                      viewModel: contactForm.firstName
+                        ..inputUserBehavior = GtdInputUserBehavior.typing,
                       onChanged: (value) {
-                        print(value);
-                        checkoutContentViewModel?.updateContact(key: position, phoneNumber: value);
+                        debugPrint(value);
+                        checkoutContentViewModel?.updateContact(
+                          key: position,
+                          firstName: value,
+                        );
                       },
                     ),
                   ),
@@ -211,10 +212,29 @@ class BoxContactInfo extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GtdTextField(
-                      viewModel: contactForm.email..inputUserBehavior = GtdInputUserBehavior.typing,
+                      viewModel: contactForm.email
+                        ..inputUserBehavior = GtdInputUserBehavior.typing,
                       onChanged: (value) {
-                        print(value);
-                        checkoutContentViewModel?.updateContact(key: position, email: value);
+                        debugPrint(value);
+                        checkoutContentViewModel?.updateContact(
+                          key: position,
+                          email: value,
+                        );
+                      },
+                    ),
+                  ),
+                  const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: GtdTextField(
+                      viewModel: contactForm.phoneNumber
+                        ..inputUserBehavior = GtdInputUserBehavior.typing,
+                      onChanged: (value) {
+                        debugPrint(value);
+                        checkoutContentViewModel?.updateContact(
+                          key: position,
+                          phoneNumber: value,
+                        );
                       },
                     ),
                   ),
@@ -227,24 +247,89 @@ class BoxContactInfo extends StatelessWidget {
     );
   }
 
-  static Widget contactInfoForm(
-      {TravelerInputInfoDTO? contactInputInfo, required BuildContext context, EdgeInsets? padding}) {
-    return _buildContactInfoView(padding,
-        fullName: contactInputInfo?.fullName ?? "",
-        phoneNumber: contactInputInfo?.phoneNumber ?? "",
-        email: contactInputInfo?.email ?? "");
+  static Widget contactInfoForm({
+    TravelerInputInfoDTO? contactInputInfo,
+    required BuildContext context,
+    EdgeInsets? padding,
+  }) {
+    return _buildContactInfoView(
+      padding,
+      lastName: contactInputInfo?.lastName ?? "",
+      firstName: contactInputInfo?.firstName ?? "",
+      phoneNumber: contactInputInfo?.phoneNumber ?? "",
+      email: contactInputInfo?.email ?? "",
+    );
   }
 
-  static Widget contactInfoFormFromBookingDetail(
-      {required GtdContactBookingInfo contactInputInfo, required BuildContext context, EdgeInsets? padding}) {
-    return _buildContactInfoView(padding,
-        fullName: contactInputInfo.fullName ?? "",
-        phoneNumber: contactInputInfo.phoneNumber ?? "",
-        email: contactInputInfo.email ?? "");
+  static Widget contactInfoFormFromBookingDetail({
+    required GtdContactBookingInfo contactInputInfo,
+    required BuildContext context,
+    EdgeInsets? padding,
+  }) {
+    return _buildContactInfoView(
+      padding,
+      lastName: contactInputInfo.fullName ?? "",
+      firstName: contactInputInfo.fullName ?? "",
+      phoneNumber: contactInputInfo.phoneNumber ?? "",
+      email: contactInputInfo.email ?? "",
+    );
   }
 
-  static Padding _buildContactInfoView(EdgeInsets? padding,
-      {required String fullName, required String phoneNumber, required String email}) {
+  static Widget buildFlightContactInfoView({
+    TravelerInputInfoDTO? contactInputInfo,
+    required BuildContext context,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        shadows: const [
+          BoxShadow(
+            color: Color.fromRGBO(0, 0, 0, 0.05),
+            spreadRadius: 0,
+            blurRadius: 0,
+            offset: Offset(0, 1), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _FlightContactInfoRow(
+            title: 'Họ người liên hệ',
+            value: contactInputInfo?.lastName ?? '',
+          ),
+          const _PaddingDivider(),
+          _FlightContactInfoRow(
+            title: 'Tên & tên đệm',
+            value: contactInputInfo?.firstName ?? '',
+          ),
+          const _PaddingDivider(),
+          _FlightContactInfoRow(
+            title: 'Email liên hệ',
+            value: contactInputInfo?.email ?? '',
+          ),
+          const _PaddingDivider(),
+          _FlightContactInfoRow(
+            title: 'Điện thoại liên hệ',
+            value: contactInputInfo?.phoneNumber ?? '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Padding _buildContactInfoView(
+    EdgeInsets? padding, {
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required String email,
+  }) {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: SizedBox(
@@ -274,21 +359,40 @@ class BoxContactInfo extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: GtdInfoRow(leftText: "Họ & tên", rightText: fullName),
+                    child: GtdInfoRow(
+                      leftText: "Họ",
+                      rightText: lastName,
+                    ),
                   ),
                 ),
                 const Divider(),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: GtdInfoRow(leftText: "Điện thoại", rightText: phoneNumber),
+                    child: GtdInfoRow(
+                      leftText: "Tên & tên đệm",
+                      rightText: firstName,
+                    ),
                   ),
                 ),
                 const Divider(),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: GtdInfoRow(leftText: "Email", rightText: email),
+                    child: GtdInfoRow(
+                      leftText: "Điện thoại",
+                      rightText: phoneNumber,
+                    ),
+                  ),
+                ),
+                const Divider(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: GtdInfoRow(
+                      leftText: "Email",
+                      rightText: email,
+                    ),
                   ),
                 ),
               ],
@@ -296,6 +400,92 @@ class BoxContactInfo extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ContactInfoHeader extends StatelessWidget {
+  final EdgeInsets padding;
+
+  const _ContactInfoHeader({required this.padding});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Thông tin liên hệ',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            'Vui lòng cung cấp thông tin chính xác, để chúng tôi có thể '
+            'liên lạc và hỗ trợ kịp thời',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.grey.shade500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FlightContactInfoRow extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const _FlightContactInfoRow({
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 13,
+              color: GtdColors.slateGrey,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 15,
+              color: GtdColors.steelGrey,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PaddingDivider extends StatelessWidget {
+  const _PaddingDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      color: GtdColors.snowGrey,
+      thickness: 1,
+      height: 21,
     );
   }
 }

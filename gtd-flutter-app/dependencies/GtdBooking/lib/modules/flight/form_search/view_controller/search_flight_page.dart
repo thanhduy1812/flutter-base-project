@@ -22,6 +22,7 @@ class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
   );
 
   SearchFlightPage({super.key, required super.viewModel});
+
   @override
   List<Widget> buildTrailingActions(BuildContext pageContext) {
     return [
@@ -40,7 +41,8 @@ class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
   Widget buildBody(BuildContext pageContext) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => SearchInfoCubit()..initSearchInfoFromCache()),
+        BlocProvider(
+            create: (context) => SearchInfoCubit()..initSearchInfoFromCache()),
       ],
       child: BlocBuilder<SearchInfoCubit, SearchInfoState>(
         builder: (searchInfoContext, searchInfoState) {
@@ -48,69 +50,102 @@ class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
             viewModel.updateFromCache(searchInfoState.searchInfoFlightVM);
           }
           return SafeArea(
-              child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
                     controller: scrollController,
                     child: Container(
                       margin: const EdgeInsets.all(15),
                       child: Wrap(
                         runSpacing: 20,
                         children: [
-                          LocationInfoView(viewModel: viewModel.locationInfoViewModel),
-                          DateItineraryView(viewModel: viewModel.dateItineraryViewModel),
+                          LocationInfoView(
+                            viewModel: viewModel.locationInfoViewModel,
+                          ),
+                          DateItineraryView(
+                            viewModel: viewModel.dateItineraryViewModel,
+                          ),
                           PassengersItineraryView(
                             viewModel: viewModel.passengerViewModel,
                           ),
                         ],
                       ),
-                    )),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-                child: Text.rich(
-                  TextSpan(
-                      text: "Vé máy bay cung cấp bởi ",
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 12),
-                      children: <InlineSpan>[
-                        const TextSpan(text: "Gotadi \n", style: TextStyle(color: Colors.black, fontSize: 12)),
-                        TextSpan(
-                            text: "Thông tin vé máy bay vui lòng liên hệ 1900-9002",
-                            style: TextStyle(color: Colors.grey.shade500, fontSize: 12)),
-                      ]),
-                  textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-              ),
-              StreamBuilder(
-                  stream: viewModel.isEnableSearch,
-                  builder: (context, snapshot) {
-                    return SizedBox(
-                      width: double.infinity,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 32),
-                        child: GtdButton(
-                          isEnable: snapshot.data ?? false,
-                          onPressed: (snapshot.data == false)
-                              ? null
-                              : (value) {
-                                  FlightSearchingLoadingPageViewModel searchingViewModel =
-                                      FlightSearchingLoadingPageViewModel(
-                                          searchInfoFlightVM: viewModel.searchInfoFlightVM);
-                                  context.push(FlightSearchingLoadingPage.route, extra: searchingViewModel);
-                                },
-                          text: 'flight.formSearch.btnSearch'.tr(),
-                          height: 48,
-                          borderRadius: 24,
-                          gradient: GtdColors.appGradient(context),
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 10,
+                  ),
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Thông tin vé máy bay vui lòng liên hệ ",
+                          style: TextStyle(
+                            color: Colors.grey.shade500,
+                            fontSize: 12,
+                          ),
                         ),
-                      ),
-                    );
-                  })
-            ],
-          ));
+                        const TextSpan(
+                          text: "1900-9002",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                _searchBtn(),
+              ],
+            ),
+          );
         },
       ),
+    );
+  }
+
+  StreamBuilder<bool> _searchBtn() {
+    return StreamBuilder(
+      stream: viewModel.isEnableSearch,
+      builder: (context, snapshot) {
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.only(
+              left: 16,
+              right: 16,
+              bottom: 32,
+            ),
+            child: GtdButton(
+              isEnable: snapshot.data ?? false,
+              onPressed: (snapshot.data == false)
+                  ? null
+                  : (value) {
+                      FlightSearchingLoadingPageViewModel searchingViewModel =
+                          FlightSearchingLoadingPageViewModel(
+                        searchInfoFlightVM: viewModel.searchInfoFlightVM,
+                      );
+                      context.push(
+                        FlightSearchingLoadingPage.route,
+                        extra: searchingViewModel,
+                      );
+                    },
+              text: 'flight.formSearch.btnSearch'.tr(),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              height: 48,
+              borderRadius: 24,
+              gradient: GtdColors.appGradient(context),
+            ),
+          ),
+        );
+      },
     );
   }
 }

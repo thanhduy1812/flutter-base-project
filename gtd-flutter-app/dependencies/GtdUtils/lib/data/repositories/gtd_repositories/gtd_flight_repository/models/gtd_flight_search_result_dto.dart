@@ -1,4 +1,3 @@
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/json_models/group_priced_itinerary.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/gtd_flight_draft_booking_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/filter_Itinerary_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/filter_availability_rq.dart';
@@ -11,6 +10,7 @@ enum FlightType {
   inte('INTERNATIONAL');
 
   final String value;
+
   const FlightType(this.value);
 }
 
@@ -20,6 +20,7 @@ enum FlightAdultType {
   infant('INF');
 
   final String value;
+
   const FlightAdultType(this.value);
 
   static FlightAdultType? findByCode(String adultType) {
@@ -43,6 +44,7 @@ enum FlightDirection {
   trip('TRIP');
 
   final String value;
+
   const FlightDirection(this.value);
 }
 
@@ -51,6 +53,7 @@ enum FlightRoundType {
   oneWay('OneWay');
 
   final String value;
+
   const FlightRoundType(this.value);
 }
 
@@ -60,6 +63,7 @@ enum SupplierType {
   combo('COMBO');
 
   final String value;
+
   const SupplierType(this.value);
 }
 
@@ -72,21 +76,29 @@ class GtdFlightSearchResultDTO {
   GtdFlightItinerary? returnItinerary;
   String? searchId;
 
-  //TODO: Handle filter option later
   GtdFlightSearchResultDTO();
 
   factory GtdFlightSearchResultDTO.fromGtdFlightLowSearchRs(GtdFlightLowSearchRs result) {
     GtdFlightSearchResultDTO resultDTO = GtdFlightSearchResultDTO();
+    FlightType flightType = FlightType.dom;
+    if (result.flightType == null) {
+      final firstItemType = result.groupPricedItineraries?.firstOrNull?.flightType;
+      if (firstItemType != null) {
+        flightType = firstItemType == "DOMESTIC" ? FlightType.dom : FlightType.inte;
+      }
+    } else {
+      flightType = result.flightType == "DOMESTIC" ? FlightType.dom : FlightType.inte;
+    }
     resultDTO.departureSearchId = result.departureSearchId;
     resultDTO.returnSearchId = result.returnSearchId;
     resultDTO.searchId = result.searchId;
-    resultDTO.flightType = (result.flightType == "DOMESTIC") ? FlightType.dom : FlightType.inte;
+    resultDTO.flightType = flightType;
     return resultDTO;
   }
 }
 
 extension GtdFlightSearchResultDTOMapper on GtdFlightSearchResultDTO {
-  //TODO: Func for update departure and return flight for API: filter-option
+  //MARK: Func for update departure and return flight for API: filter-option
   void updateFlightSearchResult(
       GtdFlightLowSearchRs result, FilterAvailabilityRq? filterOptions, FlightDirection flightDirection) {
     GtdFlightItinerary flightItinerary =
@@ -115,11 +127,13 @@ extension GtdFlightSearchResultDTOMapper on GtdFlightSearchResultDTO {
     }
   }
 
-  //TODO: Func for update cabinclass when select option cabin
-  void updateFlightCabinOptions(GroupPricedItinerary groupPricedItinerary, FlightDirection flightDirection) {
-    GtdFlightItem flightItem = GtdFlightItem.fromGroupPricedItinerary(groupPricedItinerary, flightDirection);
-    // departureItinerary?.flightItems?.map((e) => e.groupId == flightItem.groupId ? flightItem : e).toList();
-  }
+  //MARK:Remove case not use  Func for update cabinclass when select option cabin
+  // void updateFlightCabinOptions(GroupPricedItinerary groupPricedItinerary,
+  //     FlightDirection flightDirection) {
+  //   GtdFlightItem flightItem = GtdFlightItem.fromGroupPricedItinerary(
+  //       groupPricedItinerary, flightDirection);
+  //   departureItinerary?.flightItems?.map((e) => e.groupId == flightItem.groupId ? flightItem : e).toList();
+  // }
 
   void updateFilterOptions(FilterAvailabilityRq filterAvailability, FlightDirection flightDirection) {
     if (flightDirection == FlightDirection.d) {

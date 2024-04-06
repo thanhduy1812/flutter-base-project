@@ -43,6 +43,7 @@ class InputInfoPassengerPageViewModel extends BasePageViewModel {
       this.travelerInputInfoDTO,
       this.savedTravellers = const [],
       this.countries = const [],
+        this.adultType = FlightAdultType.adult,
       bool isDomestic = true}) {
     infoType = travelerInputInfoDTO?.infoType ?? TravelerInputInfoType.traveler;
     if (travelerInputInfoDTO?.infoType == TravelerInputInfoType.presenterHotel) {

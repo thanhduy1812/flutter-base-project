@@ -7,6 +7,7 @@ import 'flight_summary_vertical_item.dart';
 
 class FlightItemSummaryListInfo extends StatelessWidget {
   final List<GtdFlightItemDetail> flighItems;
+
   const FlightItemSummaryListInfo({super.key, required this.flighItems});
 
   @override
@@ -18,27 +19,30 @@ class FlightItemSummaryListInfo extends StatelessWidget {
     );
   }
 
-  static Widget buildHorizontalListFlightItems(List<GtdFlightItemDetail> flighItems, {bool isLoading = false}) {
+  static Widget buildHorizontalListFlightItems(
+      List<GtdFlightItemDetail> flighItems,
+      {bool isLoading = false}) {
     return SliverToBoxAdapter(
-      child: SizedBox(
-          height: 117,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(left: 16, right: 0),
-                itemCount: flighItems.length,
-                itemBuilder: (context, index) {
-                  double widthItem = flighItems.length == 1 ? constraints.maxWidth - 16 : constraints.maxWidth * 5 / 6;
-                  return FlightSummaryItem(
-                    viewModel: FlightSummaryItemViewModel.fromItemDetail(flightItemDetail: flighItems[index]),
-                    width: widthItem,
-                  );
-                },
-                separatorBuilder: (context, index) => const SizedBox(width: 16),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return ListView.separated(
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(left: 16, right: 16),
+            itemCount: flighItems.length,
+            itemBuilder: (context, index) {
+              return FlightSummaryItem(
+                viewModel: FlightSummaryItemViewModel.fromItemDetail(
+                  flightItemDetail: flighItems[index],
+                ),
+                width: double.infinity,
               );
             },
-          )),
+            separatorBuilder: (context, index) => const SizedBox(height: 16),
+          );
+        },
+      ),
     );
   }
 
@@ -68,17 +72,21 @@ class FlightItemSummaryListInfo extends StatelessWidget {
   //       ));
   // }
 
-  static Widget buildHorizontalFlightInieraries(List<FlightSummaryItemViewModel> items) {
+  static Widget buildHorizontalFlightInieraries(
+      List<FlightSummaryItemViewModel> items) {
     return SizedBox(
         height: 125,
         child: LayoutBuilder(
           builder: (context, constraints) {
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(left: 4, right: 0, top: 4, bottom: 4),
+              padding:
+                  const EdgeInsets.only(left: 4, right: 0, top: 4, bottom: 4),
               itemCount: items.length,
               itemBuilder: (context, index) {
-                double widthItem = items.length == 1 ? constraints.maxWidth - 16 : constraints.maxWidth * 5 / 6;
+                double widthItem = items.length == 1
+                    ? constraints.maxWidth - 16
+                    : constraints.maxWidth * 5 / 6;
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: FlightSummaryItem(
@@ -92,7 +100,8 @@ class FlightItemSummaryListInfo extends StatelessWidget {
         ));
   }
 
-  static buildVericalFlightSummaryItems(List<FlightSummaryItemViewModel> itemViewModels) {
+  static buildVericalFlightSummaryItems(
+      List<FlightSummaryItemViewModel> itemViewModels) {
     return Column(
       children: itemViewModels
           .map((e) => Padding(
@@ -103,12 +112,14 @@ class FlightItemSummaryListInfo extends StatelessWidget {
     );
   }
 
-  static Widget buildVerticalListFlightItems(List<GtdFlightItemDetail> flighItems) {
+  static Widget buildVerticalListFlightItems(
+      List<GtdFlightItemDetail> flighItems) {
     return SliverList.separated(
       itemCount: flighItems.length,
       itemBuilder: (context, index) {
         return FlightSummaryVerticalItem(
-            viewModel: FlightSummaryItemViewModel.fromItemDetail(flightItemDetail: flighItems[index]));
+            viewModel: FlightSummaryItemViewModel.fromItemDetail(
+                flightItemDetail: flighItems[index]));
       },
       separatorBuilder: (context, index) => const Divider(),
     );

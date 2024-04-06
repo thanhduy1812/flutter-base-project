@@ -64,7 +64,7 @@ class InheritedConstraint extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(covariant InheritedConstraint old) => constraint != old.constraint;
+  bool updateShouldNotify(covariant InheritedConstraint oldWidget) => constraint != oldWidget.constraint;
 }
 
 extension $InheritedConstraint on BuildContext {
@@ -79,7 +79,7 @@ class ChildUsingInheritedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     /// Get the constrains provided by parent widget
     final constraint = context.constraints;
-    // TODO: use the constraints as you wish
+    // MARK: use the constraints as you wish
     return Container(
       color: Colors.green,
       height: constraint?.minHeight,
@@ -92,7 +92,7 @@ class GtdCardView extends BaseView {
 
   @override
   Widget buildWidget(BuildContext context) {
-    // TODO: implement viewModelBinding
+    // MARK: implement viewModelBinding
     throw UnimplementedError();
   }
 }
@@ -108,7 +108,7 @@ class GtdBannerCardView extends GtdCardView {
 
   @override
   Widget buildWidget(BuildContext context) {
-    // TODO: implement viewModelBinding
+    // MARK: implement viewModelBinding
     throw UnimplementedError();
   }
 }

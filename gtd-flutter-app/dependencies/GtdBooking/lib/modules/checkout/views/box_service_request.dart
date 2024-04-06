@@ -93,7 +93,6 @@ class BoxServiceRequest extends StatelessWidget {
                               ),
                               context: context,
                               onChanged: (item) {
-                                print(item.isSelected);
                                 travellerForm.departBaggage?.onSelectedService(item);
                                 BlocProvider.of<FlightCheckoutCubit>(context).updatePassenger(key: position);
                               },
@@ -143,7 +142,6 @@ class BoxServiceRequest extends StatelessWidget {
                                     ),
                                     context: context,
                                     onChanged: (item) {
-                                      print(item.isSelected);
                                       travellerForm.returnBaggage?.onSelectedService(item);
                                       BlocProvider.of<FlightCheckoutCubit>(context).updatePassenger(key: position);
                                     },

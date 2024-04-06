@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/customer_resource.dart';
@@ -108,7 +109,9 @@ class PricingBottomPageViewModel extends BasePageViewModel {
         toLocation: toLocation,
         departureDate: departureDate!,
         returnDate: returnDate);
-    print(insurancePlanRq.toJson());
+    if (kDebugMode) {
+      print(insurancePlanRq.toJson());
+    }
     return insurancePlanRq;
   }
 

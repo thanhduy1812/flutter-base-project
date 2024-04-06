@@ -22,9 +22,33 @@ import '../view_model/flight_checkout_page_viewmodel.dart';
 import '../view_model/flight_extras_page_viewmodel.dart';
 import 'flight_extras_page.dart';
 
-class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> {
+class FlightCheckoutPage
+    extends PricingBottomPage<FlightCheckoutPageViewModel> {
   static const String route = '/flightCheckout';
+
   const FlightCheckoutPage({super.key, required super.viewModel});
+
+  @override
+  Widget? titleWidget() {
+    return Column(
+      children: [
+        Text(
+          viewModel.title ?? '',
+          style: const TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        Text(
+          viewModel.subTitle ?? '',
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w400,
+          ),
+        )
+      ],
+    );
+  }
 
   @override
   Widget buildBody(BuildContext pageContext) {
@@ -60,8 +84,10 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
                 ? null
                 : (value) {
                     viewModel.confirmListTravelerDTOS(
-                      viewModel.checkoutContentViewModel.passengersFormSubject.value,
-                      viewModel.checkoutContentViewModel.contactFormSubject.value,
+                      viewModel
+                          .checkoutContentViewModel.passengersFormSubject.value,
+                      viewModel
+                          .checkoutContentViewModel.contactFormSubject.value,
                     );
                     onNext(paymentContext);
                   },
@@ -76,10 +102,14 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
 
   void onNext(BuildContext paymentContext) {
     if (viewModel.supplier == GtdAppSupplier.vib) {
-      BlocProvider.of<FlightCheckoutCubit>(paymentContext).validationPassengersInput().then((value) {
+      BlocProvider.of<FlightCheckoutCubit>(paymentContext)
+          .validationPassengersInput()
+          .then((value) {
         if (value.item1 == true) {
           GtdAppLoading.of(paymentContext).show();
-          BlocProvider.of<FlightCheckoutCubit>(paymentContext).addBookingTraveller().then((value) {
+          BlocProvider.of<FlightCheckoutCubit>(paymentContext)
+              .addBookingTraveller()
+              .then((value) {
             GtdAppLoading.of(paymentContext).hide();
             value.when((success) {
               String bookingNumber = success;
@@ -96,15 +126,19 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
     }
 
     if (viewModel.supplier == GtdAppSupplier.b2c &&
-        viewModel.checkoutContentViewModel is GtdFlightCheckoutContentViewModel) {
-      var inititalSsrs = (viewModel.checkoutContentViewModel as GtdFlightCheckoutContentViewModel)
+        viewModel.checkoutContentViewModel
+            is GtdFlightCheckoutContentViewModel) {
+      var inititalSsrs = (viewModel.checkoutContentViewModel
+              as GtdFlightCheckoutContentViewModel)
           .ssrItemsSubject
           .value
           .map((e) => e.data)
           .toList();
 
-      var flightExtraViewModel =
-          FlightExtrasPageViewModel(bookingDetailDTO: viewModel.bookingDetailDTO, initialSsrItems: inititalSsrs);
+      var flightExtraViewModel = FlightExtrasPageViewModel(
+        bookingDetailDTO: viewModel.bookingDetailDTO,
+        initialSsrItems: inititalSsrs,
+      );
       flightExtraViewModel.savedTravellers = viewModel.savedTravellers;
       flightExtraViewModel.countries = viewModel.countries;
       flightExtraViewModel.travelerInputInfos = viewModel.travelerInputInfos;
@@ -118,7 +152,8 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(
-        create: (checkoutContext) => FlightCheckoutCubit()..initPassengers(viewModel),
+        create: (checkoutContext) =>
+            FlightCheckoutCubit()..initPassengers(viewModel),
       ),
       BlocProvider(
         create: (checkoutContext) => CheckoutCubit()..initPassengers(viewModel),
@@ -136,12 +171,12 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
     ], child: super.build(context));
   }
 
-  //   double offsetOfItem(GlobalKey key) {
-  //   RenderBox? box = key.currentContext?.findRenderObject() as RenderBox;
-  //   RenderBox? boxParent = _positionKey.currentContext?.findRenderObject() as RenderBox;
-  //   final offset = box.localToGlobal(Offset.zero);
-  //   final parrentOffset = boxParent.localToGlobal(Offset.zero);
-  //   Logger.w(parrentOffset.dy.toString());
-  //   return offset.dy - parrentOffset.dy - boxParent.size.height - box.size.height;
-  // }
+//   double offsetOfItem(GlobalKey key) {
+//   RenderBox? box = key.currentContext?.findRenderObject() as RenderBox;
+//   RenderBox? boxParent = _positionKey.currentContext?.findRenderObject() as RenderBox;
+//   final offset = box.localToGlobal(Offset.zero);
+//   final parrentOffset = boxParent.localToGlobal(Offset.zero);
+//   Logger.w(parrentOffset.dy.toString());
+//   return offset.dy - parrentOffset.dy - boxParent.size.height - box.size.height;
+// }
 }

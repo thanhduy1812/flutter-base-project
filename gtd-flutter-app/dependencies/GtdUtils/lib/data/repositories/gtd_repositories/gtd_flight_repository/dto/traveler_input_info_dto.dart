@@ -25,6 +25,7 @@ class TravelerInputInfoDTO {
   String membershipType = "";
   String membershipCard = "";
   List<SsrOfferDTO> selectedServices;
+
   // List<GtdSavedTravellerRs> savedTravellers;
   // List<GtdCountryCodeRs> countries;
   TravelerInputInfoDTO({
@@ -55,46 +56,56 @@ class TravelerInputInfoDTO {
   String get getFullName => "$lastName $firstName";
 
   BookingTravelerInfoRq get toBookingTravelerInfoRq {
-    if (dob == null || firstName.isEmpty || lastName.isEmpty || gender == null) {
-      throw GtdApiError(message: "Must have birthday");
-    }
+    // if (dob == null || firstName.isEmpty || lastName.isEmpty || gender == null) {
+    //   throw GtdApiError(message: "Must have birthday");
+    // }
     TravelerRq traveler = TravelerRq(
-      adultType: adultType.value.toUpperCase(),
-      firstName: firstName,
-      gender: gender!.name.toUpperCase(),
-      surName: lastName,
-      bookingNumber: bookingNumber,
-      dob: dob!,
-      personRepresentation: isPresentHotel
-      
-    );
+        adultType: adultType.value.toUpperCase(),
+        firstName: firstName,
+        gender: gender!.name.toUpperCase(),
+        surName: lastName,
+        bookingNumber: bookingNumber,
+        dob: dob,
+        personRepresentation: isPresentHotel);
     List<SsrOfferDTO> serviceRequests = selectedServices;
-    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(traveler: traveler, serviceRequests: serviceRequests);
+    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(
+        traveler: traveler, serviceRequests: serviceRequests);
     return travelerInfo;
   }
 
   BookingContactRq get toBookingContactRq {
-    List<String> splitNames = fullName.split(" ");
-    if (splitNames.length < 2) {
-      throw GtdApiError(message: "Fullname must greater than 2 words");
-    }
+    // List<String> splitNames = fullName.split(" ");
+    // if (splitNames.length < 2) {
+    //   throw GtdApiError(message: "Fullname must greater than 2 words");
+    // }
 
-    String surName = splitNames.first;
-    String firstName = fullName.replaceRange(0, surName.length, "").trim();
+    // String surName = lastName;
+    // String firstName = fullName.replaceRange(0, surName.length, "").trim();
     BookingContactRq contact = BookingContactRq(
-        email: email, firstName: firstName, phoneNumber1: phoneNumber, surName: surName, bookingNumber: bookingNumber);
+      email: email,
+      firstName: firstName,
+      phoneNumber1: phoneNumber,
+      surName: lastName,
+      bookingNumber: bookingNumber,
+    );
     return contact;
   }
 
   List<SsrOfferDTO> getListSSRItemsByServiceType(
-      {required ServiceType serviceType, required FlightDirection flightDirection}) {
+      {required ServiceType serviceType,
+      required FlightDirection flightDirection}) {
     return selectedServices
-        .where((element) => element.serviceType == serviceType || element.bookingDirection == flightDirection)
+        .where((element) =>
+            element.serviceType == serviceType ||
+            element.bookingDirection == flightDirection)
         .toList();
   }
 
-  void updateSelectedSSRItems(List<SsrOfferDTO> ssrOfferDTOs, ServiceType serviceType) {
-    var exceptOffers = selectedServices.where((element) => element.serviceType != serviceType).toList();
+  void updateSelectedSSRItems(
+      List<SsrOfferDTO> ssrOfferDTOs, ServiceType serviceType) {
+    var exceptOffers = selectedServices
+        .where((element) => element.serviceType != serviceType)
+        .toList();
     selectedServices = [...exceptOffers, ...ssrOfferDTOs];
   }
 

@@ -40,6 +40,7 @@ class GtdHotelItemDTO {
   double? taxServiceFee;
   double? basePriceBeforePromo;
   double? additionPrice;
+  String? availableType;
 
   GtdHotelItemDTO();
 
@@ -82,6 +83,7 @@ class GtdHotelItemDTO {
       ..taxServiceFee = property.taxAndServiceFree?.toDouble()
       ..basePriceBeforePromo = property.basePriceBeforePromo?.toDouble()
       ..hasPromo = property.promo ?? false
+      ..availableType = property.availableType
       ..additionPrice = property.additionPrice?.toDouble();
     return hotelItemDTO;
   }

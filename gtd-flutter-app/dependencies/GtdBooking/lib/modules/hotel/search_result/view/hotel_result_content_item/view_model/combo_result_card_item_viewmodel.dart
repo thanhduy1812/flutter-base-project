@@ -5,20 +5,29 @@ import 'hotel_result_card_item_viewmodel.dart';
 
 class ComboResultCardItemViewModel extends HotelResultCardItemViewModel {
   double flightPricePerPerson = 0;
+
   ComboResultCardItemViewModel({
     super.cardItemType = HotelResultCardItemType.vertical,
     required super.totalNight,
+    required super.totalRoom,
   });
 
-  factory ComboResultCardItemViewModel.fromHotelItemDTO(
-      {required GtdHotelItemDTO hotelItemDTO,
-      required double flightPricePerPerson,
-      HotelResultCardItemType cardItemType = HotelResultCardItemType.vertical,
-      required int totalNights}) {
-    ComboResultCardItemViewModel hotelResultCardItemViewModel = ComboResultCardItemViewModel(totalNight: totalNights)
-      ..flightPricePerPerson = flightPricePerPerson
-      ..cardItemType = cardItemType
-      ..hotelItemModel = HotelResultCardItemModel.fromHotelItemDTO(hotelItemDTO);
+  factory ComboResultCardItemViewModel.fromHotelItemDTO({
+    required GtdHotelItemDTO hotelItemDTO,
+    required double flightPricePerPerson,
+    HotelResultCardItemType cardItemType = HotelResultCardItemType.vertical,
+    required int totalNights,
+    required int totalRoom,
+  }) {
+    ComboResultCardItemViewModel hotelResultCardItemViewModel =
+        ComboResultCardItemViewModel(
+      totalNight: totalNights,
+      totalRoom: totalRoom,
+    )
+          ..flightPricePerPerson = flightPricePerPerson
+          ..cardItemType = cardItemType
+          ..hotelItemModel =
+              HotelResultCardItemModel.fromHotelItemDTO(hotelItemDTO);
     return hotelResultCardItemViewModel;
   }
 

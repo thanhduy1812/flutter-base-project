@@ -26,6 +26,7 @@ abstract class GtdValidateFieldVM {
   bool allowEmpty = true;
   bool hasUnderlineBorder = true;
   bool hasFloatLabel = true;
+  bool showRequired = false;
   String _text = "";
 
   String get text => _text;
@@ -34,7 +35,6 @@ abstract class GtdValidateFieldVM {
     // Update text and set cursor at the end of text
     var offset = value.isEmpty ? 0 : controllerSearch.text.length;
     controllerSearch.value = TextEditingValue(text: value, selection: TextSelection.collapsed(offset: offset));
-    print("setText: $value");
     switch (inputValidateBehavior) {
       case GtdInputValidateBehavior.auto:
         var result = validateViewModel();
@@ -59,6 +59,9 @@ abstract class GtdValidateFieldVM {
   Stream<String> get validateStream => _validateSubject.stream;
   Sink<String> get validateSink => _validateSubject.sink;
 
+  String get inputLabel => showRequired ? '$label *' : label;
+  String get inputPlaceholder => showRequired ? '$placeholder *' : placeholder;
+
   GtdValidateFieldVM({
     this.type = GtdTextFieldType.none,
     this.inputValidateBehavior = GtdInputValidateBehavior.manual,
@@ -70,6 +73,7 @@ abstract class GtdValidateFieldVM {
     this.allowEmpty = true,
     this.hasUnderlineBorder = true,
     this.hasFloatLabel = true,
+    this.showRequired = false,
     String? text,
   });
   final TextEditingController controllerSearch = TextEditingController();
@@ -80,7 +84,6 @@ abstract class GtdValidateFieldVM {
       updateValidateStream(value: text);
       return true;
     }, (error) {
-      print(error);
       if (showError) {
         updateValidateStream(error: error);
       }
@@ -129,7 +132,7 @@ abstract class GtdValidateFieldVM {
         RegExp regex = RegExp(type.validationExpression);
         if (!regex.hasMatch(value)) {
           isValid = false;
-          errorMess = '$label invalid!';
+          errorMess = '$label không hợp lệ!';
         }
       }
     }
@@ -166,6 +169,7 @@ class GtdInputTextFieldVM extends GtdValidateFieldVM {
     super.hasUnderlineBorder,
     super.hasFloatLabel,
     super.text,
+    super.showRequired,
   }) {
     // if (type == GtdTextFieldType.dateTime || type == GtdTextFieldType.selection) {
     //   super.isEnable = false;

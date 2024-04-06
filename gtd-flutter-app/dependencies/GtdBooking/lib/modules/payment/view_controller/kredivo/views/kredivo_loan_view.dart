@@ -80,188 +80,194 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                 child: Column(
                   children: [
                     buildHeaderBookingNumber(),
-                    CustomScrollView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      slivers: [
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Text(
-                              "Chọn gói trả góp",
-                              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                    Expanded(
+                      child: CustomScrollView(
+                        // physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Text(
+                                "Chọn gói trả góp",
+                                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                              ),
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Card(
-                              color: Colors.white,
-                              elevation: 0,
-                              child: Padding(
-                                padding: const EdgeInsets.all(16),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 70,
-                                      child: ListView.separated(
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            var data = kredivoOptions[index];
-                                            return GtdSelectItem(
-                                              viewModel: data,
-                                              centerItem: Center(
-                                                child: Text.rich(
-                                                  TextSpan(children: [
-                                                    TextSpan(
-                                                        text: "${data.itemTitle} \n",
-                                                        style:
-                                                            const TextStyle(fontSize: 13, fontWeight: FontWeight.w400)),
-                                                    TextSpan(
-                                                        text: data.itemSubTitle,
-                                                        style:
-                                                            const TextStyle(fontSize: 13, fontWeight: FontWeight.w700))
-                                                  ]),
-                                                  textAlign: TextAlign.center,
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: Card(
+                                color: Colors.white,
+                                elevation: 0,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 70,
+                                        child: ListView.separated(
+                                            scrollDirection: Axis.horizontal,
+                                            itemBuilder: (context, index) {
+                                              var data = kredivoOptions[index];
+                                              return GtdSelectItem(
+                                                viewModel: data,
+                                                centerItem: Center(
+                                                  child: Text.rich(
+                                                    TextSpan(children: [
+                                                      TextSpan(
+                                                          text: "${data.itemTitle} \n",
+                                                          style:
+                                                              const TextStyle(fontSize: 13, fontWeight: FontWeight.w400)),
+                                                      TextSpan(
+                                                          text: data.itemSubTitle,
+                                                          style:
+                                                              const TextStyle(fontSize: 13, fontWeight: FontWeight.w700))
+                                                    ]),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ),
-                                              ),
-                                              onSelect: (value) {
-                                                if (value.isSelected) {
-                                                  kredivoOptions
-                                                      .where((element) => element.data != value.data)
-                                                      .map((e) => e..isSelected = false)
-                                                      .toList();
-                                                  selectedKredivoMonth = value.data;
-                                                }
-                                                // BlocProvider.of<RebuildWidgetCubit>(context).rebuildWidget();
-                                                BlocProvider.of<PaymentKredivoCubit>(context).updateSelectLoan();
-                                              },
-                                            );
-                                          },
-                                          separatorBuilder: (context, index) => const SizedBox(
-                                                width: 8,
-                                              ),
-                                          itemCount: kredivoOptions.length),
-                                    ),
-                                    SizedBox(
-                                      height: 54,
-                                      child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Text(
-                                          "Góp ${selectedKredivoMonth.key} tháng",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                                                onSelect: (value) {
+                                                  if (value.isSelected) {
+                                                    kredivoOptions
+                                                        .where((element) => element.data != value.data)
+                                                        .map((e) => e..isSelected = false)
+                                                        .toList();
+                                                    selectedKredivoMonth = value.data;
+                                                  }
+                                                  // BlocProvider.of<RebuildWidgetCubit>(context).rebuildWidget();
+                                                  BlocProvider.of<PaymentKredivoCubit>(context).updateSelectLoan();
+                                                },
+                                              );
+                                            },
+                                            separatorBuilder: (context, index) => const SizedBox(
+                                                  width: 8,
+                                                ),
+                                            itemCount: kredivoOptions.length),
+                                      ),
+                                      SizedBox(
+                                        height: 54,
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "Góp ${selectedKredivoMonth.key} tháng",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        height: 46,
-                                        child: Row(children: [
-                                          Text(
-                                            "Số tiền thanh toán",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            (selectedKredivoMonth.initialAmount ?? 0).toCurrency(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
-                                          )
-                                        ])),
-                                    const Divider(),
-                                    SizedBox(
-                                        height: 46,
-                                        child: Row(children: [
-                                          Text(
-                                            "Phí chuyển đổi (${selectedKredivoMonth.processingFeeRate})",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            (selectedKredivoMonth.processingFee ?? 0).toCurrency(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
-                                          )
-                                        ])),
-                                    const Divider(),
-                                    SizedBox(
-                                        height: 46,
-                                        child: Row(children: [
-                                          Text(
-                                            "Góp mỗi tháng",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            (selectedKredivoMonth.monthlyInstallment ?? 0).toCurrency(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15,
-                                                color: AppColors.currencyText),
-                                          )
-                                        ])),
-                                    const Divider(),
-                                    SizedBox(
-                                        height: 46,
-                                        child: Row(children: [
-                                          Text(
-                                            "Tổng tiền trả góp",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            (selectedKredivoMonth.paybackAmount ?? 0).toCurrency(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
-                                          )
-                                        ])),
-                                  ],
+                                      SizedBox(
+                                          height: 46,
+                                          child: Row(children: [
+                                            Text(
+                                              "Số tiền thanh toán",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              (selectedKredivoMonth.initialAmount ?? 0).toCurrency(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                                            )
+                                          ])),
+                                      const Divider(),
+                                      SizedBox(
+                                          height: 46,
+                                          child: Row(children: [
+                                            Text(
+                                              "Phí chuyển đổi (${selectedKredivoMonth.processingFeeRate})",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              (selectedKredivoMonth.processingFee ?? 0).toCurrency(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                                            )
+                                          ])),
+                                      const Divider(),
+                                      SizedBox(
+                                          height: 46,
+                                          child: Row(children: [
+                                            Text(
+                                              "Góp mỗi tháng",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              (selectedKredivoMonth.monthlyInstallment ?? 0).toCurrency(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15,
+                                                  color: AppColors.currencyText),
+                                            )
+                                          ])),
+                                      const Divider(),
+                                      SizedBox(
+                                          height: 46,
+                                          child: Row(children: [
+                                            Text(
+                                              "Tổng tiền trả góp",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400, fontSize: 15, color: AppColors.subText),
+                                            ),
+                                            const Spacer(),
+                                            Text(
+                                              (selectedKredivoMonth.paybackAmount ?? 0).toCurrency(),
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600, fontSize: 15, color: AppColors.boldText),
+                                            )
+                                          ])),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: ListTile(
-                              leading: const Icon(Icons.info_sharp),
-                              title: Text(
-                                "Đặt chỗ với phương thức thanh toán trả góp sẽ KHÔNG THỂ HỦY và sẽ được chuyển đổi trả góp sau khi thanh toán thành công.",
-                                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12, color: AppColors.boldText),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 12),
+                              child: ListTile(
+                                leading: const Icon(Icons.info_sharp),
+                                title: Text(
+                                  "Đặt chỗ với phương thức thanh toán trả góp sẽ KHÔNG THỂ HỦY và sẽ được chuyển đổi trả góp sau khi thanh toán thành công.",
+                                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12, color: AppColors.boldText),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: GtdButton(
-                              isEnable: true,
-                              onPressed: (value) {
-                                context.pop();
-                              },
-                              text: "Xác nhận",
-                              fontSize: 16,
-                              height: 48,
-                              borderRadius: 24,
-                              gradient: AppColors.appGradient,
-                            ),
+                          const SliverToBoxAdapter(
+                            child: SizedBox(height: 70),
                           ),
-                        ),
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                              child: Align(
+                                alignment: Alignment.bottomCenter,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: GtdButton(
+                                    isEnable: true,
+                                    onPressed: (value) {
+                                      context.pop();
+                                    },
+                                    text: "Xác nhận",
+                                    fontSize: 16,
+                                    height: 48,
+                                    borderRadius: 24,
+                                    gradient: AppColors.appGradient,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    ),
+
                   ],
                 ),
               ),

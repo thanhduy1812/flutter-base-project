@@ -149,7 +149,7 @@ class HotelCheckoutCubit extends Cubit<CheckoutState> {
     }
   }
 
-  //TODO: Stream valid all field and enable/disable button
+  //MARK: Stream valid all field and enable/disable button
   Stream<bool> get isEnableCheckoutBtn => Rx.combineLatest2(passengersStream, contactStream, (a, b) {
         var isValidPassengers = a.map((e) => e.listTFVM).flattened.map((e) => e.validateInput()).firstWhere(
               (element) => element == false,

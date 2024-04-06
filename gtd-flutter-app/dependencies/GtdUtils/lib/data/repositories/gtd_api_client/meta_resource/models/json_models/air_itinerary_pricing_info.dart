@@ -55,7 +55,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
   }
 
   double get totalAmount {
-    double markup = itinTotalFare?.equivFare?.amount ?? 0;
+    // double markup = itinTotalFare?.equivFare?.amount ?? 0;
     //Recheck markup later => markup is included in totalFare
     // double markup = 0;
     return itinTotalFare?.totalFare?.amount ?? 0;
@@ -71,7 +71,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
     return markup;
   }
 
-    double get comboMarkup {
+  double get comboMarkup {
     double markup = itinTotalFare?.comboMarkup?.amount ?? 0;
     return markup;
   }
@@ -88,7 +88,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
     return fee + tax;
   }
 
-    double get baseAdultPerPerson {
+  double get baseAdultPerPerson {
     double fee = adultFare?.passengerFare?.baseFare?.amount ?? 0;
     return fee;
   }
@@ -99,7 +99,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
     return fee + tax;
   }
 
-    double get baseChildPerPerson {
+  double get baseChildPerPerson {
     double fee = childFare?.passengerFare?.baseFare?.amount ?? 0;
     return fee;
   }
@@ -110,7 +110,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
     return fee + tax;
   }
 
-    double get baseInfantPerPerson {
+  double get baseInfantPerPerson {
     double fee = infantFare?.passengerFare?.baseFare?.amount ?? 0;
     return fee;
   }
@@ -131,8 +131,7 @@ extension AirItineraryPricingInfoHelper on AirItineraryPricingInfo {
   }
 
   double get taxFee {
-    double taxFee =
-        (itinTotalFare?.serviceTax?.amount ?? 0) + (itinTotalFare?.totalTax?.amount ?? 0);
+    double taxFee = (itinTotalFare?.serviceTax?.amount ?? 0) + (itinTotalFare?.totalTax?.amount ?? 0);
     return taxFee;
   }
 

@@ -26,18 +26,15 @@ class FlightSelectItemCubit extends Cubit<FlightSelectItemState> {
   void toggleLoading(bool isLoading, GtdFlightItem flightItem) {
     emit(FlightSelectItemLoadingState(
         flightItem: flightItem,
-        loadingStatus:
-            isLoading ? FlightSelectItemStatus.loading : FlightSelectItemStatus.success));
+        loadingStatus: isLoading ? FlightSelectItemStatus.loading : FlightSelectItemStatus.success));
   }
 
-  Future<void> fetchCabinClass(FilterAvailabilityRq? filterAvailabilityRq, GtdFlightItem flightItem,
-      FlightDirection flightDirection) async {
-    //TODO: Handle Future API fetch and update cabin class into FlightItem here
+  Future<void> fetchCabinClass(
+      FilterAvailabilityRq? filterAvailabilityRq, GtdFlightItem flightItem, FlightDirection flightDirection) async {
+    //MARK: Handle Future API fetch and update cabin class into FlightItem here
     toggleLoading(true, flightItem);
     FilterAvailabilityRq cabinOptionFilter = FilterAvailabilityRq.createFilterRq(
-        flightDirection: flightDirection,
-        searchId: filterAvailabilityRq!.searchId,
-        flightType: flightType);
+        flightDirection: flightDirection, searchId: filterAvailabilityRq!.searchId, flightType: flightType);
     cabinOptionFilter.filter?.groupId = flightItem.groupId;
     cabinOptionFilter.filter?.loadMore = true;
     cabinOptionFilter.filter?.step = "1";
@@ -45,9 +42,7 @@ class FlightSelectItemCubit extends Cubit<FlightSelectItemState> {
     if (flightType == FlightType.inte && flightDirection == FlightDirection.r) {
       toggleLoading(false, flightItem);
     } else {
-      await GtdFlightRepository.shared
-          .groupItinerary(cabinOptionFilter, flightItem.groupId!)
-          .then((value) {
+      await GtdFlightRepository.shared.groupItinerary(cabinOptionFilter, flightItem.groupId!).then((value) {
         value.whenSuccess((success) async {
           flightItem.updateCabinOptions(success, flightDirection);
           toggleLoading(false, flightItem);

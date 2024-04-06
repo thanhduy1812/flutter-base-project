@@ -38,7 +38,7 @@ class ComboSummaryItem extends BaseView<ComboSummaryItemViewModel> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              ...viewModel.flightItemViewModels.map((e) => FlightSummaryItem(viewModel: e)).toList(),
+                              ...viewModel.flightItemViewModels.map((e) => FlightSummaryItem(viewModel: e)),
                               ...[HotelSummaryItem(viewModel: viewModel.hotelItemViewModel)]
                             ],
                           ),

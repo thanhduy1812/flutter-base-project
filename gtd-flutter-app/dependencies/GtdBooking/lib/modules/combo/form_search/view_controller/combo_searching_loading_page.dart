@@ -22,8 +22,8 @@ class ComboSearchingLoadingPage extends BaseStatelessPage<ComboSearchingLoadingP
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      onPopInvoked: (didPop) => false,
       child: MultiBlocProvider(
           providers: [
             BlocProvider(

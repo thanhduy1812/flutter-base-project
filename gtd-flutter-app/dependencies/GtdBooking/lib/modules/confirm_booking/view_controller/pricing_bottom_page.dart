@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +84,7 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    // TODO: implement buildBody
+    // MARK: implement buildBody
     throw UnimplementedError();
   }
 
@@ -316,8 +317,9 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
                       onPressed: (value) {
                         var addBookingTravellerRq =
                             (viewModel as ConfirmBookingPageViewModel).createAddBookingTravellerRq;
-                        print("goto payment method");
-                        print(addBookingTravellerRq.toJson());
+                        if (kDebugMode) {
+                          print(addBookingTravellerRq.toJson());
+                        }
                         GtdLoading.show();
                         BlocProvider.of<AddBookingTravelerCubit>(addBookingContext)
                             .addBookingTraveller(addBookingTravellerRq, viewModel.bookingDetailDTO?.supplierType ?? "")
@@ -327,6 +329,12 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
                               if (success.bookingCode?.bookingNumber != null) {
                                 PaymentMethodPageViewModel paymentViewModel =
                                     PaymentMethodPageViewModel(bookingNumber: success.bookingCode!.bookingNumber);
+
+                                ///Remove all current route
+                                final router = GoRouter.of(paymentContext);
+                                while (router.canPop()) {
+                                  router.pop();
+                                }
                                 paymentContext.push(PaymentMethodPage.route, extra: paymentViewModel);
                               }
                             }, (error) {

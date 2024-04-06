@@ -34,9 +34,4 @@ class InsuranceCubit extends Cubit<InsuranceState> {
       emit(InsuranceError());
     });
   }
-
-  @override
-  Future<void> close() {
-    return super.close();
-  }
 }

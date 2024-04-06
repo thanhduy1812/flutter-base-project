@@ -7,6 +7,7 @@ import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.d
 
 class CheckoutPageViewModel extends PricingBottomPageViewModel {
   bool isTaxReceipt = false;
+
   CheckoutPageViewModel({required super.bookingDetailDTO});
 
   Result<bool, GtdApiError> validateTravelerForm() {
@@ -17,8 +18,15 @@ class CheckoutPageViewModel extends PricingBottomPageViewModel {
 class FlightCheckoutPageViewModel extends CheckoutPageViewModel {
   late GtdCheckoutContentViewModel checkoutContentViewModel;
   final SearchFlightFormModel searchFlightFormModel;
-  FlightCheckoutPageViewModel({required super.bookingDetailDTO, required this.searchFlightFormModel}) {
+
+  FlightCheckoutPageViewModel({
+    required super.bookingDetailDTO,
+    required this.searchFlightFormModel,
+  }) {
     checkoutContentViewModel = GtdFlightCheckoutContentViewModel(
-        bookingDetailDTO: bookingDetailDTO!, searchFlightFormModel: searchFlightFormModel);
+      bookingDetailDTO: bookingDetailDTO!,
+      searchFlightFormModel: searchFlightFormModel,
+    );
+    subTitle = searchFlightFormModel.passengerCountSubtitle();
   }
 }

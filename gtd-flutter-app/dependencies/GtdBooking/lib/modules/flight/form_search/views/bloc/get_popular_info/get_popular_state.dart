@@ -11,6 +11,9 @@ class GetPopularState extends Equatable {
   final GetPopularStatus status;
   final GtdPopularAirportRS? popularAirportRS;
 
+  List<Airport>? get popular => popularAirportRS!.internationalCities;
+  List<Airport>? get domestic => popularAirportRS!.domesticCities;
+
   GetPopularState copyWith({
     GetPopularStatus? status,
     GtdPopularAirportRS? popularAirportRS

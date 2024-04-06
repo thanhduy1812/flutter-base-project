@@ -32,7 +32,6 @@ class ItemSelectView<T extends ItemSelectVM> extends StatelessWidget {
                 onTapItem?.call(viewModel);
               } else {
                 viewModel.toggle();
-                print(viewModel.isSelected);
                 BlocProvider.of<ItemSelectCubit>(context).rebuildWidget();
               }
               onChanged?.call(viewModel);
@@ -51,8 +50,7 @@ class ItemSelectView<T extends ItemSelectVM> extends StatelessWidget {
                 Expanded(
                   child: ListTile(
                     title: Text(viewModel.itemTitle),
-                    subtitle:
-                        viewModel.itemSubTitle.isNotEmpty ? Text(viewModel.itemSubTitle) : null,
+                    subtitle: viewModel.itemSubTitle.isNotEmpty ? Text(viewModel.itemSubTitle) : null,
                   ),
                 ),
                 (rightIconUnSelected != null)
@@ -60,9 +58,8 @@ class ItemSelectView<T extends ItemSelectVM> extends StatelessWidget {
                         width: 40,
                         child: Padding(
                           padding: const EdgeInsetsDirectional.symmetric(horizontal: 8),
-                          child: (!viewModel.isSelected)
-                              ? rightIconUnSelected
-                              : (rightIconSelected ?? const SizedBox()),
+                          child:
+                              (!viewModel.isSelected) ? rightIconUnSelected : (rightIconSelected ?? const SizedBox()),
                         ),
                       )
                     : const SizedBox(),

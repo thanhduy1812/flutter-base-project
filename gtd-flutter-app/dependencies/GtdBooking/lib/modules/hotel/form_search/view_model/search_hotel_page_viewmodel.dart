@@ -11,12 +11,18 @@ import '../model/search_hotel_form_model.dart';
 import 'hotel_search_location/hotel_location_vm.dart';
 
 class SearchHotelPageViewModel extends BasePageViewModel {
-  final BehaviorSubject<bool> _validLocationController = BehaviorSubject.seeded(false);
+  final BehaviorSubject<bool> _validLocationController =
+      BehaviorSubject.seeded(false);
+
   Stream<bool> get isEnableButtonStream => Rx.combineLatest2(
-      _validLocationController.stream, checkinoutViewModel.validFormController.stream, (a, b) => a & b);
+      _validLocationController.stream,
+      checkinoutViewModel.validFormController.stream,
+      (a, b) => a & b);
   DateCheckinoutViewModel checkinoutViewModel = DateCheckinoutViewModel();
   HotelLocationTextFieldVM hotelLocation = HotelLocationTextFieldVM(
-      location: GtdHotelLocationDTO.initEmptyData(), label: "Điểm đến / Tên khách sạn", allowEmpty: false);
+      location: GtdHotelLocationDTO.initEmptyData(),
+      label: "Điểm đến / Tên khách sạn",
+      allowEmpty: false);
   PassengersRoomViewModel passengersRoomViewModel = PassengersRoomViewModel();
 
   late GtdHotelLocationDTO _selectedHotelLocationDTO;
@@ -31,8 +37,11 @@ class SearchHotelPageViewModel extends BasePageViewModel {
 
   SearchHotelPageViewModel({bool isCombo = false}) {
     title = "Đặt phòng khách sạn";
-    var cachedHotelSearch = CacheHelper.shared.loadSavedObject(SearchHotelFormModel.fromCachedObjectMap,
-        key: isCombo ? CacheStorageType.comboHotelBox.name : CacheStorageType.hotelBox.name);
+    var cachedHotelSearch = CacheHelper.shared.loadSavedObject(
+        SearchHotelFormModel.fromCachedObjectMap,
+        key: isCombo
+            ? CacheStorageType.comboHotelBox.name
+            : CacheStorageType.hotelBox.name);
     if (cachedHotelSearch != null) {
       selectedHotelLocationDTO = cachedHotelSearch.locationDTO;
       checkinoutViewModel.fromDate.selectedDate = cachedHotelSearch.fromDate;
@@ -50,24 +59,29 @@ class SearchHotelPageViewModel extends BasePageViewModel {
 
   SearchHotelFormModel get searchHotelFormModel {
     return SearchHotelFormModel(
-        locationDTO: hotelLocation.location,
-        fromDate: checkinoutViewModel.fromDate.selectedDate,
-        toDate: checkinoutViewModel.toDate.selectedDate,
-        totalAdult: passengersRoomViewModel.totalAdult,
-        totalChild: passengersRoomViewModel.totalChild,
-        rooms: passengersRoomViewModel.totalRooms);
+      locationDTO: hotelLocation.location,
+      fromDate: checkinoutViewModel.fromDate.selectedDate,
+      toDate: checkinoutViewModel.toDate.selectedDate,
+      totalAdult: passengersRoomViewModel.totalAdult,
+      totalChild: passengersRoomViewModel.totalChild,
+      rooms: passengersRoomViewModel.totalRooms,
+    );
   }
 
   void savedCachedHotelLocations(GtdHotelLocationDTO hotelLocationDTO) {
-    var savedListHotelLocations = CacheHelper.shared
-        .loadListSavedObject(GtdHotelLocationDTO.fromMapCachedObject, key: CacheStorageType.hotelLocations.name);
+    var savedListHotelLocations = CacheHelper.shared.loadListSavedObject(
+        GtdHotelLocationDTO.fromMapCachedObject,
+        key: CacheStorageType.hotelLocations.name);
     var newList = {hotelLocationDTO, ...savedListHotelLocations}.toList();
     var finalSavedList = newList.sublist(0, min(newList.length, 4));
-    CacheHelper.shared.saveListSharedObject(finalSavedList.map((e) => e.toMapCachedObject()).toList(),
+    CacheHelper.shared.saveListSharedObject(
+        finalSavedList.map((e) => e.toMapCachedObject()).toList(),
         key: CacheStorageType.hotelLocations.name);
   }
 
   void savedCachedHotelFormModel(SearchHotelFormModel searchHotelFormModel) {
-    CacheHelper.shared.saveSharedObject(searchHotelFormModel.toCachedObjectMap(), key: CacheStorageType.hotelBox.name);
+    CacheHelper.shared.saveSharedObject(
+        searchHotelFormModel.toCachedObjectMap(),
+        key: CacheStorageType.hotelBox.name);
   }
 }

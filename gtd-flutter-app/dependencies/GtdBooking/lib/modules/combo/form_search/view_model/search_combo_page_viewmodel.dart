@@ -9,18 +9,25 @@ import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repositor
 import 'package:rxdart/rxdart.dart';
 
 class SearchComboPageViewModel extends BasePageViewModel {
-  SearchHotelPageViewModel searchHotelViewModel = SearchHotelPageViewModel(isCombo: true);
-  SearchFlightPageViewModel searchFlightViewModel = SearchFlightPageViewModel(isCombo: true)
-    ..dateItineraryViewModel.isRoundTrip = true;
+  SearchHotelPageViewModel searchHotelViewModel =
+      SearchHotelPageViewModel(isCombo: true);
+  SearchFlightPageViewModel searchFlightViewModel =
+      SearchFlightPageViewModel(isCombo: true)
+        ..dateItineraryViewModel.isRoundTrip = true;
   bool enablePickerHotel = false;
-  ComboPassengersRoomViewModel passengersRoomViewModel = ComboPassengersRoomViewModel();
+  ComboPassengersRoomViewModel passengersRoomViewModel =
+      ComboPassengersRoomViewModel();
 
-  final BehaviorSubject<bool> _validFlightFormSubject = BehaviorSubject.seeded(false);
+  final BehaviorSubject<bool> _validFlightFormSubject =
+      BehaviorSubject.seeded(false);
+
   // final BehaviorSubject<bool> _validHotelFormSubject = BehaviorSubject.seeded(false);
-  Stream<bool> get isEnableSearchCombo =>
-      Rx.combineLatest2(_validFlightFormSubject.stream, searchHotelViewModel.isEnableButtonStream, (a, b) {
+  Stream<bool> get isEnableSearchCombo => Rx.combineLatest2(
+          _validFlightFormSubject.stream,
+          searchHotelViewModel.isEnableButtonStream, (a, b) {
         return a & b;
       });
+
   SearchComboPageViewModel() {
     title = "Đặt vé combo tiết kiệm";
     if (searchFlightViewModel.dateItineraryViewModel.isRoundTrip == false) {
@@ -49,15 +56,20 @@ class SearchComboPageViewModel extends BasePageViewModel {
   }
 
   void updateHotelLocation() {
-    String locationName = searchFlightViewModel.locationInfoViewModel.toLocation.destination.name ?? "";
-    searchHotelViewModel.selectedHotelLocationDTO = GtdHotelLocationDTO.initWithLocationName(locationName);
+    String locationName = searchFlightViewModel
+            .locationInfoViewModel.toLocation.destination.name ??
+        "";
+    searchHotelViewModel.selectedHotelLocationDTO =
+        GtdHotelLocationDTO.initWithLocationName(locationName);
   }
 
   void updateHotelDateCheckin() {
     if (searchFlightViewModel.dateItineraryViewModel.isRoundTrip) {
-      searchHotelViewModel.checkinoutViewModel.pickerMode = DateCheckinoutPickerMode.disable;
+      searchHotelViewModel.checkinoutViewModel.pickerMode =
+          DateCheckinoutPickerMode.disable;
     } else {
-      searchHotelViewModel.checkinoutViewModel.pickerMode = DateCheckinoutPickerMode.onlyEnd;
+      searchHotelViewModel.checkinoutViewModel.pickerMode =
+          DateCheckinoutPickerMode.onlyEnd;
     }
     if (searchFlightViewModel.dateItineraryViewModel.isRoundTrip) {
       searchHotelViewModel.checkinoutViewModel.fromDate.selectedDate =
@@ -72,23 +84,27 @@ class SearchComboPageViewModel extends BasePageViewModel {
   }
 
   SearchHotelFormModel get searchHotelComboFormModel {
-    updateStateHotelForm();
     return SearchHotelFormModel(
-        locationDTO: searchHotelViewModel.selectedHotelLocationDTO,
-        fromDate: searchHotelViewModel.checkinoutViewModel.fromDate.selectedDate,
-        toDate: searchHotelViewModel.checkinoutViewModel.toDate.selectedDate,
-        totalAdult: passengersRoomViewModel.totalAdult,
-        totalChild: passengersRoomViewModel.totalChild,
-        rooms: passengersRoomViewModel.totalRooms);
+      locationDTO: searchHotelViewModel.selectedHotelLocationDTO,
+      fromDate: searchHotelViewModel.checkinoutViewModel.fromDate.selectedDate,
+      toDate: searchHotelViewModel.checkinoutViewModel.toDate.selectedDate,
+      totalAdult: passengersRoomViewModel.totalAdult,
+      totalChild: passengersRoomViewModel.totalChild,
+      rooms: passengersRoomViewModel.totalRooms,
+    );
   }
 
   SearchFlightFormModel get searchFlightComboFormModel {
     SearchFlightFormModel searchInfoFlightVM = SearchFlightFormModel(
-        fromLocation: searchFlightViewModel.locationInfoViewModel.fromLocation.destination,
-        toLocation: searchFlightViewModel.locationInfoViewModel.toLocation.destination,
+        fromLocation: searchFlightViewModel
+            .locationInfoViewModel.fromLocation.destination,
+        toLocation:
+            searchFlightViewModel.locationInfoViewModel.toLocation.destination,
         isRoundTrip: searchFlightViewModel.dateItineraryViewModel.isRoundTrip)
-      ..departDate = searchHotelViewModel.checkinoutViewModel.fromDate.selectedDate
-      ..returnDate = searchHotelViewModel.checkinoutViewModel.toDate.selectedDate
+      ..departDate =
+          searchHotelViewModel.checkinoutViewModel.fromDate.selectedDate
+      ..returnDate =
+          searchHotelViewModel.checkinoutViewModel.toDate.selectedDate
       ..adult = passengersRoomViewModel.totalAdult
       ..child = passengersRoomViewModel.totalChild
       ..infant = passengersRoomViewModel.totalInfant;

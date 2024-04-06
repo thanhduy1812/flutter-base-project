@@ -60,8 +60,10 @@ class PassengerPicker extends StatelessWidget {
     this.splashRadius = 15.0,
     this.textStyle,
   }) : super(key: key) {
-    this.iconIncrement = iconIncrement ?? Icon(Icons.add, color: iconIncrementColor ?? iconColor);
-    this.iconDecrement = iconDecrement ?? Icon(Icons.remove, color: iconDecrementColor ?? iconColor);
+    this.iconIncrement = iconIncrement ??
+        Icon(Icons.add, color: iconIncrementColor ?? iconColor);
+    this.iconDecrement = iconDecrement ??
+        Icon(Icons.remove, color: iconDecrementColor ?? iconColor);
   }
 
   @override
@@ -71,66 +73,54 @@ class PassengerPicker extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          child: Container(
-              width: 32,
-              height: 32,
-              decoration:
-                  const BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                  spreadRadius: .2,
-                  blurRadius: 1,
-                  offset: Offset(0.5, 2), // changes position of shadow
-                ),
-              ]),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                splashRadius: splashRadius,
-                icon: iconDecrement,
-                constraints: const BoxConstraints(),
-                onPressed: (actual == min)
-                    ? null
-                    : () {
-                        if (actual > min) {
-                          actual--;
-                          if (onPressed != null) onPressed!(actual);
-                        }
-                      },
-              )),
+          child: SizedBox(
+            width: 32,
+            height: 32,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              splashRadius: splashRadius,
+              icon: iconDecrement,
+              constraints: const BoxConstraints(),
+              onPressed: (actual == min)
+                  ? null
+                  : () {
+                      if (actual > min) {
+                        actual--;
+                        if (onPressed != null) onPressed!(actual);
+                      }
+                    },
+            ),
+          ),
         ),
         SizedBox(width: space),
         SizedBox(
           width: 15,
-          child: Text(actual.toString(), style: textStyle, textAlign: TextAlign.center),
+          child: Text(
+            actual.toString(),
+            style: textStyle,
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(width: space),
         InkWell(
-          child: Container(
-              width: 32,
-              height: 32,
-              decoration:
-                  const BoxDecoration(color: Colors.white, shape: BoxShape.circle, boxShadow: [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, 0.12),
-                  spreadRadius: .2,
-                  blurRadius: 1,
-                  offset: Offset(0.5, 2), // changes position of shadow
-                ),
-              ]),
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                splashRadius: splashRadius,
-                icon: iconIncrement,
-                constraints: const BoxConstraints(),
-                onPressed: (actual == max)
-                    ? null
-                    : () {
-                        if (actual < max) {
-                          actual++;
-                          if (onPressed != null) onPressed!(actual);
-                        }
-                      },
-              )),
+          child: SizedBox(
+            width: 32,
+            height: 32,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              splashRadius: splashRadius,
+              icon: iconIncrement,
+              constraints: const BoxConstraints(),
+              onPressed: (actual == max)
+                  ? null
+                  : () {
+                      if (actual < max) {
+                        actual++;
+                        if (onPressed != null) onPressed!(actual);
+                      }
+                    },
+            ),
+          ),
         ),
       ],
     );

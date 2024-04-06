@@ -28,7 +28,6 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/bank-icon/
-    - assets/icons/hotel/
     - assets/icons/airlines/
     - assets/env/
     - assets/env/env.prod

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class PriceBottomView extends BaseView<PriceBottomViewModel> {
   final GtdCallback? onTab;
+
   const PriceBottomView({super.key, required super.viewModel, this.onTab});
 
   @override
@@ -27,11 +30,19 @@ class PriceBottomView extends BaseView<PriceBottomViewModel> {
                       children: [
                         TextSpan(
                           text: viewModel.priceTitle,
-                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey.shade900),
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey.shade900,
+                          ),
                         ),
                         TextSpan(
                           text: '\n${viewModel.priceSubtitle}',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.grey.shade600),
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey.shade600,
+                          ),
                         ),
                       ],
                     ),
@@ -40,9 +51,15 @@ class PriceBottomView extends BaseView<PriceBottomViewModel> {
                 ),
                 Row(
                   children: [
-                    Icon(
-                      Icons.info,
-                      color: AppColors.mainColor.shade100,
+                    SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Center(
+                        child: GtdAppIcon.iconNamedSupplier(
+                          iconName: "icon-info-blue.svg",
+                          color: GtdColors.appMainColor(context),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16),
@@ -51,27 +68,30 @@ class PriceBottomView extends BaseView<PriceBottomViewModel> {
                           children: [
                             TextSpan(
                               text: viewModel.netPrice,
-                              style:
-                                  TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.currencyText),
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.currencyText,
+                              ),
                             ),
-                            viewModel.totalPrice.isNotEmpty
-                                ? TextSpan(
-                                    text: '\n${viewModel.totalPrice}',
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.strikeText,
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor: AppColors.strikeText),
-                                  )
-                                : const WidgetSpan(child: SizedBox()),
+                            if (viewModel.totalPrice.isNotEmpty)
+                              TextSpan(
+                                text: '\n${viewModel.totalPrice}',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.strikeText,
+                                  decoration: TextDecoration.lineThrough,
+                                  decorationColor: AppColors.strikeText,
+                                ),
+                              ),
                           ],
                         ),
                         textAlign: TextAlign.start,
                       ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

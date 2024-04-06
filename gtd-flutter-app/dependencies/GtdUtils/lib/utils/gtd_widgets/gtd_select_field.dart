@@ -38,9 +38,9 @@ class GtdSelectField extends StatelessWidget {
               initialData: viewModel,
               builder: (context, snapshot) {
                 bool isValid = !snapshot.hasError;
-                String errorMess = snapshot.error.toString();
-                var colorValidate =
-                    (isValid) ? const Color.fromRGBO(241, 241, 241, 1) : Theme.of(context).colorScheme.error;
+                // String errorMess = snapshot.error.toString();
+                // var colorValidate =
+                //     (isValid) ? const Color.fromRGBO(241, 241, 241, 1) : Theme.of(context).colorScheme.error;
                 var colorIcon = (isValid) ? const Color.fromRGBO(18, 24, 38, 1) : Theme.of(context).colorScheme.error;
                 // var borderTF = (!viewModel.hasUnderlineBorder)
                 //     ? InputBorder.none

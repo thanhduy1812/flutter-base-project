@@ -27,7 +27,7 @@ class LocalCubit extends Cubit<LocalState> {
   }
 
   void initSetting({String? lang}) async {
-    //TODO: Read env from env file
+    //MARK: Read env from env file
     // String env = "vib";
     GtdAppScheme appScheme = AppConst.shared.appScheme;
     String pathForAssetEnv = GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/${appScheme.envFile}');

@@ -1,17 +1,26 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_controller.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_marker.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GtdFlutterMap extends StatelessWidget {
   late final GtdMapController mapController;
   final GtdMapPoint initMapPoint;
   final List<GtdMarker> markers;
-  double zoom = 16;
-  GtdFlutterMap({super.key, GtdMapController? mapController, this.markers = const [], required this.initMapPoint, this.zoom = 16}) {
+  final double zoom;
+  final int? selectedIndex;
+
+  GtdFlutterMap({
+    super.key,
+    GtdMapController? mapController,
+    this.markers = const [],
+    required this.initMapPoint,
+    this.zoom = 16,
+    this.selectedIndex,
+  }) {
     this.mapController = mapController ?? GtdMapController();
   }
 
@@ -21,7 +30,8 @@ class GtdFlutterMap extends StatelessWidget {
       mapController: mapController.flutterMapController,
       options: MapOptions(
         center: LatLng(initMapPoint.latitude, initMapPoint.longitude),
-        zoom:  zoom,
+        zoom: zoom,
+        maxZoom: 18, ///Limit zoom to 18, map turns grey if zoom further
       ),
       nonRotatedChildren: const [
         // RichAttributionWidget(
@@ -41,7 +51,11 @@ class GtdFlutterMap extends StatelessWidget {
         MarkerLayer(
           // anchorPos: AnchorPos.align(AnchorAlign.center),
           rotate: true,
-          markers: markers.map((e) => e.toMarker()).toList(),
+          // markers: markers.map((e) => e.toMarker()).toList(),
+          markers: markers.mapIndexed((index, e) {
+            return e.toMarker(highlight: selectedIndex == index);
+          }).toList(),
+
           // markers: [
           //   GtdMarker(value: "134,300 VND", point: const LatLng(10.8045027, 106.7910036)).toMarker(),
           // ],

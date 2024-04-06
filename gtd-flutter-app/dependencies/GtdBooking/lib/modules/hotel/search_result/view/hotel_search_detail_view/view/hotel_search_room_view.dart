@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -17,11 +18,12 @@ import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart'
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/reponse/gtd_hotel_search_all_rates_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tool_tip_shape/gtd_tool_tip_shape.dart';
+import 'package:gtd_utils/utils/gtd_widgets/gtd_tool_tip_shape/gtd_custom_tooltip.dart';
 import 'package:gtd_utils/utils/popup/gtd_loading.dart';
 import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
@@ -31,7 +33,8 @@ import '../view_model/hotel_search_room_viewmodel.dart';
 class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
   final GtdCallback<RatePlan>? onSelectHeader;
 
-  const HotelSearchRoomView({super.key, required super.viewModel, this.onSelectHeader});
+  const HotelSearchRoomView(
+      {super.key, required super.viewModel, this.onSelectHeader});
 
   @override
   Widget buildWidget(BuildContext context) {
@@ -44,138 +47,279 @@ class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(color: Colors.grey.shade200, width: 1.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              ListTile(
-                leading: GtdAppIcon.iconNamedSupplier(iconName: "hotel/hotel-room-loading.svg"),
-                contentPadding: EdgeInsets.zero,
-                horizontalTitleGap: 5,
-                title: Text(
-                  viewModel.ratePlan.cancelPolicyTitle.title,
-                  style: const TextStyle(fontWeight: FontWeight.w400, color: CustomColors.darkBlue, fontSize: 12),
-                ),
-                trailing: Tooltip(
-                  message: viewModel.ratePlan.cancelPolicyTitle.description,
-                  verticalOffset: 10,
-                  preferBelow: false,
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  textStyle: const TextStyle(color: Colors.black),
-                  showDuration: const Duration(seconds: 5),
-                  decoration: const ShapeDecoration(shape: GtdTooltipShape(), color: Colors.white, shadows: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.05),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 1), // changes position of shadow
-                    ),
-                  ]),
-                  triggerMode: TooltipTriggerMode.tap,
-                  child: GtdAppIcon.iconNamedSupplier(iconName: "icon-info-blue.svg"),
-                ),
+        child: Column(
+          children: [
+            _refundPolicy(),
+            const SizedBox(height: 8),
+            if (viewModel.ratePlan.amenities?.isNotEmpty == true)
+              _amenitiesList(),
+            _roomDetailsBtn(),
+            Divider(
+              thickness: 1,
+              height: 1,
+              color: GtdColors.snowGrey,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(
+                bottom: 20,
+                top: 16,
               ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) =>
-                      GtdAmenityView(title: viewModel.ratePlan.amenities?[index].name ?? ""),
-                  itemCount: (viewModel.ratePlan.amenities ?? []).length,
-                ),
-              ),
-              SizedBox(
-                height: 40,
-                child: InkWell(
-                  onTap: () {
-                    onSelectHeader?.call(viewModel.ratePlan);
-                  },
-                  child: GtdInfoRow.seperatedRow(
-                      title: Text(
-                        "Chi tiết phòng",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(fontWeight: FontWeight.w400, color: AppColors.mainColor, fontSize: 15),
-                      ),
-                      color: Colors.green),
-                ),
-              ),
-              Column(
+              child: Column(
                 children: [
-                  Row(
-                    children: [
-                      GtdAppIcon.iconNamedSupplier(iconName: "hotel/hotel-room-warning.svg", height: 20),
-                      Text(" chỉ còn ${viewModel.ratePlan.totalRooms ?? 0} phòng",
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: AppColors.currencyText)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Spacer(),
-                      viewModel.hasPromo && viewModel.ratePlan.basePriceBeforePromo != 0
-                          ? Text(
-                              viewModel.totalRoomPricePerNight,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w700,
-                                  decoration: TextDecoration.lineThrough,
-                                  overflow: TextOverflow.ellipsis,
-                                  color: AppColors.strikeText),
-                            )
-                          : const SizedBox(),
-                      viewModel.ratePlan.hasPromo
-                          ? const SizedBox(
-                              width: 8,
-                            )
-                          : const SizedBox(),
-                      Text(viewModel.netRoomPricePerNight,
-                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: AppColors.currencyText))
-                    ],
-                  ),
+                  _noOfRoomLeft(),
+                  _price(),
                   const SizedBox(height: 12),
-                  Row(
-                    children: [
-                      GtdButton(
-                        text: "Tạm tính",
-                        height: 40,
-                        color: Colors.white,
-                        colorText: AppColors.normalText,
-                        leadingIcon: const Padding(
-                          padding: EdgeInsets.only(right: 8),
-                          child: Icon(Icons.info),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                            color: Colors.grey.shade200,
-                            width: 1.0,
-                            style: BorderStyle.solid,
-                          ),
-                        ),
-                        borderRadius: 20,
-                        onPressed: (value) {
-                          GtdPresentViewHelper.presentSheet(
-                              title: "Tổng tạm tính",
-                              context: context,
-                              builder: Builder(
-                                builder: (context) {
-                                  return PriceBottomDetailView(viewModel: viewModel.priceBottomDetailViewModel);
-                                },
-                              ));
-                        },
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _buildCheckoutButton(context),
-                      )
-                    ],
-                  )
+                  _buttons(context)
                 ],
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row _buttons(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: GtdButton(
+            text: "Tạm tính",
+            height: 40,
+            color: Colors.white,
+            colorText: AppColors.normalText,
+            leadingIcon: Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: GtdAppIcon.iconNamedSupplier(
+                iconName: "icon-info-blue.svg",
+                color: Colors.grey.shade800,
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            border: Border.fromBorderSide(
+              BorderSide(
+                color: Colors.grey.shade200,
+                width: 1.0,
+                style: BorderStyle.solid,
+              ),
+            ),
+            borderRadius: 20,
+            onPressed: (value) {
+              GtdPresentViewHelper.presentSheet(
+                title: "Tổng tạm tính",
+                context: context,
+                builder: Builder(
+                  builder: (context) {
+                    return PriceBottomDetailView(
+                      viewModel: viewModel.priceBottomDetailViewModel,
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _buildCheckoutButton(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _price() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Spacer(),
+            Text(
+              '${viewModel.priceTitle}',
+              style: TextStyle(
+                fontSize: 12,
+                color: GtdColors.slateGrey,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            const Spacer(),
+            viewModel.hasPromo && viewModel.ratePlan.basePriceBeforePromo != 0
+                ? Text(
+                    viewModel.totalRoomPricePerNight,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      decoration: TextDecoration.lineThrough,
+                      overflow: TextOverflow.ellipsis,
+                      color: AppColors.strikeText,
+                    ),
+                  )
+                : const SizedBox(),
+            if (viewModel.ratePlan.hasPromo)
+              const SizedBox(
+                width: 8,
+              ),
+            Text(
+              viewModel.netRoomPricePerNight,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                color: AppColors.currencyText,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Row _noOfRoomLeft() {
+    return Row(
+      children: [
+        GtdAppIcon.iconNamedSupplier(
+          iconName: "hotel/hotel-room-warning.svg",
+          height: 20,
+        ),
+        Text(
+          " Chỉ còn ${viewModel.ratePlan.totalRooms ?? 0} phòng giá này",
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: AppColors.currencyText,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Padding _roomDetailsBtn() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 12),
+      child: SizedBox(
+        height: 40,
+        child: InkWell(
+          onTap: () {
+            onSelectHeader?.call(viewModel.ratePlan);
+          },
+          child: GtdInfoRow.seperatedRow(
+            title: Text(
+              "Chi tiết phòng",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: AppColors.mainColor,
+                fontSize: 13,
+              ),
+            ),
+            color: Colors.green,
+          ),
+        ),
+      ),
+    );
+  }
+
+  SizedBox _amenitiesList() {
+    return SizedBox(
+      height: 40,
+      width: double.infinity,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.only(left: 16),
+        itemBuilder: (context, index) => GtdAmenityView(
+          title: viewModel.ratePlan.amenities?[index].name ?? "",
+        ),
+        itemCount: (viewModel.ratePlan.amenities ?? []).length,
+      ),
+    );
+  }
+
+  Container _refundPolicy() {
+    final penaltyData = viewModel.ratePlan.cancelPenaltiesData();
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        children: [
+          Text(
+            viewModel.ratePlan.cancelPolicyTitle.title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              color: CustomColors.darkBlue,
+              fontSize: 12,
+            ),
+          ),
+          const SizedBox(width: 6),
+          // if (viewModel.ratePlan.cancelFree != true &&
+          //     viewModel.ratePlan.refundable != true)
+            GtdCustomTooltip.tooltipWidget(
+              backgroundColor: GtdColors.steelGrey,
+              contentWidget: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: GtdColors.steelGrey,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'hotel.cancelPenalties.title'.tr(),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      'hotel.cancelPenalties.description'.tr(),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: GtdColors.stormGray,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    if (penaltyData.cancelStart != null &&
+                        penaltyData.cancelEnd != null) ...[
+                      _TooltipDataLine(
+                        title: 'hotel.cancelPenalties.cancelRoomDate'.tr(args: [
+                          penaltyData.cancelStart ?? '',
+                          penaltyData.cancelEnd ?? '',
+                        ]),
+                        data: 'hotel.cancelPenalties.losePercent'.tr(args: [
+                          penaltyData.loseAmount ?? '100%',
+                        ]),
+                      ),
+                      const SizedBox(height: 8),
+                    ],
+                    _TooltipDataLine(
+                      title: 'hotel.cancelPenalties.noShow'.tr(),
+                      data: 'hotel.cancelPenalties.loseAll'.tr(),
+                    ),
+                  ],
+                ),
+              ),
+              tooltipWidget: Material(
+                color: Colors.transparent,
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: Center(
+                    child: GtdAppIcon.iconNamedSupplier(
+                      iconName: "icon-info-blue.svg",
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -187,25 +331,32 @@ class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
         child: BlocBuilder<ComboDraftBookingCubit, ComboDraftBookingState>(
           builder: (draftBookingContext, draftBookingState) {
             return GtdButton(
-              border: Border.fromBorderSide(BorderSide(color: Colors.grey.shade200, width: 1)),
+              border: Border.fromBorderSide(
+                  BorderSide(color: Colors.grey.shade200, width: 1)),
               height: 40,
               borderRadius: 20,
               color: AppColors.mainColor,
-              text: "Đặt phòng này",
+              text: "Chọn phòng",
               onPressed: (value) {
                 GtdLoading.show();
                 BlocProvider.of<ComboDraftBookingCubit>(draftBookingContext)
-                    .draftBookingCombo((viewModel as ComboSearchRoomViewModel).createDraftBookingComboRq)
+                    .draftBookingCombo((viewModel as ComboSearchRoomViewModel)
+                        .createDraftBookingComboRq)
                     .then((value) {
                   GtdLoading.hide();
                   value.when((success) {
                     GtdHotelSearchAllRateRq? searchAllRateRq =
-                        BlocProvider.of<HotelSearchDetailCubit>(context).searchAllRateRq;
-                    ComboCheckoutPageViewModel checkoutViewModel = ComboCheckoutPageViewModel(
-                        bookingDetailDTO: success,
-                        searchAllRateRq: searchAllRateRq!,
-                        searchFlightFormModel: (viewModel as ComboSearchRoomViewModel).searchFlightFormModel);
-                    context.push(ComboCheckoutPage.route, extra: checkoutViewModel);
+                        BlocProvider.of<HotelSearchDetailCubit>(context)
+                            .searchAllRateRq;
+                    ComboCheckoutPageViewModel checkoutViewModel =
+                        ComboCheckoutPageViewModel(
+                            bookingDetailDTO: success,
+                            searchAllRateRq: searchAllRateRq!,
+                            searchFlightFormModel:
+                                (viewModel as ComboSearchRoomViewModel)
+                                    .searchFlightFormModel);
+                    context.push(ComboCheckoutPage.route,
+                        extra: checkoutViewModel);
                   }, (error) {
                     GtdPopupMessage(context).showError(error: error.message);
                   });
@@ -221,11 +372,12 @@ class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
         child: BlocBuilder<HotelDraftBookingCubit, HotelDraftBookingState>(
           builder: (draftBookingContext, draftBookingState) {
             return GtdButton(
-              border: Border.fromBorderSide(BorderSide(color: Colors.grey.shade200, width: 1)),
+              border: Border.fromBorderSide(
+                  BorderSide(color: Colors.grey.shade200, width: 1)),
               height: 40,
               borderRadius: 20,
               color: AppColors.mainColor,
-              text: "Đặt phòng này",
+              text: "Chọn phòng",
               onPressed: (value) {
                 GtdLoading.show();
                 BlocProvider.of<HotelDraftBookingCubit>(draftBookingContext)
@@ -234,10 +386,14 @@ class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
                   GtdLoading.hide();
                   value.when((success) {
                     GtdHotelSearchAllRateRq? searchAllRateRq =
-                        BlocProvider.of<HotelSearchDetailCubit>(context).searchAllRateRq;
+                        BlocProvider.of<HotelSearchDetailCubit>(context)
+                            .searchAllRateRq;
                     HotelCheckoutPageViewModel checkoutViewModel =
-                        HotelCheckoutPageViewModel(bookingDetailDTO: success, searchAllRateRq: searchAllRateRq!);
-                    context.push(HotelCheckoutPage.route, extra: checkoutViewModel);
+                        HotelCheckoutPageViewModel(
+                            bookingDetailDTO: success,
+                            searchAllRateRq: searchAllRateRq!);
+                    context.push(HotelCheckoutPage.route,
+                        extra: checkoutViewModel);
                   }, (error) {
                     GtdPopupMessage(context).showError(error: error.message);
                   });
@@ -248,5 +404,41 @@ class HotelSearchRoomView extends BaseView<HotelSearchRoomViewModel> {
         ),
       );
     }
+  }
+}
+
+class _TooltipDataLine extends StatelessWidget {
+  final String title;
+  final String data;
+
+  const _TooltipDataLine({
+    required this.title,
+    required this.data,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 13,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Text(
+          data,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        )
+      ],
+    );
   }
 }

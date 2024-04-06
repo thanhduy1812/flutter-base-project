@@ -146,16 +146,14 @@ class ReservationDetailPage extends BaseStatelessPage<ReservationDetailPageViewM
                                 builder: (context) {
                                   return SizedBox(
                                     child: viewModel.flightFareRuleContent == null
-                                        ? const Center(child: Text("Fare rule is coming"))
+                                        ? const Center(child: Text("Loading..."))
                                         : SingleChildScrollView(
                                             padding: EdgeInsets.zero,
                                             child: GtdHtmlView(
                                               htmlString: viewModel.flightFareRuleContent,
                                               onLinkTap: ({attributes, url}) async {
                                                 final Uri policyUrl = Uri.parse(url!);
-                                                if (!await launchUrl(policyUrl)) {
-                                                  print("cannot open url");
-                                                }
+                                                if (!await launchUrl(policyUrl)) {}
                                               },
                                             ),
                                           ),

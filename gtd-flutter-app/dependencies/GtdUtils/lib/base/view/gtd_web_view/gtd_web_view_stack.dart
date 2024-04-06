@@ -1,12 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_utils/data/cache_helper/user_manager.dart';
+import 'package:gtd_utils/helpers/extension/string_extension.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class GtdWebViewStack extends StatefulWidget {
   final String url;
+
   const GtdWebViewStack({
-    Key? key,
+    super.key,
     required this.url,
-  }) : super(key: key);
+  });
 
   @override
   State<GtdWebViewStack> createState() => _GtdWebViewStackState();
@@ -32,6 +36,16 @@ class _GtdWebViewStackState extends State<GtdWebViewStack> {
           });
         },
         onPageFinished: (url) {
+          if (kDebugMode) {
+            print('onPageFinished: $url');
+          }
+          if (url.contains('booking/result?bookingNumber')) {
+            final bookingNumber = Uri.parse(url).queryParameters['bookingNumber'];
+            if (!bookingNumber.isNullOrEmpty()) {
+              UserManager.shared.bookingResultWebViewCallback.call(bookingNumber!);
+            }
+          }
+
           setState(() {
             loadingPercentage = 100;
           });

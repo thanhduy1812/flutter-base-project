@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
+import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class GtdInputSelectCell extends StatelessWidget {
@@ -11,16 +12,18 @@ class GtdInputSelectCell extends StatelessWidget {
   final bool hasData;
   final bool isEnable;
   final GtdVoidCallback? onSelect;
-  const GtdInputSelectCell(
-      {super.key,
-      this.leadingIcon,
-      this.trailingIcon,
-      required this.title,
-      required this.subTitle,
-      this.hasData = true,
-      this.defaultSubTitle = "",
-      this.isEnable = true,
-      this.onSelect});
+
+  const GtdInputSelectCell({
+    super.key,
+    this.leadingIcon,
+    this.trailingIcon,
+    required this.title,
+    required this.subTitle,
+    this.hasData = true,
+    this.defaultSubTitle = "",
+    this.isEnable = true,
+    this.onSelect,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,28 +45,39 @@ class GtdInputSelectCell extends StatelessWidget {
                           width: 40,
                           child: FittedBox(
                             child: leadingIcon,
-                          )),
+                          ),
+                        ),
                   title: Text(
                     title,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.boldText),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.boldText,
+                    ),
                   ),
                   subtitle: Text(
                     hasData ? subTitle : defaultSubTitle,
                     style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: !hasData ? AppColors.currencyText : AppColors.subText),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color:
+                          !hasData ? AppColors.currencyText : AppColors.subText,
+                    ),
                   ),
                 ),
               ),
               trailingIcon ??
-                  const Padding(
-                    padding: EdgeInsets.only(right: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16),
                     child: SizedBox(
-                        height: 30,
-                        child: FittedBox(
-                          child: Icon(Icons.keyboard_arrow_right),
-                        )),
+                      height: 30,
+                      child: FittedBox(
+                        child: Icon(
+                          Icons.keyboard_arrow_right,
+                          color: GtdColors.appMainColor(context),
+                        ),
+                      ),
+                    ),
                   ),
             ],
           ),
