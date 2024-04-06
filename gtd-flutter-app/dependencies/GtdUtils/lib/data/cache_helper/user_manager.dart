@@ -23,26 +23,4 @@ class UserManager {
   setLoggedIn(bool isLoggedIn) {
     isLoggedInStream.add(isLoggedIn);
   }
-
-  Future<void> cacheUserData(GtdAccountHive accountData) async {
-    await CacheHelper.cacheObject<GtdAccountHive>(
-      accountData,
-      cacheStorageType: CacheStorageType.accountBox,
-    );
-    await getAccountData();
-  }
-
-  Future<GtdAccountHive?> getAccountData() async {
-    final account = await CacheHelper.getCachedObject<GtdAccountHive>(
-      cacheStorageType: CacheStorageType.accountBox,
-    );
-    _currentAccount = account;
-    return _currentAccount;
-  }
-
-  Future<void> removeAccountData() async {
-    await CacheHelper.deleteKeyCached(
-      cacheStorageType: CacheStorageType.accountBox,
-    );
-  }
 }

@@ -32,6 +32,11 @@ class BaseStatelessPage<T extends BasePageViewModel> extends StatelessWidget {
   }
 
   @protected
+  Widget? floatingButton(BuildContext context) {
+    return null;
+  }
+
+  @protected
   AppBar? buildAppbar(BuildContext pageContext) {
     return AppBar(
       scrolledUnderElevation: 0,
@@ -115,6 +120,7 @@ class BaseStatelessPage<T extends BasePageViewModel> extends StatelessWidget {
                   appBar: buildAppbar(inheritedtContext),
                   body: buildBody(inheritedtContext),
                   bottomNavigationBar: buildBottomBar(inheritedtContext),
+                  floatingActionButton: floatingButton(inheritedtContext),
                 );
               }),
             );

@@ -10,6 +10,13 @@ class GtdNetworkService {
   late GTDNetworkRequest request;
   // injecting dio instance
   GtdNetworkService._() {
+    // if (kIsWeb) {
+    //   _dio.httpClientAdapter = BrowserHttpClientAdapter();
+    // } else {
+    //   _dio.httpClientAdapter = HttpClientAdapter();
+    // }
+    _dio.httpClientAdapter = HttpClientAdapter();
+
     _dio.interceptors.add(GtdDioInterceptor(printOnSuccess: true));
   }
   static final shared = GtdNetworkService._();
@@ -136,6 +143,8 @@ class GtdNetworkService {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
+      Map<String, dynamic> headers = {"Access-Control-Allow-Origin": "*"};
+      headers.addAll(request.headers ?? {});
       _dio.options.connectTimeout = Duration(seconds: request.connectTimeout);
       _dio.options.receiveTimeout = Duration(seconds: request.receiveTimeout);
       // _dio.interceptors.add(GtdDioInterceptor(printOnSuccess: true));

@@ -13,6 +13,36 @@ abstract class BaseViewModel with ChangeNotifier {
   }
 }
 
+// class BaseViewModelCodec extends MessageCodec<BaseViewModel> {
+//   @override
+//   BaseViewModel? decodeMessage(ByteData? message) {
+//     if (message == null) {
+//       return null;
+//     }
+//     return BaseViewModel();
+//   }
+
+//   @override
+//   ByteData? encodeMessage(BaseViewModel message) {
+//     return ByteData(0);
+//   }
+// }
+
+// class BaseViewModelCodec extends Codec<BaseViewModel, BaseViewModel> {
+//   @override
+//   Converter<BaseViewModel, BaseViewModel> get decoder => BaseViewModelConverter();
+
+//   @override
+//   Converter<BaseViewModel, BaseViewModel> get encoder => BaseViewModelConverter();
+// }
+
+// class BaseViewModelConverter extends Converter<BaseViewModel, BaseViewModel> {
+//   @override
+//   BaseViewModel convert(BaseViewModel input) {
+//     return input;
+//   }
+// }
+
 class CardViewModel extends BaseViewModel {
   double width;
   double height;
