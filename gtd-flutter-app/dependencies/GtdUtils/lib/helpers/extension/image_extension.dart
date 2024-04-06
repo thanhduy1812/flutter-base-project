@@ -37,41 +37,41 @@ extension GtdImage on Image {
     );
   }
 
-  static Image imgFromCommon({required String assetName, double? width, double? height, BoxFit? fit}) {
-    return Image.asset(
-      GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
-      width: width,
-      height: height,
-      fit: fit,
-    );
-  }
+  // static Image imgFromCommon({required String assetName, double? width, double? height, BoxFit? fit}) {
+  //   return Image.asset(
+  //     GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
+  //     width: width,
+  //     height: height,
+  //     fit: fit,
+  //   );
+  // }
 
-  static Widget svgFromCommon(
-      {required String assetName, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
-    return SvgPicture.asset(
-      GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
-      width: width,
-      height: height,
-      fit: fit,
-      colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
-    );
-  }
+  // static Widget svgFromCommon(
+  //     {required String assetName, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
+  //   return SvgPicture.asset(
+  //     GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
+  //     width: width,
+  //     height: height,
+  //     fit: fit,
+  //     colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+  //   );
+  // }
 
-  static Image giftFromSupplier({required String assetName, BoxFit? boxFit}) {
-    return Image.asset(
-      GtdString.pathForAsset(AppConst.shared.supplierResource, assetName),
-      gaplessPlayback: true,
-      fit: boxFit,
-    );
-  }
+  // static Image giftFromSupplier({required String assetName, BoxFit? boxFit}) {
+  //   return Image.asset(
+  //     GtdString.pathForAsset(AppConst.shared.supplierResource, assetName),
+  //     gaplessPlayback: true,
+  //     fit: boxFit,
+  //   );
+  // }
 
-  static Image giftFromCommon({required String assetName, BoxFit? boxFit}) {
-    return Image.asset(
-      GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
-      gaplessPlayback: true,
-      fit: boxFit,
-    );
-  }
+  // static Image giftFromCommon({required String assetName, BoxFit? boxFit}) {
+  //   return Image.asset(
+  //     GtdString.pathForAsset(AppConst.shared.commonResource, assetName),
+  //     gaplessPlayback: true,
+  //     fit: boxFit,
+  //   );
+  // }
 
   static Image imgFromUrl(String url, {BoxFit boxFit = BoxFit.fitWidth}) {
     var img = Image.network(

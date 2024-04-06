@@ -1,5 +1,4 @@
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
-import 'package:gtd_utils/data/cache_helper/models/gtd_account_hive.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -16,9 +15,6 @@ class UserManager {
   late GtdCallback<String> bookingResultWebViewCallback;
   late GtdVoidCallback popToHomeCallback;
 
-  GtdAccountHive? _currentAccount;
-
-  GtdAccountHive? get currentAccount => _currentAccount;
 
   setLoggedIn(bool isLoggedIn) {
     isLoggedInStream.add(isLoggedIn);

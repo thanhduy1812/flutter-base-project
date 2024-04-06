@@ -9,27 +9,6 @@ class AppConst {
 
   static final shared = AppConst._();
 
-  /// Name of the app.
-  static const String appName = 'Gotadi';
-
-  /// Current app version.
-  static const String version = '0.1.2';
-
-  /// Used version of FlexColorScheme package.
-  static const String packageVersion = '6.1.0';
-
-  /// Build with Flutter version.
-  static const String flutterVersion = 'Channel stable v3.7.0';
-
-  /// Copyright years notice.
-  static const String copyright = '© 2022, 2023';
-
-  /// Author info.
-  static const String author = 'TamKieu';
-
-  /// License info.
-  static const String license = 'BSD 3-Clause License';
-
   /// AppScheme
   late final GtdAppScheme appScheme;
 
@@ -50,10 +29,5 @@ class AppConst {
   /// AppAssetPackage
   String get supplierResource {
     return appScheme.packageResoure.resource;
-  }
-
-  /// AppAssetPackageCommon
-  String get commonResource {
-    return GtdPackageResoure.common.resource;
   }
 }

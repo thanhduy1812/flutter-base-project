@@ -1,5 +1,5 @@
 import 'package:gtd_utils/data/network/network.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/response/gtd_error_rs.dart';
+import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_constant.dart';
 import 'package:collection/collection.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
@@ -100,39 +100,6 @@ class GtdApiError implements Exception {
         return Tuple(item1: code, item2: "Số điện thoại đã được sử dụng");
       case "6969":
         return Tuple(item1: code, item2: "Tài khoản của bạn không đủ để thực hiện thanh toán này. Vui lòng thử lại");
-      // Error code String Voucher
-      case "7200_VOUCHER_VALIDATION_ERROR":
-        return Tuple(item1: code, item2: "Voucher lỗi, không xác thực được voucher này.");
-      case "7201_VOUCHER_REDEMPTION_ERROR":
-        return Tuple(item1: code, item2: "Lỗi quy đổi mã khuyến mãi.");
-      case "7202_VOUCHER_NOT_ACTIVE_YET":
-        return Tuple(item1: code, item2: "Mã khuyến mãi chưa hoạt động.");
-      case "7203_VOUCHER_NOT_FOUND":
-        return Tuple(item1: code, item2: "Không tìm thấy mã khuyến mãi.");
-      case "7204_VOUCHER_EXPIRED":
-        return Tuple(item1: code, item2: "AccountIsDeleted");
-      case "7205_VOUCHER_DISABLE":
-        return Tuple(item1: code, item2: "Mã khuyến mãi bị vô hiệu hóa.");
-      case "7206_VOUCHER_GIFT_AMOUNT_EXCEEDED":
-        return Tuple(item1: code, item2: "Đã vượt quá số lần sử dụng mã khuyến mãi.");
-      case "7207_VOUCHER_NOT_VALID":
-        return Tuple(item1: code, item2: "Mã khuyến mãi không hợp lệ.");
-      case "7208_VOUCHER_ONLY_ONEWAY":
-        return Tuple(item1: code, item2: "Mã khuyến mãi chỉ sử dụng cho vé máy bay một chiều.");
-      case "7209_VOUCHER_ONLY_ROUNDTRIP":
-        return Tuple(item1: code, item2: "Mã khuyến mãi chỉ sử dụng cho vé máy bay khứ hồi.");
-      case "7210_VOUCHER_ONLY_HOTEL":
-        return Tuple(item1: code, item2: "Mã khuyến mãi chỉ sử dụng cho khách sạn.");
-      case "7211_VOUCHER_CAMPAIGN_NOTFOUND":
-        return Tuple(item1: code, item2: "Voucher không có hoặc quá hạn");
-      case "7212_VOUCHER_CAMPAIGN_ERROR":
-        return Tuple(item1: code, item2: "Voucher bị lỗi hoặc quá hạn");
-      case "7213_VOUCHER_QUANTITY_EXCEEDED":
-        return Tuple(item1: code, item2: "Voucher đã sử dụng");
-      case "7214_VOUCHER_NOT_ENOUGH_MIN_AMOUNT":
-        return Tuple(item1: code, item2: "Số tiền giao dịch không đủ để áp dụng mã khuyến mãi này");
-      case "7215_VOUCHER_NOT_ENOUGH_MAX_AMOUNT":
-        return Tuple(item1: code, item2: "Vượt quá số tiền giao dịch để áp dụng mã khuyến mãi này");
       case "Error_Common":
         return Tuple(item1: code, item2: "Đã có lỗi xảy ra, vui lòng thử lại sau giây lát.");
       default:

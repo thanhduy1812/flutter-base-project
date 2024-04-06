@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/settings/setting_cupid.dart';
 import 'package:gtd_utils/constants/app_const.dart';
-import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/utils/app_bloc_observer/app_bloc_observer.dart';
 
@@ -18,7 +17,7 @@ class WrappedApp {
   static final shared = WrappedApp._();
 
   Widget createWrappedApp(String language, GoRouter appRouter, String appTitle,
-      {GtdAppScheme appScheme = GtdAppScheme.uatvib, ThemeMode? themeMode}) {
+      {GtdAppScheme appScheme = GtdAppScheme.beme, ThemeMode? themeMode}) {
     Bloc.observer = AppBlocObserver();
 
     /// Set app scheme

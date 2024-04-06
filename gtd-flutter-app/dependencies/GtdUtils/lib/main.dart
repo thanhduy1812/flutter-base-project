@@ -1,15 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
-import 'package:gtd_utils/data/cache_helper/models/search_flight_info_hive.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/form_search_model.dart';
 import 'package:gtd_utils/helpers/extension/string_extension.dart';
 
 void main() async {
@@ -18,11 +15,7 @@ void main() async {
   CacheHelper.shared.initCachedMemory();
   CacheHelper.shared.initCachedStorage();
   // String pathAsset = await rootBundle.loadString('assets/env/${GtdAppMode.prodvib.envFile}');
-  String pathForAsset =
-      GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/.${GtdAppScheme.prodvib.envFile}');
-  // await dotenv.load(fileName: '${AppConst.packageCommnon}/assets/env/${GtdAppMode.prodvib.envFile}');
-  await dotenv.load(fileName: pathForAsset);
-  AppConst.shared.appScheme = GtdAppScheme.uatvib;
+  AppConst.shared.appScheme = GtdAppScheme.beme;
   Logger.setLogLevel(Logger.DEBUG);
   runApp(const TestApiApp());
   // runApp(const MyApp());
@@ -39,11 +32,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: const GtdDatePickerDialog(
-      //   flightType: FlightType.DEPARTURE,
-      //   isRoundTrip: true,
-      //   titleHeading: '',
-      // ));
       home: const TestResourcePackage(
         title: 'Test IMAGE',
       ),

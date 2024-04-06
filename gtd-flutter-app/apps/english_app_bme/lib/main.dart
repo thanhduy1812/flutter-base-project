@@ -13,7 +13,7 @@ void main() {
     'vi',
     appRouter,
     "English Beme",
-    appScheme: GtdAppScheme.uatB2C,
+    appScheme: GtdAppScheme.beme,
   );
   
   runApp(app);

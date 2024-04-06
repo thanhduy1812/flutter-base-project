@@ -9,12 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:path_provider/path_provider.dart' as path_provider;
 enum CacheStorageType {
-  flightBox,
-  hotelBox,
-  comboFlightBox,
-  comboHotelBox,
-  flightLocations,
-  hotelLocations,
   accountBox,
 }
 

@@ -24,13 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # vib_resource:
-  #   path: ../resources/vib_resource
-  # vib_resource:
-  #   path: ../resources/vib_resource
-  common_resource:
-    path: ../resources/common_resource
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -93,19 +86,6 @@ flutter:
   # To add Flutter specific assets to your application, add an assets section,
   # like this:
   # assets:
-  # - packages/resource/assets/images/
-  # - packages/resource/assets/images/demo/
-  # - packages/resource/assets/icons/
-  # - packages/resource/assets/icons/flight/
-  # - packages/resource/assets/icons/airlines/
-  # - packages/resource/vib_assets/translations/
-  assets:
-    - lib/data/resource/gotadi_data/gotadi_invoice_term.html
-    - lib/data/resource/gotadi_data/gotadi_about.html
-  #   - packages/resource/
-  # - assets/icons/
-  # - assets/icons/flight/
-  #   - images/a_dot_ham.jpeg
   # assets:
   #   - assets/env/
   #   - .env

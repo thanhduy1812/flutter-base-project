@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:gtd_utils/base/bloc/local_state.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
 
 class LocalCubit extends Cubit<LocalState> {
   LocalCubit() : super(LocalInitState());
@@ -29,8 +27,6 @@ class LocalCubit extends Cubit<LocalState> {
     //MARK: Read env from env file
     // String env = "vib";
     GtdAppScheme appScheme = AppConst.shared.appScheme;
-    String pathForAssetEnv = GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/.${appScheme.envFile}');
-    await dotenv.load(fileName: pathForAssetEnv);
     if (lang != null) {
       await CacheHelper.shared.cacheLanguage(lang);
     }

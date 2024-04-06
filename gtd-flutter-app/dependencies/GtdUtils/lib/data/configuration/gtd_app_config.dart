@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_theme.dart';
 
 enum GtdAppScheme {
-  uatvib('env.uat', GtdAppSupplier.vib, GtdPackageResoure.vib, false),
-  prodvib('env.prod', GtdAppSupplier.vib, GtdPackageResoure.vib, false),
-  prodB2C('env.prod', GtdAppSupplier.b2c, GtdPackageResoure.gotadiB2C, true),
-  uatB2C('env.uat', GtdAppSupplier.b2c, GtdPackageResoure.gotadiB2C, true),
-  prodB2B('env.prod', GtdAppSupplier.agent, GtdPackageResoure.gotadiB2B, true),
-  uatB2B('env.uat', GtdAppSupplier.agent, GtdPackageResoure.gotadiB2B, true);
+  beme('env.uat', GtdAppSupplier.beme, GtdPackageResoure.beme, true);
 
   final String envFile;
   final GtdAppSupplier appSupplier;
@@ -17,30 +12,23 @@ enum GtdAppScheme {
 
   static GtdAppScheme getAppScheme(String env, String partner) {
     switch (partner) {
-      case "vib":
-        return (env == "prod") ? GtdAppScheme.prodvib : GtdAppScheme.uatvib;
-      case "b2c":
-        return (env == "prod") ? GtdAppScheme.prodB2C : GtdAppScheme.uatB2C;
+      case "beme":
+        return (env == "prod") ? GtdAppScheme.beme : GtdAppScheme.beme;
       default:
-        return (env == "prod") ? GtdAppScheme.prodB2C : GtdAppScheme.uatB2C;
+        return (env == "prod") ? GtdAppScheme.beme : GtdAppScheme.beme;
     }
   }
 }
 
 enum GtdAppSupplier {
-  b2c(GtdAppTheme.gotadiB2C),
-  agent(GtdAppTheme.gotadiAgent),
-  ca(GtdAppTheme.gotadiAgent),
-  vib(GtdAppTheme.vib);
+  beme(GtdAppTheme.beme);
 
   final GtdAppTheme appTheme;
   const GtdAppSupplier(this.appTheme);
 }
 
 enum GtdAppTheme {
-  gotadiB2C,
-  gotadiAgent,
-  vib;
+  beme;
 
   const GtdAppTheme();
 }
@@ -48,37 +36,22 @@ enum GtdAppTheme {
 extension GtdAppThemeData on GtdAppTheme {
   ThemeData get lightTheme {
     switch (this) {
-      case GtdAppTheme.gotadiB2C:
-        return GtdThemeData.gotadiB2CLightTheme;
-      case GtdAppTheme.gotadiAgent:
-        return GtdThemeData.gotadiB2CLightTheme;
-      case GtdAppTheme.vib:
-        return GtdThemeData.vibLightTheme;
-      default:
-        return GtdThemeData.vibLightTheme;
+      case GtdAppTheme.beme:
+        return GtdThemeData.beme;
     }
   }
 
   ThemeData get darkTheme {
     switch (this) {
-      case GtdAppTheme.gotadiB2C:
-        return GtdThemeData.gotadiB2CLightTheme;
-      case GtdAppTheme.gotadiAgent:
-        return GtdThemeData.gotadiB2CLightTheme;
-      case GtdAppTheme.vib:
-        return GtdThemeData.vibdarkTheme;
-      default:
-        return GtdThemeData.vibdarkTheme;
+      case GtdAppTheme.beme:
+        return GtdThemeData.beme;
     }
   }
 }
 
 // Define Resource Asset Package Name here
 enum GtdPackageResoure {
-  common('common_resource'),
-  gotadiB2C('gotadi_resource'),
-  gotadiB2B('gotadi_resource'),
-  vib('vib_resource');
+  beme('gotadi_resource');
 
   final String resource;
   const GtdPackageResoure(this.resource);

@@ -5,7 +5,6 @@ const String pattern1 = "dd/MM/yyyy";
 const String iosPattern = "yyyy-MM-ddTHH:mm:ss'Z'";
 const String fullDateTimePattern = "HH:mm, EEE dd/MM/yyyy";
 DateFormat dateFormat = DateFormat("dd/MM/yyyy");
-DateFormat dateFormatFlight = DateFormat("HH:mm - EEEE, dd/MM/yyyy");
 DateFormat monthYearFormat = DateFormat("MM/yyyy");
 DateFormat iosDateFormat = DateFormat("yyyy-MM-ddTHH:mm:ss'Z'");
 DateFormat fullDateTimeFormat = DateFormat(fullDateTimePattern);

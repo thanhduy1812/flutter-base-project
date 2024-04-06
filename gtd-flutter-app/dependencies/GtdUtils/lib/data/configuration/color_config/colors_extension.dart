@@ -23,55 +23,35 @@ extension CustomColors on Colors {
 
   static MaterialColor mainAppColor({required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.mainGreen;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.mainBlue : CustomColors.mainOrange;
-      default:
+      case GtdAppSupplier.beme:
         return CustomColors.mainGreen;
     }
   }
 
   static Color lightMainAppColor({required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.mainGreen.shade50;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.mainBlue.shade50 : CustomColors.mainOrange.shade50;
-      default:
+      case GtdAppSupplier.beme:
         return CustomColors.mainGreen.shade50;
     }
   }
 
   static Color mediumMainAppColor({required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.mainGreen.shade100;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.mainBlue.shade100 : CustomColors.mainOrange.shade100;
-      default:
+      case GtdAppSupplier.beme:
         return CustomColors.mainGreen.shade100;
     }
   }
 
   static Color headerAppColor({required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.mainOrange;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.mainBlue : CustomColors.mainOrange;
-      default:
+      case GtdAppSupplier.beme:
         return CustomColors.mainOrange;
     }
   }
 
   static Color lightHeaderAppColor({required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.mainOrange.shade50;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.mainBlue.shade50 : CustomColors.mainOrange.shade50;
-      default:
+      case GtdAppSupplier.beme:
         return CustomColors.mainOrange.shade50;
     }
   }
@@ -79,12 +59,7 @@ extension CustomColors on Colors {
   static Tuple<Color, Color> gradientColors(
       {required GtdAppSupplier supplier, ThemeMode themeMode = ThemeMode.system}) {
     switch (supplier) {
-      case GtdAppSupplier.b2c:
-        return CustomColors.gradientGreen;
-      case GtdAppSupplier.vib:
-        return themeMode == ThemeMode.dark ? CustomColors.gradientBlue : CustomColors.gradientOrange;
-      default:
-        // return Tuple(item1: CustomColors.mainGreen, item2: CustomColors.mainGreen);
+      case GtdAppSupplier.beme:
         return CustomColors.gradientGreen;
     }
   }
