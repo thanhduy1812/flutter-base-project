@@ -1,20 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:gtd_utils/data/cache_helper/models/gtd_cached_object.dart';
-import 'package:hive/hive.dart';
-
-@HiveType(typeId: 2)
-class HotelLocationHive extends GtdCachedObject {
-  @HiveField(1)
+class HotelLocationHive {
   String name;
-  @HiveField(2)
   String searchCode;
-  @HiveField(3)
   String searchType;
-  @HiveField(4)
   String supplier;
-  @HiveField(5)
   String lineOne;
 
   HotelLocationHive({
@@ -25,14 +16,12 @@ class HotelLocationHive extends GtdCachedObject {
     required this.lineOne,
   });
 
-  @override
   int get typeId => 1;
-
-
 
   String toJson() => json.encode(toMap());
 
-  factory HotelLocationHive.fromJson(String source) => HotelLocationHive.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory HotelLocationHive.fromJson(String source) =>
+      HotelLocationHive.fromMap(json.decode(source) as Map<String, dynamic>);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

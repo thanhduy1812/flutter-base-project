@@ -1,6 +1,5 @@
-import 'package:hive/hive.dart';
 
-abstract class GtdCachedObject extends HiveObject {
+abstract class GtdCachedObject  {
   int get typeId;
   GtdCachedObject();
 }

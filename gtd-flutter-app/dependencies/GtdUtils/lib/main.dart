@@ -6,17 +6,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
-import 'package:gtd_utils/data/cache_helper/models/search_flight_info_hive.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/form_search_model.dart';
 import 'package:gtd_utils/helpers/extension/string_extension.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   CacheHelper.shared.initCachedMemory();
-  CacheHelper.shared.initCachedStorage();
   // String pathAsset = await rootBundle.loadString('assets/env/${GtdAppMode.prodvib.envFile}');
   String pathForAsset =
       GtdString.pathForAsset(AppConst.shared.commonResource, 'assets/env/.${GtdAppScheme.prodvib.envFile}');
@@ -69,7 +66,7 @@ class TestApiApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,32 +76,7 @@ class HomePage extends StatelessWidget {
         style: ButtonStyle(
           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
         ),
-        onPressed: () async {
-          FormSearchPayloadModel info = FormSearchPayloadModel();
-          await CacheHelper.cacheObject(
-              SearchFlightInfoHive(departLocationCode: "VN", departFlightDate: DateTime.now()),
-              cacheStorageType: CacheStorageType.flightBox);
-          var obj =
-              await CacheHelper.getCachedObject<SearchFlightInfoHive>(cacheStorageType: CacheStorageType.flightBox);
-          Logger.w(obj.toString());
-          // SearchFlightInfoHive infoHive = SearchFlightInfoHive(departLocationCode: "VN");
-          // obj?.departLocationCode = "QH";
-          // await obj?.save();
-          await CacheHelper.cacheObject(
-              SearchFlightInfoHive(departLocationCode: "QH", departFlightDate: DateTime.now()),
-              cacheStorageType: CacheStorageType.flightBox);
-
-          // await obj?.delete();
-          Logger.w("----------------");
-          var objDeleted =
-              await CacheHelper.getCachedObject<SearchFlightInfoHive>(cacheStorageType: CacheStorageType.flightBox);
-          Logger.w(objDeleted.toString());
-          info.gtdLocationInfo = GtdLocationInfo(
-              departureName: "Ho Chi Minh", originCode: "SGN", destinationName: "Ha Noi", destinationCode: "HAN");
-          info.dateItinerary =
-              DateItinerary(departureDate: DateTime.now().add(const Duration(days: 5)), routeType: "OneWay");
-          info.passengersItinerary = PassengersItinerary(adult: 1, child: 0, inf: 0);
-        },
+        onPressed: () async {},
         child: const Text('Call API'),
       ),
     );
@@ -112,7 +84,7 @@ class HomePage extends StatelessWidget {
 }
 
 class TestResourcePackage extends StatefulWidget {
-  const TestResourcePackage({Key? key, required this.title}) : super(key: key);
+  const TestResourcePackage({super.key, required this.title});
   final String title;
 
   @override

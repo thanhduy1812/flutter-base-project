@@ -1,35 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:hive/hive.dart';
 
-import 'gtd_cached_object.dart';
-
-part 'search_flight_info_hive.g.dart';
-
-@HiveType(typeId: 0)
-class SearchFlightInfoHive extends GtdCachedObject {
-  @HiveField(0)
+class SearchFlightInfoHive {
   String departLocationCode;
-  @HiveField(1)
+
   String departLocationName;
-  @HiveField(2)
+
   String returnLocationCode;
-  @HiveField(3)
+
   String returnLocationName;
-  @HiveField(4)
+
   bool isRoundTrip;
-  @HiveField(5)
+
   bool isDome;
-  @HiveField(6)
+
   int adult;
-  @HiveField(7)
+
   int child;
-  @HiveField(8)
+
   int infant;
-  @HiveField(9)
+
   DateTime? departFlightDate;
-  @HiveField(10)
+
   DateTime? returnFlightDate;
-  @HiveField(11)
+
   String? bookingNumber;
 
   SearchFlightInfoHive({
@@ -77,7 +70,6 @@ class SearchFlightInfoHive extends GtdCachedObject {
     );
   }
 
-  @override
   int get typeId => 0;
 
   @override

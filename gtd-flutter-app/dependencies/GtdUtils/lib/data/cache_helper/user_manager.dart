@@ -25,24 +25,21 @@ class UserManager {
   }
 
   Future<void> cacheUserData(GtdAccountHive accountData) async {
-    await CacheHelper.cacheObject<GtdAccountHive>(
-      accountData,
-      cacheStorageType: CacheStorageType.accountBox,
-    );
+    // await CacheHelper.cacheObject<GtdAccountHive>(
+    //   accountData,
+    //   cacheStorageType: CacheStorageType.accountBox,
+    // );
+    await CacheHelper.shared.saveSharedObject(accountData.toMap(), key: CacheStorageType.accountBox.name);
     await getAccountData();
   }
 
   Future<GtdAccountHive?> getAccountData() async {
-    final account = await CacheHelper.getCachedObject<GtdAccountHive>(
-      cacheStorageType: CacheStorageType.accountBox,
-    );
+    final account = CacheHelper.shared.loadSavedObject(GtdAccountHive.fromMap, key: CacheStorageType.accountBox.name);
     _currentAccount = account;
     return _currentAccount;
   }
 
   Future<void> removeAccountData() async {
-    await CacheHelper.deleteKeyCached(
-      cacheStorageType: CacheStorageType.accountBox,
-    );
+    CacheHelper.shared.removeCachedSharedObject(CacheStorageType.accountBox.name);
   }
 }
