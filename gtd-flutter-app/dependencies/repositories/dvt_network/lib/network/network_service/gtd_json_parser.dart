@@ -1,5 +1,5 @@
 import 'gtd_app_logger.dart';
-import 'network_service/gtd_dio_exception.dart';
+import 'gtd_dio_exception.dart';
 
 class JsonParser {
   static T jsonToModel<T>(T Function(Map<String, dynamic> map) fromJson, Map response) {

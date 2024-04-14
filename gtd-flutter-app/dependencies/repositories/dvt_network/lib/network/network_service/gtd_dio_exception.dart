@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../gtd_app_logger.dart';
+import 'gtd_app_logger.dart';
 
 class GtdDioException implements Exception {
   late String message;

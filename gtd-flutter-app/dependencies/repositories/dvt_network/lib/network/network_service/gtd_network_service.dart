@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../gtd_app_logger.dart';
+import 'gtd_app_logger.dart';
 import 'gtd_dio_curl_logging.dart';
 import 'gtd_dio_exception.dart';
 import 'gtd_network_request.dart';
