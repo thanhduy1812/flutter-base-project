@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-
 class FlightHeaderInfo extends StatelessWidget {
   final String title;
   final String subTitle;
@@ -37,7 +36,7 @@ class FlightHeaderInfo extends StatelessWidget {
                 //   image: GtdImage.svgFromSupplier(assetName: "assets/icons/flight/plane.svg", color: Colors.black),
                 //   width: 25,
                 //   height: 25,
-                //   gradient: GtdColors.appGradient(context),
+                //   gradient: GTDAppColors.appGradient,
                 // ),
               ),
               title:

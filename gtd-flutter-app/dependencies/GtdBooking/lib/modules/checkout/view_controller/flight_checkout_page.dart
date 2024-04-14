@@ -9,11 +9,11 @@ import 'package:gtd_booking/modules/checkout/views/vib/vib_flight_checkout_conte
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/country_codes_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/saved_traveller_cubit.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
 
@@ -22,8 +22,7 @@ import '../view_model/flight_checkout_page_viewmodel.dart';
 import '../view_model/flight_extras_page_viewmodel.dart';
 import 'flight_extras_page.dart';
 
-class FlightCheckoutPage
-    extends PricingBottomPage<FlightCheckoutPageViewModel> {
+class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> {
   static const String route = '/flightCheckout';
 
   const FlightCheckoutPage({super.key, required super.viewModel});
@@ -84,10 +83,8 @@ class FlightCheckoutPage
                 ? null
                 : (value) {
                     viewModel.confirmListTravelerDTOS(
-                      viewModel
-                          .checkoutContentViewModel.passengersFormSubject.value,
-                      viewModel
-                          .checkoutContentViewModel.contactFormSubject.value,
+                      viewModel.checkoutContentViewModel.passengersFormSubject.value,
+                      viewModel.checkoutContentViewModel.contactFormSubject.value,
                     );
                     onNext(paymentContext);
                   },
@@ -95,21 +92,17 @@ class FlightCheckoutPage
             fontSize: 16,
             height: 48,
             borderRadius: 24,
-            gradient: AppColors.appGradient,
+            gradient: GTDAppColors.appGradient,
           );
         });
   }
 
   void onNext(BuildContext paymentContext) {
     if (viewModel.supplier == GtdAppSupplier.vib) {
-      BlocProvider.of<FlightCheckoutCubit>(paymentContext)
-          .validationPassengersInput()
-          .then((value) {
+      BlocProvider.of<FlightCheckoutCubit>(paymentContext).validationPassengersInput().then((value) {
         if (value.item1 == true) {
           GtdAppLoading.of(paymentContext).show();
-          BlocProvider.of<FlightCheckoutCubit>(paymentContext)
-              .addBookingTraveller()
-              .then((value) {
+          BlocProvider.of<FlightCheckoutCubit>(paymentContext).addBookingTraveller().then((value) {
             GtdAppLoading.of(paymentContext).hide();
             value.when((success) {
               String bookingNumber = success;
@@ -126,10 +119,8 @@ class FlightCheckoutPage
     }
 
     if (viewModel.supplier == GtdAppSupplier.b2c &&
-        viewModel.checkoutContentViewModel
-            is GtdFlightCheckoutContentViewModel) {
-      var inititalSsrs = (viewModel.checkoutContentViewModel
-              as GtdFlightCheckoutContentViewModel)
+        viewModel.checkoutContentViewModel is GtdFlightCheckoutContentViewModel) {
+      var inititalSsrs = (viewModel.checkoutContentViewModel as GtdFlightCheckoutContentViewModel)
           .ssrItemsSubject
           .value
           .map((e) => e.data)
@@ -152,8 +143,7 @@ class FlightCheckoutPage
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
       BlocProvider(
-        create: (checkoutContext) =>
-            FlightCheckoutCubit()..initPassengers(viewModel),
+        create: (checkoutContext) => FlightCheckoutCubit()..initPassengers(viewModel),
       ),
       BlocProvider(
         create: (checkoutContext) => CheckoutCubit()..initPassengers(viewModel),

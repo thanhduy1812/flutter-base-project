@@ -1,5 +1,6 @@
-import 'package:dvt_helper/dvt_helper.dart';
+
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
@@ -81,7 +82,7 @@ class InputPassengerView extends StatelessWidget {
                       onPressed: (value) {
                         Navigator.of(context).pop(textFieldViewModel.text);
                       },
-                      gradient: GtdColors.appGradient(context),
+                      gradient: GTDAppColors.appGradient,
                       text: "Tiếp tục",
                     ),
                   ),

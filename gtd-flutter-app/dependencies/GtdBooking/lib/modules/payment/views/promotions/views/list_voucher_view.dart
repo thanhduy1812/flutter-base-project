@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/payment/views/promotions/view_model/list_voucher_viewmodel.dart';
 import 'package:gtd_booking/modules/payment/views/promotions/views/voucher_item.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-
 
 class ListVoucherView extends BaseView<ListVoucherViewModel> {
   const ListVoucherView({super.key, required super.viewModel});
@@ -94,7 +94,7 @@ class ListVoucherView extends BaseView<ListVoucherViewModel> {
                   fontSize: 16,
                   height: 48,
                   borderRadius: 24,
-                  gradient: AppColors.appGradient,
+                  gradient: GTDAppColors.appGradient,
                 ),
               ),
             ),

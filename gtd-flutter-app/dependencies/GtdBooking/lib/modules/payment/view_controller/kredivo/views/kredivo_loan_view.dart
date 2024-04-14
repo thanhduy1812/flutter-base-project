@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_outline_select_button/view/gtd_outline_select_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
@@ -117,12 +116,12 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                                                     TextSpan(children: [
                                                       TextSpan(
                                                           text: "${data.itemTitle} \n",
-                                                          style:
-                                                              const TextStyle(fontSize: 13, fontWeight: FontWeight.w400)),
+                                                          style: const TextStyle(
+                                                              fontSize: 13, fontWeight: FontWeight.w400)),
                                                       TextSpan(
                                                           text: data.itemSubTitle,
-                                                          style:
-                                                              const TextStyle(fontSize: 13, fontWeight: FontWeight.w700))
+                                                          style: const TextStyle(
+                                                              fontSize: 13, fontWeight: FontWeight.w700))
                                                     ]),
                                                     textAlign: TextAlign.center,
                                                   ),
@@ -234,7 +233,8 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                                 leading: const Icon(Icons.info_sharp),
                                 title: Text(
                                   "Đặt chỗ với phương thức thanh toán trả góp sẽ KHÔNG THỂ HỦY và sẽ được chuyển đổi trả góp sau khi thanh toán thành công.",
-                                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12, color: AppColors.boldText),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.w400, fontSize: 12, color: AppColors.boldText),
                                 ),
                               ),
                             ),
@@ -258,7 +258,7 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                                     fontSize: 16,
                                     height: 48,
                                     borderRadius: 24,
-                                    gradient: AppColors.appGradient,
+                                    gradient: GTDAppColors.appGradient,
                                   ),
                                 ),
                               ),
@@ -267,7 +267,6 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),

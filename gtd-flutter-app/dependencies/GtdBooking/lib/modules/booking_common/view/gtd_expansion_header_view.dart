@@ -1,6 +1,5 @@
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 

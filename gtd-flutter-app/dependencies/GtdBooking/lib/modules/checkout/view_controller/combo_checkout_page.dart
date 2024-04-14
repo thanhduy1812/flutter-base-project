@@ -9,10 +9,10 @@ import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_combo_checkout_con
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/country_codes_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/saved_traveller_cubit.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 
 import '../view_model/combo_checkout_page_viewmodel.dart';
 import '../views/gotadi/gtd_checkout_content_view.dart';
@@ -51,7 +51,7 @@ class ComboCheckoutPage extends PricingBottomPage<ComboCheckoutPageViewModel> {
             fontSize: 16,
             height: 48,
             borderRadius: 24,
-            gradient: AppColors.appGradient,
+            gradient: GTDAppColors.appGradient,
           );
         });
   }

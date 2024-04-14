@@ -27,7 +27,6 @@ import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
-import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
@@ -47,13 +46,11 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (bookingDetailContext) =>
-                BookingResultCubit()..currentState(viewModel.bookingNumber!),
+            create: (bookingDetailContext) => BookingResultCubit()..currentState(viewModel.bookingNumber!),
             lazy: false,
           ),
           BlocProvider(
-            create: (paymentMethodContext) =>
-                PaymentMethodCubit(viewModel)..getPaymentMethods(),
+            create: (paymentMethodContext) => PaymentMethodCubit(viewModel)..getPaymentMethods(),
             lazy: false,
           ),
         ],
@@ -84,9 +81,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
         if (bookingResultState is BookingDetailLoadingState &&
             bookingResultState.status == BookingDetailStatus.success) {
           viewModel.bookingDetailDTO =
-              BlocProvider.of<BookingResultCubit>(bookingResultContext)
-                  .bookingDetailSubject
-                  .value;
+              BlocProvider.of<BookingResultCubit>(bookingResultContext).bookingDetailSubject.value;
         }
         return super.buildBottomBar(bookingResultContext)!;
       }),
@@ -95,8 +90,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
 
   @override
   Widget buildBody(BuildContext pageContext) {
-    var stateViewModel =
-        BlocProvider.of<PaymentMethodCubit>(pageContext).viewModel;
+    var stateViewModel = BlocProvider.of<PaymentMethodCubit>(pageContext).viewModel;
     viewModel.updateFromStateViewModel(viewModel: stateViewModel);
     return Column(
       children: [
@@ -116,11 +110,9 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
     );
   }
 
-  StreamBuilder<List<PaymentMethodItemViewModel>> _paymentMethods(
-      BuildContext pageContext) {
+  StreamBuilder<List<PaymentMethodItemViewModel>> _paymentMethods(BuildContext pageContext) {
     return StreamBuilder(
-      stream:
-          BlocProvider.of<PaymentMethodCubit>(pageContext).paymentMethodsStream,
+      stream: BlocProvider.of<PaymentMethodCubit>(pageContext).paymentMethodsStream,
       builder: (context, snapshot) {
         viewModel.availableMethods = snapshot.data ?? [];
         if (viewModel.availableMethods.isNotEmpty) {
@@ -181,9 +173,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
           }
           if (bookingResultState.status == BookingDetailStatus.success) {
             viewModel.bookingDetailDTO =
-                BlocProvider.of<BookingResultCubit>(bookingResultContext)
-                    .bookingDetailSubject
-                    .value;
+                BlocProvider.of<BookingResultCubit>(bookingResultContext).bookingDetailSubject.value;
             if (viewModel.bookingDetailDTO?.supplierType == "AIR") {
               return FlightItemSummaryListInfo.buildHorizontalListFlightItems(
                 viewModel.bookingDetailDTO?.flightDetailItems ?? [],
@@ -227,15 +217,12 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
       fontSize: 16,
       height: 48,
       borderRadius: 24,
-      gradient: AppColors.appGradient,
+      gradient: GTDAppColors.appGradient,
     );
   }
 
-  void handlePaymentNext(
-      {required PaymentMethodType paymentMethodType,
-      required BuildContext paymentContext}) {
-    var kredivoLoadViewModel =
-        KredivoLoadViewModel(bookingNumber: viewModel.bookingNumber!);
+  void handlePaymentNext({required PaymentMethodType paymentMethodType, required BuildContext paymentContext}) {
+    var kredivoLoadViewModel = KredivoLoadViewModel(bookingNumber: viewModel.bookingNumber!);
     if (paymentMethodType == PaymentMethodType.kredivo) {
       GtdPresentViewHelper.presentView(
         context: paymentContext,
@@ -259,8 +246,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
         extra: debitViewModel,
       );
     } else if (paymentMethodType == PaymentMethodType.paylater) {
-      PaymentPaylaterPageViewModel paylaterViewModel =
-          PaymentPaylaterPageViewModel(
+      PaymentPaylaterPageViewModel paylaterViewModel = PaymentPaylaterPageViewModel(
         bookingDetailDTO: viewModel.bookingDetailDTO!,
         paymentFee: viewModel.paymentFee,
         discountAmount: viewModel.discountAmount,
@@ -275,18 +261,14 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
           .paymentBooking(paymentMethodType: paymentMethodType)
           .then((value) {
         GtdAppLoading.of(paymentContext).hide();
-        value.when(
-            (success) {
-              if (Platform.isIOS) {
-                paymentContext.push(BaseWebViewPage.route,
-                    extra: BaseWebViewPageViewModel(url: success)
-                      ..title = paymentMethodType.title);
-              } else {
-                launchUrl(Uri.parse(success));
-              }
-            },
-            (error) => GtdPopupMessage(paymentContext)
-                .showError(error: error.message));
+        value.when((success) {
+          if (Platform.isIOS) {
+            paymentContext.push(BaseWebViewPage.route,
+                extra: BaseWebViewPageViewModel(url: success)..title = paymentMethodType.title);
+          } else {
+            launchUrl(Uri.parse(success));
+          }
+        }, (error) => GtdPopupMessage(paymentContext).showError(error: error.message));
       });
     }
   }
@@ -335,8 +317,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
                         radius: const Radius.circular(8),
                         padding: EdgeInsets.zero,
                         borderType: BorderType.rRect,
-                        strokeCap:
-                            isEmptyVoucher ? StrokeCap.butt : StrokeCap.square,
+                        strokeCap: isEmptyVoucher ? StrokeCap.butt : StrokeCap.square,
                         child: Card(
                           elevation: 0,
                           shape: const RoundedRectangleBorder(
@@ -345,22 +326,18 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
                             // side: BorderSide.none,
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
-                          color: isEmptyVoucher
-                              ? Colors.white
-                              : Colors.green.shade50,
+                          color: isEmptyVoucher ? Colors.white : Colors.green.shade50,
                           margin: EdgeInsets.zero,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Row(
                               children: [
                                 GtdImage.svgFromSupplier(
-                                  assetName:
-                                      'assets/payment/payment-promotion.svg',
+                                  assetName: 'assets/payment/payment-promotion.svg',
                                 ),
                                 const Expanded(
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 8),
+                                    padding: EdgeInsets.symmetric(horizontal: 8),
                                     child: Text(
                                       "Free phí xuất vé, thanh toán sau abcd ef",
                                       style: TextStyle(
@@ -379,9 +356,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
                                     padding: const EdgeInsets.all(0),
                                     decoration: ShapeDecoration(
                                         shape: const CircleBorder(),
-                                        color: isEmptyVoucher
-                                            ? Colors.white
-                                            : Colors.green.shade50),
+                                        color: isEmptyVoucher ? Colors.white : Colors.green.shade50),
                                     child: IconButton(
                                       padding: EdgeInsets.zero,
                                       alignment: Alignment.center,
@@ -389,16 +364,12 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
                                       onPressed: () {
                                         // viewModel.availableMethods.map((e) => e.isSelected = false).toList();
                                         // BlocProvider.of<RebuildWidgetCubit>(paymentContext).rebuildWidget();
-                                        BlocProvider.of<PaymentMethodCubit>(
-                                                paymentContext)
-                                            .getLoadKredivo();
+                                        BlocProvider.of<PaymentMethodCubit>(paymentContext).getLoadKredivo();
                                         Logger.i("remove promotion");
                                       },
                                       iconSize: 24,
                                       icon: Icon(
-                                        isEmptyVoucher
-                                            ? Icons.add
-                                            : Icons.close,
+                                        isEmptyVoucher ? Icons.add : Icons.close,
                                         color: Colors.green.shade600,
                                       ),
                                     ),

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_filter_options_cubit.dart';
-import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
@@ -168,7 +167,7 @@ class _FlightFilterResultState extends State<FlightFilterResult> {
                                             text: 'Áp dụng',
                                             height: 48,
                                             borderRadius: 10,
-                                            gradient: GtdColors.appGradient(context),
+                                            gradient: GTDAppColors.appGradient,
                                             onPressed: (val) {
                                               Navigator.pop(context, true);
                                               widget.whenDismiss(filterOptions);

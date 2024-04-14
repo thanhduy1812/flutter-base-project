@@ -273,7 +273,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                       height: 36,
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                       borderRadius: 18,
-                                      gradient: GtdColors.appGradient(context),
+                                      gradient: GTDAppColors.appGradient,
                                       onPressed: (val) {
                                         GtdAirlineCabinClass? cabinOption = viewModel.groupItem.cabinOptions?[index];
                                         viewModel.groupItem.chooseCabinClass(

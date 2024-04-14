@@ -16,10 +16,8 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
-import 'package:gtd_utils/data/cache_helper/user_manager.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
-
 
 class BookingResultPage extends StatefulWidget {
   final String bookingNumber;

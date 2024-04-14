@@ -4,7 +4,6 @@ import 'package:gtd_utils/base/view/gtd_vertical_line_view/gtd_leading_vertical_
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
 
 import '../view_model/flight_itinerary_info_viewmodel.dart';
 

@@ -5,6 +5,7 @@ import 'package:gtd_booking/modules/invoice/view_model/input_invoice_page_viewmo
 import 'package:gtd_booking/modules/personal_info/cubit/saved_companies_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/view_model/saved_company_list_viewmodel.dart';
 import 'package:gtd_booking/modules/personal_info/views/saved_company_list.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
@@ -12,7 +13,6 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
 import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-
 
 import '../../personal_info/cubit/country_codes_cubit.dart';
 import '../../personal_info/view_model/nationality_list_viewmodel.dart';
@@ -57,7 +57,7 @@ class InputInvoicePage extends BaseStatelessPage<InputInvoicePageViewModel> {
                         },
                       )),
                   child: Ink(
-                    decoration: BoxDecoration(gradient: AppColors.appGradient),
+                    decoration: BoxDecoration(gradient: GTDAppColors.appGradient),
                     child: const Row(
                       children: [
                         Padding(

@@ -1,4 +1,3 @@
-import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -181,7 +180,7 @@ class BoxPassengerForm extends StatelessWidget {
                                         .updatePassenger(key: position, usedForContact: value);
                                   },
                                   value: travellerForm.isContact,
-                                  gradient: GtdColors.appGradient(context),
+                                  gradient: GTDAppColors.appGradient,
                                 );
                               }),
                           minLeadingWidth: 30,
