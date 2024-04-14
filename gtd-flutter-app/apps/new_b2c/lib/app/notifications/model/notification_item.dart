@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/utility_resource/utility_resource.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 enum NotificationRedirectType { url, bookingNumber }
 
@@ -26,19 +26,19 @@ class NotificationItem {
 
     switch (notificationType) {
       case GtdNotificationType.confirmedTicket:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
       case GtdNotificationType.checkinPrompt:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
       case GtdNotificationType.confirmedHold:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-combo.svg");
       case GtdNotificationType.paymentConfirm:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
       case GtdNotificationType.paymentPrompt:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
       case GtdNotificationType.marketing:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-promo.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-promo.svg");
       default:
-        return GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
+        return DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-system.svg");
     }
   }
 }

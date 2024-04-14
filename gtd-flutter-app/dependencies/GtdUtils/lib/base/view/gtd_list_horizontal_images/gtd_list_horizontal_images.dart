@@ -1,5 +1,5 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
 
 class GtdListHorizontalImages extends StatelessWidget {
   final List<String> images;
@@ -22,7 +22,7 @@ class GtdListHorizontalImages extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 child: SizedBox(
                   width: 270,
-                  child: GtdImage.cachedImgUrlWithPlaceholder(url: imageUrl, fit: BoxFit.cover),
+                  child: DVTImage.cachedImgUrlWithPlaceholder(url: imageUrl, fit: BoxFit.cover),
                 ),
               ),
             );

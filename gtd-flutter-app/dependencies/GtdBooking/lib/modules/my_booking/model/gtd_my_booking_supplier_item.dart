@@ -1,5 +1,5 @@
 import 'package:gtd_utils/base/view_model/item_select_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class GtdMyBookingSupplierItem extends ItemSelectVM<SupplierType> {
   GtdMyBookingSupplierItem({required super.data});

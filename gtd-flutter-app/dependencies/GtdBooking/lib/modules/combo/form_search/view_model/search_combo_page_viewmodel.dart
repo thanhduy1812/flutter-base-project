@@ -4,8 +4,8 @@ import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_
 import 'package:gtd_booking/modules/hotel/form_search/model/search_hotel_form_model.dart';
 import 'package:gtd_booking/modules/hotel/form_search/view_model/date_checkinout_viewmodel.dart';
 import 'package:gtd_booking/modules/hotel/form_search/view_model/search_hotel_page_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_location_dto.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SearchComboPageViewModel extends BasePageViewModel {

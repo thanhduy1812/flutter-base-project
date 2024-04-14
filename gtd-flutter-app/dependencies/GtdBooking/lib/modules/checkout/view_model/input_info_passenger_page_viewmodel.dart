@@ -1,12 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:gtd_booking/modules/personal_info/model/saved_traveller_model.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/customer_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
+
 
 class InputInfoPassengerPageViewModel extends BasePageViewModel {
   TravelerInputInfoDTO? travelerInputInfoDTO;

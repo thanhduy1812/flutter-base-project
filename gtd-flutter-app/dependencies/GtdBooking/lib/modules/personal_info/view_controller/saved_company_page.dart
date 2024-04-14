@@ -5,7 +5,7 @@ import 'package:gtd_booking/modules/personal_info/view_model/saved_company_list_
 import 'package:gtd_booking/modules/personal_info/view_model/saved_company_page_view_model.dart';
 import 'package:gtd_booking/modules/personal_info/views/saved_company_list.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class SavedCompanyPage extends BaseStatelessPage<SavedCompanyPageViewModel> {
   static const String route = '/savedCompanyPage';

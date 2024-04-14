@@ -1,6 +1,5 @@
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 class VibInvoiceModel {
   VibInvoiceModel({this.groupName, this.items});
   final String? groupName;

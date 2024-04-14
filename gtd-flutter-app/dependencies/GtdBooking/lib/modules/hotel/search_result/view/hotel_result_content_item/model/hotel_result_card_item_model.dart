@@ -1,5 +1,5 @@
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_item_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class HotelResultCardItemModel {
   List<String> hotelImages = Iterable<int>.generate(10)

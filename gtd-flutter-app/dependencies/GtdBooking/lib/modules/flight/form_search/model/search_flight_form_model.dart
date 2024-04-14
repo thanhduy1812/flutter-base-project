@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:equatable/equatable.dart';
+import 'package:gtd_utils/base/view_model/cubit/gtd_text_field_validation_cubit.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/utils/cubit/gtd_text_field_validation_cubit.dart';
+
 
 import 'destination.dart';
 

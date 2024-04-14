@@ -1,10 +1,10 @@
 
 
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
 
 class GtdPopoverView extends StatelessWidget {
  final String title;

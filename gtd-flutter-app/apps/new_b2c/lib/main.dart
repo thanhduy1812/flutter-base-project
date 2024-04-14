@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/page/wrapped_app.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
+import 'package:gtd_repository/gtd_repository.dart' as gtd_repository;
 
 Future<void> main() async {
   final wrappedApp = WrappedApp.shared;
@@ -19,7 +20,8 @@ Future<void> main() async {
     'vi',
     appRouter,
     "Gotadi b2c",
-    appScheme: GtdAppScheme.uatB2C,
+    appScheme: GtdAppScheme.prodB2C,
   );
+  gtd_repository.GTDAppConst.shared.appScheme = gtd_repository.GtdAppScheme.prodB2C;
   runApp(app);
 }

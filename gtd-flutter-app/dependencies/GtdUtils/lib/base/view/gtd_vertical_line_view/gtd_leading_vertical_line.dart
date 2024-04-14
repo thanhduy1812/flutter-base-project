@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
 
 class GtdLeadingVerticalLine extends StatelessWidget {
   final Widget child;

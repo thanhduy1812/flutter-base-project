@@ -10,7 +10,7 @@ import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
-import 'package:gtd_utils/helpers/extension/loadmore_sliver_list_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 import '../view_controller/hotel_search_detail_page.dart';
 import '../view_model/hotel_result_content_vertical_viewmodel.dart';

@@ -3,13 +3,9 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/checkout/view_model/ssr_item_vm.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view_model/cubit/gtd_text_field_validation_cubit.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/add_booking_traveller_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
-import 'package:gtd_utils/utils/cubit/gtd_text_field_validation_cubit.dart';
 
 import 'gtd_service_field_vm.dart';
 

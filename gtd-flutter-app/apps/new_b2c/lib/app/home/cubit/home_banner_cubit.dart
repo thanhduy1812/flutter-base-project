@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_authentication_repository/gtd_authentication_repository.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_utility_repository/gtd_utility_repository.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:new_b2c/app/home/view_model/home_page_viewmodel.dart';
 
 part 'home_banner_state.dart';

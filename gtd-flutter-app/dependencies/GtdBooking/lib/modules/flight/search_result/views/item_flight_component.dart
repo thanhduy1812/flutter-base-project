@@ -7,20 +7,16 @@ import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_selec
 import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_select_item_state.dart';
 import 'package:gtd_booking/modules/flight/search_result/view_model/item_flight_component_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_airline_cabin_class.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_item.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/loading/flight_item_child_loading.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/base/view/loading/flight_item_child_loading.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
   final ValueChanged<GtdFlightItem?> onTab;
-  final ValueChanged<({GtdFlightItem? flightItem, GtdAirlineCabinClass? cabinOption})>
-      onPressed;
+  final ValueChanged<({GtdFlightItem? flightItem, GtdAirlineCabinClass? cabinOption})> onPressed;
   final bool isRoundTrip;
 
   const ItemFlightComponent({
@@ -46,9 +42,8 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
     DateFormat timeFormat = DateFormat("HH:mm");
     final selectItemBloc = BlocProvider.of<FlightSelectItemCubit>(context);
     final selectItemState = selectItemBloc.state;
-    final isLoading =
-        (selectItemState.flightItem.groupId == viewModel.groupItem.groupId &&
-            selectItemState.loadingStatus == FlightSelectItemStatus.loading);
+    final isLoading = (selectItemState.flightItem.groupId == viewModel.groupItem.groupId &&
+        selectItemState.loadingStatus == FlightSelectItemStatus.loading);
     final isSelected = viewModel.groupItem == viewModel.groupItemSelected;
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
@@ -69,9 +64,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () {
-              if (selectItemState.loadingStatus ==
-                      FlightSelectItemStatus.success &&
-                  !isSelected) {
+              if (selectItemState.loadingStatus == FlightSelectItemStatus.success && !isSelected) {
                 onTab(viewModel.groupItem);
               }
             },
@@ -141,8 +134,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                           children: [
                             isSelected
                                 ? const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Hạng vé',
@@ -158,8 +150,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                     ],
                                   )
                                 : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         '${viewModel.groupItem.flightItemPriceInfo?.price?.toCurrency()}',
@@ -171,11 +162,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                       ),
                                       Text(
                                         '${'flight.item.cabinClassName'.tr(
-                                          gender: viewModel
-                                              .groupItem
-                                              .cabinOptions
-                                              ?.first
-                                              .cabinClassName,
+                                          gender: viewModel.groupItem.cabinOptions?.first.cabinClassName,
                                         )} '
                                         '(${viewModel.groupItem.cabinOptions?.first.cabinClassCode})',
                                         style: TextStyle(
@@ -206,8 +193,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                           style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
-                                            color:
-                                                GtdColors.appMainColor(context),
+                                            color: GtdColors.appMainColor(context),
                                           ),
                                         ),
                                   SizedBox(
@@ -258,8 +244,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                   children: [
                                     Expanded(
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Text(
                                             '${viewModel.groupItem.cabinOptions?[index].adultPrice}',
@@ -271,10 +256,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                           ),
                                           Text(
                                             '${'flight.item.cabinClassName'.tr(
-                                              gender: viewModel
-                                                  .groupItem
-                                                  .cabinOptions?[index]
-                                                  .cabinClassName,
+                                              gender: viewModel.groupItem.cabinOptions?[index].cabinClassName,
                                             )} '
                                             '(${viewModel.groupItem.cabinOptions?[index].cabinClassCode})',
                                             style: TextStyle(
@@ -289,14 +271,11 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                     GtdButton(
                                       text: 'Chọn vé',
                                       height: 36,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8),
                                       borderRadius: 18,
                                       gradient: GtdColors.appGradient(context),
                                       onPressed: (val) {
-                                        GtdAirlineCabinClass? cabinOption =
-                                            viewModel
-                                                .groupItem.cabinOptions?[index];
+                                        GtdAirlineCabinClass? cabinOption = viewModel.groupItem.cabinOptions?[index];
                                         viewModel.groupItem.chooseCabinClass(
                                           cabinOption!,
                                         );
@@ -438,8 +417,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
   }
 
   Text _flightSegmentText() {
-    final segmentCount =
-        viewModel.groupItem.flightItemInfo?.flightSegments?.length ?? 0;
+    final segmentCount = viewModel.groupItem.flightItemInfo?.flightSegments?.length ?? 0;
     String title = '';
     if (segmentCount > 1) {
       title = '${segmentCount - 1} Điểm dừng';
@@ -479,9 +457,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
   }
 
   Widget _buildLoadingFlightItem(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade50,
+    return GtdShimmer(
       child: Column(
         children: [
           Column(

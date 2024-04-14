@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class MyBookingListLoading<T> extends StatelessWidget {

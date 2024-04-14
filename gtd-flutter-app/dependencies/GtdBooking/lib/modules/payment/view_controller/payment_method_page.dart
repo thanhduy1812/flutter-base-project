@@ -21,16 +21,16 @@ import 'package:gtd_booking/modules/payment/views/payment_method_list_view.dart'
 import 'package:gtd_booking/modules/payment/views/promotions/view_model/list_voucher_viewmodel.dart';
 import 'package:gtd_booking/modules/payment/views/promotions/views/list_voucher_view.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/payment_method_type.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
-import 'package:gtd_utils/utils/popup/gtd_app_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../confirm_booking/views/hotel_view/view/hotel_summary_item.dart';

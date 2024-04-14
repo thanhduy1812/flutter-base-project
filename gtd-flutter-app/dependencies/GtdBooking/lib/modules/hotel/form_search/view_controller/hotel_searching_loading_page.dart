@@ -6,10 +6,10 @@ import 'package:gtd_booking/modules/hotel/search_result/cubit/hotel_search_cubit
 import 'package:gtd_booking/modules/hotel/search_result/view_controller/hotel_search_result_page.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_result_page_viewmodel.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+
 
 class HotelSearchingLoadingPage extends BaseStatelessPage<HotelSearchingLoadingPageViewModel> {
   static const String route = '/hotelSearchingLoadingPage';

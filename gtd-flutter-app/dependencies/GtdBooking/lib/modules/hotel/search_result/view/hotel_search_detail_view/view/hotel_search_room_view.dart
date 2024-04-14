@@ -13,20 +13,17 @@ import 'package:gtd_booking/modules/hotel/search_result/cubit/hotel_search_detai
 import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail_view/view_model/combo_search_room_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_amenity_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tool_tip_shape/gtd_custom_tooltip.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/reponse/gtd_hotel_search_all_rates_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tool_tip_shape/gtd_custom_tooltip.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../view_model/hotel_search_room_viewmodel.dart';
 

@@ -1,12 +1,12 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_custom_input.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_password_input.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tap_widget.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_custom_input.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_password_input.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tap_widget.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:new_b2c/app/account/log_in/log_in.dart';
 import 'package:new_b2c/app/account/register/view_controller/register_page.dart';

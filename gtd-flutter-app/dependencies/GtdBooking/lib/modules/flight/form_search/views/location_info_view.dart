@@ -5,9 +5,9 @@ import 'package:gtd_booking/modules/flight/form_search/view_model/location_info_
 import 'package:gtd_booking/modules/flight/form_search/views/bloc/get_location_info/get_location_bloc.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/bloc/get_popular_info/get_popular_bloc.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import 'airport_search_view/airport_search_view.dart';
 

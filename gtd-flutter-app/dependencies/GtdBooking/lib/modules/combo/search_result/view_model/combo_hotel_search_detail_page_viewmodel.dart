@@ -4,8 +4,8 @@ import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_
 import 'package:gtd_booking/modules/hotel/form_search/model/search_hotel_form_model.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail_view/view_model/hotel_search_detail_list_room_viewmodel.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_detail_page_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+
 
 class ComboHotelSearchDetailPageViewModel extends HotelSearchDetailPageViewModel {
   bool isExpandFlightInfo = false;

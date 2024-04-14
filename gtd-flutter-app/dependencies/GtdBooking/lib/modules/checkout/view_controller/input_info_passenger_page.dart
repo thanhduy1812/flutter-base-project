@@ -5,17 +5,16 @@ import 'package:gtd_booking/modules/personal_info/view_model/nationality_list_vi
 import 'package:gtd_booking/modules/personal_info/view_model/saved_traveller_list_viewmodel.dart';
 import 'package:gtd_booking/modules/personal_info/views/nationality_list.dart';
 import 'package:gtd_booking/modules/personal_info/views/saved_traveller_list.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio_title.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio_title.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import '../view_model/input_info_passenger_page_viewmodel.dart';
 

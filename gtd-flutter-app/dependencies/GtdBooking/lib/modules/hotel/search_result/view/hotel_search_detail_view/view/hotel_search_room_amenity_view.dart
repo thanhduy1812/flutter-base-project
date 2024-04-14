@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/booking_common/view/gtd_expansion_header_view.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail_view/view_model/hotel_search_room_amenity_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_amenity_view.dart';
+
 
 class HotelSearchRoomAmenityView extends BaseView<HotelSearchRoomAmenityViewModel> {
   const HotelSearchRoomAmenityView({super.key, required super.viewModel});

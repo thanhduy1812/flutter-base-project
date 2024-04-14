@@ -3,13 +3,8 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/extension/search_booking_rs_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/request/search_booking_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/search_booking_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/gtd_booking_repository.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'my_booking_state.dart';

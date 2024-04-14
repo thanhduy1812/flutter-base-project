@@ -3,22 +3,13 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/checkout/view_model/checkout_traveller_form_vm.dart';
-import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/add_booking_traveller_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
-import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../view_model/flight_checkout_page_viewmodel.dart';

@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/personal_info/model/nationality_model.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/response/gtd_country_code_rs.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NationalityListViewModel extends BaseViewModel {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view_model/flight_summary_item_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import 'flight_summary_item.dart';
 import 'flight_summary_vertical_item.dart';

@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_input.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_input_msc.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_password_input.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_input.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_input_msc.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_password_input.dart';
 import 'package:new_b2c/app/account/register/register.dart';
 
 class RegisterEmailSection extends BaseView<RegisterEmailSectionViewModel> {

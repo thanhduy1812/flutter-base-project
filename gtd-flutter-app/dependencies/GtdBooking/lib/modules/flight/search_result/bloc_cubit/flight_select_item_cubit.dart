@@ -2,10 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_select_item_state.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/filter_availability_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_item.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class FlightSelectItemCubit extends Cubit<FlightSelectItemState> {
   FlightSelectItemCubit(this.flightType) : super(FlightSelectInitItemState.defaultState());

@@ -13,7 +13,7 @@ abstract class BaseDelegateState extends Equatable {
 class BaseDelegateInitial extends BaseDelegateState {}
 
 class BaseNetworkState extends BaseDelegateState {
-  late final GtdApiError apiError;
+  late final DVTUtilError apiError;
   BaseNetworkState({required this.apiError});
   @override
   List<Object> get props => [apiError];

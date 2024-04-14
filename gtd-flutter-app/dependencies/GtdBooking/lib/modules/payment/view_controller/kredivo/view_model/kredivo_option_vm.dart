@@ -1,5 +1,5 @@
 import 'package:gtd_utils/base/view_model/item_select_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class KredivoOptionVM extends ItemSelectVM<GtdLoanKredivoMonth> {
   KredivoOptionVM({required super.data});

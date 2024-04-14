@@ -6,7 +6,8 @@ import 'package:gtd_booking/modules/payment/view_model/payment_method_list_viewm
 import 'package:gtd_booking/modules/payment/views/payment_method_item.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/utils/popup/gtd_app_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
+
 
 class PaymentMethodListView extends BaseView<PaymentMethodListViewModel> {
   const PaymentMethodListView({super.key, required super.viewModel});

@@ -9,12 +9,12 @@ import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail
 import 'package:gtd_booking/modules/hotel/search_result/view_model/combo_search_room_detail_page_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_list_horizontal_images/gtd_list_horizontal_images.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_amenity_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_expansion_view/gtd_expansion_view.dart';
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_expansion_view/gtd_expansion_view.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../../../view_controller/hotel_search_room_detail_page.dart';
 import '../../../view_model/hotel_search_room_detail_page_viewmodel.dart';

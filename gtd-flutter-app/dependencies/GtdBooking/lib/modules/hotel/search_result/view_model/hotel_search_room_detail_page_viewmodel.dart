@@ -1,11 +1,8 @@
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_detail_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_viewmodel.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/reponse/gtd_hotel_search_all_rates_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_checkout_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class HotelSearchRoomDetailPageViewModel extends BasePageViewModel {
   late RatePlan ratePlan;

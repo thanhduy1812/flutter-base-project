@@ -13,7 +13,14 @@ dependencies:
     sdk: flutter
   dvt_network:
     path: ../dvt_network
-
+  dvt_helper:
+    path: ../dvt_helper
+  collection: any
+  flutter_dotenv: ^5.0.2
+  dio: ^5.3.3
+  path: ^1.8.3
+  equatable: ^2.0.5
+  rxdart: ^0.27.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

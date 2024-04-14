@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/flight/form_search/view_model/passengers_inerary_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/passenger_picker.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/passenger_picker.dart';
 
 class PassengersItineraryView extends BaseView<PassengersItineraryViewModel> {
   const PassengersItineraryView({super.key, required super.viewModel});

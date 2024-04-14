@@ -1,16 +1,14 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/cache_helper/user_manager.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
+// import 'package:gtd_utils/data/cache_helper/user_manager.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class GtdWebViewStack extends StatefulWidget {
   final String url;
 
-  const GtdWebViewStack({
-    super.key,
-    required this.url,
-  });
+  const GtdWebViewStack({super.key, required this.url});
 
   @override
   State<GtdWebViewStack> createState() => _GtdWebViewStackState();
@@ -26,23 +24,32 @@ class _GtdWebViewStackState extends State<GtdWebViewStack> {
     controller = WebViewController()
       ..setNavigationDelegate(NavigationDelegate(
         onPageStarted: (url) {
+          if (!mounted) {
+            return;
+          }
           setState(() {
             loadingPercentage = 0;
           });
         },
         onProgress: (progress) {
+          if (!mounted) {
+            return;
+          }
           setState(() {
             loadingPercentage = progress;
           });
         },
         onPageFinished: (url) {
+          if (!mounted) {
+            return;
+          }
           if (kDebugMode) {
             print('onPageFinished: $url');
           }
           if (url.contains('booking/result?bookingNumber')) {
             final bookingNumber = Uri.parse(url).queryParameters['bookingNumber'];
             if (!bookingNumber.isNullOrEmpty()) {
-              UserManager.shared.bookingResultWebViewCallback.call(bookingNumber!);
+              UtilManager.shared.bookingResultWebViewCallback.call(bookingNumber!);
             }
           }
 

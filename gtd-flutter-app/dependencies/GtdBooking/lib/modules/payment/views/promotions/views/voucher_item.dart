@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/payment/views/promotions/view_model/voucher_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+
 
 class VoucherItem extends BaseView<VoucherItemViewModel> {
   final GtdCallback<VoucherItemViewModel>? onSelected;

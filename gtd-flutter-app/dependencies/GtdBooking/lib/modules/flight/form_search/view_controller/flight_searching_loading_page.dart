@@ -8,11 +8,10 @@ import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_searc
 import 'package:gtd_booking/modules/flight/search_result/view_controller/flight_search_result_page.dart';
 import 'package:gtd_booking/modules/flight/search_result/view_model/flight_search_result_page_viewmodel.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class FlightSearchingLoadingPage extends BaseStatelessPage<FlightSearchingLoadingPageViewModel> {
   static const String route = '/flightSearchingLoadingPage';

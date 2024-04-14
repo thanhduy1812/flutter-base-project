@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
 import 'package:new_b2c/app/home/cubit/home_banner_cubit.dart';
 import 'package:new_b2c/app/home/view_model/box_banner_mkt_view_model.dart';
 import 'package:new_b2c/app/home/views/box_banner_mkt.dart';

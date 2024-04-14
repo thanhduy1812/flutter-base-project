@@ -1,13 +1,12 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/app_repository/gtd_repositories/user_repository/user_manager.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_input_msc.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
-import 'package:gtd_utils/data/cache_helper/user_manager.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/authentication_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_authentication_repository/gtd_authentication_repository.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_input_msc.dart';
-import 'package:gtd_utils/utils/native_communicate/gtd_native_channel.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
+import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:rxdart/rxdart.dart';
 

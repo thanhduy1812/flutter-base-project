@@ -1,6 +1,6 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class BoxInvoiceInfo extends StatelessWidget {
   const BoxInvoiceInfo({super.key});

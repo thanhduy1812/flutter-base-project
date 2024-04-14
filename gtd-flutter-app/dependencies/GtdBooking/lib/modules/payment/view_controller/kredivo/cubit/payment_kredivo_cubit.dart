@@ -1,10 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
-import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_payment_repository/gtd_payment_repository.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../view_model/kredivo_option_vm.dart';
 

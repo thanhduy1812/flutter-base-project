@@ -5,9 +5,8 @@ import 'package:gtd_booking/modules/flight/form_search/dialogs/location_list_ite
 import 'package:gtd_booking/modules/flight/form_search/dialogs/popular_list_page.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/bloc/get_location_info/get_location_bloc.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/bloc/get_popular_info/get_popular_bloc.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 import '../../model/destination.dart';
 

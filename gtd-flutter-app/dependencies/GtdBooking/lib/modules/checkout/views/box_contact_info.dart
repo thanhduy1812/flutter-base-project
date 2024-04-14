@@ -1,17 +1,16 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_checkout_content_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_select_field.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_select_field.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import '../cubit/flight_checkout_cubit.dart';
 import '../view_model/checkout_traveller_form_vm.dart';

@@ -9,9 +9,9 @@ import 'package:gtd_booking/modules/hotel/search_result/cubit/hotel_search_cubit
 import 'package:gtd_booking/modules/hotel/search_result/view_controller/hotel_search_result_page.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_result_page_viewmodel.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 class ComboSearchResultPage extends BaseStatelessPage<ComboSearchResultPageViewModel> {
   static const String route = '/comboSearchResultPage';

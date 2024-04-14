@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/personal_info/model/nationality_model.dart';
 import 'package:gtd_booking/modules/personal_info/view_model/nationality_list_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_list_builder/gtd_alphabet_list.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_list_builder/gtd_alphabet_list.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class NationalityList extends BaseView<NationalityListViewModel> {
   final GtdCallback<NationalityModel>? onSelect;

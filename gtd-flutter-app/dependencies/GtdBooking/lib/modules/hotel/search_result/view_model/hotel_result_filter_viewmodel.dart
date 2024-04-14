@@ -1,8 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_filter_item_vm.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_hotel_filter_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_filter_option_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class HotelResultFilterViewModel extends BaseViewModel {
   List<List<HotelFilterItemVM>> groupListItems = [];

@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/views/insurance_view/view_model/insurance_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/request/gtd_insurance_plan_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_detail_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_plans_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_utility_repository/gtd_utility_repository.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 part 'insurance_state.dart';
 

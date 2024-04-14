@@ -6,13 +6,14 @@ import 'package:gtd_booking/modules/payment/cubit/payment_method_cubit.dart';
 import 'package:gtd_booking/modules/payment/view_controller/debit/view_model/debit_bank_item_viewmodel.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/popup/gtd_app_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 
 import '../view_model/payment_debit_page_viewmodel.dart';
 

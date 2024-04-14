@@ -1,3 +1,4 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,17 +11,15 @@ import 'package:gtd_booking/modules/confirm_booking/view_model/reservation_detai
 import 'package:gtd_booking/modules/confirm_booking/views/booking_detail_loading.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view/status_booking.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/price_bottom_detail_view.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/cache_helper/user_manager.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/go_router_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
-import 'package:gtd_utils/utils/native_communicate/gtd_native_channel.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
+
 
 class BookingResultPage extends StatefulWidget {
   final String bookingNumber;

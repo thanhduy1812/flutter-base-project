@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/personal_info/model/saved_company_model.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SavedCompanyListViewModel extends BaseViewModel {

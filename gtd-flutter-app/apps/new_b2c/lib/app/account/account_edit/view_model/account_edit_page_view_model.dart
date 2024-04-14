@@ -1,15 +1,13 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/app_repository/gtd_repositories/user_repository/user_manager.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/cache_helper/models/gtd_account_hive.dart';
-import 'package:gtd_utils/data/cache_helper/user_manager.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/request/update_customer_request.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/request/update_traveller_request.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_authentication_repository/gtd_authentication_repository.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
+
+
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:rxdart/rxdart.dart';
 

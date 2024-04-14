@@ -1,9 +1,8 @@
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_controller.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../view/hotel_search_detail_view/view_model/hotel_search_detail_list_room_viewmodel.dart';
 

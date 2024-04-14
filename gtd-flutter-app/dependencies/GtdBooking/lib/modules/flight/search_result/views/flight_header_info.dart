@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 
 class FlightHeaderInfo extends StatelessWidget {
   final String title;

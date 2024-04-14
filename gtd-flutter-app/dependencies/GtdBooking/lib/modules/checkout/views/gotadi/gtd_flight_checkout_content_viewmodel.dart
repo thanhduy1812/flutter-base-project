@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/checkout/view_model/checkout_traveller_form_vm.dart';
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_checkout_content_viewmodel.dart';
 import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '../../view_model/ssr_item_vm.dart';

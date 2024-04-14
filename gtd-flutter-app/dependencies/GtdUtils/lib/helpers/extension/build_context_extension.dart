@@ -8,23 +8,23 @@ extension GtdBuildContext on BuildContext {
     return dependOnInheritedWidgetOfExactType<InjectorWidget>()?.viewModel as T?;
   }
 
-  ThemeData get theme => Theme.of(this);
+  // ThemeData get theme => Theme.of(this);
 
-  TextTheme get textTheme => theme.textTheme;
+  // TextTheme get textTheme => theme.textTheme;
 
-  ColorScheme get colorScheme => theme.colorScheme;
+  // ColorScheme get colorScheme => theme.colorScheme;
 
-  DefaultTextStyle get defaultTextStyle => DefaultTextStyle.of(this);
+  // DefaultTextStyle get defaultTextStyle => DefaultTextStyle.of(this);
 
-  MediaQueryData get mediaQuery => MediaQuery.of(this);
+  // MediaQueryData get mediaQuery => MediaQuery.of(this);
 
-  NavigatorState get navigator => Navigator.of(this);
+  // NavigatorState get navigator => Navigator.of(this);
 
-  ScaffoldState get scaffold => Scaffold.of(this);
+  // ScaffoldState get scaffold => Scaffold.of(this);
 
-  ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
+  // ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
 
-  FocusScopeNode get focusScope => FocusScope.of(this);
+  // FocusScopeNode get focusScope => FocusScope.of(this);
 
   // AppColors get appColors => AppColors();
 

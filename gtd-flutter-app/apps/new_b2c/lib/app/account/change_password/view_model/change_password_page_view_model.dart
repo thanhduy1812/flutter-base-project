@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_input_msc.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/request/change_password_request.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_authentication_repository/gtd_authentication_repository.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_input_msc.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -74,10 +73,8 @@ class ChangePasswordPageViewModel extends BasePageViewModel {
     GtdLoading.show();
     final response = await GtdAuthenticationRepository.shared.changePassword(
       ChangePasswordRequest(
-        oldPassword:
-            form.control(ChangePasswordFieldNames.currentPassword.value).value,
-        newPassword:
-            form.control(ChangePasswordFieldNames.newPassword.value).value,
+        oldPassword: form.control(ChangePasswordFieldNames.currentPassword.value).value,
+        newPassword: form.control(ChangePasswordFieldNames.newPassword.value).value,
       ),
     );
     GtdLoading.hide();
@@ -85,11 +82,8 @@ class ChangePasswordPageViewModel extends BasePageViewModel {
       onSuccess.call();
     } else {
       final error = response.tryGetError();
-      final message = error?.errorByCode(
-        code: error.code,
-        message: error.message,
-      );
-      onError.call(message?.item2 ?? '');
+
+      onError.call(error?.message ?? "");
     }
   }
 }

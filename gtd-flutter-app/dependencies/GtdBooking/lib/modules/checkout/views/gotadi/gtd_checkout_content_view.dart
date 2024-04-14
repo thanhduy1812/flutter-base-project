@@ -22,16 +22,17 @@ import 'package:gtd_booking/modules/invoice/view_controller/input_invoice_page.d
 import 'package:gtd_booking/modules/invoice/view_model/input_invoice_page_viewmodel.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/country_codes_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/saved_traveller_cubit.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_html_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio_title.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
+import 'package:gtd_utils/data/data_loader/resource_loader.dart';
+
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
-import 'package:gtd_utils/utils/data_loader/resource_loader.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_html_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio_title.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+
 
 import '../../../confirm_booking/views/hotel_view/view/hotel_summary_item.dart';
 import 'gtd_checkout_content_viewmodel.dart';

@@ -6,11 +6,12 @@ import 'package:gtd_booking/modules/confirm_booking/view_controller/final_bookin
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/final_booking_detail_page_viewmodel.dart';
 import 'package:gtd_booking/modules/payment/cubit/payment_method_cubit.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 
 import '../view_model/payment_paylater_page_viewmodel.dart';
 

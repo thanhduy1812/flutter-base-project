@@ -2,15 +2,14 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 
 import 'package:gtd_booking/modules/checkout/view_model/checkout_traveller_form_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
+
 import 'package:rxdart/rxdart.dart';
 
 class GtdCheckoutContentViewModel extends BaseViewModel {

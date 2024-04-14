@@ -11,12 +11,12 @@ import 'package:gtd_booking/modules/confirm_booking/views/hotel_view/view_model/
 import 'package:gtd_booking/modules/confirm_booking/views/reservation_detail_view/views/booking_invoice_info_view.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/country_codes_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/saved_traveller_cubit.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 import '../../checkout/views/box_contact_info.dart';
 import '../../checkout/views/box_passenger_form.dart';

@@ -1,10 +1,8 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/combo_resource/models/request/gtd_combo_draft_booking_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_combo_repository/gtd_combo_repository.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_repository/app_repository/app_repository.dart';
+
 
 part 'combo_draft_booking_state.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/payment/view_model/payment_method_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/payment_method_type.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PaymentMethodItem extends BaseView<PaymentMethodItemViewModel> {

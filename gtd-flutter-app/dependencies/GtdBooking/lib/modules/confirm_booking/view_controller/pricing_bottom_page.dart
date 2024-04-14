@@ -1,3 +1,4 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,18 +15,16 @@ import 'package:gtd_booking/modules/payment/view_controller/payment_method_page.
 import 'package:gtd_booking/modules/payment/view_model/payment_method_page_viewmodel.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_tabbar_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import '../../checkout/cubit/add_booking_traveler_cubit.dart';
 import '../../checkout/cubit/payment_display_info_cubit.dart';

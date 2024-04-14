@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class PriceBottomView extends BaseView<PriceBottomViewModel> {
   final GtdCallback? onTab;

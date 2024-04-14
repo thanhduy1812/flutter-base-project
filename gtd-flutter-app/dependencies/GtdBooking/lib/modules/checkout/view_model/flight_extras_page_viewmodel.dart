@@ -1,10 +1,10 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/pricing_bottom_page_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_plans_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
+
 
 import '../model/hotel_additional_item_vm.dart';
 import '../views/gotadi/gtd_ssr_items/view_model/gtd_ssr_items_list_viewmodel.dart';

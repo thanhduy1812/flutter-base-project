@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/item_select_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/inventory_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_plans_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_insurance_type.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 enum InsuranceViewType { finalView, planView }
 

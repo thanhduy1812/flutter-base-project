@@ -5,11 +5,11 @@ import 'package:gtd_booking/modules/combo/form_search/view_controller/search_com
 import 'package:gtd_booking/modules/combo/form_search/view_model/search_combo_page_viewmodel.dart';
 import 'package:gtd_booking/modules/hotel/form_search/view_controller/search_hotel_page.dart';
 import 'package:gtd_booking/modules/hotel/form_search/view_model/search_hotel_page_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:new_b2c/app/home/view_model/box_banner_mkt_view_model.dart';
 
 class BoxBannerMkt extends BaseView<BoxBannerMktViewModel> {

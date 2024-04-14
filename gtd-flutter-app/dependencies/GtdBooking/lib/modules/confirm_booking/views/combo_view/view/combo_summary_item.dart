@@ -3,8 +3,9 @@ import 'package:gtd_booking/modules/confirm_booking/views/combo_view/view_model/
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view/flight_summary_item.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/hotel_view/view/hotel_summary_item.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+
 
 class ComboSummaryItem extends BaseView<ComboSummaryItemViewModel> {
   const ComboSummaryItem({super.key, required super.viewModel});

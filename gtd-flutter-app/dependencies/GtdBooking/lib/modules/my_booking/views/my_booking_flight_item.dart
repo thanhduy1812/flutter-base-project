@@ -6,15 +6,13 @@ import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_resu
 import 'package:gtd_booking/modules/my_booking/view_model/my_booking_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tap_widget.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tap_widget.dart';
-
+import 'package:gtd_repository/gtd_repository.dart';
 class MyBookingFlightItem<T> extends BaseView<MyBookingItemViewModel> {
   const MyBookingFlightItem({
     super.key,

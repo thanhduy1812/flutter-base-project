@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/checkout/view_model/ssr_item_vm.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
 
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
 
 typedef TravelerSSRTuple = ({TravelerInputInfoDTO travelerDTO, List<SsrItemVM> ssrItems});
 typedef SelectedSSRTuple = ({UniqueKey travelerKey, List<SsrOfferDTO> selectedSsrItems});

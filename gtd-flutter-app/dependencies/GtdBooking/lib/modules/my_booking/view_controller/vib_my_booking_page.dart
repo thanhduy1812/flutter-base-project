@@ -6,9 +6,9 @@ import 'package:gtd_booking/modules/my_booking/bloc_cubit/my_booking_cubit.dart'
 import 'package:gtd_booking/modules/my_booking/view_model/my_booking_item_viewmodel.dart';
 import 'package:gtd_booking/modules/my_booking/views/my_booking_flight_item.dart';
 import 'package:gtd_booking/modules/my_booking/views/my_booking_loading.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/search_booking_rs.dart';
-import 'package:gtd_utils/helpers/extension/loadmore_list_extention.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 
 class VibMyBookingPage extends StatefulWidget {
   const VibMyBookingPage({super.key});

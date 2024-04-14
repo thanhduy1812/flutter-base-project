@@ -1,17 +1,12 @@
+
 import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/booking_detail_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_insurance_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_product_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_airline_cabin_class.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
+
 
 enum GtdDisplayItemType {
   other(1),

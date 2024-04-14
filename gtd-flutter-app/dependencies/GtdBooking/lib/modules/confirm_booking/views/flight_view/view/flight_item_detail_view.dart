@@ -5,8 +5,8 @@ import 'package:gtd_booking/modules/confirm_booking/views/flight_view/cubit/flig
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view_model/flight_item_detail_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_tabbar/view/gtd_tabbar_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_html_view.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_html_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'flight_itinerary_detail/view_model/flight_itinerary_info_viewmodel.dart';

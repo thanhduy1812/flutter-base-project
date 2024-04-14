@@ -8,13 +8,12 @@ import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_searc
 import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_search_state.dart';
 import 'package:gtd_booking/modules/flight/search_result/view_model/flight_search_result_page_viewmodel.dart';
 import 'package:gtd_utils/base/view/gtd_tabbar/view/gtd_tabbar_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button_radio.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/filter_availability_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/sort_value.dart';
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button_radio.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+
 
 typedef OnTapCallback = void Function(int newValue);
 

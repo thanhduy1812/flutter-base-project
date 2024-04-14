@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/confirm_booking/cubit/insurance_cubit.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/views/insurance_view/view/insurance_view.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 
 import '../cubit/flight_ssr_selection_cubit.dart';
 import '../view_model/flight_ssr_selection_page_viewmodel.dart';

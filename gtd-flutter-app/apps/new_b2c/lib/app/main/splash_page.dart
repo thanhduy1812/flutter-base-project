@@ -1,7 +1,7 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
 import 'package:new_b2c/app/home/view_controller/home_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         height: size.height,
         width: size.width,
         child: Center(
-          child: GtdImage.svgFromAsset(assetPath: "assets/appicon/app-logo.svg"),
+          child: DVTImage.svgFromAsset(assetPath: "assets/appicon/app-logo.svg"),
         ),
       ),
     );

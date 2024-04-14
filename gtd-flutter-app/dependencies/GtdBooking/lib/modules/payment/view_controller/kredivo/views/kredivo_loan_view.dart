@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_outline_select_button/view/gtd_outline_select_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../cubit/payment_kredivo_cubit.dart';
 import '../view_model/kredivo_load_viewmodel.dart';

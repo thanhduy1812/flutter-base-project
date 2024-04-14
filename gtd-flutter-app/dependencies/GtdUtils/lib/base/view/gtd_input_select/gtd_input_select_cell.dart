@@ -1,7 +1,6 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
 
 class GtdInputSelectCell extends StatelessWidget {
   final Widget? leadingIcon;
@@ -60,8 +59,7 @@ class GtdInputSelectCell extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
-                      color:
-                          !hasData ? AppColors.currencyText : AppColors.subText,
+                      color: !hasData ? AppColors.currencyText : AppColors.subText,
                     ),
                   ),
                 ),

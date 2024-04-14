@@ -1,10 +1,9 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_checkout_content_viewmodel.dart';
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_flight_checkout_content_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/pricing_bottom_page_viewmodel.dart';
 import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_model.dart';
-import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
-
+import 'package:gtd_repository/gtd_repository.dart';
 class CheckoutPageViewModel extends PricingBottomPageViewModel {
   bool isTaxReceipt = false;
 

@@ -4,7 +4,7 @@ import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_deta
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class PriceBottomDetailView extends BaseView<PriceBottomDetailViewModel> {
   const PriceBottomDetailView({super.key, required super.viewModel});

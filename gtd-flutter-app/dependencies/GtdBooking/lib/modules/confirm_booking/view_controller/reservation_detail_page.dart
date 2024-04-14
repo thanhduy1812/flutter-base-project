@@ -5,21 +5,20 @@ import 'package:gtd_booking/modules/confirm_booking/views/flight_view/cubit/flig
 import 'package:gtd_booking/modules/confirm_booking/views/hotel_view/view_model/hotel_summary_item_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/reservation_detail_view/view_model/booking_traveler_info_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/reservation_detail_view/views/booking_traveler_info_view.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_html_view.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_product_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_html_view.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../view_model/reservation_detail_page_viewmodel.dart';
 import '../views/flight_view/view/flight_itinerary_detail/view_model/flight_itinerary_info_viewmodel.dart';
 import '../views/flight_view/view/flight_itinerary_detail/views/flight_itinerary_info_view.dart';
 import '../views/hotel_view/view/hotel_summary_detail_item.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class ReservationDetailPage extends BaseStatelessPage<ReservationDetailPageViewMode> {
   static const String route = '/reservationDetailPage';

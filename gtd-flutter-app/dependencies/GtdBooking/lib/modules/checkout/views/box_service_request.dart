@@ -1,11 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/components/list_item_select_view.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
-
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import '../cubit/flight_checkout_cubit.dart';
 import '../view_model/checkout_traveller_form_vm.dart';
 import '../view_model/ssr_item_vm.dart';

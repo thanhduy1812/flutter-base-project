@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/confirm_booking/cubit/booking_result_cubit.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_list_title.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text.dart';
-import 'package:gtd_utils/utils/native_communicate/gtd_native_channel.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_list_title.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
 
 class VibInvoicePage extends StatefulWidget {
   final String bookingNumber;

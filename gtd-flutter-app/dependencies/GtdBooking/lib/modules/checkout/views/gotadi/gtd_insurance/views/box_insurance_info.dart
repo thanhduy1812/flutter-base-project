@@ -3,13 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/confirm_booking/cubit/insurance_cubit.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/view_model/final_booking_insurance_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/views/final_booking_insurance_view.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../view_model/box_insurance_info_viewmodel.dart';
 
@@ -146,16 +145,12 @@ class BoxInsuranceInfo extends BaseView<BoxInsuranceInfoViewModel> {
         padding: const EdgeInsets.only(left: 16, right: 16),
         itemCount: 3,
         itemBuilder: (context, index) {
-          return Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade50,
-            child: const SizedBox(
-              width: 300,
-              child: Card(
-                color: Colors.white,
-              ),
-            ),
-          );
+          return const GtdShimmer(
+              child: SizedBox(
+                  width: 300,
+                  child: Card(
+                    color: Colors.white,
+                  )));
         },
       ),
     );

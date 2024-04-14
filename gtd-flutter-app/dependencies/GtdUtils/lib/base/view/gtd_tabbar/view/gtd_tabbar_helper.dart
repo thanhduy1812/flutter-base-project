@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 import 'gtd_tab.dart';
 

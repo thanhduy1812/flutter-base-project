@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/hotel_view/view_model/hotel_summary_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_amenity_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tool_tip_shape/gtd_tool_tip_shape.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
+
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tool_tip_shape/gtd_tool_tip_shape.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+
 
 class HotelSummaryDetailItem extends BaseView<HotelSummaryItemViewModel> {
   final double? width;

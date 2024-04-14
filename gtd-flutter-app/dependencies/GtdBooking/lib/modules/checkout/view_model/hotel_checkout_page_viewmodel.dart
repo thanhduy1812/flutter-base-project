@@ -1,6 +1,6 @@
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_checkout_content_viewmodel.dart';
 import 'package:gtd_booking/modules/checkout/views/gotadi/gtd_hotel_checkout_content_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import 'flight_checkout_page_viewmodel.dart';
 

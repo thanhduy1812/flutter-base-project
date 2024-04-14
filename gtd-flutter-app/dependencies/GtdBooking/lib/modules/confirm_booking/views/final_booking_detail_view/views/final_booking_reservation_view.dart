@@ -5,9 +5,10 @@ import 'package:gtd_booking/modules/confirm_booking/view_model/reservation_detai
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/view_model/final_booking_reservation_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_info_row/gtd_info_row.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dash_border/gtd_dashed_border.dart';
+
 
 class FinalBookingReservationView extends BaseView<FinalBookingReservationViewModel> {
   const FinalBookingReservationView({super.key, required super.viewModel});

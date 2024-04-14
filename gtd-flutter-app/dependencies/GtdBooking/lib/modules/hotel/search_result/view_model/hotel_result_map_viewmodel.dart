@@ -7,9 +7,8 @@ import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_controller.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_marker.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_item_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class HotelResultMapViewModel extends BaseViewModel {

@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import '../gtd_app_logger.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+
 
 class GtdDioInterceptor extends Interceptor {
   final bool? printOnSuccess;

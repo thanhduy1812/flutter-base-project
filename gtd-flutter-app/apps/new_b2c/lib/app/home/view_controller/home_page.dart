@@ -5,18 +5,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_result.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
 import 'package:gtd_utils/data/cache_helper/user_manager.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_shimmer.dart';
 import 'package:new_b2c/app/home/cubit/home_banner_cubit.dart';
 import 'package:new_b2c/app/home/view_model/box_banner_mkt_view_model.dart';
 import 'package:new_b2c/app/home/views/box_banner_mkt.dart';
 import 'package:new_b2c/app/home/views/box_search_header_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:new_b2c/app/notifications/view_controller/notifications_page.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 import 'package:uni_links/uni_links.dart';
 
@@ -48,7 +47,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
 
     ///Call get account data here so account data is saved in UserManager
     UserManager.shared.getAccountData();
-    UserManager.shared.bookingResultWebViewCallback = (bookingNumber) {
+    UtilManager.shared.bookingResultWebViewCallback = (bookingNumber) {
       _navigateToBookingResult(bookingNumber);
     };
 
@@ -179,8 +178,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
                 leading: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: _isDark(theme.colorScheme.surface)
-                      ? GtdImage.svgFromAsset(assetPath: "assets/images/logo_b2c_dark.svg", width: 200)
-                      : GtdImage.svgFromAsset(assetPath: "assets/images/logo_b2c.svg", width: 200),
+                      ? DVTImage.svgFromAsset(assetPath: "assets/images/logo_b2c_dark.svg", width: 200)
+                      : DVTImage.svgFromAsset(assetPath: "assets/images/logo_b2c.svg", width: 200),
                 ),
                 leadingWidth: 110,
                 actions: [

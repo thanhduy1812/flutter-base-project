@@ -1,20 +1,22 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/checkout/view_model/flight_ssr_selection_page_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/cubit/insurance_cubit.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/views/insurance_view/view_model/insurance_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_html_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio_title.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_plans_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_insurance_type.dart';
+
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_html_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio_title.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
+
 import 'package:url_launcher/url_launcher.dart';
 
 class InsuranceView extends BaseView<InsuranceViewModel> {

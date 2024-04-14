@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/checkout/view_model/hotel_ssr_selection_page_viewmodel.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio_title.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio_title.dart';
-
 class HotelSSRSelectionPage extends BaseStatelessPage<HotelSSRSelectionPageViewModel> {
   static const String route = "/hotelSSRSelectionPage";
   const HotelSSRSelectionPage({super.key, required super.viewModel});

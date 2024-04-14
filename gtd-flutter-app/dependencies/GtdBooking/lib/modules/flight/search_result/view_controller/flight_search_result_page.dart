@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/checkout/view_controller/flight_checkout_page.dart';
 import 'package:gtd_booking/modules/checkout/view_model/flight_checkout_page_viewmodel.dart';
@@ -18,16 +19,12 @@ import 'package:gtd_booking/modules/flight/search_result/views/flight_sort_compo
 import 'package:gtd_booking/modules/flight/search_result/views/item_flight_component.dart';
 import 'package:gtd_booking/modules/flight/search_result/views/loading/list_flight_item_loading.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_airline_cabin_class.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_item.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/loadmore_list_extention.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tap_widget.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tap_widget.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class FlightSearchResultPage
     extends BaseStatelessPage<FlightSearchResultPageViewModel> {

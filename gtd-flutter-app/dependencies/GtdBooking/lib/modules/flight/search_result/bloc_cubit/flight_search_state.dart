@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 enum FlightSearchStatus { isLoading, isLoadMore, success, cancel }
 

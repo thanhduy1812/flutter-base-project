@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view/_flight_item_detail.dart';
 
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '_passenger_detail.dart';
 

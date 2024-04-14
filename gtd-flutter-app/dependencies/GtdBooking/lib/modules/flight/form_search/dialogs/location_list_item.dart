@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/bloc/get_location_info/get_location_bloc.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/json_models/search_airport.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 typedef OnTapCallback = void Function(SearchAirport newValue);

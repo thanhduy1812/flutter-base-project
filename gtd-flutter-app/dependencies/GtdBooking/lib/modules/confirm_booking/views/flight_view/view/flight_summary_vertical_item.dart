@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 
 import '../view_model/flight_summary_item_viewmodel.dart';
 

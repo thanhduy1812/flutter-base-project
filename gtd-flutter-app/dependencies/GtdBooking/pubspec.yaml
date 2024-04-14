@@ -35,6 +35,10 @@ dependencies:
     path: ../resources/resource
   common_resource:
     path: ../resources/common_resource
+  dvt_helper:
+    path: ../repositories/dvt_helper
+  gtd_repository:
+    path: ../repositories/gtd_repository
   # resource:
   #   path: ../../dependencies/resource
   # The following adds the Cupertino Icons font to your application.
@@ -62,6 +66,7 @@ dependencies:
   rxdart: ^0.27.7
   loadmore: ^2.0.1
   visibility_detector: ^0.4.0+2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

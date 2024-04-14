@@ -1,7 +1,7 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 
 class LogInTermsAndConditions extends StatelessWidget {
   const LogInTermsAndConditions({super.key});

@@ -2,9 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:expandable_page_view/expandable_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:new_b2c/app/home/cubit/home_banner_cubit.dart';
 import 'package:new_b2c/app/home/view_model/box_banner_mkt_view_model.dart';
 

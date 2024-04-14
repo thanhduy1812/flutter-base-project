@@ -3,12 +3,7 @@ import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view_model
 import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_model.dart';
 import 'package:gtd_booking/modules/hotel/form_search/model/search_hotel_form_model.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail_view/view_model/hotel_search_room_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/combo_resource/combo_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/hotel_resource.dart';
-
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class ComboSearchRoomViewModel extends HotelSearchRoomViewModel {
   final GtdFlightSearchResultDTO flightSearchResultDTO;

@@ -1,7 +1,7 @@
 import 'dart:collection';
 
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
 
 const String bannerUrl =
     "https://cms-origin.gotadi.com/wp-content/uploads/2023/12/sl63-t12-tourtet-ThaiLan-BANGKOK-PATTAYA-NONG-NOOCH-ARTZaloOA.jpg";

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/hotel_view/view_model/hotel_summary_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HotelSummaryItem extends BaseView<HotelSummaryItemViewModel> {
   final double? width;
@@ -107,8 +107,8 @@ class HotelSummaryItem extends BaseView<HotelSummaryItemViewModel> {
                               children: [
                                 Text.rich(TextSpan(
                                     text: "Nhận phòng \n",
-                                    style: TextStyle(
-                                        fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText),
+                                    style:
+                                        TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText),
                                     children: [
                                       TextSpan(
                                           text: viewModel.checkin,
@@ -180,13 +180,11 @@ class HotelSummaryItem extends BaseView<HotelSummaryItemViewModel> {
   }
 
   static Widget buildLoadingShimmerHotelItem() {
-    return SliverToBoxAdapter(
+    return const SliverToBoxAdapter(
       child: SizedBox(
         height: 117,
-        child: Shimmer.fromColors(
-          baseColor: Colors.grey.shade300,
-          highlightColor: Colors.grey.shade50,
-          child: const SizedBox(
+        child: GtdShimmer(
+          child: SizedBox(
             width: 300,
             child: Card(
               color: Colors.white,

@@ -8,9 +8,10 @@ import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_v
 import 'package:gtd_booking/modules/confirm_booking/views/final_booking_detail_view/views/final_booking_status_view.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/reservation_detail_view/view_model/booking_invoice_info_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/reservation_detail_view/views/booking_invoice_info_view.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+
 
 import '../../checkout/views/box_contact_info.dart';
 import '../../checkout/views/gotadi/gtd_insurance/views/box_insurance_info.dart';

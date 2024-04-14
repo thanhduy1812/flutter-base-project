@@ -15,15 +15,15 @@ import 'package:gtd_booking/modules/hotel/search_result/view/hotel_search_detail
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_flutter_map.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_map_point.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dots_paging_listview/gtd_image_page_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_image_gallery_viewer.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_rating_bar.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dots_paging_listview/gtd_image_page_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_image_gallery_viewer.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_rating_bar.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
+
 
 import '../view_model/hotel_search_detail_page_viewmodel.dart';
 

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_location_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 import '../view/hotel_room_picker/view_model/hotel_room_picker_viewmodel.dart';
 

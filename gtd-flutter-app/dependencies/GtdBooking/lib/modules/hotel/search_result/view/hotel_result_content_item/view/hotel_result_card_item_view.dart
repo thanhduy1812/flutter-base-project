@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view/hotel_result_content_item/view_model/combo_result_card_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_list_horizontal_images/gtd_list_horizontal_images.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_rating_bar.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
+
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_call_back.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_rating_bar.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_shimmer.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 import '../model/hotel_result_card_item_model.dart';
 import '../view_model/hotel_result_card_item_viewmodel.dart';
@@ -287,10 +284,8 @@ class HotelResultCardItemView extends BaseView<HotelResultCardItemViewModel> {
                       builder: (context) {
                         if (viewModel is ComboResultCardItemViewModel &&
                             (viewModel as ComboResultCardItemViewModel).flightPricePerPerson == 0) {
-                          return Shimmer.fromColors(
-                            baseColor: Colors.grey.shade300,
-                            highlightColor: Colors.grey.shade50,
-                            child: const SizedBox(
+                          return const GtdShimmer(
+                            child: SizedBox(
                               width: 150,
                               height: 30,
                               child: Card(
@@ -321,10 +316,8 @@ class HotelResultCardItemView extends BaseView<HotelResultCardItemViewModel> {
                 builder: (context) {
                   if (viewModel is ComboResultCardItemViewModel &&
                       (viewModel as ComboResultCardItemViewModel).flightPricePerPerson == 0) {
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade50,
-                      child: const SizedBox(
+                    return const GtdShimmer(
+                      child: SizedBox(
                         width: 150,
                         height: 30,
                         child: Card(

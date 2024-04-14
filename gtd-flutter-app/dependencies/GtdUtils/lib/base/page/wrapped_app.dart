@@ -1,3 +1,4 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +11,7 @@ import 'package:gtd_utils/base/settings/setting_cupid.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/extension/string_extension.dart';
-import 'package:gtd_utils/utils/app_bloc_observer/app_bloc_observer.dart';
+
 
 class WrappedApp {
   WrappedApp._() {

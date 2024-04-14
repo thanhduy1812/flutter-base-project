@@ -1,17 +1,16 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_input_select/gtd_input_select_cell.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_custom_checkbox.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_select_field.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_switch_label.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_custom_checkbox.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_date_picker_scroll/flutter_datetime_picker.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_select_field.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_switch_label.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
 
 import '../cubit/flight_checkout_cubit.dart';
 import '../view_model/checkout_traveller_form_vm.dart';

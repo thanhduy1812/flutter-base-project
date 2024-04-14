@@ -2,10 +2,7 @@
 
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_traveller_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class InputInvoicePageViewModel extends BasePageViewModel {
   List<GtdSavedTravellerRs> savedTravellers;

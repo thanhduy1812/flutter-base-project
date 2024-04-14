@@ -9,11 +9,11 @@ import 'package:gtd_booking/modules/flight/form_search/views/location_info_view.
 import 'package:gtd_booking/modules/hotel/form_search/view/date_checkinout_view.dart';
 import 'package:gtd_booking/modules/hotel/form_search/view/hotel_search_location_view.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
 
 class SearchComboPage extends BaseStatelessPage<SearchComboPageViewModel> {
   static const String route = '/searchComboPage';

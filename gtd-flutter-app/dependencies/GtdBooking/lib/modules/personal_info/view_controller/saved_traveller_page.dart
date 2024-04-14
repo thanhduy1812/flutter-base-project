@@ -5,7 +5,7 @@ import 'package:gtd_booking/modules/personal_info/view_model/saved_traveller_lis
 import 'package:gtd_booking/modules/personal_info/view_model/saved_traveller_page_view_model.dart';
 import 'package:gtd_booking/modules/personal_info/views/saved_traveller_list.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/customer_resource.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class SavedTravellerPage extends BaseStatelessPage<SavedTravellerPageViewModel> {
   static const String route = '/savedTravellerPage';

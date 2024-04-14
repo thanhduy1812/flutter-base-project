@@ -3,14 +3,8 @@ import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_view
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view_model/flight_summary_item_viewmodel.dart';
 import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_model.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_room_detail_page_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/combo_resource/models/request/gtd_combo_draft_booking_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/hotel_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_item.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/number_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class ComboSearchRoomDetailPageViewModel extends HotelSearchRoomDetailPageViewModel {
   final GtdFlightSearchResultDTO flightSearchResultDTO;

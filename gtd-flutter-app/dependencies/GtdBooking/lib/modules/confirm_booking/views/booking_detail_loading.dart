@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class BookingDetailLoading<T> extends StatelessWidget {
   const BookingDetailLoading({
@@ -25,9 +25,7 @@ class BookingDetailLoading<T> extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade50,
+                GtdShimmer(
                   child: Container(
                     height: 22,
                     width: 150,
@@ -42,9 +40,7 @@ class BookingDetailLoading<T> extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 16),
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade50,
+            child: GtdShimmer(
               child: Container(
                 height: 22,
                 width: 150,
@@ -63,9 +59,7 @@ class BookingDetailLoading<T> extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             width: double.infinity,
-            child: Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade50,
+            child: GtdShimmer(
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Wrap(

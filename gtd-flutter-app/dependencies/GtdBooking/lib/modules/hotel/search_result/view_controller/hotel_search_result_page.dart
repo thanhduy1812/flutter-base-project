@@ -10,9 +10,10 @@ import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_result_
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_search_result_page_viewmodel.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_sort_header_tab_viewmode.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+
 
 import '../view/hotel_result_map_view.dart';
 

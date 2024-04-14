@@ -1,8 +1,8 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_radio_list/view_model/gtd_radio_row_viewmodel.dart';
-import 'package:gtd_utils/data/network/network.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_radio_title.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_radio_title.dart';
 
 class GtdRadioRow<K> extends BaseView<GtdRadioRowViewModel<K>> {
   final List<GtdRadioTitle<K>> Function(BuildContext radioRowContext, K? groupValue, Sink<K?> groupValueSink)

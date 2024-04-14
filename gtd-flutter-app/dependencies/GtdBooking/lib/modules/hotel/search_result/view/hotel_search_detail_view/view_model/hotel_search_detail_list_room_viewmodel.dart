@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
 
 class HotelSearchDetailListRoomViewModel extends BaseViewModel {
   bool isExpand;

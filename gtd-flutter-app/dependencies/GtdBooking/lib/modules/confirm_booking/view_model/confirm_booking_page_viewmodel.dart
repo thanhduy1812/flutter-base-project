@@ -1,7 +1,5 @@
 import 'package:gtd_booking/modules/confirm_booking/view_model/pricing_bottom_page_viewmodel.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/request/add_booking_traveller_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class ConfirmBookingPageViewModel extends PricingBottomPageViewModel {
   bool isAcceptTerm = false;

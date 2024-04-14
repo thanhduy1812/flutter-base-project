@@ -1,5 +1,5 @@
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_input/gtd_input_msc.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_input/gtd_input_msc.dart';
 import 'package:new_b2c/app/account/register/register.dart';
 import 'package:rxdart/rxdart.dart';
 

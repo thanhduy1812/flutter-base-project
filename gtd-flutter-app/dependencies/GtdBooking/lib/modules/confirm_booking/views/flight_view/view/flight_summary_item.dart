@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../view_model/flight_item_detail_viewmodel.dart';

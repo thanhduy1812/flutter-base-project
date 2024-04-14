@@ -1,18 +1,17 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_result.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
 import 'package:gtd_utils/base/view/gtd_tabbar/view/gtd_tabbar_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_html_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/utility_resource/utility_resource.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/helpers/extension/loadmore_list_extention.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_html_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_shimmer.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:new_b2c/app/notifications/cubit/notifications_cubit.dart';
 import 'package:new_b2c/app/notifications/model/notification_item.dart';
 import 'package:new_b2c/app/notifications/view_model/notifications_page_view_model.dart';
@@ -200,7 +199,7 @@ class NotificationsPage extends BaseStatelessPage<NotificationsPageViewModel> {
           GtdShimmer(
             child: Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: GtdImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-flight.svg"),
+              child: DVTImage.svgFromAsset(assetPath: "assets/images/icons/ico-noti-flight.svg"),
             ),
           ),
           Expanded(

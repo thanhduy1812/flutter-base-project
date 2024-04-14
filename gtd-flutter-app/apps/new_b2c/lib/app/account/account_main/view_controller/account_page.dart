@@ -1,3 +1,4 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -5,13 +6,13 @@ import 'package:gtd_booking/modules/invoice/view_controller/invoice_history_page
 import 'package:gtd_booking/modules/my_booking/view_controller/gtd_my_booking_page.dart';
 import 'package:gtd_booking/modules/personal_info/view_controller/saved_company_page.dart';
 import 'package:gtd_booking/modules/personal_info/view_controller/saved_traveller_page.dart';
+import 'package:gtd_repository/app_repository/gtd_repositories/user_repository/user_manager.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tap_widget.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/constants/app_const.dart';
-import 'package:gtd_utils/data/cache_helper/user_manager.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tap_widget.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
 import 'package:new_b2c/app/account/account_main/account_main.dart';
 import 'package:new_b2c/app/account/log_in/log_in.dart';
 import 'package:new_b2c/app/account/settings/settings.dart';

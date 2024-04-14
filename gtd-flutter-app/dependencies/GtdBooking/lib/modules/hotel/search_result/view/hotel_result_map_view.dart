@@ -1,7 +1,8 @@
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_flutter_map/gtd_flutter_map.dart';
-import 'package:gtd_utils/utils/list_view_helper/gtd_paging_scroll_physics.dart';
+
 
 import '../view_model/hotel_result_map_viewmodel.dart';
 import 'hotel_result_content_item/view/hotel_result_card_item_view.dart';
@@ -53,7 +54,7 @@ class HotelResultMapView extends BaseView<HotelResultMapViewModel> {
       height: 175,
       child: ListView.separated(
         controller: viewModel.scrollController,
-        physics: GtdPagingScrollPhysics(
+        physics: DVTPagingScrollPhysics(
           itemDimension: viewModel.horizontalItemWidth,
         ),
         scrollDirection: Axis.horizontal,

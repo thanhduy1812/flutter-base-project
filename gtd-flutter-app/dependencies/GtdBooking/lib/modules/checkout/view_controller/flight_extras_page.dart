@@ -5,8 +5,8 @@ import 'package:gtd_booking/modules/checkout/view_controller/hotel_ssr_selection
 import 'package:gtd_booking/modules/checkout/view_model/hotel_ssr_selection_page_viewmodel.dart';
 import 'package:gtd_booking/modules/confirm_booking/cubit/insurance_cubit.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_input_select/gtd_input_select_cell.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 
 import '../cubit/flight_service_request_cubit.dart';
 import '../model/hotel_additional_item_vm.dart';

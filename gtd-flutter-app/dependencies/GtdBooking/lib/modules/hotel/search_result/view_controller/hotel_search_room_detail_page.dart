@@ -11,21 +11,20 @@ import 'package:gtd_booking/modules/confirm_booking/views/price_bottom_detail_vi
 import 'package:gtd_booking/modules/confirm_booking/views/price_bottom_view.dart';
 import 'package:gtd_booking/modules/hotel/search_result/cubit/hotel_draft_booking_cubit.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/combo_search_room_detail_page_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_amenity_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_dots_paging_listview/gtd_image_page_view.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_image_gallery_viewer.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tool_tip_shape/gtd_custom_tooltip.dart';
+import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/models/gt_hotel_room_detail_dto.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_utils/helpers/extension/image_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_amenity_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_dots_paging_listview/gtd_image_page_view.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_image_gallery_viewer.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tool_tip_shape/gtd_custom_tooltip.dart';
-import 'package:gtd_utils/utils/popup/gtd_loading.dart';
-import 'package:gtd_utils/utils/popup/gtd_popup_message.dart';
-import 'package:gtd_utils/utils/popup/gtd_present_view_helper.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 import '../view_model/hotel_search_room_detail_page_viewmodel.dart';
 

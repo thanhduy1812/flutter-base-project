@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_tuple.dart';
 
 extension CustomColors on Colors {
   static const MaterialColor mainGreen =

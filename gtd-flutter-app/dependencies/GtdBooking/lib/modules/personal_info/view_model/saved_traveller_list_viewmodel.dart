@@ -5,8 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/personal_info/model/saved_traveller_model.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_traveller_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_customer_repository/extension/gtd_saved_traveller_extension.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SaveTravellerListViewModel extends BaseViewModel {

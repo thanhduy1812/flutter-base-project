@@ -5,7 +5,7 @@ import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_tabbar/view/gtd_tabbar_helper.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/utils/popup/gtd_app_loading.dart';
+import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
 import 'package:meta/meta.dart';
 
 class BaseTabbarPage<T extends BasePageViewModel> extends StatelessWidget {

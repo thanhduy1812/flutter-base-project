@@ -1,6 +1,6 @@
+import 'package:gtd_utils/base/view_model/cubit/gtd_text_field_validation_cubit.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_location_dto.dart';
-import 'package:gtd_utils/utils/cubit/gtd_text_field_validation_cubit.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 
 class HotelLocationTextFieldVM extends GtdValidateFieldVM {
   GtdHotelLocationDTO _location;

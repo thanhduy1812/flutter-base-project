@@ -1,5 +1,5 @@
 
-abstract class GtdCachedObject  {
-  int get typeId;
-  GtdCachedObject();
-}
+// abstract class GtdCachedObject  {
+//   int get typeId;
+//   GtdCachedObject();
+// }

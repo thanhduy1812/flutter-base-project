@@ -1,14 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_model/price_bottom_viewmodel.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/customer_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/request/gtd_insurance_plan_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_insurance_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 
 import '../../checkout/view_model/checkout_traveller_form_vm.dart';
 import '../../checkout/view_model/gtd_display_price_item_vm.dart';

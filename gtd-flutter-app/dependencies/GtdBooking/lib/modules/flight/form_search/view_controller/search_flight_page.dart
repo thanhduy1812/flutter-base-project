@@ -11,9 +11,8 @@ import 'package:gtd_booking/modules/flight/form_search/views/date_itinerary_view
 import 'package:gtd_booking/modules/flight/form_search/views/location_info_view.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/passengers_inerary_view.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
-import 'package:gtd_utils/utils/gtd_widgets/gtd_button.dart';
-
+import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
   static const String route = '/flightSearch';
   final ScrollController scrollController = ScrollController(

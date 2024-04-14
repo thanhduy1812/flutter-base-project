@@ -2,7 +2,7 @@
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
 
 import 'package:gtd_booking/modules/hotel/form_search/model/search_hotel_form_model.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class HotelSearchingLoadingPageViewModel extends BasePageViewModel {
   SearchHotelFormModel searchHotelFormModel;

@@ -1,11 +1,7 @@
 import 'package:collection/collection.dart';
+import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/booking_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_product_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 
 class ReservationDetailPageViewMode extends BasePageViewModel {
   GtdFlightItemDetail? flightItemDetail;
