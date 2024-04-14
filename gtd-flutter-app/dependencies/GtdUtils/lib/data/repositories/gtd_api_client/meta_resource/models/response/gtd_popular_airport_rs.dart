@@ -1,4 +1,4 @@
-import 'package:gtd_utils/data/network/models/gtd_json_model.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_json_model.dart';
 
 import '../json_models/airport.dart';
 

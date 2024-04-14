@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_payment_repository/gtd_payment_repository.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 

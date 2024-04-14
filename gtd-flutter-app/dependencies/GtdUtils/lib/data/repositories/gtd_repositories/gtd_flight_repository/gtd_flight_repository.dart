@@ -1,5 +1,5 @@
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/booking_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';

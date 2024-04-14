@@ -1,10 +1,10 @@
 import 'package:gtd_utils/data/network/network.dart';
-import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/api/banner_resource_api.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/banner_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/inventory_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/request/gtd_insurance_plan_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/inventory_resource/models/response/gtd_insurance_plans_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/utility_resource/utility_resource.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 
 class GtdUtilityRepository {

@@ -1,5 +1,5 @@
 import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_model.dart';
-import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/hotel_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
 

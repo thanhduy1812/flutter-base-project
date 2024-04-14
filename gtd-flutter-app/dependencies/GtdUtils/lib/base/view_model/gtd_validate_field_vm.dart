@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/utils/cubit/gtd_text_field_validation_cubit.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_text_field.dart';
 import 'package:intl/intl.dart';

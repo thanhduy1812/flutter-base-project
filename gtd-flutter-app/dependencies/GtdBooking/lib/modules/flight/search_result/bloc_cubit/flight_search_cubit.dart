@@ -6,7 +6,7 @@ import 'package:gtd_booking/modules/flight/form_search/model/search_flight_form_
 import 'package:gtd_booking/modules/flight/search_result/bloc_cubit/flight_search_state.dart';
 import 'package:gtd_utils/data/cache_helper/cache_helper.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/network/models/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/gtd_booking_repository.dart';
@@ -27,7 +27,7 @@ class FlightSearchCubit extends Cubit<FlightSearchState> {
   BehaviorSubject<GtdFlightItinerary> flightItinerarySubject = BehaviorSubject<GtdFlightItinerary>();
 
   StreamSubscription<dynamic>? _cancelableSub;
-  
+
   void initFlightFormSearch(SearchFlightFormModel searchFlightFormModel) {
     formSearchInfoSubject.sink.add(searchFlightFormModel);
   }
@@ -153,7 +153,6 @@ class FlightSearchCubit extends Cubit<FlightSearchState> {
   }
 
   Future<Result<BookingDetailDTO, GtdApiError>> draftBooking(GtdFlightDraftBookingRq draftBookingRq) async {
-
     return GtdFlightRepository.shared.draftBooking(draftBookingRq).then((value) async {
       var result = await value.when((success) async {
         return success.bookingNumber;
