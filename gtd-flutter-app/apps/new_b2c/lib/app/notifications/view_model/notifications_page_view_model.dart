@@ -1,6 +1,6 @@
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_paging_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/utility_resource/utility_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_paging_dto.dart';
 import 'package:new_b2c/app/notifications/model/notification_item.dart';
 
 class NotificationsPageViewModel extends BasePageViewModel {

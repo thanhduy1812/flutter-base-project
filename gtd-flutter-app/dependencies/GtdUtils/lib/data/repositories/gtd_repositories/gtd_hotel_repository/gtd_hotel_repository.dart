@@ -3,14 +3,14 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/response/add_booking_traveller_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/api/booking_resource_api.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/hotel_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_paging_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_paging_dto.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/dto/booking_detail_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_location_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_detail_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_search_result_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_filter_option_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class GtdHotelRepository {
   final HotelResourceApi hotelResourceApi = HotelResourceApi.shared;

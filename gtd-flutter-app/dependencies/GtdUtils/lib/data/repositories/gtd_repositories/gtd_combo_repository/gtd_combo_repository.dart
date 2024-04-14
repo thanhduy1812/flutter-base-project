@@ -6,8 +6,8 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/hotel_
 import '../../gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
 import '../../gtd_api_client/booking_resource/booking_resource.dart';
 import '../../gtd_api_client/combo_resource/combo_resource.dart';
-import '../../gtd_repository_error/gtd_api_error.dart';
-import '../common_model/wrapped_result/result.dart';
+import '../../common_model/gtd_api_error.dart';
+import '../../common_model/wrapped_result/result.dart';
 import '../gtd_booking_repository/dto/booking_detail_dto.dart';
 
 class GtdComboRepository {

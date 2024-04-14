@@ -1,4 +1,4 @@
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_json_model.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_json_model.dart';
 
 // List<SearchAirport> searchAirportModelFromJson(String str) => List<SearchAirport>.from(json.decode(str).map((x) => SearchAirport.fromJson(x)));
 

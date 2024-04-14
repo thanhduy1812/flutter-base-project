@@ -1,5 +1,5 @@
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_constant.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_error_constant.dart';
 
 import 'gtd_app_logger.dart';
 

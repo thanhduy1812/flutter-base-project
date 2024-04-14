@@ -8,7 +8,7 @@ import 'package:gtd_utils/data/network/network_service/gtd_network_service.dart'
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/gtd_customer_endpoint.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_traveller_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 /// API Client for call API
 class CustomerResourceApi {

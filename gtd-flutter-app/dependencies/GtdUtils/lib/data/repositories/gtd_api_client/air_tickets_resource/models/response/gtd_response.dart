@@ -1,6 +1,6 @@
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_json_model.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_json_model.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class GtdResponse extends GTDJsonModel {
   GtdResponse({

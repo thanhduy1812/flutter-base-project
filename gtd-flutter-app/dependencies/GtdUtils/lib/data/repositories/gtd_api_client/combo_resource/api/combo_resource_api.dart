@@ -4,8 +4,8 @@ import 'package:gtd_utils/data/network/gtd_json_parser.dart';
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/combo_resource/gtd_combo_endpoint.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/combo_resource/models/request/gtd_combo_draft_booking_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_constant.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_error_constant.dart';
 
 import '../../air_tickets_resource/air_tickets_resource.dart';
 import '../models/reponse/gtd_combo_draft_booking_rs.dart';

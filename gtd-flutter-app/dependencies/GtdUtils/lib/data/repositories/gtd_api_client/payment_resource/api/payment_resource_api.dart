@@ -10,7 +10,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/mode
 import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/models/response/gtd_voucher_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_product_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 /// API Client for call API
 class PaymentResourceApi {

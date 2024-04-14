@@ -10,8 +10,8 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/reponse/gtd_hotel_popular_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_checkout_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/request/gtd_hotel_search_all_rate_rq.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_constant.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_error_constant.dart';
 
 import '../models/reponse/gtd_hotel_location_search_rs.dart';
 import '../models/reponse/gtd_hotel_search_all_rates_rs.dart';

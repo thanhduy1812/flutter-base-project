@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:gtd_booking/modules/invoice/model/group_month_invoice.dart';
 import 'package:gtd_utils/base/view_model/base_page_view_model.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_paging_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/utility_resource/utility_resource.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_paging_dto.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:gtd_utils/helpers/extension/number_extension.dart';
 import 'package:intl/intl.dart';
@@ -40,7 +40,6 @@ class InvoiceHistoryPageViewModel extends BasePageViewModel {
     if (invoiceSumaryRs != null) {
       updateInvoiceSumary(invoiceSumaryRs!);
     }
-    
   }
 
   void updateInvoiceSumary(GtdInvoiceSumaryRs invoiceSumaryRs) {

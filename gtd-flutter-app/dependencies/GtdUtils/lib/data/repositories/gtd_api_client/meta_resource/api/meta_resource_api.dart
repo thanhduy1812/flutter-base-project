@@ -4,7 +4,7 @@ import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/gtd_metasrv_endpoint.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/json_models/search_airport.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/models/response/gtd_country_code_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 import '../models/response/gtd_popular_airport_rs.dart';
 
 /// API Client for call API

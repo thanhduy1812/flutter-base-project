@@ -1,6 +1,6 @@
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/response/gtd_error_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_error_constant.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_error_constant.dart';
 import 'package:collection/collection.dart';
 import 'package:gtd_utils/utils/gtd_widgets/gtd_tuple.dart';
 

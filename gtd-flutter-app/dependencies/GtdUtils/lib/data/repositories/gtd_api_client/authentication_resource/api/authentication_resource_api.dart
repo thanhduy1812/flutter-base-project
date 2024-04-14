@@ -15,7 +15,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resour
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/customer_profile_response.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/customer_traveller_response.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/short_profile_response.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class AuthenticationResourceAPI {
   GtdNetworkService networkService = GtdNetworkService.shared;

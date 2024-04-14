@@ -8,7 +8,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/mode
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/search_booking_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_booking_repository/gtd_booking_repository.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 import 'package:gtd_utils/helpers/extension/date_time_extension.dart';
 import 'package:rxdart/rxdart.dart';
 

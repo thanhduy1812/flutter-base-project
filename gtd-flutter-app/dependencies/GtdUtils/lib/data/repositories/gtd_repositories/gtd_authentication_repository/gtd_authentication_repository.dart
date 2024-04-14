@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:gtd_utils/data/cache_helper/models/gtd_account_hive.dart';
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/authentication_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/request/change_password_request.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/request/register_request.dart';
@@ -12,7 +12,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resour
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/customer_profile_response.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/customer_traveller_response.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/authentication_resource/models/response/short_profile_response.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class GtdAuthenticationRepository {
   final AuthenticationResourceAPI authenticationResourceAPI = AuthenticationResourceAPI.shared;

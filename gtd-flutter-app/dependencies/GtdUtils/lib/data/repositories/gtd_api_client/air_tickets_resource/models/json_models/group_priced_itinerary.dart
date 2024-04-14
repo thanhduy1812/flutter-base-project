@@ -1,5 +1,5 @@
 
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_json_model.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_json_model.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/models/json_models/priced_itinerary.dart';
 
 

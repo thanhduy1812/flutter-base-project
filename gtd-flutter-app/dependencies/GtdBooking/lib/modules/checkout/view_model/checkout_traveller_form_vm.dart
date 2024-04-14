@@ -8,7 +8,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_gender.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/gtd_flight_repository_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 import 'package:gtd_utils/utils/cubit/gtd_text_field_validation_cubit.dart';
 
 import 'gtd_service_field_vm.dart';
@@ -50,18 +50,14 @@ class CheckoutTravellerFormVM {
   GtdServiceFieldVM? returnBaggage;
   List<String>? cardNumbers;
 
-  List<SsrItemVM> get serviceRequests => [
-        departBaggage?.selectedSsrVM,
-        returnBaggage?.selectedSsrVM
-      ].whereType<SsrItemVM>().toList();
+  List<SsrItemVM> get serviceRequests =>
+      [departBaggage?.selectedSsrVM, returnBaggage?.selectedSsrVM].whereType<SsrItemVM>().toList();
 
-  List<SsrItemVM> get departServiceRequests => serviceRequests
-      .where((element) => element.data.bookingDirection == FlightDirection.d)
-      .toList();
+  List<SsrItemVM> get departServiceRequests =>
+      serviceRequests.where((element) => element.data.bookingDirection == FlightDirection.d).toList();
 
-  List<SsrItemVM> get returnServiceRequests => serviceRequests
-      .where((element) => element.data.bookingDirection == FlightDirection.r)
-      .toList();
+  List<SsrItemVM> get returnServiceRequests =>
+      serviceRequests.where((element) => element.data.bookingDirection == FlightDirection.r).toList();
 
   String get shortInfoPassenger {
     return "$fullNamePassenger, ${birthDay.text}";
@@ -151,9 +147,7 @@ class CheckoutTravellerFormVM {
       showRequired: true,
     );
     this.phoneNumber = GtdInputTextFieldVM(
-      type: Platform.isIOS
-          ? GtdTextFieldType.phoneIOS
-          : GtdTextFieldType.phoneAndroid,
+      type: Platform.isIOS ? GtdTextFieldType.phoneIOS : GtdTextFieldType.phoneAndroid,
       inputUserBehavior: GtdInputUserBehavior.selection,
       inputValidateBehavior: GtdInputValidateBehavior.auto,
       text: phoneNumber ?? "",
@@ -179,8 +173,7 @@ class CheckoutTravellerFormVM {
     }
   }
 
-  void updateAdultTitle(
-      {int adultCount = 1, int childCount = 0, int infantCount = 0}) {
+  void updateAdultTitle({int adultCount = 1, int childCount = 0, int infantCount = 0}) {
     int valuePos = position.value;
     switch (adultType) {
       case FlightAdultType.adult:
@@ -234,13 +227,10 @@ extension CheckoutTravellerFormMapper on CheckoutTravellerFormVM {
       bookingNumber: bookingNumber,
       dob: birthDay.selectedDate!,
     );
-    var ssrDepart =
-        [departBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
-    var ssrReturn =
-        [returnBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
+    var ssrDepart = [departBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
+    var ssrReturn = [returnBaggage?.selectedSsrVM?.data].whereType<SsrOfferDTO>().toList();
     List<SsrOfferDTO> serviceRequests = [...ssrDepart, ...ssrReturn];
-    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(
-        traveler: traveler, serviceRequests: serviceRequests);
+    BookingTravelerInfoRq travelerInfo = BookingTravelerInfoRq(traveler: traveler, serviceRequests: serviceRequests);
     return travelerInfo;
   }
 

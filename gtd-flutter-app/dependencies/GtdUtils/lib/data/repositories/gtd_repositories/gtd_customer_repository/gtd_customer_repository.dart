@@ -1,9 +1,9 @@
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/api/customer_resource_api.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_company_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/customer_resource/models/response/gtd_saved_traveller_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class GtdCustomerRepository {
   final CustomerResourceApi customerResourceApi = CustomerResourceApi.shared;

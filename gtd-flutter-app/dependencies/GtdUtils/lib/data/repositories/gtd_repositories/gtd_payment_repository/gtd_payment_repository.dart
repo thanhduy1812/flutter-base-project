@@ -2,8 +2,8 @@ import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/gtd_markup_type.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/payment_method_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class GtdPaymentRepository {
   final PaymentResourceApi paymentResourceApi = PaymentResourceApi.shared;

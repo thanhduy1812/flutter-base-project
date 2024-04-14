@@ -5,7 +5,7 @@ import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/book
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/request/search_booking_rq.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/booking_detail_rs.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/models/response/search_booking_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 /// API Client for call API
 class BookingResourceApi {

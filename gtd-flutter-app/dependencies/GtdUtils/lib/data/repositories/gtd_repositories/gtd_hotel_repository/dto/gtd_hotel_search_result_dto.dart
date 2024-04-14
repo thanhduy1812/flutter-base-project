@@ -1,5 +1,5 @@
 import 'package:gtd_utils/data/repositories/gtd_api_client/hotel_resource/models/reponse/gtd_hotel_search_result_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/gtd_paging_dto.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_paging_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_hotel_repository/dto/gtd_hotel_item_dto.dart';
 
 class GtdHotelSearchResultDTO {

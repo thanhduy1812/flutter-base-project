@@ -1,11 +1,11 @@
 import 'package:gtd_utils/data/network/gtd_app_logger.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/air_tickets_resource/air_tickets_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/booking_resource/booking_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/meta_resource/meta_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/gtd_flight_search_result_dto.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_flight_repository/models/form_search_model.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 import 'gtd_flight_repository_dto.dart';
 import 'models/gtd_flight_itinerary.dart';

@@ -4,9 +4,9 @@ import 'package:gtd_booking/modules/payment/view_model/payment_method_item_viewm
 import 'package:gtd_booking/modules/payment/view_model/payment_method_page_viewmodel.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/payment_resource/payment_resource.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/common_enum/payment_method_type.dart';
-import 'package:gtd_utils/data/repositories/gtd_repositories/common_model/wrapped_result/result.dart';
+import 'package:gtd_utils/data/repositories/common_model/wrapped_result/result.dart';
 import 'package:gtd_utils/data/repositories/gtd_repositories/gtd_payment_repository/gtd_payment_repository.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'payment_method_state.dart';

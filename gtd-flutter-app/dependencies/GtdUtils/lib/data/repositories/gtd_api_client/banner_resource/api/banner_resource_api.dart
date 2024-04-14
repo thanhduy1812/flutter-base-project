@@ -3,7 +3,7 @@ import 'package:gtd_utils/data/network/gtd_json_parser.dart';
 import 'package:gtd_utils/data/network/network.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/gtd_banner_endpoint.dart';
 import 'package:gtd_utils/data/repositories/gtd_api_client/banner_resource/models/gtd_banner_rs.dart';
-import 'package:gtd_utils/data/repositories/gtd_repository_error/gtd_api_error.dart';
+import 'package:gtd_utils/data/repositories/common_model/gtd_api_error.dart';
 
 class BannerResourceApi {
   GtdNetworkService networkService = GtdNetworkService.shared;
