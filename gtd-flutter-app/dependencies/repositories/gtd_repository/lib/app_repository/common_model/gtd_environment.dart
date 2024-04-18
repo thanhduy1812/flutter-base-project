@@ -1,38 +1,48 @@
-import 'dart:io';
-
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:dvt_network/dvt_network.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:gtd_repository/app_repository/app_config/gtd_app_config.dart';
-
-import '../app_config/app_const.dart';
+import 'package:gtd_repository/app_repository/app_repository.dart';
 
 // ignore: constant_identifier_names
 enum GTDEnvType { CMSBannerAPI, GTDBannerAPI, B2CAPI, AgentAPI, VIBAPI }
 
+enum GTDRepoScheme { debug, staging, prod }
+
 class GtdEnvironment extends BaseEnvironment {
   GTDEnvType env;
+  GTDRepoScheme repoScheme = AppRepository.shared.repoScheme ?? GTDRepoScheme.debug;
   GtdEnvironment({this.env = GTDEnvType.B2CAPI}) {
-    if (GTDAppConst.shared.appScheme.appSupplier == GTDAppSupplier.vib) {
-      platformPath = dotenv.get("API_VIB_PATH", fallback: "vib");
-    } else {
-      String platform = Platform.operatingSystem;
-      switch (platform) {
-        case "ios":
-          platformPath = dotenv.get("API_IOS_PATH", fallback: "b2c-web");
-          break;
-        case "android":
-          platformPath = dotenv.get("API_ANDROID_PATH", fallback: "b2c-web");
-          break;
-        default:
-          platformPath = dotenv.get("API_WEB_PATH", fallback: "b2c-web");
-          break;
-      }
+    platformPath = "";
+    switch (repoScheme) {
+      case GTDRepoScheme.debug:
+        baseUrl = "uat-api.gotadi.com";
+        break;
+      case GTDRepoScheme.prod:
+        baseUrl = "api.gotadi.com";
+        break;
+      default:
+        baseUrl = "uat-api.gotadi.com";
     }
+    // if (GTDAppConst.shared.appScheme.appSupplier == GTDAppSupplier.vib) {
+    //   platformPath = dotenv.get("API_VIB_PATH", fallback: "vib");
+    // } else {
+    //   String platform = Platform.operatingSystem;
+    //   switch (platform) {
+    //     case "ios":
+    //       platformPath = dotenv.get("API_IOS_PATH", fallback: "b2c-web");
+    //       break;
+    //     case "android":
+    //       platformPath = dotenv.get("API_ANDROID_PATH", fallback: "b2c-web");
+    //       break;
+    //     default:
+    //       platformPath = dotenv.get("API_WEB_PATH", fallback: "b2c-web");
+    //       break;
+    //   }
+    // }
 
     switch (env) {
       case GTDEnvType.B2CAPI:
-        baseUrl = dotenv.get("API_URL", fallback: "xxx.com");
+        // baseUrl = dotenv.get("API_URL", fallback: "xxx.com");
+        platformPath = "b2c-web";
         headers = {
           'Content-type': 'application/json',
           'Accept': 'application/json',

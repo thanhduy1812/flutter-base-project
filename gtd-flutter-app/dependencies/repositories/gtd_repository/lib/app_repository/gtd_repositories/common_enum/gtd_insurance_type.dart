@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gtd_repository/app_repository/app_config/color_config/colors_extension.dart';
+import 'package:gtd_repository/app_repository/app_repo_config/colors_extension.dart';
 
 enum GtdInsuranceType {
   delay("DELAY_INSURANCE", "DELAY"),
@@ -17,7 +17,7 @@ enum GtdInsuranceStatus {
   failed("FAILED", Colors.red),
   onHold("ONHOLD", Colors.blue),
   register("REGISTER", Colors.amber),
-  success("CONFIRMED", GTDCustomColors.mainGreen);
+  success("CONFIRMED", AppRepoColors.mainGreen);
 
   final String value;
   final Color color;

@@ -29,6 +29,7 @@ import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/base/view_model/base_web_view_page_view_model.dart';
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -217,7 +218,7 @@ class PaymentMethodPage extends PricingBottomPage<PaymentMethodPageViewModel> {
       fontSize: 16,
       height: 48,
       borderRadius: 24,
-      gradient: GTDAppColors.appGradient,
+      gradient: AppColors.appGradient,
     );
   }
 

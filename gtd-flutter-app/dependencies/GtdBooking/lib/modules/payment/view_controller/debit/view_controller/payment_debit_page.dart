@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/payment/cubit/payment_method_cubit.dart';
 import 'package:gtd_booking/modules/payment/view_controller/debit/view_model/debit_bank_item_viewmodel.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_web_view_page.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
@@ -41,7 +40,7 @@ class PaymentDebitPage extends PricingBottomPage<PaymentDebitPageViewModel> {
       fontSize: 16,
       height: 48,
       borderRadius: 24,
-      gradient: GTDAppColors.appGradient,
+      gradient: AppColors.appGradient,
     );
   }
 

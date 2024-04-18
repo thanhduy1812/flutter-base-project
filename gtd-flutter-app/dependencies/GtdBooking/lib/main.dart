@@ -1,13 +1,13 @@
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_repository/app_repository/app_config/app_const.dart';
+import 'package:gtd_repository/app_repository/app_repository.dart';
 import 'package:gtd_utils/base/page/wrapped_app.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
 
 import 'modules/router/booking_search_router.dart';
-import 'package:gtd_repository/gtd_repository.dart' as GTDRepository;
+// import 'package:gtd_repository/gtd_repository.dart' as GTDRepository;
 
 void main() async {
   final wrappedApp = WrappedApp.shared;
@@ -22,7 +22,7 @@ void main() async {
 
   final app = wrappedApp.createWrappedApp('vi', appBookingRouter.generateRouter(), "Gotadi Booking",
       appScheme: GtdAppScheme.uatB2C, themeMode: ThemeMode.light);
-  GTDAppConst.shared.appScheme = GTDRepository.GtdAppScheme.uatB2C;
+  AppRepository.shared.repoScheme = GTDRepoScheme.debug;
   Logger.setLogLevel(Logger.DEBUG);
   runApp(app);
   // CacheHelper.shared.cacheAppToken(

@@ -36,7 +36,7 @@ class FlightHeaderInfo extends StatelessWidget {
                 //   image: GtdImage.svgFromSupplier(assetName: "assets/icons/flight/plane.svg", color: Colors.black),
                 //   width: 25,
                 //   height: 25,
-                //   gradient: GTDAppColors.appGradient,
+                //   gradient: AppColors.appGradient,
                 // ),
               ),
               title:

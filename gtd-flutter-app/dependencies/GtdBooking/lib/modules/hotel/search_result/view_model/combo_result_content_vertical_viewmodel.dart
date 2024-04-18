@@ -1,10 +1,10 @@
+import 'package:gtd_booking/modules/hotel/search_result/view/hotel_result_content_item/view_model/hotel_result_card_item_viewmodel.dart';
 import 'package:gtd_booking/modules/hotel/search_result/view_model/hotel_result_content_vertical_viewmodel.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 
 import '../view/hotel_result_content_item/view_model/combo_result_card_item_viewmodel.dart';
 
-class ComboResultContentVerticalViewModel
-    extends HotelResultContentVerticalViewModel {
+class ComboResultContentVerticalViewModel extends HotelResultContentVerticalViewModel {
   double flightPricePerPerson = 0;
 
   ComboResultContentVerticalViewModel({
@@ -15,8 +15,7 @@ class ComboResultContentVerticalViewModel
   factory ComboResultContentVerticalViewModel.fromHotelSearchDTO(
       GtdHotelSearchResultDTO hotelSearchResultDTO, double flightPricePerPerson,
       {required int totalNights, required int totalRoom}) {
-    ComboResultContentVerticalViewModel viewModel =
-        ComboResultContentVerticalViewModel(
+    ComboResultContentVerticalViewModel viewModel = ComboResultContentVerticalViewModel(
       totalNights: totalNights,
       totalRoom: totalRoom,
     );
@@ -51,5 +50,17 @@ class ComboResultContentVerticalViewModel
             ))
         .toList();
     hotelCardItemViewModels.addAll(nextItems);
+  }
+
+  @override
+  void addLoadingItems() {
+    List<ComboResultCardItemViewModel> hotelCardItemLoadingViewModels = Iterable<int>.generate(4)
+        .map((e) => ComboResultCardItemViewModel(
+              cardItemType: HotelResultCardItemType.loading,
+              totalNight: totalNights,
+              totalRoom: totalRoom,
+            ))
+        .toList();
+    hotelCardItemViewModels.addAll(hotelCardItemLoadingViewModels);
   }
 }

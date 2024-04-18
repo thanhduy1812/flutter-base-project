@@ -9,11 +9,11 @@ import 'package:gtd_booking/modules/checkout/views/vib/vib_flight_checkout_conte
 import 'package:gtd_booking/modules/confirm_booking/view_controller/pricing_bottom_page.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/country_codes_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/cubit/saved_traveller_cubit.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/popup/gtd_app_loading.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/native_communicate/gtd_native_channel.dart';
 
@@ -92,7 +92,7 @@ class FlightCheckoutPage extends PricingBottomPage<FlightCheckoutPageViewModel> 
             fontSize: 16,
             height: 48,
             borderRadius: 24,
-            gradient: GTDAppColors.appGradient,
+            gradient: AppColors.appGradient,
           );
         });
   }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-
 import '../view_model/flight_summary_item_viewmodel.dart';
 
 class FlightSummaryVerticalItem extends BaseView<FlightSummaryItemViewModel> {

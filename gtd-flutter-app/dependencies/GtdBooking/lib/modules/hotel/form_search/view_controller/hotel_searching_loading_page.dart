@@ -10,7 +10,6 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-
 class HotelSearchingLoadingPage extends BaseStatelessPage<HotelSearchingLoadingPageViewModel> {
   static const String route = '/hotelSearchingLoadingPage';
   const HotelSearchingLoadingPage({super.key, required super.viewModel});

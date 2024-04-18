@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view_model/base_view_model.dart';
 import 'package:dvt_helper/dvt_helper.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 
 import '../extension/gtd_app_icon_extension.dart';
 
@@ -74,12 +75,12 @@ enum DisplayBookingStatus {
             children: [
               TextSpan(
                   text: "Gotadi 1900-9002 ",
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: GTDAppColors.subText)),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.subText)),
               TextSpan(
                   text: "nếu không nhận được Email.",
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: GTDAppColors.subText)),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText)),
             ],
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: GTDAppColors.subText),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText),
           ),
           textAlign: TextAlign.center,
         );
@@ -90,12 +91,12 @@ enum DisplayBookingStatus {
             children: [
               TextSpan(
                   text: "Gotadi 1900-9002 ",
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: GTDAppColors.subText)),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.subText)),
               TextSpan(
                   text: "nếu cần hỗ trợ.",
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: GTDAppColors.subText)),
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText)),
             ],
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: GTDAppColors.subText),
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: AppColors.subText),
           ),
           textAlign: TextAlign.center,
         );

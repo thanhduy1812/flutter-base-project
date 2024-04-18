@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gtd_booking/modules/booking_common/booking_status_color.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_result.dart';
 import 'package:gtd_booking/modules/my_booking/view_model/my_booking_item_viewmodel.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
@@ -12,7 +13,7 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_tap_widget.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
-import 'package:gtd_repository/gtd_repository.dart';
+
 class MyBookingFlightItem<T> extends BaseView<MyBookingItemViewModel> {
   const MyBookingFlightItem({
     super.key,

@@ -24,7 +24,6 @@ import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 
-
 import '../view_model/hotel_search_detail_page_viewmodel.dart';
 
 class HotelSearchDetailPage extends BaseStatelessPage<HotelSearchDetailPageViewModel> {

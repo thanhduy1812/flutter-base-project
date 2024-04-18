@@ -1,10 +1,10 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/confirm_booking/views/flight_view/view/flight_item_summary_list_info.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_gradient_icon.dart';
 import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class BoxFlightInformation extends StatelessWidget {
@@ -44,7 +44,7 @@ class BoxFlightInformation extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12),
               child: GtdGradientSvg(
                 image: GtdImage.svgFromSupplier(assetName: "assets/icons/flight/plane.svg"),
-                gradient: GTDAppColors.appGradient,
+                gradient: AppColors.appGradient,
                 width: 23,
                 height: 23,
               ),

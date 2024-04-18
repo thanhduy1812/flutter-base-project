@@ -12,7 +12,6 @@ import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-
 class ComboRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
   final GtdVoidCallback? onRemove;
   final GtdVoidCallback? onNotifyChanged;
@@ -33,19 +32,19 @@ class ComboRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
                 ),
                 InkWell(
-                    onTap: () {
-                      onRemove?.call();
-                    },
-                    child: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: Center(
-                        child: GtdImage.svgFromSupplier(
-                          assetName: 'assets/icons/trash.svg',
-                          color: GtdColors.appMainColor(context),
-                        ),
+                  onTap: () {
+                    onRemove?.call();
+                  },
+                  child: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Center(
+                      child: GtdImage.svgFromSupplier(
+                        assetName: 'assets/icons/trash.svg',
+                        color: GtdColors.appMainColor(context),
                       ),
                     ),
+                  ),
                 ),
               ],
             ),

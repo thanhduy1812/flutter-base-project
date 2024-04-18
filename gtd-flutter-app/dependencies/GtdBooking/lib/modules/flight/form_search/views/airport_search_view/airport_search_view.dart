@@ -117,7 +117,10 @@ class AirportSearchView extends StatelessWidget {
             );
           },
         ),
-        const Divider(thickness: 12, height: 24,),
+        const Divider(
+          thickness: 12,
+          height: 24,
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 8,
@@ -197,19 +200,16 @@ class AirportSearchView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GtdImage.svgFromSupplier(
-                              assetName:
-                                  "assets/icons/flight/departure_grey.svg",
+                              assetName: "assets/icons/flight/departure_grey.svg",
                               width: 20,
                             ),
                             Expanded(
                               child: GtdImage.svgFromSupplier(
-                                assetName:
-                                    "assets/icons/flight/line-itinerary.svg",
+                                assetName: "assets/icons/flight/line-itinerary.svg",
                               ),
                             ),
                             GtdImage.svgFromSupplier(
-                              assetName:
-                                  "assets/icons/flight/destination_grey.svg",
+                              assetName: "assets/icons/flight/destination_grey.svg",
                               width: 20,
                             ),
                           ],

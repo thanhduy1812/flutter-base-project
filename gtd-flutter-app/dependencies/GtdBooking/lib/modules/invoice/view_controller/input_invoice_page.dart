@@ -5,7 +5,6 @@ import 'package:gtd_booking/modules/invoice/view_model/input_invoice_page_viewmo
 import 'package:gtd_booking/modules/personal_info/cubit/saved_companies_cubit.dart';
 import 'package:gtd_booking/modules/personal_info/view_model/saved_company_list_viewmodel.dart';
 import 'package:gtd_booking/modules/personal_info/views/saved_company_list.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
@@ -57,7 +56,7 @@ class InputInvoicePage extends BaseStatelessPage<InputInvoicePageViewModel> {
                         },
                       )),
                   child: Ink(
-                    decoration: BoxDecoration(gradient: GTDAppColors.appGradient),
+                    decoration: BoxDecoration(gradient: AppColors.appGradient),
                     child: const Row(
                       children: [
                         Padding(

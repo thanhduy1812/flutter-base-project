@@ -8,6 +8,10 @@ class FlightFareRulesCubit extends Cubit<FlightFareRulesState> {
   FlightFareRulesCubit() : super(const FlightFareRulesInitial([]));
 
   Future<void> flightFareRules(String bookingNumber) async {
+    if (bookingNumber.isEmpty) {
+      (const FlightFareRulesInitial([]));
+      return;
+    }
     final bookedFareRules = await GtdFlightRepository.shared.flightFareRuleByBooking(bookingNumber);
     bookedFareRules.when((success) {
       emit(FlightFareRulesInitial(success));

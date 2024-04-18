@@ -9,6 +9,7 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_select_field.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_switch_label.dart';
 import 'package:gtd_utils/base/view/popup/gtd_present_view_helper.dart';
 import 'package:gtd_utils/constants/app_const.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
 
 import '../cubit/flight_checkout_cubit.dart';
@@ -180,7 +181,7 @@ class BoxPassengerForm extends StatelessWidget {
                                         .updatePassenger(key: position, usedForContact: value);
                                   },
                                   value: travellerForm.isContact,
-                                  gradient: GTDAppColors.appGradient,
+                                  gradient: AppColors.appGradient,
                                 );
                               }),
                           minLeadingWidth: 30,

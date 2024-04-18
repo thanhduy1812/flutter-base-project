@@ -26,8 +26,7 @@ import 'package:gtd_utils/base/view/popup/gtd_loading.dart';
 import 'package:gtd_utils/base/view/popup/gtd_popup_message.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-class FlightSearchResultPage
-    extends BaseStatelessPage<FlightSearchResultPageViewModel> {
+class FlightSearchResultPage extends BaseStatelessPage<FlightSearchResultPageViewModel> {
   static const String route = '/flightSearchResult';
 
   const FlightSearchResultPage({super.key, required super.viewModel});
@@ -37,8 +36,7 @@ class FlightSearchResultPage
     if (viewModel.hideFilter) {
       return [];
     }
-    var filterOptionCubit =
-        BlocProvider.of<FlightFilterOptionsCubit>(pageContext);
+    var filterOptionCubit = BlocProvider.of<FlightFilterOptionsCubit>(pageContext);
     return <Widget>[
       IconButton(
         splashRadius: 20,
@@ -53,8 +51,7 @@ class FlightSearchResultPage
           ),
           context: pageContext,
           builder: (BuildContext context) {
-            List<AllFilterOptionsDTO> filterOptions =
-                filterOptionCubit.filterSubject.value;
+            List<AllFilterOptionsDTO> filterOptions = filterOptionCubit.filterSubject.value;
             return FractionallySizedBox(
               heightFactor: 0.92,
               child: FlightFilterResult(
@@ -68,12 +65,10 @@ class FlightSearchResultPage
           isScrollControlled: true,
         ).then((isAppliedFilter) {
           if (isAppliedFilter == true) {
-            List<AllFilterOptionsDTO> filterOptions =
-                filterOptionCubit.filterSubject.value;
+            List<AllFilterOptionsDTO> filterOptions = filterOptionCubit.filterSubject.value;
             viewModel.applyFilter(filterOptions);
             BlocProvider.of<FlightSearchCubit>(pageContext)
-                .filterAvailabilityWithPaging(
-                    viewModel.filterAvailabilityRq, viewModel.flightDirection);
+                .filterAvailabilityWithPaging(viewModel.filterAvailabilityRq, viewModel.flightDirection);
           }
         }),
         icon: GtdImage.svgFromSupplier(assetName: "assets/icons/filter.svg"),
@@ -92,9 +87,7 @@ class FlightSearchResultPage
         if (viewModel.flightDirection == FlightDirection.d) {
           router.pop();
         } else {
-          while (router.routerDelegate.currentConfiguration.matches.last
-                  .matchedLocation !=
-              SearchFlightPage.route) {
+          while (router.routerDelegate.currentConfiguration.matches.last.matchedLocation != SearchFlightPage.route) {
             if (router.canPop()) {
               router.pop();
             }
@@ -136,21 +129,16 @@ class FlightSearchResultPage
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) => FlightSelectItemCubit(viewModel.flightType)),
+        BlocProvider(create: (context) => FlightSelectItemCubit(viewModel.flightType)),
         BlocProvider(create: (context) {
-          var cubit = (viewModel.isDome)
-              ? FlightSearchDomCubit()
-              : FlightSearchInteCubit();
+          var cubit = (viewModel.isDome) ? FlightSearchDomCubit() : FlightSearchInteCubit();
           return cubit
-            ..filterAvailabilityWithPaging(
-                viewModel.filterAvailabilityRq, viewModel.flightDirection)
+            ..filterAvailabilityWithPaging(viewModel.filterAvailabilityRq, viewModel.flightDirection)
             ..initFlightSearchResultDTO(viewModel.flightSearchResultDTO)
             ..initFlightFormSearch(viewModel.searchFlightFormModel);
         }),
         BlocProvider(
-          create: (context) => FlightFilterOptionsCubit()
-            ..getFilterOptions(viewModel.filterAvailabilityRq),
+          create: (context) => FlightFilterOptionsCubit()..getFilterOptions(viewModel.filterAvailabilityRq),
           lazy: false,
         ),
       ],
@@ -165,23 +153,19 @@ class FlightSearchResultPage
           }
           if (flightSearchState is FlightSearchLoadedState) {
             GtdLoading.hide();
-            viewModel
-                .updateFlightItems(flightSearchState.flightSearchResultDTO);
+            viewModel.updateFlightItems(flightSearchState.flightSearchResultDTO);
           }
           if (flightSearchState is FlightSearchRefeshState) {
-            viewModel
-                .updateFlightItems(flightSearchState.flightSearchResultDTO);
+            viewModel.updateFlightItems(flightSearchState.flightSearchResultDTO);
           }
           // if (flightSearchState is FlightSearchLoadMoreState) {
           //   viewModel.updateFlightItems(flightSearchState.flightSearchResultDTO);
           // }
         },
         child: BlocBuilder<FlightSearchCubit, FlightSearchState>(
-          buildWhen: (previous, current) =>
-              current is FlightSearchLoadStatusState,
+          buildWhen: (previous, current) => current is FlightSearchLoadStatusState,
           builder: (flightSearchContext, flightSearchState) {
-            return BlocBuilder<FlightFilterOptionsCubit,
-                FlightFilterOptionsState>(
+            return BlocBuilder<FlightFilterOptionsCubit, FlightFilterOptionsState>(
               builder: (contextFilter, state) {
                 return super.build(contextFilter);
               },
@@ -255,9 +239,7 @@ class FlightSearchResultPage
                     loadMore: () async {
                       if (flightSearchState is! FlightSearchLoadingState) {
                         viewModel.updateFilterLoadMore();
-                        await BlocProvider.of<FlightSearchCubit>(
-                                flightSearchContext)
-                            .loadMoreFlights(
+                        await BlocProvider.of<FlightSearchCubit>(flightSearchContext).loadMoreFlights(
                           viewModel.filterAvailabilityRq,
                           viewModel.flightDirection,
                         );
@@ -272,17 +254,13 @@ class FlightSearchResultPage
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
-                          if (viewModel.flightDirection == FlightDirection.r &&
-                              index == 0)
-                            _departureSummary(),
+                          if (viewModel.flightDirection == FlightDirection.r && index == 0) _departureSummary(),
                           if (index == 0) _flightNote(),
                           ItemFlightComponent(
                             viewModel: viewModel.itemFlightViewModels[index]
-                              ..groupItemSelected =
-                                  viewModel.selectedFlightItem,
+                              ..groupItemSelected = viewModel.selectedFlightItem,
                             onTab: (value) {
-                              BlocProvider.of<FlightSelectItemCubit>(context)
-                                  .fetchCabinClass(
+                              BlocProvider.of<FlightSelectItemCubit>(context).fetchCabinClass(
                                 viewModel.filterAvailabilityRq,
                                 value!,
                                 viewModel.flightDirection,
@@ -304,9 +282,7 @@ class FlightSearchResultPage
   }
 
   Widget _departureSummary() {
-    final flightItemDetail = viewModel
-        .flightSearchResultDTO.departureItinerary?.flightItems
-        ?.firstWhereOrNull((item) {
+    final flightItemDetail = viewModel.flightSearchResultDTO.departureItinerary?.flightItems?.firstWhereOrNull((item) {
       return item.selectedCabinOption != null;
     });
     if (flightItemDetail != null) {
@@ -330,13 +306,9 @@ class FlightSearchResultPage
     ({GtdFlightItem? flightItem, GtdAirlineCabinClass? cabinOption}) value,
   ) {
     viewModel.updateFlightSearchResultDTO();
-    GtdFlightSearchResultDTO flightSearchResultDTO =
-        viewModel.flightSearchResultDTO;
-    if (viewModel.isRoundTrip == true &&
-        viewModel.flightDirection == FlightDirection.d) {
-      for (var item
-          in viewModel.flightSearchResultDTO.departureItinerary?.flightItems ??
-              []) {
+    GtdFlightSearchResultDTO flightSearchResultDTO = viewModel.flightSearchResultDTO;
+    if (viewModel.isRoundTrip == true && viewModel.flightDirection == FlightDirection.d) {
+      for (var item in viewModel.flightSearchResultDTO.departureItinerary?.flightItems ?? []) {
         for (var option in item.cabinOptions ?? <GtdAirlineCabinClass>[]) {
           if (option.sequenceNumber != value.cabinOption?.sequenceNumber) {
             option.isSelected = false;
@@ -346,8 +318,7 @@ class FlightSearchResultPage
         }
       }
 
-      FlightSearchResultPageViewModel returnViewModel =
-          FlightSearchResultPageViewModel(
+      FlightSearchResultPageViewModel returnViewModel = FlightSearchResultPageViewModel(
         flightSearchResultDTO: flightSearchResultDTO,
         flightDirection: FlightDirection.r,
         searchFlightFormModel: viewModel.searchFlightFormModel,
@@ -358,9 +329,7 @@ class FlightSearchResultPage
       );
     } else {
       GtdLoading.show();
-      BlocProvider.of<FlightSearchCubit>(context)
-          .draftBooking(viewModel.draftBookingRq)
-          .then((value) {
+      BlocProvider.of<FlightSearchCubit>(context).draftBooking(viewModel.draftBookingRq).then((value) {
         GtdLoading.hide();
         value.when((success) {
           var checkoutViewModel = FlightCheckoutPageViewModel(

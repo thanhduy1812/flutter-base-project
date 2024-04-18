@@ -19,7 +19,7 @@ class FlightItemDetailView extends BaseView<FlightItemDetailViewModel> {
   Widget buildWidget(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          FlightFareRulesCubit()..flightFareRules(viewModel.flightItemDetail.transactionInfo!.bookingNumber!),
+          FlightFareRulesCubit()..flightFareRules(viewModel.flightItemDetail.transactionInfo?.bookingNumber ?? ""),
       child: BlocBuilder<FlightFareRulesCubit, FlightFareRulesState>(
         builder: (fareRuleContext, fareRuleState) {
           if (fareRuleState is FlightFareRulesInitial) {

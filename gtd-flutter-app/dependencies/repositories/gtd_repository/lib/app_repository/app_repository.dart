@@ -1,12 +1,5 @@
-export 'app_config/app_const.dart';
-export 'app_config/app_fonts.dart';
-export 'app_config/color_config/app_color.dart';
-export 'app_config/color_config/color_status.dart';
-export 'app_config/color_config/colors_extension.dart';
-export 'app_config/gtd_app_config.dart';
-export 'app_config/gtd_app_theme.dart';
-export 'app_config/icon_extension.dart';
-export 'app_config/image_extension.dart';
+export 'app_repo_config/app_const.dart';
+export 'app_repo_config/colors_extension.dart';
 export 'common_model/gtd_api_error.dart';
 export 'common_model/gtd_environment.dart';
 export 'common_model/gtd_error_constant.dart';

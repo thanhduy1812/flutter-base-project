@@ -258,7 +258,7 @@ class KredivoLoadView extends BaseView<KredivoLoadViewModel> {
                                     fontSize: 16,
                                     height: 48,
                                     borderRadius: 24,
-                                    gradient: GTDAppColors.appGradient,
+                                    gradient: AppColors.appGradient,
                                   ),
                                 ),
                               ),

@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
+import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_repository/app_repository/app_config/image_extension.dart';
 
 enum PaymentMethodType {
   atm("payment-atm", "Thẻ ATM nội địa", "International banking", "", "", "ATM_DEBIT"),
@@ -27,7 +27,7 @@ enum PaymentMethodType {
   const PaymentMethodType(this.iconName, this.title, this.desTitle, this.discount, this.subTitle, this.code);
 
   Widget get iconImage {
-    var image = GTDImage.svgFromSupplier(assetName: 'assets/payment/$iconName.svg');
+    var image = DVTImage.svgFromAsset(assetPath: 'assets/payment/$iconName.svg');
     return image;
   }
 

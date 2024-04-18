@@ -16,7 +16,6 @@ import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart'
 import 'package:gtd_utils/helpers/extension/build_context_extension.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
-
 import 'package:url_launcher/url_launcher.dart';
 
 class InsuranceView extends BaseView<InsuranceViewModel> {

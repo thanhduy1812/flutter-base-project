@@ -82,21 +82,20 @@ class FlightSummaryItem extends BaseView<FlightSummaryItemViewModel> {
                           _timeData(),
                           const Divider(),
                           _planeAndClass(context),
-                          if (showBackBtn)
-                            ...[
-                              const Divider(),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 2),
-                                child: Text(
-                                  'Đổi chuyến',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w600,
-                                    color: GtdColors.emerald,
-                                  ),
+                          if (showBackBtn) ...[
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2),
+                              child: Text(
+                                'Đổi chuyến',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: GtdColors.emerald,
                                 ),
-                              )
-                            ],
+                              ),
+                            )
+                          ],
                         ],
                       ),
                     ),

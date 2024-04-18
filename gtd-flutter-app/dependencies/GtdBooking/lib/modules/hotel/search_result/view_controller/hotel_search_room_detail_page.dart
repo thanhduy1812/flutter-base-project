@@ -28,8 +28,7 @@ import 'package:dvt_helper/dvt_helper.dart';
 
 import '../view_model/hotel_search_room_detail_page_viewmodel.dart';
 
-class HotelSearchRoomDetailPage
-    extends BaseStatelessPage<HotelSearchRoomDetailPageViewModel> {
+class HotelSearchRoomDetailPage extends BaseStatelessPage<HotelSearchRoomDetailPageViewModel> {
   static const String route = '/hotelSearchRoomDetailPage';
 
   const HotelSearchRoomDetailPage({super.key, required super.viewModel});
@@ -95,9 +94,7 @@ class HotelSearchRoomDetailPage
                 Row(
                   children: [
                     Text(
-                      viewModel.comparePrice != null
-                          ? "Giá chênh lệch / 1 khách / tổng đêm"
-                          : "1 phòng/1 đêm",
+                      viewModel.comparePrice != null ? "Giá chênh lệch / 1 khách / tổng đêm" : "1 phòng/1 đêm",
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
@@ -246,8 +243,7 @@ class HotelSearchRoomDetailPage
             ),
           ),
           const SizedBox(width: 6),
-          if (viewModel.ratePlan.cancelFree != true &&
-              viewModel.ratePlan.refundable != true)
+          if (viewModel.ratePlan.cancelFree != true && viewModel.ratePlan.refundable != true)
             GtdCustomTooltip.tooltipWidget(
               backgroundColor: GtdColors.steelGrey,
               contentWidget: Container(
@@ -279,8 +275,7 @@ class HotelSearchRoomDetailPage
                       ),
                     ),
                     const SizedBox(height: 8),
-                    if (penaltyData.cancelStart != null &&
-                        penaltyData.cancelEnd != null) ...[
+                    if (penaltyData.cancelStart != null && penaltyData.cancelEnd != null) ...[
                       _TooltipDataLine(
                         title: 'hotel.cancelPenalties.cancelRoomDate'.tr(args: [
                           penaltyData.cancelStart ?? '',
@@ -382,24 +377,17 @@ class HotelSearchRoomDetailPage
               onPressed: (value) {
                 GtdLoading.show();
                 BlocProvider.of<ComboDraftBookingCubit>(draftBookingContext)
-                    .draftBookingCombo(
-                        (viewModel as ComboSearchRoomDetailPageViewModel)
-                            .createDraftBookingComboRq)
+                    .draftBookingCombo((viewModel as ComboSearchRoomDetailPageViewModel).createDraftBookingComboRq)
                     .then((value) {
                   GtdLoading.hide();
                   value.when((success) {
-                    ComboCheckoutPageViewModel checkoutViewModel =
-                        ComboCheckoutPageViewModel(
-                            bookingDetailDTO: success,
-                            searchAllRateRq: viewModel.searchAllRateRq!,
-                            searchFlightFormModel: (viewModel
-                                    as ComboSearchRoomDetailPageViewModel)
-                                .searchFlightFormModel);
-                    draftBookingContext.push(ComboCheckoutPage.route,
-                        extra: checkoutViewModel);
+                    ComboCheckoutPageViewModel checkoutViewModel = ComboCheckoutPageViewModel(
+                        bookingDetailDTO: success,
+                        searchAllRateRq: viewModel.searchAllRateRq!,
+                        searchFlightFormModel: (viewModel as ComboSearchRoomDetailPageViewModel).searchFlightFormModel);
+                    draftBookingContext.push(ComboCheckoutPage.route, extra: checkoutViewModel);
                   }, (error) {
-                    GtdPopupMessage(draftBookingContext)
-                        .showError(error: error.message);
+                    GtdPopupMessage(draftBookingContext).showError(error: error.message);
                   });
                 });
               },
@@ -424,15 +412,11 @@ class HotelSearchRoomDetailPage
                     .then((value) {
                   GtdLoading.hide();
                   value.when((success) {
-                    HotelCheckoutPageViewModel checkoutViewModel =
-                        HotelCheckoutPageViewModel(
-                            bookingDetailDTO: success,
-                            searchAllRateRq: viewModel.searchAllRateRq!);
-                    draftBookingContext.push(HotelCheckoutPage.route,
-                        extra: checkoutViewModel);
+                    HotelCheckoutPageViewModel checkoutViewModel = HotelCheckoutPageViewModel(
+                        bookingDetailDTO: success, searchAllRateRq: viewModel.searchAllRateRq!);
+                    draftBookingContext.push(HotelCheckoutPage.route, extra: checkoutViewModel);
                   }, (error) {
-                    GtdPopupMessage(draftBookingContext)
-                        .showError(error: error.message);
+                    GtdPopupMessage(draftBookingContext).showError(error: error.message);
                   });
                 });
               },

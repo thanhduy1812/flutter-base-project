@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gtd_booking/modules/booking_common/booking_status_color.dart';
 import 'package:gtd_booking/modules/confirm_booking/view_controller/booking_result.dart';
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';

@@ -12,6 +12,7 @@ import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
 import 'package:gtd_utils/base/view/loading/flight_item_child_loading.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
@@ -273,7 +274,7 @@ class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
                                       height: 36,
                                       padding: const EdgeInsets.symmetric(horizontal: 8),
                                       borderRadius: 18,
-                                      gradient: GTDAppColors.appGradient,
+                                      gradient: AppColors.appGradient,
                                       onPressed: (val) {
                                         GtdAirlineCabinClass? cabinOption = viewModel.groupItem.cabinOptions?[index];
                                         viewModel.groupItem.chooseCabinClass(

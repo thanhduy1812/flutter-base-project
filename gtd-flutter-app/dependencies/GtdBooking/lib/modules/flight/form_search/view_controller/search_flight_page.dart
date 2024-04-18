@@ -10,9 +10,9 @@ import 'package:gtd_booking/modules/flight/form_search/view_model/search_flight_
 import 'package:gtd_booking/modules/flight/form_search/views/date_itinerary_view.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/location_info_view.dart';
 import 'package:gtd_booking/modules/flight/form_search/views/passengers_inerary_view.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/page/base_stateless_page.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 
 class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
   static const String route = '/flightSearch';
@@ -139,7 +139,7 @@ class SearchFlightPage extends BaseStatelessPage<SearchFlightPageViewModel> {
               fontWeight: FontWeight.w600,
               height: 48,
               borderRadius: 24,
-              gradient: GTDAppColors.appGradient,
+              gradient: AppColors.appGradient,
             ),
           ),
         );

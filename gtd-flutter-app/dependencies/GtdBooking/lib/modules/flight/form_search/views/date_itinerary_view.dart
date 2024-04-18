@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_booking/modules/flight/form_search/view_model/date_itinerary_viewmodel.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/base_view.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_lunar_calendar/gtd_calendar_helper.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_lunar_calendar/gtd_lunar_calendar.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_switch.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
+import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 import 'package:dvt_helper/dvt_helper.dart';
 
@@ -140,7 +140,7 @@ class DateItineraryView extends BaseView<DateItineraryViewModel> {
           GtdCustomSwitch(
             value: viewModel.isRoundTrip,
             activeToggleColor: Colors.white,
-            activeToggleColorGradient: GTDAppColors.appGradient,
+            activeToggleColorGradient: AppColors.appGradient,
             switchBorder: Border.all(
               color: Colors.grey.shade200,
               width: 2.0,

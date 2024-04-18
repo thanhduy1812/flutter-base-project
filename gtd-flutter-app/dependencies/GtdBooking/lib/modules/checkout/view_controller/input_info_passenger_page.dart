@@ -60,7 +60,7 @@ class InputInfoPassengerPage extends BaseStatelessPage<InputInfoPassengerPageVie
                   ),
                 ),
                 child: Ink(
-                  decoration: BoxDecoration(gradient: GTDAppColors.appGradient),
+                  decoration: BoxDecoration(gradient: AppColors.appGradient),
                   child: Row(
                     children: [
                       Padding(

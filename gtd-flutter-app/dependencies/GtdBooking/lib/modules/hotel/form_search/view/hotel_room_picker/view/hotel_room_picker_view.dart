@@ -32,19 +32,19 @@ class HotelRoomPickerView extends BaseView<HotelRoomPickerViewModel> {
                   style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 17),
                 ),
                 InkWell(
-                    onTap: () {
-                      onRemove?.call();
-                    },
-                    child: SizedBox(
-                      height: 30,
-                      width: 30,
-                      child: Center(
-                        child: GtdImage.svgFromSupplier(
-                          assetName: 'assets/icons/trash.svg',
-                          color: GtdColors.appMainColor(context),
-                        ),
+                  onTap: () {
+                    onRemove?.call();
+                  },
+                  child: SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Center(
+                      child: GtdImage.svgFromSupplier(
+                        assetName: 'assets/icons/trash.svg',
+                        color: GtdColors.appMainColor(context),
                       ),
                     ),
+                  ),
                 ),
               ],
             ),

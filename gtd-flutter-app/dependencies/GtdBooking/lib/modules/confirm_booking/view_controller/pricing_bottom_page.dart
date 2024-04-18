@@ -13,7 +13,6 @@ import 'package:gtd_booking/modules/confirm_booking/views/price_bottom_detail_vi
 import 'package:gtd_booking/modules/confirm_booking/views/price_bottom_view.dart';
 import 'package:gtd_booking/modules/payment/view_controller/payment_method_page.dart';
 import 'package:gtd_booking/modules/payment/view_model/payment_method_page_viewmodel.dart';
-import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/bloc/cubit/rebuild_widget_cubit.dart';
 import 'package:gtd_utils/base/page/base_tabbar_page.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
@@ -234,7 +233,7 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
                                       onPressed: (value) {
                                         Navigator.of(context).pop(selectDateTextFieldVM.selectedDate);
                                       },
-                                      gradient: GTDAppColors.appGradient,
+                                      gradient: AppColors.appGradient,
                                       text: "Xác nhận"),
                                 ),
                               ],
@@ -261,7 +260,7 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
         fontSize: 16,
         height: 48,
         borderRadius: 24,
-        gradient: GTDAppColors.appGradient,
+        gradient: AppColors.appGradient,
       );
     } else if (viewModel is FlightSSRSelectionPageViewModel) {
       return GtdButton(
@@ -274,7 +273,7 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
         fontSize: 16,
         height: 48,
         borderRadius: 24,
-        gradient: GTDAppColors.appGradient,
+        gradient: AppColors.appGradient,
       );
     } else if (viewModel is ConfirmBookingPageViewModel) {
       return SizedBox(
@@ -313,7 +312,7 @@ class PricingBottomPage<T extends PricingBottomPageViewModel> extends BaseTabbar
                       height: 48,
                       color: AppColors.buttonColor,
                       borderRadius: 24,
-                      gradient: GTDAppColors.appGradient,
+                      gradient: AppColors.appGradient,
                       onPressed: (value) {
                         var addBookingTravellerRq =
                             (viewModel as ConfirmBookingPageViewModel).createAddBookingTravellerRq;
