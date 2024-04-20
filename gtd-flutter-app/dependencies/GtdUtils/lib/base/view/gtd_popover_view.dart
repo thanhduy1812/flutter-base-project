@@ -1,5 +1,3 @@
-
-
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view_model/gtd_validate_field_vm.dart';
@@ -7,16 +5,14 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_text_field.dart';
 
 class GtdPopoverView extends StatelessWidget {
- final String title;
+  final String title;
   final GtdInputTextFieldVM viewModel;
   GtdPopoverView({super.key, this.title = "", required this.viewModel});
   final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final textFieldViewModel = GtdInputTextFieldVM(
-        label: viewModel.placeholder,
-        type: viewModel.type,
-        inputValidateBehavior: GtdInputValidateBehavior.auto);
+        label: viewModel.placeholder, type: viewModel.type, inputValidateBehavior: GtdInputValidateBehavior.auto);
     return Builder(builder: (BuildContext context) {
       return SafeArea(
         child: SizedBox(

@@ -10,8 +10,6 @@ import 'package:gtd_utils/base/bloc/local_state.dart';
 import 'package:gtd_utils/base/settings/setting_cupid.dart';
 import 'package:gtd_utils/constants/app_const.dart';
 import 'package:gtd_utils/data/configuration/gtd_app_config.dart';
-import 'package:gtd_utils/helpers/extension/string_extension.dart';
-
 
 class WrappedApp {
   WrappedApp._() {

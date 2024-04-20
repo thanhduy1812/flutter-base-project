@@ -1,7 +1,6 @@
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
-import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
 
 class GtdPopupMessage {

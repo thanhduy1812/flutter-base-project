@@ -1,7 +1,5 @@
-
 import 'package:dvt_helper/dvt_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:gtd_utils/helpers/extension/colors_extension.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:shimmer/shimmer.dart';
 

@@ -40,13 +40,6 @@ class AppConst {
       ? appScheme.appSupplier.appTheme.darkTheme
       : appScheme.appSupplier.appTheme.lightTheme;
 
-  /// Link to the FlexColorScheme package.
-  static final Uri packageUri = Uri(
-    scheme: 'https',
-    host: 'pub.dev',
-    path: 'packages/flex_color_scheme',
-  );
-
   /// AppAssetPackage
   String get supplierResource {
     return appScheme.packageResoure.resource;

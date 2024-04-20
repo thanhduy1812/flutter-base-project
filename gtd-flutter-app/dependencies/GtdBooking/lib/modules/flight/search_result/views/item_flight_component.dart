@@ -11,9 +11,10 @@ import 'package:dvt_helper/dvt_helper.dart';
 import 'package:gtd_repository/gtd_repository.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_button.dart';
 import 'package:gtd_utils/base/view/gtd_widgets/gtd_shimmer.dart';
-import 'package:gtd_utils/base/view/loading/flight_item_child_loading.dart';
 import 'package:gtd_utils/data/configuration/color_config/app_color.dart';
 import 'package:gtd_utils/helpers/extension/icon_extension.dart';
+
+import 'loading/flight_item_child_loading.dart';
 
 class ItemFlightComponent<T> extends BaseView<ItemFlightComponentViewModel> {
   final ValueChanged<GtdFlightItem?> onTab;
