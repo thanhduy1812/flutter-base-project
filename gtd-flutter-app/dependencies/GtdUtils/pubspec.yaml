@@ -28,8 +28,8 @@ dependencies:
   #   path: ../resources/vib_resource
   # vib_resource:
   #   path: ../resources/vib_resource
-  common_resource:
-    path: ../resources/common_resource
+  # common_resource:
+  #   path: ../resources/common_resource
   dvt_helper:
     path: ../repositories/dvt_helper
 
