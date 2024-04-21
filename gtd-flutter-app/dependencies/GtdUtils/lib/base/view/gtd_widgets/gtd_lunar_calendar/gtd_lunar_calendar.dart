@@ -9,6 +9,8 @@ import 'package:gtd_utils/base/view/gtd_widgets/gtd_lunar_calendar/gtd_luna_conv
 
 import 'package:gtd_utils/data/configuration/color_config/colors_extension.dart';
 
+import 'gtd_date_picker_view/gtd_lunar_date.dart';
+
 enum GtdLunarDayType { start, end, inRange, invisible, visible, currentDate }
 
 enum GtdLunaDayBehavior { both, onlyStart, onlyEnd }
@@ -134,7 +136,7 @@ class _GtdLunarCalendarState extends State<GtdLunarCalendar> {
 
   Widget customDayView(
       {required String sunDay,
-      required DateTime lunarDay,
+      required GtdLunarDate lunarDay,
       bool hasCircleRound = false,
       bool isVisible = true,
       bool iSelected = false}) {
@@ -151,11 +153,11 @@ class _GtdLunarCalendarState extends State<GtdLunarCalendar> {
               color: isVisible ? (iSelected ? AppColors.mainColor : Colors.grey.shade900) : Colors.grey.shade400),
         ),
         Text(
-          lunarDay.localDate(lunarDay.day != 1 ? "d" : "d/M"),
+          lunarDay.lunarDay != 1 ? "${lunarDay.lunarDay}" : "${lunarDay.lunarDay}/${lunarDay.lunarMonth}",
           style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w400,
-              color: lunarDay.day == 1
+              color: lunarDay.lunarDay == 1
                   ? Colors.red
                   : isVisible
                       ? (iSelected ? Colors.grey.shade900 : Colors.grey.shade600)
@@ -166,7 +168,9 @@ class _GtdLunarCalendarState extends State<GtdLunarCalendar> {
   }
 
   Widget buildDayView(
-      {required DateTime sunDay, required DateTime lunarDay, GtdLunarDayType lunarDayType = GtdLunarDayType.visible}) {
+      {required DateTime sunDay,
+      required GtdLunarDate lunarDay,
+      GtdLunarDayType lunarDayType = GtdLunarDayType.visible}) {
     if (lunarDayType == GtdLunarDayType.currentDate) {
       return Stack(
         children: [
@@ -313,7 +317,7 @@ class _GtdLunarCalendarState extends State<GtdLunarCalendar> {
   }
 
   Widget customCellBuilder(BuildContext context, DateTime date) {
-    var lunarDate = GtdLunarConverter.shared.convertSolar2Lunar(date);
+    var lunarDate = GtdLunarConverter.convertSolar2Lunar(date);
     if (date.isBefore(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
       return buildDayView(sunDay: date, lunarDay: lunarDate, lunarDayType: GtdLunarDayType.invisible);
     }

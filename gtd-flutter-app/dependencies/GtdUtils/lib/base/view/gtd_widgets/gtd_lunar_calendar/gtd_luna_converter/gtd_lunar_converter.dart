@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../gtd_date_picker_view/gtd_lunar_date.dart';
+
 var timeZone = 7;
 
 class GtdLunarConverter {
@@ -118,7 +120,7 @@ class GtdLunarConverter {
     return i - 1;
   }
 
-  static DateTime convertSolar2Lunar(DateTime solaDate) {
+  static GtdLunarDate convertSolar2Lunar(DateTime solaDate) {
     int dd = solaDate.day;
     int mm = solaDate.month;
     int yy = solaDate.year;
@@ -162,6 +164,6 @@ class GtdLunarConverter {
     if (lunarMonth >= 11 && diff < 4) {
       lunarYear -= 1;
     }
-    return DateTime(lunarYear, lunarMonth, lunarDay);
+    return GtdLunarDate(lunarDay: lunarDay, lunarMonth: lunarMonth, lunarYear: lunarYear);
   }
 }
