@@ -94,7 +94,7 @@ class ImageCard extends StatelessWidget {
           color: Colors.grey.shade500, // Set the color of the border
           width: 1, // Set the width of the border
         ),
-        borderRadius: BorderRadius.circular(8.0), // Set the border radius
+        borderRadius: BorderRadius.circular(16.0), // Set the border radius
       ),
       child: Stack(
         children: [
@@ -107,7 +107,7 @@ class ImageCard extends StatelessWidget {
               height: 200,
               width: 200,
               clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
               child: Image.asset(
                 model,
                 fit: BoxFit.cover,

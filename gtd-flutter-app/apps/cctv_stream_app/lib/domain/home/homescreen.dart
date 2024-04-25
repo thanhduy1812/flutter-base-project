@@ -29,20 +29,25 @@ class _HomeScreenState extends State<HomeScreen> {
     const Center(child: Text("a")),
     const Center(child: Text("a")),
   ];
-  int selecteditem = 0;
+  int selectedCategory = 0;
 
   //Navigation
   final PageController _pageController = PageController();
-  int _selectedIndex = 0;
+  int selectedPage = 0;
 
   void _onPageChanged(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedPage = index;
     });
   }
 
   void _onItemTapped(int selectedIndex) {
     _pageController.jumpToPage(selectedIndex);
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -102,71 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                    height: 50,
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: filmNames.length,
-                      itemBuilder: (context, index) {
-                        var data = filmNames[index];
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 40),
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selecteditem = index;
-                              });
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(microseconds: 950),
-                              child: Column(
-                                children: [
-                                  Text(data,
-                                      style: GoogleFonts.lato(
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                        color: index == selecteditem ? yellowcolor : Colors.white,
-                                      )),
-                                  selecteditem == index
-                                      ? TweenAnimationBuilder<double>(
-                                          duration: const Duration(milliseconds: 600),
-                                          tween: Tween<double>(begin: 0, end: 50),
-                                          builder: (context, value, child) {
-                                            return Container(
-                                              height: 2,
-                                              width: value,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(30), color: yellowcolor),
-                                            );
-                                          },
-                                        )
-                                      : const SizedBox.shrink()
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height * 0.6,
-                  width: 420,
-                  child: PageView(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.6,
-                        width: 420,
-                        child: filmWidgets[selecteditem],
-                      )
-                    ],
-                  ),
-                )
+                Expanded(
+                    child: PageView(
+                  controller: _pageController,
+                  onPageChanged: _onPageChanged,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _homeBodyView(context),
+                    const Center(child: Text("aa")),
+                    const Center(child: Text("aa")),
+                    const Center(child: Text("aa"))
+                  ],
+                )),
               ],
             ),
           ),
@@ -181,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
             unSelectedColor: const Color(0xffacacac),
             backgroundColor: primarycolor,
             borderRadius: const Radius.circular(50),
-            blurEffect: true,
+            // blurEffect: true,
             isFloating: true,
             scaleFactor: 0.1,
             items: [
@@ -199,8 +151,93 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: const Text("Profile", style: TextStyle(color: Colors.white, fontSize: 12))),
             ],
             onTap: _onItemTapped,
-            currentIndex: _selectedIndex,
+            currentIndex: selectedPage,
           ),
         ));
+  }
+
+  Widget _homeBodyView(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: SizedBox(
+            height: 50,
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.horizontal,
+              itemCount: filmNames.length,
+              itemBuilder: (context, index) {
+                var data = filmNames[index];
+                return Padding(
+                  padding: const EdgeInsets.only(right: 40),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = index;
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(microseconds: 950),
+                      child: Column(
+                        children: [
+                          Text(data,
+                              style: GoogleFonts.lato(
+                                decoration: TextDecoration.underline,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: index == selectedCategory ? yellowcolor : Colors.white,
+                              )),
+                          selectedCategory == index
+                              ? TweenAnimationBuilder<double>(
+                                  duration: const Duration(milliseconds: 600),
+                                  tween: Tween<double>(begin: 0, end: 50),
+                                  builder: (context, value, child) {
+                                    return Container(
+                                      height: 2,
+                                      width: value,
+                                      decoration:
+                                          BoxDecoration(borderRadius: BorderRadius.circular(30), color: yellowcolor),
+                                    );
+                                  },
+                                )
+                              : const SizedBox.shrink()
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                  child: SizedBox(
+                height: MediaQuery.sizeOf(context).height * 0.6,
+                // width: 420,
+                child: PageView(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.6,
+                      width: 420,
+                      child: filmWidgets[selectedCategory],
+                    )
+                  ],
+                ),
+              )),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
