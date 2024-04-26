@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:cctv_stream_app/core/animations/fade_animation.dart';
 import 'package:cctv_stream_app/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class FilmSliderView extends StatefulWidget {
@@ -30,8 +31,8 @@ class _FilmSliderViewState extends State<FilmSliderView> {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.sizeOf(context).height * 0.45 + 50,
-          // width: 500,
+          // height: MediaQuery.sizeOf(context).height * 0.45 + 50,
+          height: 400,
           child: FadeAnimation(
             begin: 0.01,
             end: 1,
@@ -66,12 +67,6 @@ class _FilmSliderViewState extends State<FilmSliderView> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
       ],
     );
   }
@@ -104,8 +99,8 @@ class ImageCard extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 200,
-              width: 200,
+              // height: 200,
+              // width: 200,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
               child: Image.asset(
@@ -114,6 +109,48 @@ class ImageCard extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SmallImageCard extends StatelessWidget {
+  final String model;
+  const SmallImageCard({
+    super.key,
+    required this.model,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 108,
+      child: Column(
+        children: [
+          Card(
+            elevation: 0,
+            color: Colors.transparent.withOpacity(0.3),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Set the border radius
+            ),
+            child: Container(
+              // height: 185,
+              width: 108,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: Image.asset(
+                model,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          const Expanded(
+            child: Text(
+              "Awakening Rejected Mate",
+              style: TextStyle(color: Colors.white),
+            ),
+          )
         ],
       ),
     );

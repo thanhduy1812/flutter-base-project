@@ -5,6 +5,7 @@ import 'package:cctv_stream_app/domain/home/film_slider_view.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: secondrycolor,
+        backgroundColor: secondrycolor,
         body: CustomPaint(
           painter: MasterPainter(),
           child: Padding(
@@ -216,18 +217,51 @@ class _HomeScreenState extends State<HomeScreen> {
             slivers: [
               SliverToBoxAdapter(
                   child: SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.6,
+                height: 420,
                 // width: 420,
                 child: PageView(
                   children: [
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.6,
+                      // height: MediaQuery.sizeOf(context).height * 0.6,
                       width: 420,
                       child: filmWidgets[selectedCategory],
                     )
                   ],
                 ),
               )),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Werewolf&Love",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 21,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                        SizedBox(
+                          height: 190,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 4,
+                            itemBuilder: (context, index) =>
+                                SizedBox(child: SmallImageCard(model: "assets/images/image_${index + 1}.jpg")),
+                            separatorBuilder: (context, index) => const SizedBox(
+                              width: 4,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),
