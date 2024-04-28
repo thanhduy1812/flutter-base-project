@@ -1,3 +1,4 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:cctv_stream_app/core/animations/fade_animation.dart';
 import 'package:cctv_stream_app/core/common_color/common_color.dart';
 import 'package:cctv_stream_app/core/common_style/master_painter.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../short_video/video_player_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,48 +65,50 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 50,
+                SizedBox(
+                  height: selectedPage == 1 ? 0 : 50,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const FadeAnimation(
-                        duration: Duration(seconds: 1),
-                        begin: 0.1,
-                        end: 0.9,
-                        child: Text(
-                          "CCTV",
-                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      const SizedBox(width: 50),
-                      Expanded(
-                        child: SizedBox(
-                          height: 60,
-                          child: FadeAnimation(
-                            duration: const Duration(seconds: 1),
-                            begin: 0.1,
-                            end: 0.9,
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                hintText: 'Tìm kiếm film theo từ khoá',
-                                // You can customize the placeholder text style if needed
-                                hintStyle: const TextStyle(color: Colors.grey),
+                  child: selectedPage == 1
+                      ? const SizedBox()
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const FadeAnimation(
+                              duration: Duration(seconds: 1),
+                              begin: 0.1,
+                              end: 0.9,
+                              child: Text(
+                                "CCTV",
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                               ),
-                              onTapOutside: (event) => FocusScope.of(context).unfocus(),
                             ),
-                          ),
+                            const SizedBox(width: 50),
+                            Expanded(
+                              child: SizedBox(
+                                height: 60,
+                                child: FadeAnimation(
+                                  duration: const Duration(seconds: 1),
+                                  begin: 0.1,
+                                  end: 0.9,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.black, width: 2.0),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      hintText: 'Tìm kiếm film theo từ khoá',
+                                      // You can customize the placeholder text style if needed
+                                      hintStyle: const TextStyle(color: Colors.grey),
+                                    ),
+                                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                    ],
-                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -115,7 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     _homeBodyView(context),
-                    const Center(child: Text("aa")),
+                    Swiper(
+                      itemCount: 10,
+                      itemBuilder: (context, index) => const VideoPlayerScreen(),
+                      scrollDirection: Axis.vertical,
+                      pagination: const SwiperPagination(alignment: Alignment.centerRight),
+                      control: const SwiperControl(color: Colors.white),
+                    ),
                     const Center(child: Text("aa")),
                     const Center(child: Text("aa"))
                   ],
