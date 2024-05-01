@@ -164,6 +164,18 @@ extension DVTImage on Image {
         controller: controller, repeat: repeat, reverse: reverse, width: width, height: height, fit: fit);
   }
 
+  static Widget lottieImage(
+      {required String assetName,
+      double? width,
+      double? height,
+      BoxFit? fit,
+      AnimationController? controller,
+      bool? repeat,
+      bool? reverse}) {
+    return Lottie.asset(assetName,
+        controller: controller, repeat: repeat, reverse: reverse, width: width, height: height, fit: fit);
+  }
+
   static Widget networkAnimated(
       {required String assetName,
       required String packageName,

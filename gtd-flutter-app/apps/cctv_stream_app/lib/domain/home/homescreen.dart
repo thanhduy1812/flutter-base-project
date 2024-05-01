@@ -4,6 +4,7 @@ import 'package:cctv_stream_app/core/common_color/common_color.dart';
 import 'package:cctv_stream_app/core/common_style/master_painter.dart';
 import 'package:cctv_stream_app/domain/home/film_slider_view.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:dvt_helper/helper/helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,11 +27,16 @@ class _HomeScreenState extends State<HomeScreen> {
     // const HotelScreen(),
     // const Restaurant_Screen(),
     const FilmSliderView(),
-    const Center(child: Text("a")),
-    const Center(child: Text("a")),
-    const Center(child: Text("a")),
-    const Center(child: Text("a")),
-    const Center(child: Text("a")),
+    const Center(
+        child: Text("No Content", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+    const Center(
+        child: Text("No Content", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+    const Center(
+        child: Text("No Content", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+    const Center(
+        child: Text("No Content", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+    const Center(
+        child: Text("No Content", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
   ];
   int selectedCategory = 0;
 
@@ -64,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: CustomPaint(
           painter: MasterPainter(),
           child: Padding(
-            padding: const EdgeInsets.only(left: 3, right: 3),
+            padding: const EdgeInsets.only(left: 0, right: 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -78,33 +84,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const FadeAnimation(
-                              duration: Duration(seconds: 1),
+                            FadeAnimation(
+                              duration: const Duration(seconds: 1),
                               begin: 0.1,
                               end: 0.9,
-                              child: Text(
-                                "CCTV",
-                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                              child: Image.asset(
+                                "assets/icons/cici-logo1.png",
+                                height: 48,
+                                fit: BoxFit.fitHeight,
                               ),
+                              // child: Text(
+                              //   "CCTV",
+                              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                              // ),
                             ),
-                            const SizedBox(width: 50),
+                            const SizedBox(width: 60),
                             Expanded(
                               child: SizedBox(
-                                height: 60,
+                                height: 48,
                                 child: FadeAnimation(
                                   duration: const Duration(seconds: 1),
                                   begin: 0.1,
                                   end: 0.9,
                                   child: TextField(
                                     decoration: InputDecoration(
+                                      filled: true,
+                                      // fillColor: Colors.grey.shade700,
+                                      fillColor: const Color(0xff424146),
+                                      suffixIcon: const Icon(
+                                        Icons.search,
+                                        color: Colors.white,
+                                      ),
                                       border: OutlineInputBorder(
                                         borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderRadius: BorderRadius.circular(12.0),
+                                        bor
                                       ),
                                       hintText: 'Tìm kiếm film theo từ khoá',
                                       // You can customize the placeholder text style if needed
-                                      hintStyle: const TextStyle(color: Colors.grey),
+                                      hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
+                                      labelStyle: const TextStyle(fontSize: 13, color: Colors.white),
                                     ),
+                                    style: const TextStyle(fontSize: 15, color: Colors.white),
                                     onTapOutside: (event) => FocusScope.of(context).unfocus(),
                                   ),
                                 ),
@@ -139,8 +160,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         control: const SwiperControl(color: Colors.transparent, size: 11),
                       ),
                     ),
-                    const Center(child: Text("aa")),
-                    const Center(child: Text("aa"))
+                    const Center(
+                        child: Text("No Content",
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+                    const Center(
+                        child: Text("No Content",
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24)))
                   ],
                 )),
               ],
@@ -215,7 +240,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(data,
                               style: GoogleFonts.lato(
-                                decoration: TextDecoration.underline,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
                                 color: index == selectedCategory ? yellowcolor : Colors.white,

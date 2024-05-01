@@ -2,7 +2,6 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:cctv_stream_app/core/animations/fade_animation.dart';
 import 'package:cctv_stream_app/router/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class FilmSliderView extends StatefulWidget {

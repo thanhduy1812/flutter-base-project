@@ -9,7 +9,8 @@ class AppRouter {
 }
 
 class Routes {
-  static AppRouter homescreen = AppRouter(name: "homescreen", path: "/");
+  static AppRouter homescreen = AppRouter(name: "homescreen", path: "/homescreen");
+  static AppRouter splashScreen = AppRouter(name: "splashscreen", path: "/");
   static AppRouter discoverscreen =
       AppRouter(name: "discoverscreen", path: "/discoverscreen");
   static AppRouter checkoutscreen =
