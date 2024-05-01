@@ -6,7 +6,6 @@ import 'package:cctv_stream_app/domain/home/film_slider_view.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../short_video/video_player_page.dart';
@@ -38,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //Navigation
   final PageController _pageController = PageController();
   int selectedPage = 0;
+  bool _isBottomBarVisible = true;
 
   void _onPageChanged(int index) {
     setState(() {
@@ -58,6 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: secondrycolor,
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        resizeToAvoidBottomInset: true,
         body: CustomPaint(
           painter: MasterPainter(),
           child: Padding(
@@ -68,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: selectedPage == 1 ? 0 : 50,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: selectedPage == 1
-                      ? const SizedBox()
-                      : Row(
+                selectedPage == 1
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const FadeAnimation(
@@ -109,9 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             )
                           ],
                         ),
-                ),
-                const SizedBox(
-                  height: 10,
+                      ),
+                SizedBox(
+                  height: selectedPage == 1 ? 0 : 10,
                 ),
                 Expanded(
                     child: PageView(
@@ -120,12 +123,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
                     _homeBodyView(context),
-                    Swiper(
-                      itemCount: 10,
-                      itemBuilder: (context, index) => const VideoPlayerScreen(),
-                      scrollDirection: Axis.vertical,
-                      pagination: const SwiperPagination(alignment: Alignment.centerRight),
-                      control: const SwiperControl(color: Colors.white),
+                    ColoredBox(
+                      color: Colors.black,
+                      child: Swiper(
+                        itemCount: 8,
+                        itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isBottomBarVisible = !_isBottomBarVisible;
+                              });
+                            },
+                            child: VideoPlayerScreen(indexVideo: index)),
+                        scrollDirection: Axis.vertical,
+                        // pagination: const SwiperPagination(alignment: Alignment.centerRight),
+                        control: const SwiperControl(color: Colors.transparent, size: 11),
+                      ),
                     ),
                     const Center(child: Text("aa")),
                     const Center(child: Text("aa"))
@@ -135,35 +147,43 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        bottomNavigationBar: SizedBox(
-          height: 110,
-          child: CustomNavigationBar(
-            iconSize: 25.0,
-            bubbleCurve: Curves.linear,
-            selectedColor: Colors.white,
-            strokeColor: Colors.white,
-            unSelectedColor: const Color(0xffacacac),
-            backgroundColor: primarycolor,
-            borderRadius: const Radius.circular(50),
-            // blurEffect: true,
-            isFloating: true,
-            scaleFactor: 0.1,
-            items: [
-              CustomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.home),
-                  title: const Text("Discover", style: TextStyle(color: Colors.white, fontSize: 12))),
-              CustomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.play_circle),
-                  title: const Text("Shorts", style: TextStyle(color: Colors.white, fontSize: 12))),
-              CustomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.square_line_vertical_square),
-                  title: const Text("Trending", style: TextStyle(color: Colors.white, fontSize: 12))),
-              CustomNavigationBarItem(
-                  icon: const Icon(CupertinoIcons.person),
-                  title: const Text("Profile", style: TextStyle(color: Colors.white, fontSize: 12))),
-            ],
-            onTap: _onItemTapped,
-            currentIndex: selectedPage,
+        bottomNavigationBar: AnimatedContainer(
+          duration: const Duration(microseconds: 300),
+          transform: Matrix4.translationValues(0, _isBottomBarVisible ? 0 : 110, 0),
+          // height: _isBottomBarVisible ? 110 : 0,
+          child: Visibility(
+            visible: _isBottomBarVisible,
+            child: SizedBox(
+              height: 110,
+              child: CustomNavigationBar(
+                iconSize: 22.0,
+                bubbleCurve: Curves.linear,
+                selectedColor: Colors.white,
+                strokeColor: Colors.white,
+                unSelectedColor: const Color(0xffacacac),
+                backgroundColor: primarycolor,
+                borderRadius: const Radius.circular(50),
+                // blurEffect: true,
+                isFloating: true,
+                scaleFactor: 0.1,
+                items: [
+                  CustomNavigationBarItem(
+                      icon: const Icon(CupertinoIcons.home),
+                      title: const Text("Discover", style: TextStyle(color: Colors.white, fontSize: 12))),
+                  CustomNavigationBarItem(
+                      icon: const Icon(CupertinoIcons.play_circle),
+                      title: const Text("Shorts", style: TextStyle(color: Colors.white, fontSize: 12))),
+                  CustomNavigationBarItem(
+                      icon: const Icon(CupertinoIcons.square_line_vertical_square),
+                      title: const Text("Trending", style: TextStyle(color: Colors.white, fontSize: 12))),
+                  CustomNavigationBarItem(
+                      icon: const Icon(CupertinoIcons.person),
+                      title: const Text("Profile", style: TextStyle(color: Colors.white, fontSize: 12))),
+                ],
+                onTap: _onItemTapped,
+                currentIndex: selectedPage,
+              ),
+            ),
           ),
         ));
   }

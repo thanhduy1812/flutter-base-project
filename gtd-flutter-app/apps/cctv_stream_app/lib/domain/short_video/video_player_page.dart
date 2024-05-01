@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
+  final int indexVideo;
+  const VideoPlayerScreen({super.key, required this.indexVideo});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,8 +18,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.networkUrl(
-        Uri.parse("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"))
+    _controller = VideoPlayerController.networkUrl(Uri.parse("http://ntphim.xyz:80/cached/vid${widget.indexVideo + 1}.m3u8"))
       ..initialize().then((_) {
         setState(() {
           _controller.play();
@@ -34,13 +34,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SizedBox(
       child: _controller.value.isInitialized
           ? AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: VideoPlayer(_controller),
             )
-          : const CircularProgressIndicator(),
+          : const Center(child: CircularProgressIndicator()),
     );
     // return Scaffold(
     //   body: Center(
