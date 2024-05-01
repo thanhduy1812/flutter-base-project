@@ -8,11 +8,13 @@ final router = GoRouter(routes: [
   GoRoute(
     path: Routes.homescreen.path,
     name: Routes.homescreen.name,
-    pageBuilder: (context, state) {
-      return const CupertinoPage(child: HomeScreen());
-    },
+    builder: (context, state) => const HomeScreen(),
+    // pageBuilder: (context, state) {
+    // return const CupertinoPage(child: HomeScreen());
+    // return HomeScreen();
+    // },
   ),
-    GoRoute(
+  GoRoute(
     path: Routes.splashScreen.path,
     name: Routes.splashScreen.name,
     pageBuilder: (context, state) {
