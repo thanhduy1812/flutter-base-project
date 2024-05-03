@@ -71,107 +71,105 @@ class _HomeScreenState extends State<HomeScreen> {
         resizeToAvoidBottomInset: false,
         body: CustomPaint(
           painter: MasterPainter(),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 0, right: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // SizedBox(
-                  //   height: selectedPage == 1 ? 0 : 20,
-                  // ),
-                  selectedPage == 1
-                      ? const SizedBox()
-                      : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              FadeAnimation(
-                                duration: const Duration(seconds: 1),
-                                begin: 0.1,
-                                end: 0.9,
-                                child: Image.asset(
-                                  "assets/icons/cici-logo1.png",
-                                  height: 48,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                                // child: Text(
-                                //   "CCTV",
-                                //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
-                                // ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 0, right: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // SizedBox(
+                //   height: selectedPage == 1 ? 0 : 20,
+                // ),
+                selectedPage == 1
+                    ? const SizedBox()
+                    : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            FadeAnimation(
+                              duration: const Duration(seconds: 1),
+                              begin: 0.1,
+                              end: 0.9,
+                              child: Image.asset(
+                                "assets/icons/cici-logo1.png",
+                                height: 48,
+                                fit: BoxFit.fitHeight,
                               ),
-                              const SizedBox(width: 60),
-                              Expanded(
-                                child: SizedBox(
-                                  height: 48,
-                                  child: FadeAnimation(
-                                    duration: const Duration(seconds: 1),
-                                    begin: 0.1,
-                                    end: 0.9,
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                        filled: true,
-                                        // fillColor: Colors.grey.shade700,
-                                        fillColor: const Color(0xff424146),
-                                        suffixIcon: const Icon(
-                                          Icons.search,
-                                          color: Colors.white,
-                                        ),
-                                        border: OutlineInputBorder(
-                                          borderSide: const BorderSide(color: Colors.black, width: 2.0),
-                                          borderRadius: BorderRadius.circular(12.0),
-                                        ),
-                                        hintText: 'Tìm kiếm film theo từ khoá',
-                                        // You can customize the placeholder text style if needed
-                                        hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-                                        labelStyle: const TextStyle(fontSize: 13, color: Colors.white),
+                              // child: Text(
+                              //   "CCTV",
+                              //   style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                              // ),
+                            ),
+                            const SizedBox(width: 60),
+                            Expanded(
+                              child: SizedBox(
+                                height: 48,
+                                child: FadeAnimation(
+                                  duration: const Duration(seconds: 1),
+                                  begin: 0.1,
+                                  end: 0.9,
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      // fillColor: Colors.grey.shade700,
+                                      fillColor: const Color(0xff424146),
+                                      suffixIcon: const Icon(
+                                        Icons.search,
+                                        color: Colors.white,
                                       ),
-                                      style: const TextStyle(fontSize: 15, color: Colors.white),
-                                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Colors.black, width: 2.0),
+                                        borderRadius: BorderRadius.circular(12.0),
+                                      ),
+                                      hintText: 'Tìm kiếm film theo từ khoá',
+                                      // You can customize the placeholder text style if needed
+                                      hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
+                                      labelStyle: const TextStyle(fontSize: 13, color: Colors.white),
                                     ),
+                                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                                    onTapOutside: (event) => FocusScope.of(context).unfocus(),
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-                  SizedBox(
-                    height: selectedPage == 1 ? 0 : 10,
-                  ),
-                  Expanded(
-                      child: PageView(
-                    controller: _pageController,
-                    onPageChanged: _onPageChanged,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _homeBodyView(context),
-                      ColoredBox(
-                        color: Colors.black,
-                        child: Swiper(
-                          itemCount: 8,
-                          itemBuilder: (context, index) => InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _isBottomBarVisible = !_isBottomBarVisible;
-                                });
-                              },
-                              child: VideoPlayerScreen(indexVideo: index)),
-                          scrollDirection: Axis.vertical,
-                          // pagination: const SwiperPagination(alignment: Alignment.centerRight),
-                          control: const SwiperControl(color: Colors.transparent, size: 11),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      const Center(
-                          child: Text("No Content",
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
-                      const Center(
-                          child: Text("No Content",
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24)))
-                    ],
-                  )),
-                ],
-              ),
+                SizedBox(
+                  height: selectedPage == 1 ? 0 : 10,
+                ),
+                Expanded(
+                    child: PageView(
+                  controller: _pageController,
+                  onPageChanged: _onPageChanged,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _homeBodyView(context),
+                    ColoredBox(
+                      color: Colors.black,
+                      child: Swiper(
+                        itemCount: 8,
+                        itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isBottomBarVisible = !_isBottomBarVisible;
+                              });
+                            },
+                            child: VideoPlayerScreen(indexVideo: index)),
+                        scrollDirection: Axis.vertical,
+                        // pagination: const SwiperPagination(alignment: Alignment.centerRight),
+                        control: const SwiperControl(color: Colors.transparent, size: 11),
+                      ),
+                    ),
+                    const Center(
+                        child: Text("No Content",
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24))),
+                    const Center(
+                        child: Text("No Content",
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24)))
+                  ],
+                )),
+              ],
             ),
           ),
         ),

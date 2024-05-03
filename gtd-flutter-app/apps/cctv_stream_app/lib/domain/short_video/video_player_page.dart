@@ -18,7 +18,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.networkUrl(Uri.parse("http://ntphim.xyz:80/cached/vid${widget.indexVideo + 1}.m3u8"))
+    _controller = VideoPlayerController.networkUrl(Uri.parse("https://ntphim.xyz/cached/vid${widget.indexVideo + 1}.m3u8"))
       ..initialize().then((_) {
         setState(() {
           _controller.play();
