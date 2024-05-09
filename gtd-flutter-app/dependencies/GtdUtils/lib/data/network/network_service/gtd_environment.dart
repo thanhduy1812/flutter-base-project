@@ -10,7 +10,7 @@ class GtdEnvironment {
     platformPath = "";
     switch (env) {
       case GTDEnvType.BmeEnglish:
-        baseUrl = "careandshare.io.vn";
+        baseUrl = "beme.io.vn";
         platformPath = "";
         headers = {};
         // headers = {
@@ -20,7 +20,7 @@ class GtdEnvironment {
         break;
 
       default:
-        baseUrl = "careandshare.io.vn";
+        baseUrl = "beme.io.vn";
     }
   }
 }

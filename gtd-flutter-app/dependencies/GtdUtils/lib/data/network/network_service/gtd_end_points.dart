@@ -18,7 +18,7 @@ class GtdEndpoint {
   late Uri uri;
   GtdEndpoint({required this.env, required this.path, bool hasScheme = true}) {
     if (hasScheme) {
-      uri = Uri(scheme: "https", host: env.baseUrl, path: '/${env.platformPath}$path');
+      uri = Uri(scheme: "http", host: env.baseUrl, path: '/${env.platformPath}$path');
     } else {
       uri = Uri(scheme: "http", host: env.baseUrl, path: '/${env.platformPath}$path');
       // String url = '${env.baseUrl}/$path';
