@@ -1,0 +1,22 @@
+name: aves_report_platform
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  aves_report:
+    path: ../aves_report
+  # as of `firebase_core` v2.10.0, upgrading packages downgrades `firebase_core` et al.
+  # so that the transitive `path` gets upgraded to v1.8.3
+  firebase_core: ">=2.10.0"
+  firebase_crashlytics:
+  stack_trace:
+
+dev_dependencies:
+  flutter_lints:
+
+flutter:

@@ -1,0 +1,20 @@
+name: aves_magnifier
+version: 0.0.1
+publish_to: none
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  aves_utils:
+    path: ../aves_utils
+  equatable:
+  leak_tracker:
+  provider:
+
+dev_dependencies:
+  flutter_lints:
+
+flutter:

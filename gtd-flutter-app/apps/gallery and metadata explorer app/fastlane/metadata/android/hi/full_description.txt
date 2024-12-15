@@ -1,0 +1,5 @@
+<i>Aves</i> आपके ठेठ JPEGs और MP4s  सम्मिलित करते हुए, लगभग सभी प्रकार के Photos और Videos को सम्भाल सकता है, साथ के साथ यह  <b>multi-page TIFFs, SVGs, old AVIs और  भी बहुत कुछ संभालता है  </b>! यह आपके Media संग्रह की जाँच करता है, ताकि यह <b>motion photos</b>, <b>panoramas</b> (aka photo spheres), <b>360° videos</b>, और <b>GeoTIFF</b> files की पहचान कर सके ।
+
+<b>Navigation and search</b> is an important part of <i>Aves</i>. The goal is for users to easily flow from albums to photos to tags to maps, etc.
+
+<i>Aves</i> integrates with Android (including Android TV) with features such as <b>widgets</b>, <b>app shortcuts</b>, <b>screen saver</b> and <b>global search</b> handling. It also works as a <b>media viewer and picker</b>.
